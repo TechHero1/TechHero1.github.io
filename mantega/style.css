@@ -1,0 +1,57 @@
+@media screen and (orientation:portrait)
+{
+   #AInveja
+   {
+      /*width: 80%;*/
+      width: 100ph;
+      /*height: 80%;*/
+      height: 100ph;
+   }
+   
+   #invejoso {
+    max-width: 100ph;
+    max-height: 100ph;
+    width: 100ph;
+    height: 80ph;
+   }
+
+}
+
+@media screen and (orientation:landscape)
+{
+   #AInveja
+   {
+      /*width: 30%;*/
+      width: 100ph;
+      /*height: 60%;*/
+      height: 100ph;
+   }
+   
+   #invejoso {
+    max-width: 100ph;
+    max-height: 100ph;
+    width: 40ph;
+    height: 100ph;
+   }
+
+}
+
+/*#invejoso{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  
+  transform: translate(-50%,-50%);
+  transform: translate3d(-50%,-50%,0);
+}*/
+
+div#AInveja{
+  position:relative;
+}
+
+div#CentroDaInveja{
+  position:absolute;
+  left:50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
