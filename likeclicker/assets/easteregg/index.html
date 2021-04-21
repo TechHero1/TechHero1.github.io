@@ -9,7 +9,8 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="me" href="https://twitter.com/LikeClicker">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="loading.js"></script>
 	<script>window.twttr = (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0],
     t = window.twttr || {};
@@ -29,15 +30,19 @@
 		<script type="text/javascript" src="script.js"></script>
 	</head>
 	<body onload="startGame()">
-		<center>
-			<!--<div id="myfilter" style="position: absolute; background-color: rgb(0, 0, 0); opacity: 0.3; width: 322px; height: 182px; display: block;"></div>
-			<div id="myrestartbutton" style="position: absolute; padding-top: 75px; padding-left: 120px; display: block;"><button onclick="restartGame()">Restart</button></div>-->
-			<div style="text-align:center;width:320px;">
-				<button id="movebtn" onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()"><i class="material-icons">keyboard_arrow_up</i></button><br><br>
-				<button id="movebtn" onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()"><i class="material-icons">keyboard_arrow_left</i></button>
-				<button id="movebtn" onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()"><i class="material-icons">keyboard_arrow_right</i></button><br><br>
-				<button id="movebtn" onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()"><i class="material-icons">keyboard_arrow_down</i></button>
+		<div id="loading"></div>
+			<div class="page">
+				<center>
+					<!--<div id="myfilter" style="position: absolute; background-color: rgb(0, 0, 0); opacity: 0.3; width: 322px; height: 182px; display: block;"></div>
+					<div id="myrestartbutton" style="position: absolute; padding-top: 75px; padding-left: 120px; display: block;"><button onclick="restartGame()">Restart</button></div>-->
+					<br>
+					<div style="text-align:center;width:320px;">
+						<button id="movebtn" onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()"><i class="material-icons">keyboard_arrow_up</i></button><br><br>
+						<button id="movebtn" onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()"><i class="material-icons">keyboard_arrow_left</i></button>
+						<button id="movebtn" onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()"><i class="material-icons">keyboard_arrow_right</i></button><br><br>
+						<button id="movebtn" onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()"><i class="material-icons">keyboard_arrow_down</i></button>
+					</div>
+				</center>
 			</div>
-		</center>
 	</body>
 </html>

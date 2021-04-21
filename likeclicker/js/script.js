@@ -23,7 +23,7 @@ var doubleBotsPurchased = 0;
 /*var doubleClickPurchased = 0;*/
 var autoSaveEnabled = 1;
 var darkThemeEnabled = 0;
-var musicsEnabled = 1;
+/*var musicsEnabled = 1;*/
 var followerCost = 10;
 var FansCost = 100;
 var paparazzisCost = 500;
@@ -52,14 +52,25 @@ document.getElementById('hypeLunaticsCost').innerHTML = nf.format(hypeLunaticsCo
 document.getElementById('bots').innerHTML = nf.format(bots);
 document.getElementById('botCost').innerHTML = nf.format(botCost);
 document.getElementById('doubleBotsCost').innerHTML = nf.format(doubleBotsCost);
-document.getElementById('lpc').innerHTML = "LPC: " + nf.format(lpc);
+//document.getElementById('lpc').innerHTML = "LPC: " + nf.format(lpc);
+document.getElementById('lpc').innerHTML = nf.format(lpc);
 document.getElementById('addClickCost').innerHTML = nextCostAddClick;
 /*document.getElementById('doubleClickCost').innerHTML = nf.format(doubleClickCost);*/
 
-function manualDarkTheme() {
+function checkDarkTheme() {
 	if (darkThemeEnabled == 0) {
 		disableDarkTheme();
 	} else if (darkThemeEnabled == 1) {
+		enableDarkTheme();
+	}
+}
+
+function clickDarkTheme() {
+	if (darkThemeEnabled == 1) {
+		darkThemeEnabled = 0;
+		disableDarkTheme();
+	} else if (darkThemeEnabled == 0) {
+		darkThemeEnabled = 1;
 		enableDarkTheme();
 	}
 }
@@ -93,7 +104,7 @@ if (autoSaveEnabled == 0) {
 	savedisabledcheckbox.style.visibility="hidden";
 }
 
-if (musicsEnabled == 0) {
+/*if (musicsEnabled == 0) {
 	var musicsenabledcheckbox = document.getElementById("musicsenabled");
 	musicsenabledcheckbox.style.display="none";
 	musicsenabledcheckbox.style.visibility="hidden";
@@ -109,12 +120,12 @@ if (musicsEnabled == 0) {
 	var musicsdisabledcheckbox = document.getElementById("musicsdisabled");
 	musicsdisabledcheckbox.style.display="none";
 	musicsdisabledcheckbox.style.visibility="hidden";
-}
+}*/
 
 //REMOVE X2 UPGRADES
-removeHypeFollowers();
-removeHypeFans();
-removeHypePaparazzis();
+removehypeFollowers();
+removehypeFans();
+removehypePaparazzis();
 removeHypeStalkers();
 removeHypeLunatics();
 removeDoubleBots();
@@ -123,7 +134,7 @@ removeDoubleBots();
 //INITIAL COST OF ITEMS
 var hypeFollowersCost = 500;
 	document.getElementById('hypeFollowersCost').innerHTML = nf.format(hypeFollowersCost);
-var HypeFansCost = 1000;
+var hypeFansCost = 1000;
 	document.getElementById('hypeFansCost').innerHTML = nf.format(hypeFansCost);
 var hypePaparazzisCost = 6000;
 	document.getElementById('hypePaparazzisCost').innerHTML = nf.format(hypePaparazzisCost);
@@ -138,14 +149,30 @@ var addClickCost = nf.format(Math.floor(1000 * Math.pow(1.2,lpc)));
 	document.getElementById('doubleClickCost').innerHTML = nf.format(doubleClickCost);*/
 
 //RESET THE GAME
-function resetGame(){
-	removeHypeFollowers();
-	removeHypeFans();
-	removeHypePaparazzis();
+function resetGame() {
+	removehypeFollowers();
+	removehypeFans();
+	removehypePaparazzis();
 	removeHypeStalkers();
 	removeHypeLunatics();
 	removeDoubleBots();
-	/*removeDoubleClick();*/
+	document.getElementById("newupgradeicon").style.display = "none";
+	document.getElementById("newupgradeicon").style.visibility = "hidden";
+	document.getElementById("newupgradeicon2").style.display = "none";
+	document.getElementById("newupgradeicon2").style.visibility="hidden";
+	
+	localStorage.clear();
+	loadGame();
+}
+
+/*function resetGame(){
+	removehypeFollowers();
+	removehypeFans();
+	removehypePaparazzis();
+	removeHypeStalkers();
+	removeHypeLunatics();
+	removeDoubleBots();
+	/*removeDoubleClick();
     likes = 0;
 	lps = 0;
 	followers = 0;
@@ -168,7 +195,7 @@ function resetGame(){
 	botCost = 10000;
 	doubleBotsCost = 50000;
 	addClickCost = 1000;
-	/*doubleClickCost = 45000;*/
+	/*doubleClickCost = 45000;
 	updateLikes();
 	updateLPS();
 	updateLPC();
@@ -202,19 +229,21 @@ function resetGame(){
 	document.getElementById('bots').innerHTML = nf.format(bots);
 	document.getElementById('botCost').innerHTML = nf.format(botCost);
 	document.getElementById('doubleBotsCost').innerHTML = nf.format(doubleBotsCost);
-	document.getElementById('lpc').innerHTML = "LPC: " + nf.format(lpc);
+	//document.getElementById('lpc').innerHTML = "LPC: " + nf.format(lpc);
+	document.getElementById('lpc').innerHTML = nf.format(lpc);
 	document.getElementById('addClickCost').innerHTML = nf.format(addClickCost);
-	/*document.getElementById('doubleClickCost').innerHTML = nf.format(doubleClickCost);*/
+	/*document.getElementById('doubleClickCost').innerHTML = nf.format(doubleClickCost);
 	hypeFollowersPurchased = 0;
 	hypeFansPurchased = 0;
 	hypePaparazzisPurchased = 0;
 	hypeStalkersPurchased = 0;
 	hypeLunaticsPurchased = 0;
 	doubleBotsPurchased = 0;
-	/*doubleClickPurchased = 0;*/
+	/*doubleClickPurchased = 0;
 	autoSaveEnabled = 1;
 	darkThemeEnabled = 0;
-	musicsEnabled = 1;
+	disableDarkTheme();
+	/*musicsEnabled = 1;
 	var musicsenabledcheckbox = document.getElementById("musicsenabled");
 	musicsenabledcheckbox.style.display="block";
 	musicsenabledcheckbox.style.visibility="initial";
@@ -222,7 +251,7 @@ function resetGame(){
 	musicsdisabledcheckbox.style.display="none";
 	musicsdisabledcheckbox.style.visibility="hidden";
 	localStorage.clear();
-};
+};*/
 
 //CLICK FUNCTION
 function likeClick(lpc){
@@ -272,12 +301,12 @@ function gainFollower(){
 };
 
 //HYPE FOLLOWERS
-function hypeFollowers(){
+function hypeFollowersFunc(){
     var hypeFollowersCost = 500;                              //set the value of the item
     if(likes >= hypeFollowersCost){
     	likes = likes - hypeFollowersCost;
         updateLikes();
-		removeHypeFollowers();
+		removehypeFollowers();
 		hypeFollowersLPS();
 		updateLPS();                                     //update dps
 		hypeFollowersPurchased = 1;
@@ -291,7 +320,7 @@ function hypeFollowers(){
 	};
 };
 
-function removeHypeFollowers()                                 //"remove" the x2 upgrade from the respective item
+function removehypeFollowers()                                 //"remove" the x2 upgrade from the respective item
 { 
    var rmvHypeFollowers = document.getElementById("HypeFollowers"); 
    rmvHypeFollowers.style.display="none"; 
@@ -301,7 +330,7 @@ function removeHypeFollowers()                                 //"remove" the x2
    rmvHypeFollowersBR.style.visibility="hidden";
 }
 
-function recreateHypeFollowers()                                 //"recreates" the x2 upgrade of the respective item
+function recreatehypeFollowers()                                 //"recreates" the x2 upgrade of the respective item
 { 
    var rctHypeFollowers = document.getElementById("HypeFollowers"); 
    rctHypeFollowers.style.display="block"; 
@@ -341,12 +370,12 @@ function gainFan(){
 };
 
 //HYPE FANS
-function hypeFans(){
+function hypeFansFunc(){
     var hypeFansCost = 1000;
     if(likes >= hypeFansCost){
     	likes = likes - hypeFansCost;
         updateLikes();
-		removeHypeFans();
+		removehypeFans();
 		hypeFanLPS();
 		updateLPS();
 		hypeFansPurchased = 1;
@@ -360,7 +389,7 @@ function hypeFans(){
 	};
 };
 
-function removeHypeFans() 
+function removehypeFans() 
 { 
    var rmvHypeFans = document.getElementById("HypeFans"); 
    rmvHypeFans.style.display="none"; 
@@ -370,7 +399,7 @@ function removeHypeFans()
    rmvHypeFansBR.style.visibility="hidden";
 }
 
-function recreateHypeFans() 
+function recreatehypeFans() 
 { 
    var rctHypeFans = document.getElementById("HypeFans"); 
    rctHypeFans.style.display="block"; 
@@ -410,12 +439,12 @@ function gainPaparazzi(){
 };
 
 //HYPE PAPARAZZIS
-function hypePaparazzis(){
+function hypePaparazzisFunc(){
     var hypePaparazzisCost = 6000;
     if(likes >= hypePaparazzisCost){
     	likes = likes - hypePaparazzisCost;
         updateLikes();
-		removeHypePaparazzis();
+		removehypePaparazzis();
 		hypePaparazzisLPS();
 		updateLPS();
 		hypePaparazzisPurchased = 1;
@@ -429,7 +458,7 @@ function hypePaparazzis(){
 	};
 };
 
-function removeHypePaparazzis() 
+function removehypePaparazzis() 
 { 
    var rmvHypePaparazzis = document.getElementById("HypePaparazzis"); 
    rmvHypePaparazzis.style.display="none"; 
@@ -439,7 +468,7 @@ function removeHypePaparazzis()
    rmvHypePaparazzisBR.style.visibility="hidden";
 }
 
-function recreateHypePaparazzis() 
+function recreatehypePaparazzis() 
 { 
    var rctHypePaparazzis = document.getElementById("HypePaparazzis"); 
    rctHypePaparazzis.style.display="block"; 
@@ -479,7 +508,7 @@ function gainStalker(){
 };
 
 //HYPE STALKERS
-function hypeStalkers(){
+function hypeStalkersFunc(){
     var hypeStalkersCost = 12000;
     if(likes >= hypeStalkersCost){
     	likes = likes - hypeStalkersCost;
@@ -548,7 +577,7 @@ function gainLunatic(){
 };
 
 //HYPE LUNATICS
-function hypeLunatics(){
+function hypeLunaticsFunc(){
     var hypeLunaticsCost = 25000;
     if(likes >= hypeLunaticsCost){
     	likes = likes - hypeLunaticsCost;
@@ -755,12 +784,14 @@ function removeNotEnoughLikes()                                 //"remove" the t
 //FUNCTION OF UPDATING LIKES
 function updateLikes(){
 	document.getElementById('LabelLikes').innerHTML = nf.format(likes);
-	document.getElementById('likestxt').innerHTML = "You have " + nf.format(likes) + " likes";
+	//document.getElementById('likestxt').innerHTML = "You have " + nf.format(likes) + " likes";
+	document.getElementById('likestxt').innerHTML = nf.format(likes);
 }
 
 //FUNCTION OF UPDATING LPS
 function updateLPS(){
-	document.getElementById('lps').innerHTML = 'LPS: ' + nf.format(lps);
+	//document.getElementById('lps').innerHTML = 'LPS: ' + nf.format(lps);
+	document.getElementById('lps').innerHTML = nf.format(lps);
 	document.getElementById('followerLPS').innerHTML = followerLPS;
 	document.getElementById('FansLPS').innerHTML = FansLPS;
 	document.getElementById('paparazzisLPS').innerHTML = paparazzisLPS;
@@ -771,7 +802,8 @@ function updateLPS(){
 
 //FUNCTION OF UPDATING LPC
 function updateLPC(){
-	document.getElementById('lpc').innerHTML = 'LPC: ' + nf.format(lpc);
+	//document.getElementById('lpc').innerHTML = 'LPC: ' + nf.format(lpc);
+	document.getElementById('lpc').innerHTML = nf.format(lpc);
 	document.getElementById('lpcshop').innerHTML = nf.format(lpc);
 }
 
@@ -875,6 +907,8 @@ function showUpgradesTab() {
 }
 
 //DIALOGS
+/*var changelogModal = new bootstrap.Modal(document.getElementById('changelogModal'));
+var creditsModal = new bootstrap.Modal(document.getElementById('creditsModal'));
 
 function disableScrolling(){
     var x=window.scrollX;
@@ -892,12 +926,10 @@ var dialog = document.querySelector('dialog');
       dialogPolyfill.registerDialog(dialog);
     }
     showDialogButton.addEventListener('click', function() {
-      dialog.showModal();
-	  disableScrolling();
+		changelogModal.show();
     });
-    dialog.querySelector('.close').addEventListener('click', function() {
-      dialog.close();
-	  enableScrolling();
+    document.querySelector('.close-changelog').addEventListener('click', function() {
+		changelogModal.hide();
     });
 	
 	var dialogReset = document.querySelector('#resetDialog');
@@ -924,13 +956,10 @@ if (! dialogCredits.showModal) {
 	dialogPolyfill.registerDialog(dialogCredits);
 }
 showDialogCreditsButton.addEventListener('click', function() {
-	document.getElementById('creditsiframe').src = document.getElementById('creditsiframe').src;
-	dialogCredits.showModal();
-	disableScrolling();
+	creditsModal.show();
 });
-dialogCredits.querySelector('.closecredits').addEventListener('click', function() {
-	dialogCredits.close();
-	enableScrolling();
+dialogCredits.querySelector('.close-credits').addEventListener('click', function() {
+	creditsModal.hide();
 });
 
 /*function creditsReset() {
@@ -938,11 +967,19 @@ dialogCredits.querySelector('.closecredits').addEventListener('click', function(
 }*/
 
 function showLikeOverlay() {
-	document.querySelector("#like-icon").style.color = "#595959";
+	if(darkThemeEnabled == 0){
+		document.querySelector("#like-icon").style.color = "#595959";
+	} else {
+		document.querySelector("#like-icon").style.color = "#cccccc";
+	}
 }
 
 function hideLikeOverlay() {
-	document.querySelector("#like-icon").style.color = "black";	
+	if(darkThemeEnabled == 0){
+		document.querySelector("#like-icon").style.color = "black";
+	} else {
+		document.querySelector("#like-icon").style.color = "white";
+	}
 }
 
 document.getElementById("newupgradeicon").style.display = "none";
@@ -952,7 +989,7 @@ document.getElementById("newupgradeicon2").style.visibility="hidden";
 
 window.setInterval(function(){
 	if (followers >= 10 && hypeFollowersPurchased == 0) {
-		recreateHypeFollowers();
+		recreatehypeFollowers();
 		document.getElementById("newupgradeicon").style.display = "initial";
 		document.getElementById("newupgradeicon").style.visibility = "visible";
 		document.getElementById("newupgradeicon2").style.display = "initial";
@@ -962,7 +999,7 @@ window.setInterval(function(){
 
 window.setInterval(function(){
 	if (fans >= 10 && hypeFansPurchased == 0) {
-		recreateHypeFans();
+		recreatehypeFans();
 		document.getElementById("newupgradeicon").style.display = "initial";
 		document.getElementById("newupgradeicon").style.visibility = "visible";
 		document.getElementById("newupgradeicon2").style.display = "initial";
@@ -972,7 +1009,7 @@ window.setInterval(function(){
 
 window.setInterval(function(){
 	if (paparazzis >= 10 && hypePaparazzisPurchased == 0) {
-		recreateHypePaparazzis();
+		recreatehypePaparazzis();
 		document.getElementById("newupgradeicon").style.display = "initial";
 		document.getElementById("newupgradeicon").style.visibility = "visible";
 		document.getElementById("newupgradeicon2").style.display = "initial";
@@ -1036,12 +1073,21 @@ function unknfunc(){
 		unknvar = 4;
 	}
 	else if (unknvar == 4){
-		showunkndlg();
-		document.getElementById('minigameiframe').src = document.getElementById('minigameiframe').src;
+		var minigameModal = new bootstrap.Modal(document.getElementById('minigameModal'));
+		minigameModal.show();
 	}
 }
 
-var dialogUnknown = document.querySelector('#eastereggDialog');
+var minigameModal = document.getElementById('minigameModal')
+minigameModal.addEventListener('shown.bs.modal', function (event) {
+	resetunkdlg();
+})
+
+minigameModal.addEventListener('hide.bs.modal', function (event) {
+	unknvar = 0;
+})
+
+/*var dialogUnknown = document.querySelector('#eastereggDialog');
 if (! dialogUnknown.showModal) {
 	dialogPolyfill.registerDialog(dialogUnknown);
 }
@@ -1054,7 +1100,7 @@ dialogUnknown.querySelector('.closeminigame').addEventListener('click', function
 function showunkndlg(){
 	dialogUnknown.showModal();
 	disableScrolling();
-}
+}*/
 
 function resetunkdlg(){
 	document.getElementById('minigameiframe').src = document.getElementById('minigameiframe').src;
@@ -1092,7 +1138,7 @@ function saveGame() {
 	/*localStorage.setItem("doubleClickPurchased", JSON.stringify(doubleClickPurchased));*/
 	localStorage.setItem("autoSaveEnabled", JSON.stringify(autoSaveEnabled));
 	localStorage.setItem("darkThemeEnabled", JSON.stringify(darkThemeEnabled));
-	localStorage.setItem("musicsEnabled", JSON.stringify(musicsEnabled));
+	/*localStorage.setItem("musicsEnabled", JSON.stringify(musicsEnabled));*/
 	saveGameAlert();
 }
 
@@ -1221,14 +1267,15 @@ function loadGame() {
 	if (JSON.parse(localStorage.getItem("darkThemeEnabled")) == null) {
 		darkThemeEnabled = 0;
 	}
-	musicsEnabled = JSON.parse(localStorage.getItem("musicsEnabled"));
+	/*musicsEnabled = JSON.parse(localStorage.getItem("musicsEnabled"));
 	if (JSON.parse(localStorage.getItem("musicsEnabled")) == null) {
 		musicsEnabled = 1;
-	}
+	}*/
 	
 	updateLikes();
 	updateLPS();
 	updateLPC();
+	checkDarkTheme();
 	
 	document.getElementById('followers').innerHTML = nf.format(followers);
 	document.getElementById('followerLPS').innerHTML = followerLPS;
@@ -1310,7 +1357,7 @@ function removeSaveGameAlert()
 	document.getElementById('addClickCost').innerHTML = nf.format(addClickCost);
 }*/
 
-function enableDisableDarkTheme() {
+/*function enableDisableDarkTheme() {
 	if (darkThemeEnabled == 0) {
 		var darkthemeenabledcheckbox = document.getElementById("darkthemeenabled");
 		darkthemeenabledcheckbox.style.display="block";
@@ -1332,18 +1379,165 @@ function enableDisableDarkTheme() {
 		
 		darkThemeEnabled = 0;
 	}
-}
+}*/
 
-window.setInterval(function(){
+/*window.setInterval(function(){
 	if (darkThemeEnabled == 0) {
 		disableDarkTheme();
 	} else if (darkThemeEnabled == 1) {
 		enableDarkTheme();
 	}
-}, 100);
+}, 100);*/
+
+/*function enableDarkTheme() {
+	darkThemeEnabled = 1;
+}
+
+function disableDarkTheme() {	
+	darkThemeEnabled = 0;
+}*/
+
+//Dark theme check
+function disableDarkTheme() {
+    var darkthemeenabledcheckbox = document.getElementById("darkthemeenabled");
+	darkthemeenabledcheckbox.style.display="none";
+	darkthemeenabledcheckbox.style.visibility="hidden";
+	var darkthemedisabledcheckbox = document.getElementById("darkthemedisabled");
+	darkthemedisabledcheckbox.style.display="block";
+	darkthemedisabledcheckbox.style.visibility="initial";
+	document.body.style.background = "white";
+	document.body.style.color = "black";
+	document.getElementById("TopActionBar").style.borderBottom = "1px solid black";
+	document.getElementById("TopActionBar").style.backgroundColor = "white";
+	document.querySelector(".likelabelicon").style.color = "black";
+	document.querySelector(".likeicon").style.color = "black";
+	document.querySelector(".shopitem1").style.backgroundColor = "white";
+	document.querySelector(".shopitem1").style.border = "1px solid black";
+	document.querySelector(".shopitem1btn").style.border = "1px solid black";
+	document.querySelector(".shopitem1icon").style.color = "black";
+	document.querySelector(".shopitem2").style.backgroundColor = "white";
+	document.querySelector(".shopitem2").style.border = "1px solid black";
+	document.querySelector(".shopitem2btn").style.border = "1px solid black";
+	document.querySelector(".shopitem2icon").style.color = "black";
+	document.querySelector(".shopitem3").style.backgroundColor = "white";
+	document.querySelector(".shopitem3").style.border = "1px solid black";
+	document.querySelector(".shopitem3btn").style.border = "1px solid black";
+	document.querySelector(".shopitem3icon").style.color = "black";
+	document.querySelector(".shopitem4").style.backgroundColor = "white";
+	document.querySelector(".shopitem4").style.border = "1px solid black";
+	document.querySelector(".shopitem4btn").style.border = "1px solid black";
+	document.querySelector(".shopitem4icon").style.color = "black";
+	document.querySelector(".shopitem5").style.backgroundColor = "white";
+	document.querySelector(".shopitem5").style.border = "1px solid black";
+	document.querySelector(".shopitem5btn").style.border = "1px solid black";
+	document.querySelector(".shopitem5icon").style.color = "black";
+	document.querySelector(".shopitem6").style.backgroundColor = "white";
+	document.querySelector(".shopitem6").style.border = "1px solid black";
+	document.querySelector(".shopitem6btn").style.border = "1px solid black";
+	document.querySelector(".shopitem6icon").style.color = "black";
+	document.querySelector(".shopitem7").style.backgroundColor = "white";
+	document.querySelector(".shopitem7").style.border = "1px solid black";
+	document.querySelector(".shopitem7btn").style.border = "1px solid black";
+	document.querySelector(".shopitem7icon").style.color = "black";
+	document.querySelector(".shopitem8").style.backgroundColor = "white";
+	document.querySelector(".shopitem8").style.border = "1px solid black";
+	document.querySelector(".shopitem8btn").style.border = "1px solid black";
+	document.querySelector(".shopitem8icon").style.color = "black";
+	document.querySelector(".shopitem9").style.backgroundColor = "white";
+	document.querySelector(".shopitem9").style.border = "1px solid black";
+	document.querySelector(".shopitem9btn").style.border = "1px solid black";
+	document.querySelector(".shopitem9icon").style.color = "black";
+	document.querySelector(".shopitem10").style.backgroundColor = "white";
+	document.querySelector(".shopitem10").style.border = "1px solid black";
+	document.querySelector(".shopitem10btn").style.border = "1px solid black";
+	document.querySelector(".shopitem10icon").style.color = "black";
+	document.querySelector(".shopitem11").style.backgroundColor = "white";
+	document.querySelector(".shopitem11").style.border = "1px solid black";
+	document.querySelector(".shopitem11btn").style.border = "1px solid black";
+	document.querySelector(".shopitem11icon").style.color = "black";
+	document.querySelector(".shopitem12").style.backgroundColor = "white";
+	document.querySelector(".shopitem12").style.border = "1px solid black";
+	document.querySelector(".shopitem12btn").style.border = "1px solid black";
+	document.querySelector(".shopitem12icon").style.color = "black";
+	document.querySelector(".shopitem13").style.backgroundColor = "white";
+	document.querySelector(".shopitem13").style.border = "1px solid black";
+	document.querySelector(".shopitem13btn").style.border = "1px solid black";
+	document.querySelector(".shopitem13icon").style.color = "black";
+	/*document.querySelector(".shopitem14").style.backgroundColor = "white";
+	document.querySelector(".shopitem14").style.border = "1px solid black";
+	document.querySelector(".shopitem14btn").style.border = "1px solid black";
+	document.querySelector(".shopitem14icon").style.color = "black";
+	document.querySelector(".shopitem15").style.backgroundColor = "white";
+	document.querySelector(".shopitem15").style.border = "1px solid black";
+	document.querySelector(".shopitem15btn").style.border = "1px solid black";
+	document.querySelector(".shopitem15icon").style.color = "black";
+    document.querySelector(".shopitem16").style.backgroundColor = "white";
+	document.querySelector(".shopitem16").style.border = "1px solid black";
+	document.querySelector(".shopitem16btn").style.border = "1px solid black";
+	document.querySelector(".shopitem16icon").style.color = "black";*/
+	/*document.querySelector(".menuicon1").style.color = "black";
+	document.querySelector(".menuicon2").style.color = "black";
+	document.querySelector(".menuicon3").style.color = "black";*/
+	document.querySelector(".confighr1").style.border = "1px solid black";
+	document.querySelector(".confighr2").style.border = "1px solid black";
+	document.querySelector(".confighr3").style.border = "1px solid black";
+	/*document.querySelector(".confighr4").style.border = "1px solid black";*/
+	document.querySelector(".confighr5").style.border = "1px solid black";
+	document.querySelector(".confighr6").style.border = "1px solid black";
+	/*document.querySelector(".confighr7").style.border = "1px solid black";*/
+	document.querySelector(".configoption1").style.border = "1px solid black";
+	document.querySelector(".configoption1").style.color = "black";
+	document.querySelector(".option1icon").style.color = "black";
+	document.querySelector(".configoption2").style.border = "1px solid black";
+	document.querySelector(".configoption2").style.color = "black";
+	document.querySelector(".option2icon").style.color = "black";
+	document.querySelector(".configoption3").style.border = "1px solid black";
+	document.querySelector(".configoption3").style.color = "black";
+	document.querySelector(".option3icon").style.color = "black";
+	document.querySelector(".configoption4").style.border = "1px solid black";
+	document.querySelector(".configoption4").style.color = "black";
+	document.querySelector(".option4icon").style.color = "black";
+	document.querySelector(".configoption5").style.border = "1px solid black";
+	document.querySelector(".configoption5").style.color = "black";
+	document.querySelector(".option5icon").style.color = "black";
+	/*document.querySelector(".configoption6").style.border = "1px solid black";
+	document.querySelector(".configoption6").style.color = "black";
+	document.querySelector(".option6icon").style.color = "black";*/
+	document.querySelector(".configoption7").style.border = "1px solid black";
+	document.querySelector(".configoption7").style.color = "black";
+	document.querySelector(".option7icon").style.color = "black";
+	document.querySelector(".configoption8").style.border = "1px solid black";
+	document.querySelector(".configoption8").style.color = "black";
+	document.querySelector(".option8icon").style.color = "black";
+	document.querySelector(".configoption9").style.border = "1px solid black";
+	document.querySelector(".configoption9").style.color = "black";
+	document.querySelector(".option9icon").style.color = "black";
+	document.querySelector(".configoption10").style.border = "1px solid black";
+	document.querySelector(".configoption10").style.color = "black";
+	document.querySelector(".option10icon").style.color = "black";
+	document.querySelector(".configoption11").style.border = "1px solid black";
+	document.querySelector(".configoption11").style.color = "black";
+	document.querySelector(".option11icon").style.color = "black";
+	/*document.querySelector(".configoption12").style.border = "1px solid black";
+	document.querySelector(".configoption12").style.color = "black";
+	document.querySelector(".option12icon").style.color = "black";
+	document.querySelector(".configoption13").style.border = "1px solid black";
+	document.querySelector(".configoption13").style.color = "black";
+	document.querySelector(".option13icon").style.color = "black";*/
+	document.querySelector(".configoption14").style.border = "1px solid black";
+	document.querySelector(".configoption14").style.color = "black";
+	document.querySelector(".option14icon").style.color = "black";
+	document.querySelector(".configoption15").style.border = "1px solid black";
+	document.querySelector(".configoption15").style.color = "black";
+	document.querySelector(".option15icon").style.color = "black";
+	document.querySelector(".configoption16").style.border = "1px solid black";
+	document.querySelector(".configoption16").style.color = "black";
+	document.querySelector(".option16icon").style.color = "black";
+	document.body.style.color = "black";
+}
 
 function enableDarkTheme() {
-	var darkthemeenabledcheckbox = document.getElementById("darkthemeenabled");
+    var darkthemeenabledcheckbox = document.getElementById("darkthemeenabled");
 	darkthemeenabledcheckbox.style.display="block";
 	darkthemeenabledcheckbox.style.visibility="initial";
 	var darkthemedisabledcheckbox = document.getElementById("darkthemedisabled");
@@ -1411,14 +1605,13 @@ function enableDarkTheme() {
 	document.querySelector(".shopitem14").style.border = "1px solid white";
 	document.querySelector(".shopitem14btn").style.border = "1px solid white";
 	document.querySelector(".shopitem14icon").style.color = "white";*/
-	document.querySelector(".commontab").style.borderRight = "1px solid white";
-	document.querySelector(".menuicon1").style.color = "white";
+	/*document.querySelector(".menuicon1").style.color = "white";
 	document.querySelector(".menuicon2").style.color = "white";
-	document.querySelector(".menuicon3").style.color = "white";
+	document.querySelector(".menuicon3").style.color = "white";*/
 	document.querySelector(".confighr1").style.border = "1px solid white";
 	document.querySelector(".confighr2").style.border = "1px solid white";
 	document.querySelector(".confighr3").style.border = "1px solid white";
-	document.querySelector(".confighr4").style.border = "1px solid white";
+	/*document.querySelector(".confighr4").style.border = "1px solid white";*/
 	document.querySelector(".confighr5").style.border = "1px solid white";
 	document.querySelector(".confighr6").style.border = "1px solid white";
 	/*document.querySelector(".confighr7").style.border = "1px solid white";*/
@@ -1437,9 +1630,9 @@ function enableDarkTheme() {
 	document.querySelector(".configoption5").style.border = "1px solid white";
 	document.querySelector(".configoption5").style.color = "white";
 	document.querySelector(".option5icon").style.color = "white";
-	document.querySelector(".configoption6").style.border = "1px solid white";
+	/*document.querySelector(".configoption6").style.border = "1px solid white";
 	document.querySelector(".configoption6").style.color = "white";
-	document.querySelector(".option6icon").style.color = "white";
+	document.querySelector(".option6icon").style.color = "white";*/
 	document.querySelector(".configoption7").style.border = "1px solid white";
 	document.querySelector(".configoption7").style.color = "white";
 	document.querySelector(".option7icon").style.color = "white";
@@ -1455,154 +1648,24 @@ function enableDarkTheme() {
 	document.querySelector(".configoption11").style.border = "1px solid white";
 	document.querySelector(".configoption11").style.color = "white";
 	document.querySelector(".option11icon").style.color = "white";
-	document.querySelector(".configoption12").style.border = "1px solid white";
+	/*document.querySelector(".configoption12").style.border = "1px solid white";
 	document.querySelector(".configoption12").style.color = "white";
 	document.querySelector(".option12icon").style.color = "white";
 	document.querySelector(".configoption13").style.border = "1px solid white";
 	document.querySelector(".configoption13").style.color = "white";
-	document.querySelector(".option13icon").style.color = "white";
+	document.querySelector(".option13icon").style.color = "white";*/
 	document.querySelector(".configoption14").style.border = "1px solid white";
 	document.querySelector(".configoption14").style.color = "white";
 	document.querySelector(".option14icon").style.color = "white";
 	document.querySelector(".configoption15").style.border = "1px solid white";
 	document.querySelector(".configoption15").style.color = "white";
 	document.querySelector(".option15icon").style.color = "white";
-	/*document.querySelector(".configoption16").style.border = "1px solid white";
+	document.querySelector(".configoption16").style.border = "1px solid white";
 	document.querySelector(".configoption16").style.color = "white";
-	document.querySelector(".option16icon").style.color = "white";*/
+	document.querySelector(".option16icon").style.color = "white";
 }
 
-function disableDarkTheme() {
-	var darkthemeenabledcheckbox = document.getElementById("darkthemeenabled");
-	darkthemeenabledcheckbox.style.display="none";
-	darkthemeenabledcheckbox.style.visibility="hidden";
-	var darkthemedisabledcheckbox = document.getElementById("darkthemedisabled");
-	darkthemedisabledcheckbox.style.display="block";
-	darkthemedisabledcheckbox.style.visibility="initial";
-	document.body.style.background = "white";
-	document.body.style.color = "black";
-	document.getElementById("TopActionBar").style.borderBottom = "1px solid black";
-	document.getElementById("TopActionBar").style.backgroundColor = "white";
-	document.querySelector(".likelabelicon").style.color = "black";
-	document.querySelector(".likeicon").style.color = "black";
-	document.querySelector(".shopitem1").style.backgroundColor = "white";
-	document.querySelector(".shopitem1").style.border = "1px solid black";
-	document.querySelector(".shopitem1btn").style.border = "1px solid black";
-	document.querySelector(".shopitem1icon").style.color = "black";
-	document.querySelector(".shopitem2").style.backgroundColor = "white";
-	document.querySelector(".shopitem2").style.border = "1px solid black";
-	document.querySelector(".shopitem2btn").style.border = "1px solid black";
-	document.querySelector(".shopitem2icon").style.color = "black";
-	document.querySelector(".shopitem3").style.backgroundColor = "white";
-	document.querySelector(".shopitem3").style.border = "1px solid black";
-	document.querySelector(".shopitem3btn").style.border = "1px solid black";
-	document.querySelector(".shopitem3icon").style.color = "black";
-	document.querySelector(".shopitem4").style.backgroundColor = "white";
-	document.querySelector(".shopitem4").style.border = "1px solid black";
-	document.querySelector(".shopitem4btn").style.border = "1px solid black";
-	document.querySelector(".shopitem4icon").style.color = "black";
-	document.querySelector(".shopitem5").style.backgroundColor = "white";
-	document.querySelector(".shopitem5").style.border = "1px solid black";
-	document.querySelector(".shopitem5btn").style.border = "1px solid black";
-	document.querySelector(".shopitem5icon").style.color = "black";
-	document.querySelector(".shopitem6").style.backgroundColor = "white";
-	document.querySelector(".shopitem6").style.border = "1px solid black";
-	document.querySelector(".shopitem6btn").style.border = "1px solid black";
-	document.querySelector(".shopitem6icon").style.color = "black";
-	document.querySelector(".shopitem7").style.backgroundColor = "white";
-	document.querySelector(".shopitem7").style.border = "1px solid black";
-	document.querySelector(".shopitem7btn").style.border = "1px solid black";
-	document.querySelector(".shopitem7icon").style.color = "black";
-	document.querySelector(".shopitem8").style.backgroundColor = "white";
-	document.querySelector(".shopitem8").style.border = "1px solid black";
-	document.querySelector(".shopitem8btn").style.border = "1px solid black";
-	document.querySelector(".shopitem8icon").style.color = "black";
-	document.querySelector(".shopitem9").style.backgroundColor = "white";
-	document.querySelector(".shopitem9").style.border = "1px solid black";
-	document.querySelector(".shopitem9btn").style.border = "1px solid black";
-	document.querySelector(".shopitem9icon").style.color = "black";
-	document.querySelector(".shopitem10").style.backgroundColor = "white";
-	document.querySelector(".shopitem10").style.border = "1px solid black";
-	document.querySelector(".shopitem10btn").style.border = "1px solid black";
-	document.querySelector(".shopitem10icon").style.color = "black";
-	document.querySelector(".shopitem11").style.backgroundColor = "white";
-	document.querySelector(".shopitem11").style.border = "1px solid black";
-	document.querySelector(".shopitem11btn").style.border = "1px solid black";
-	document.querySelector(".shopitem11icon").style.color = "black";
-	document.querySelector(".shopitem12").style.backgroundColor = "white";
-	document.querySelector(".shopitem12").style.border = "1px solid black";
-	document.querySelector(".shopitem12btn").style.border = "1px solid black";
-	document.querySelector(".shopitem12icon").style.color = "black";
-	document.querySelector(".shopitem13").style.backgroundColor = "white";
-	document.querySelector(".shopitem13").style.border = "1px solid black";
-	document.querySelector(".shopitem13btn").style.border = "1px solid black";
-	document.querySelector(".shopitem13icon").style.color = "black";
-	/*document.querySelector(".shopitem14").style.backgroundColor = "white";
-	document.querySelector(".shopitem14").style.border = "1px solid black";
-	document.querySelector(".shopitem14btn").style.border = "1px solid black";
-	document.querySelector(".shopitem14icon").style.color = "black";*/
-	document.querySelector(".commontab").style.borderRight = "1px solid black";
-	document.querySelector(".menuicon1").style.color = "black";
-	document.querySelector(".menuicon2").style.color = "black";
-	document.querySelector(".menuicon3").style.color = "black";
-	document.querySelector(".confighr1").style.border = "1px solid black";
-	document.querySelector(".confighr2").style.border = "1px solid black";
-	document.querySelector(".confighr3").style.border = "1px solid black";
-	document.querySelector(".confighr4").style.border = "1px solid black";
-	document.querySelector(".confighr5").style.border = "1px solid black";
-	document.querySelector(".confighr6").style.border = "1px solid black";
-	/*document.querySelector(".confighr7").style.border = "1px solid black";*/
-	document.querySelector(".configoption1").style.border = "1px solid black";
-	document.querySelector(".configoption1").style.color = "black";
-	document.querySelector(".option1icon").style.color = "black";
-	document.querySelector(".configoption2").style.border = "1px solid black";
-	document.querySelector(".configoption2").style.color = "black";
-	document.querySelector(".option2icon").style.color = "black";
-	document.querySelector(".configoption3").style.border = "1px solid black";
-	document.querySelector(".configoption3").style.color = "black";
-	document.querySelector(".option3icon").style.color = "black";
-	document.querySelector(".configoption4").style.border = "1px solid black";
-	document.querySelector(".configoption4").style.color = "black";
-	document.querySelector(".option4icon").style.color = "black";
-	document.querySelector(".configoption5").style.border = "1px solid black";
-	document.querySelector(".configoption5").style.color = "black";
-	document.querySelector(".option5icon").style.color = "black";
-	document.querySelector(".configoption6").style.border = "1px solid black";
-	document.querySelector(".configoption6").style.color = "black";
-	document.querySelector(".option6icon").style.color = "black";
-	document.querySelector(".configoption7").style.border = "1px solid black";
-	document.querySelector(".configoption7").style.color = "black";
-	document.querySelector(".option7icon").style.color = "black";
-	document.querySelector(".configoption8").style.border = "1px solid black";
-	document.querySelector(".configoption8").style.color = "black";
-	document.querySelector(".option8icon").style.color = "black";
-	document.querySelector(".configoption9").style.border = "1px solid black";
-	document.querySelector(".configoption9").style.color = "black";
-	document.querySelector(".option9icon").style.color = "black";
-	document.querySelector(".configoption10").style.border = "1px solid black";
-	document.querySelector(".configoption10").style.color = "black";
-	document.querySelector(".option10icon").style.color = "black";
-	document.querySelector(".configoption11").style.border = "1px solid black";
-	document.querySelector(".configoption11").style.color = "black";
-	document.querySelector(".option11icon").style.color = "black";
-	document.querySelector(".configoption12").style.border = "1px solid black";
-	document.querySelector(".configoption12").style.color = "black";
-	document.querySelector(".option12icon").style.color = "black";
-	document.querySelector(".configoption13").style.border = "1px solid black";
-	document.querySelector(".configoption13").style.color = "black";
-	document.querySelector(".option13icon").style.color = "black";
-	document.querySelector(".configoption14").style.border = "1px solid black";
-	document.querySelector(".configoption14").style.color = "black";
-	document.querySelector(".option14icon").style.color = "black";
-	document.querySelector(".configoption15").style.border = "1px solid black";
-	document.querySelector(".configoption15").style.color = "black";
-	document.querySelector(".option15icon").style.color = "black";
-	/*document.querySelector(".configoption16").style.border = "1px solid black";
-	document.querySelector(".configoption16").style.color = "black";
-	document.querySelector(".option16icon").style.color = "black";*/
-}
-
-function enableDisableMusics() {
+/*function enableDisableMusics() {
 	if (musicsEnabled == 0) {
 		var musicsenabledcheckbox = document.getElementById("musicsenabled");
 		musicsenabledcheckbox.style.display="block";
@@ -1626,9 +1689,9 @@ function enableDisableMusics() {
 		musicsEnabled = 0;
 		stopMusic();
 	}
-}
+}*/
 
-if (JSON.parse(localStorage.getItem("musicsEnabled")) == 0) {
+/*if (JSON.parse(localStorage.getItem("musicsEnabled")) == 0) {
 	var musicsenabledcheckbox = document.getElementById("musicsenabled");
 	musicsenabledcheckbox.style.display="none";
 	musicsenabledcheckbox.style.visibility="hidden";
@@ -1648,7 +1711,7 @@ if (JSON.parse(localStorage.getItem("musicsEnabled")) == 0) {
 	musicsdisabledcheckbox.style.visibility="hidden";
 	
 	stopMusic();
-	manualDarkTheme();
+	checkDarkTheme();
 }
 
 function stopMusic() {
@@ -1659,14 +1722,14 @@ window.setInterval(function(){
 	if (musicsEnabled == 0) {
 		stopMusic();
 	}
-}, 100);
+}, 100);*/
 
 var nextCostAddClick = nf.format(Math.floor(1000 * Math.pow(1.2,lpc)));
 document.getElementById('addClickCost').innerHTML = nextCostAddClick;
 addClickCost = nf.format(Math.floor(1000 * Math.pow(1.2,lpc)));
 
-if (musicsEnabled == 1) {
+/*if (musicsEnabled == 1) {
 	document.querySelector('#HouseInAForestLoop').play();
-}
+}*/
 
 loadGame();

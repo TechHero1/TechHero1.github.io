@@ -7,10 +7,10 @@
 		<link rel="icon" type="image/png" href="https://image.ibb.co/hSMXtn/icon.png" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/dialog-polyfill.css" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 		<link rel="me" href="https://twitter.com/LikeClicker">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="js/loading.js"></script>
 	<script>window.twttr = (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0],
@@ -40,7 +40,7 @@
 		<meta property="og:description" content="Play Like Clicker, the best clicker game in the world! Well... Not really...">
 		<meta property="og:url" content="https://techherosite.github.io/likeclicker/">
 		<meta property="og:image" content="https://techherosite.github.io/thumbs/likeclicker.jpg">
-		<meta name="keywords" content="techhero tech hero techherosite site like clicker likeclicker">
+		<meta name="keywords" content="techhero tech hero techherosite site like clicker likeclicker helpy helpys adventure png world">
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:title" content="Like Clicker">
 		<meta name="twitter:description" content="Play Like Clicker, the best clicker game in the world! Well... Not really...">
@@ -58,7 +58,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/web-icon.png">
 <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="assets/web-icon.png">
 	</head>
-	<body onload="loadGame()">
+	<body onload="loadGame(); loadLang()">
 		<div id="loading"></div>
 		<div class="page">
 		<div id="TopActionBar" style="width: 100%; background: white; height: 34px; border-bottom: 1px solid black; position: fixed; margin-top: -5px;">
@@ -71,15 +71,13 @@
 		<center>
 			<div id="LikePage" class="TabOpening">
 			<div id="LikeDiv" style="width: 100%;">
-				<div id="LikeBtnDiv" onClick="likeClick(lpc)" title="Like">
+				<div class="like-icon-title" id="LikeBtnDiv" onClick="likeClick(lpc)" title="Like">
 					<i onmouseover="showLikeOverlay()" onmouseout="hideLikeOverlay()" class="material-icons likeicon" id="like-icon" style="font-size: 180px; color: black; display: inline-flex; vertical-align: middle;">thumb_up</i>
 				</div>
 				<div>
-					<span id="likestxt">You have 0 likes</span><br>
-					<span id="lps" data-toggle="tooltip" title="Number of Likes per Second">LPS: 0</span><br>
-					<span id="lpc" data-toggle="tooltip" title="Number of Likes per Click">LPC: 1</span><br>
-					<audio loop id="HouseInAForestLoop" src="music/HouseInAForestLoop.ogg"></audio>
-					<!--<button onclick="install()">Install</button>-->
+					<span class="like-string-one">You have </span><span id="likestxt">0</span><span class="like-string-two"> likes</span></span><br>
+					<span class="lps-home-string" data-toggle="tooltip" title="Number of Likes per Second">LPS: </span><span id="lps">0</span><br>
+					<span class="lpc-home-string" data-toggle="tooltip" title="Number of Likes per Click">LPC: </span><span id="lpc">1</span><br>
 					<ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-4528874180134576"
@@ -94,18 +92,14 @@
 			</div>
 			<div id="NotEnoughLikes" style="display: none; visibility: hidden;">
 				<div class="alert alert-dark" role="alert">
-					<span style="padding-right: 5px;">You haven't got enough likes.</span>
-					<button type="button" id="CloseAlert" onclick="removeNotEnoughLikes()" class="close" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+					<span class="enough-likes" style="padding-right: 5px;">You don't have enough likes.</span>
+					<button type="button" id="CloseAlert" onclick="removeNotEnoughLikes()" class="btn-close" aria-label="Close"></button>
 				</div>
 			</div>
 			<div id="SaveGameAlert" style="display: none; visibility: hidden;">
 				<div class="alert alert-dark" role="alert">
-					<span style="padding-right: 5px;">Game saved.</span>
-					<button type="button" id="CloseAlert" onclick="removeSaveGameAlert()" class="close" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+					<span class="game-saved" style="padding-right: 5px;">Game saved.</span>
+					<button type="button" id="CloseAlert" onclick="removeSaveGameAlert()" class="btn-close" aria-label="Close"></button>
 				</div>
 			</div>
 			<div id="ShopPage" class="TabOpening" style="display: none; visibility: hidden;">
@@ -113,13 +107,13 @@
 			<td class="commontab" id="MenuShopTab" onClick="showShopTab()">
 				<center>
 					<p></p>
-					<p id="LabelMenu">Common Upgrades</p>
+					<p id="LabelMenu"><span class="common-upgrades">Common Upgrades</span></p>
 				</center>
 			</td>
 			<td id="MenuUpgradesTab" onClick="showUpgradesTab()">
 				<center>
 					<p></p>
-					<p id="LabelMenu">Special Upgrades <i class="material-icons" style="color: red; vertical-align: middle;" id="newupgradeicon">new_releases</i></p>
+					<p id="LabelMenu"><span class="special-upgrades">Special Upgrades</span> <span id="newupgradeicon2" class="badge bg-danger">!</span></p>
 				</center>
 			</td>
 		</table>
@@ -129,19 +123,19 @@
 					<div class="shopitem1" id="GainFollower" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem1btn" id="BuyButton" onClick="gainFollower()" title="+1 Follower">
+								<div class="shopitem1btn plus-follower-title" id="BuyButton" onClick="gainFollower()" title="+1 Follower">
 									<center>
 										<i class="material-icons shopitem1icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">+1 Follower</span>
+										<span class="plus-follower" style="padding-left: 5px; padding-right: 5px;">+1 Follower</span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									Followers: <span id="followers">0</span><br />
-									LPS: <span id="followerLPS">1</span><br />
-									Cost: <span id="followerCost">10</span>
+									<span class="followers-name">Followers: </span><span id="followers">0</span><br />
+									<span class="lps-follower-string">LPS: </span><span id="followerLPS">1</span><br />
+									<span class="cost-follower-string">Cost: </span><span id="followerCost">10</span>
 								</div>
 							</td>
 						</table>
@@ -153,19 +147,19 @@
 					<div class="shopitem2" id="GainFan" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem2btn" id="BuyButton" onClick="gainFan()" title="+1 Fan">
+								<div class="shopitem2btn plus-fan-title" id="BuyButton" onClick="gainFan()" title="+1 Fan">
 									<center>
 										<i class="material-icons shopitem2icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">+1 Fan</span>
+										<span class="plus-fan" style="padding-left: 5px; padding-right: 5px;">+1 Fan</span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									Fans: <span id="fans">0</span><br />
-									LPS: <span id="FansLPS">2</span><br />
-									Cost: <span id="FansCost">100</span>
+									<span class="fans-name">Fans: </span><span id="fans">0</span><br />
+									<span class="lps-fan-string">LPS: </span><span id="FansLPS">2</span><br />
+									<span class="cost-fan-string">Cost: </span><span id="FansCost">100</span>
 								</div>
 							</td>
 						</table>
@@ -176,19 +170,19 @@
 					<div class="shopitem3" id="GainPaparazzi" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem3btn" id="BuyButton" onClick="gainPaparazzi()" title="+1 Paparazzi">
+								<div class="shopitem3btn plus-paparazzi-title" id="BuyButton" onClick="gainPaparazzi()" title="+1 Paparazzi">
 									<center>
 										<i class="material-icons shopitem3icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">+1 Paparazzi</span>
+										<span class="plus-paparazzi" style="padding-left: 5px; padding-right: 5px;">+1 Paparazzi</span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									Paparazzis: <span id="paparazzis">0</span><br />
-									LPS: <span id="paparazzisLPS">4</span><br />
-									Cost: <span id="paparazzisCost">500</span>
+									<span class="paparazzis-name">Paparazzis: </span><span id="paparazzis">0</span><br />
+									<span class="lps-paparazzi-string">LPS: </span><span id="paparazzisLPS">4</span><br />
+									<span class="cost-paparazzi-string">Cost: </span><span id="paparazzisCost">500</span>
 								</div>
 							</td>
 						</table>
@@ -200,19 +194,19 @@
 					<div class="shopitem4" id="GainStalker" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem4btn" id="BuyButton" onClick="gainStalker()" title="+1 Stalker">
+								<div class="shopitem4btn plus-stalker-title" id="BuyButton" onClick="gainStalker()" title="+1 Stalker">
 									<center>
 										<i class="material-icons shopitem4icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">+1 Stalker</span>
+										<span class="plus-stalker" style="padding-left: 5px; padding-right: 5px;">+1 Stalker</span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									Stalkers: <span id="stalkers">0</span><br />
-									LPS: <span id="stalkersLPS">8</span><br />
-									Cost: <span id="stalkersCost">1000</span>
+									<span class="stalkers-name">Stalkers: </span><span id="stalkers">0</span><br />
+									<span class="lps-stalker-string">LPS: </span><span id="stalkersLPS">8</span><br />
+									<span class="cost-stalker-string">Cost: </span><span id="stalkersCost">1000</span>
 								</div>
 							</td>
 						</table>
@@ -223,19 +217,19 @@
 					<div class="shopitem5" id="GainLunatic" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem5btn" id="BuyButton" onClick="gainLunatic()" title="+1 Lunatic">
+								<div class="shopitem5btn plus-lunatic-title" id="BuyButton" onClick="gainLunatic()" title="+1 Lunatic">
 									<center>
 										<i class="material-icons shopitem5icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">+1 Lunatic</span>
+										<span class="plus-lunatic" style="padding-left: 5px; padding-right: 5px;">+1 Lunatic</span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									Lunatics: <span id="lunatics">0</span><br />
-									LPS: <span id="lunaticsLPS">16</span><br />
-									Cost: <span id="lunaticsCost">5000</span>
+									<span class="lunatics-name">Lunatics: </span><span id="lunatics">0</span><br />
+									<span class="lps-lunatic-string">LPS: </span><span id="lunaticsLPS">16</span><br />
+									<span class="cost-lunatic-string">Cost: </span><span id="lunaticsCost">5000</span>
 								</div>
 							</td>
 						</table>
@@ -246,19 +240,19 @@
 					<div class="shopitem6" id="AddBot" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem6btn" id="BuyButton" onClick="addBot()" title="+1 Bot">
+								<div class="shopitem6btn plus-bot-title" id="BuyButton" onClick="addBot()" title="+1 Bot">
 									<center>
 										<i class="material-icons shopitem6icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">+1 Bot</span>
+										<span class="plus-bot" style="padding-left: 5px; padding-right: 5px;">+1 Bot</span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									Bots: <span id="bots">0</span><br />
-									LPS: <span id="botLPS">32</span><br />
-									Cost: <span id="botCost">10000</span>
+									<span class="bots-name">Bots: </span><span id="bots">0</span><br />
+									<span class="lps-bot-string">LPS: </span><span id="botLPS">32</span><br />
+									<span class="cost-bot-string">Cost: </span><span id="botCost">10000</span>
 								</div>
 							</td>
 						</table>
@@ -271,19 +265,19 @@
 					<div class="shopitem7" id="AddClick" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem7btn" id="BuyButton" onClick="addClick()" title="Buy +1 LPC (Likes per Click)">
+								<div class="shopitem7btn plus-lpc-title" id="BuyButton" onClick="addClick()" title="Buy +1 LPC (Likes per Click)">
 									<center>
 										<i class="material-icons shopitem7icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">Upgrade</span>
+										<span class="upgrade-string" style="padding-left: 5px; padding-right: 5px;">Upgrade</span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									Likes per click<br>
-									Level: <span id="lpcshop">1</span><br>
-									Cost: <span id="addClickCost">1000</span>
+									<span class="lpc-complete-string">Likes per click</span><br>
+									<span class="level-lpc-string">Level: </span><span id="lpcshop">1</span><br>
+									<span class="cost-lpc-string">Cost: </span><span id="addClickCost">1000</span>
 								</div>
 							</td>
 						</table>
@@ -294,18 +288,18 @@
 					<div class="shopitem8" id="HypeFollowers" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem8btn" id="BuyButton" onClick="hypeFollowers()" title="Hype Followers (2x LPS)">
+								<div class="shopitem8btn hype-followers-title" id="BuyButton" onClick="hypeFollowersFunc()" title="Hype Followers (2x LPS)">
 									<center>
 										<i class="material-icons shopitem8icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">Hype Followers<br>(2x LPS)</span>
+										<span style="padding-left: 5px; padding-right: 5px;"><span class="hype-followers-string-one">Hype Followers</span><br><span class="hype-followers-string-two">(2x LPS)</span></span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									<span><b>Warning</b>:<br> You can only<br> use this once!</span><br>
-									Cost: <span id="hypeFollowersCost">500</span>
+									<span><b class="warning-follower-string">Warning</b>:<br> <span class="useonce-follower-string-one">You can only</span><br><span class="useonce-follower-string-two"> use this once!</span></span><br>
+									<span class="cost-follower-hype">Cost: </span><span id="hypeFollowersCost">500</span>
 								</div>
 							</td>
 						</table>
@@ -316,18 +310,18 @@
 					<div class="shopitem9" id="HypeFans" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem9btn" id="BuyButton" onClick="hypeFans()" title="Hype Fans (2x LPS)">
+								<div class="shopitem9btn hype-fans-title" id="BuyButton" onClick="hypeFansFunc()" title="Hype Fans (2x LPS)">
 									<center>
 										<i class="material-icons shopitem9icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">Hype Fans<br>(2x LPS)</span>
+										<span style="padding-left: 5px; padding-right: 5px;"><span class="hype-fans-string-one">Hype Fans</span><br><span class="hype-fans-string-two">(2x LPS)</span></span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									<span><b>Warning</b>:<br> You can only<br> use this once!</span><br>
-									Cost: <span id="hypeFansCost">1000</span>
+									<span><b class="warning-fan-string">Warning</b>:<br> <span class="useonce-fan-string-one">You can only</span><br><span class="useonce-fan-string-two"> use this once!</span></span><br>
+									<span class="cost-fan-hype">Cost: </span><span id="hypeFansCost">1000</span>
 								</div>
 							</td>
 						</table>
@@ -338,18 +332,18 @@
 					<div class="shopitem10" id="HypePaparazzis" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem10btn" id="BuyButton" onClick="hypePaparazzis()" title="Hype Paparazzis (2x LPS)">
+								<div class="shopitem10btn hype-paparazzis-title" id="BuyButton" onClick="hypePaparazzisFunc()" title="Hype Paparazzis (2x LPS)">
 									<center>
 										<i class="material-icons shopitem10icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">Hype Paparazzis<br>(2x LPS)</span>
+										<span style="padding-left: 5px; padding-right: 5px;"><span class="hype-paparazzis-string-one">Hype Paparazzis</span><br><span class="hype-paparazzis-string-two">(2x LPS)</span></span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									<span><b>Warning</b>:<br> You can only<br> use this once!</span><br>
-									Cost: <span id="hypePaparazzisCost">6000</span>
+									<span><b class="warning-paparazzi-string">Warning</b>:<br> <span class="useonce-paparazzi-string-one">You can only</span><br><span class="useonce-paparazzi-string-two"> use this once!</span></span><br>
+									<span class="cost-paparazzi-hype">Cost: </span><span id="hypePaparazzisCost">6000</span>
 								</div>
 							</td>
 						</table>
@@ -360,18 +354,18 @@
 					<div class="shopitem11" id="HypeStalkers" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem11btn" id="BuyButton" onClick="hypeStalkers()" title="Hype Stalkers (2x LPS)">
+								<div class="shopitem11btn hype-stalkers-title" id="BuyButton" onClick="hypeStalkersFunc()" title="Hype Stalkers (2x LPS)">
 									<center>
 										<i class="material-icons shopitem11icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">Hype Stalkers<br>(2x LPS)</span>
+										<span style="padding-left: 5px; padding-right: 5px;"><span class="hype-stalkers-string-one">Hype Stalkers</span><br><span class="hype-stalkers-string-two">(2x LPS)</span></span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									<span><b>Warning</b>:<br> You can only<br> use this once!</span><br>
-									Cost: <span id="hypeStalkersCost">12000</span>
+									<span><b class="warning-stalker-string">Warning</b>:<br> <span class="useonce-stalker-string-one">You can only</span><br><span class="useonce-stalker-string-two"> use this once!</span></span><br>
+									<span class="cost-stalker-hype">Cost: </span><span id="hypeStalkersCost">12000</span>
 								</div>
 							</td>
 						</table>
@@ -382,18 +376,18 @@
 					<div class="shopitem12" id="HypeLunatics" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem12btn" id="BuyButton" onClick="hypeLunatics()" title="Hype Lunatics (2x LPS)">
+								<div class="shopitem12btn hype-lunatics-title" id="BuyButton" onClick="hypeLunaticsFunc()" title="Hype Lunatics (2x LPS)">
 									<center>
 										<i class="material-icons shopitem12icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">Hype Lunatics<br>(2x LPS)</span>
+										<span style="padding-left: 5px; padding-right: 5px;"><span class="hype-lunatics-string-one">Hype Lunatics</span><br><span class="hype-lunatics-string-two">(2x LPS)</span></span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									<span><b>Warning</b>:<br> You can only<br> use this once!</span><br>
-									Cost: <span id="hypeLunaticsCost">25000</span>
+									<span><b class="warning-lunatic-string">Warning</b>:<br> <span class="useonce-lunatic-string-one">You can only</span><br><span class="useonce-lunatic-string-two"> use this once!</span></span><br>
+									<span class="cost-lunatic-hype">Cost: </span><span id="hypeLunaticsCost">25000</span>
 								</div>
 							</td>
 						</table>
@@ -404,18 +398,18 @@
 					<div class="shopitem13" id="DoubleBots" class="rounded">
 						<table id="ItemTable">
 							<td id="ItemCell">
-								<div class="shopitem13btn" id="BuyButton" onClick="doubleBots()" title="Upgrade Bots Plan (2x LPS)">
+								<div class="shopitem13btn bots-plan-title" id="BuyButton" onClick="doubleBots()" title="Upgrade Bots Plan (2x LPS)">
 									<center>
 										<i class="material-icons shopitem13icon" id="like-icon" style="font-size: 50px; color: black; display: inline-flex; vertical-align: middle;">add</i><br>
-										<span style="padding-left: 5px; padding-right: 5px;">Upgrade Bots Plan<br>(2x LPS)</span>
+										<span style="padding-left: 5px; padding-right: 5px;"><span class="bots-plan-string-one">Upgrade Bots Plan</span><br><span class="bots-plan-string-two">(2x LPS)</span></span>
 									</center>
 								</div>
 							</td>
 							<td style="width: 5px;"></td>
 							<td id="ItemCell">
 								<div id="ItemInfo">
-									<span><b>Warning</b>:<br> You can only<br> use this once!</span><br>
-									Cost: <span id="doubleBotsCost">50000</span>
+									<span><b class="warning-bot-string">Warning</b>:<br> <span class="useonce-bot-string-one">You can only</span><br><span class="useonce-bot-string-two"> use this once!</span></span><br>
+									<span class="cost-bot-hype">Cost: </span><span id="doubleBotsCost">50000</span>
 								</div>
 							</td>
 						</table>
@@ -447,47 +441,47 @@
 			</div>
 			</center>
 			<div id="SettingsPage" class="TabOpening" style="display: none; visibility: hidden;">
-				<center><h4>Config.</h4></center>
+				<center><h4 class="tab-config-title">Config.</h4></center>
 				<div id="CategoryDiv">
 					<div>
-						<b id="Category">Save and Load</b>
+						<b class="save-and-load" id="Category">Save and Load</b>
 						<hr class="confighr2" style="border: 1px solid black;">
-						<div class="configoption2" id="SettingsOption" title="Save the game" onclick="saveGame()">
+						<div class="configoption2 save-game-title" id="SettingsOption" title="Save the game" onclick="saveGame(); saveLang()">
 							<i class="fontelloicons icon-save option2icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
-							<span>Save game</span>
+							<span class="save-game-string">Save game</span>
 						</div>
-						<div class="configoption3" id="SettingsOption" title="Load the game" onclick="loadGame()">
+						<div class="configoption3 load-game-title" id="SettingsOption" title="Load the game" onclick="loadGame(); loadLang()">
 							<i class="fontelloicons icon-load option3icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
-							<span>Load game</span>
+							<span class="load-game-string">Load game</span>
 						</div>
-						<div class="configoption4" id="SettingsOption" onclick="enableDisableAutoSave()">
+						<div class="configoption4 auto-save-title" id="SettingsOption" title="Enable/Disable auto save" onclick="enableDisableAutoSave()">
 							<i class="fontelloicons icon-save option4icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
-							<span class="autosave" title="Enable/Disable auto save">Auto save</span>
+							<span class="autosave auto-save-string">Auto save</span>
 							<i id="savedisabled" style="float: right; padding-right: 5px; display: none; visibility: hidden;" class="material-icons">check_box_outline_blank</i>
 							<i id="saveenabled" style="float: right; padding-right: 5px;" class="material-icons">check_box</i>
 						</div>
 					</div>
 					<br>
 					<div>
-						<b id="Category">Dark Theme</b>
+						<b class="dark-theme-category" id="Category">Dark Theme</b>
 						<hr class="confighr1" style="border: 1px solid black;">
-						<div class="configoption1" id="SettingsOption" onclick="enableDisableDarkTheme()">
+						<div class="configoption1 dark-theme-title" id="SettingsOption" title="Enable/Disable dark theme" onclick="clickDarkTheme()">
 							<i class="fontelloicons icon-brush option1icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
-							<span class="darktheme" title="Enable/Disable dark theme">Dark theme</span>
+							<span class="darktheme dark-theme-option">Dark theme</span>
 							<i id="darkthemedisabled" style="float: right; padding-right: 5px;" class="material-icons">check_box_outline_blank</i>
 							<i id="darkthemeenabled" style="float: right; padding-right: 5px; display: none; visibility: hidden;" class="material-icons">check_box</i>
 						</div>
 					</div>
 					<br>
 					<div>
-						<b id="Category">Reset</b>
+						<b class="reset-game-string" id="Category">Reset</b>
 						<hr class="confighr3" style="border: 1px solid black;">
-						<div class="reset configoption5" id="SettingsOption" title="Reset the game">
+						<div class="reset configoption5 reset-game-title" id="SettingsOption" title="Reset the game" data-bs-toggle="modal" data-bs-target="#resetModal">
 							<i class="fontelloicons icon-trash option5icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
-							<span>Erase data</span>
+							<span class="erase-data-string">Erase data</span>
 						</div>
 					</div>
-					<br>
+					<!---<br>
 					<div>
 						<b id="Category">Musics</b>
 						<hr class="confighr4" style="border: 1px solid black;">
@@ -497,10 +491,10 @@
 							<i id="musicsdisabled" style="float: right; padding-right: 5px; display: none; visibility: hidden;" class="material-icons">check_box_outline_blank</i>
 							<i id="musicsenabled" style="float: right; padding-right: 5px;" class="material-icons">check_box</i>
 						</div>
-					</div>
+					</div>-->
 				</div>
-				<br>
-				<!--<div class="InstallPWACategory" id="CategoryDiv">
+				<!--<br>
+				<div class="InstallPWACategory" id="CategoryDiv">
 					<b id="Category">Install</b>
 					<hr class="confighr7" style="border: 1px solid black;">
 					<span class="configoption16" id="SettingsOption" title="Install Web App">
@@ -511,33 +505,37 @@
 				<br>
 				<div id="CategoryDiv">
 					<div>
-						<b id="Category">About</b>
+						<b class="about-category" id="Category">About</b>
 						<hr class="confighr5" style="border: 1px solid black;">
-						<div class="configoption7" id="SettingsOption" title="Version: 1.3.0" onclick="unknfunc()">
+						<div class="configoption7 game-version-title" id="SettingsOption" title="Version: 1.4.0" onclick="unknfunc()">
 							<i class="fontelloicons icon-info-circled option7icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
-							<span>Version: 1.3.0</span>
+							<span class="game-version-string">Version: 1.4.0</span>
 						</div>
-						<div class="showcredits configoption8" id="SettingsOption" title="Credits of the game">
+						<div class="configoption8 credits-option-title" id="SettingsOption" title="Credits of the game" data-bs-toggle="modal" data-bs-target="#creditsModal">
 							<i class="fontelloicons icon-changelog option8icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
-							<span>Credits</span>
+							<span class="credits-option-string">Credits</span>
 						</div>
 						<!--<div class="configoption8" id="SettingsOption" title="Developed by: TechHero">
 							<i class="fontelloicons icon-code option8icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
 							<span>Developed by: TechHero</span>
 						</div>-->
-						<div class="showchangelog configoption9" id="SettingsOption" title="Open the changelog">
+						<div class="showchangelog configoption9 changelog-option-title" id="SettingsOption" title="Open the changelog" data-bs-toggle="modal" data-bs-target="#changelogModal">
 							<i class="fontelloicons icon-changelog option9icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
-							<span>Open changelog</span>
+							<span class="changelog-option-string">Changelog</span>
 						</div>
-						<div class="configoption10" id="SettingsOption" href="https://likeclicker.reddit.com" target="_blank" title="Subreddit of the game">
+						<a class="link-option" href="https://likeclicker.reddit.com" target="_blank">
+						<div class="configoption10 subreddit-string" id="SettingsOption" title="Subreddit of the game">
 							<i class="fontelloicons icon-reddit option10icon" style="color: black; display: inline-flex; vertical-align: middle; font-size: 20px; line-height: 1;"></i>
-							<a>Reddit</a>
+							<span>Reddit</span>
 						</div>
-						<div class="configoption11" id="SettingsOption" href="https://github.com/TechnoHerobrine/Like-Clicker" target="_blank" title="GitHub Repository of the game">
+						</a>
+						<a class="link-option" href="https://github.com/TechnoHerobrine/Like-Clicker" target="_blank">
+						<div class="configoption11 github-string" id="SettingsOption" title="GitHub Repository of the game">
 							<i class="fontelloicons icon-github option11icon" style="color: black; display: inline-flex; vertical-align: middle; font-size: 20px; line-height: 1;"></i>
-							<a>GitHub</a>
+							<span>GitHub</span>
 						</div>
-						<div class="configoption12" id="SettingsOption" href="https://twitter.com/intent/follow?ref_src=twsrc%5Etfw&region=follow_link&screen_name=LikeClicker&tw_p=followbutton" target="_blank" title="Follow Like Clicker on Twitter">
+						</a>
+						<!--<div class="configoption12" id="SettingsOption" href="https://twitter.com/intent/follow?ref_src=twsrc%5Etfw&region=follow_link&screen_name=LikeClicker&tw_p=followbutton" target="_blank" title="Follow Like Clicker on Twitter">
 							<i class="fontelloicons icon-twitter option12icon" style="color: black; display: inline-flex; vertical-align: middle; font-size: 20px; line-height: 1;"></i>
 							<a>Follow Like Clicker on Twitter</a>
 						</div>
@@ -545,25 +543,31 @@
 							<i class="fontelloicons icon-twitter option13icon" style="color: black; display: inline-flex; vertical-align: middle; font-size: 20px; line-height: 1;"></i>
 							<a>Share on Twitter</a>
 						</div>
-						<!--<a id="SettingsOption" href="likeclicker.apk" target="_blank" title="Get Like Clicker for Android" download>Get Like Clicker for Android</a>-->
+						<a id="SettingsOption" href="likeclicker.apk" target="_blank" title="Get Like Clicker for Android" download>Get Like Clicker for Android</a>-->
 					</div>
 				</div>
 				<br>
 				<div id="CategoryDiv">
-					<b id="Category">More games</b>
+					<b id="Category" class="more-games-string">More games</b>
 					<hr class="confighr6" style="border: 1px solid black;">
-					<a class="configoption15" id="SettingsOption" href="https://gamejolt.com/games/png-world/382538" target="_blank" title="PNG World">
-						<i class="fontelloicons icon-desktop option15icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
-						<span>PNG World (in Portuguese)</span>
+					<a class="link-option" href="https://gamejolt.com/games/helpysadventure/368451" target="_blank">
+					<div class="configoption16" id="SettingsOption" title="Helpy's Adventure">
+						<i class="fontelloicons icon-desktop option16icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
+						<span>Helpy's Adventure</span>
+					</div>
 					</a>
-					<a class="configoption14" id="SettingsOption" href="https://technoherobrine.github.io/hillclimbhcr2mod/download/" target="_blank" title="Hill Climb HCR2 Mod">
+					<a class="link-option" href="https://gamejolt.com/games/png-world/382538" target="_blank">
+					<div class="configoption15 png-world-title" id="SettingsOption" title="PNG World">
+						<i class="fontelloicons icon-desktop option15icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
+						<span class="png-world-string">PNG World</span>
+					</div>
+					</a>
+					<a class="link-option" href="https://techhero1.github.io/techstore/download/hcr2mod" target="_blank">
+					<div class="configoption14" id="SettingsOption" title="Hill Climb HCR2 Mod">
 						<i class="fontelloicons icon-android option14icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
 						<span>Hill Climb HCR2 Mod</span>
+					</div>
 					</a>
-					<!--<a class="configoption15" id="SettingsOption" href="https://gamejolt.com/games/helpysadventure/368451" target="_blank" title="Helpy's Adventure">
-						<i class="fontelloicons icon-desktop option15icon" style="color: black; display: inline-flex; font-size: 20px; line-height: 1;"></i>
-						<span>Helpy's Adventure</span>
-					</a>-->
 				</div>
 			</div>
 		</section>
@@ -572,76 +576,245 @@
 				<center>
 					<p></p>
 					<i class="material-icons menuicon1" style="color: black; display: inline-flex; vertical-align: middle;">shopping_cart</i>
-					<p id="LabelMenu">Upgrades <i class="material-icons" style="color: red; vertical-align: middle;" id="newupgradeicon2">new_releases</i></p>
+					<p id="LabelMenu"><span class="tab-upgrades">Upgrades</span> <span id="newupgradeicon" class="badge bg-danger">!</span></p>
 				</center>
 			</td>
 			<td id="MenuCellHome" onClick="showHome()">
 				<center>
 					<p></p>
 					<i class="material-icons menuicon2" style="color: black; display: inline-flex; vertical-align: middle;">thumb_up</i>
-					<p id="LabelMenu">Likes</p>
+					<p id="LabelMenu"><span class="tab-likes">Likes</span></p>
 				</center>
 			</td>
 			<td id="MenuCellSettings" onClick="showSettings()">
 				<center>
 					<p></p>
 					<i class="material-icons menuicon3" style="color: black; display: inline-flex; vertical-align: middle;">settings</i>
-					<p id="LabelMenu">Config.</p>
+					<p id="LabelMenu"><span class="tab-config">Config.</span></p>
 				</center>
 			</td>
 		</table>
-		<dialog class="dialog" style="width: 80%;">
-    <h4 class="dialog__title">Changelog</h4>
-    <div class="dialog__content">
-		<iframe src="assets/changelog.html" height="300" width="100%" style="border: none;"></iframe>
-    </div>
-    <div class="dialog__actions">
-		<button type="button" class="close" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-    </div>
-  </dialog>
-		<dialog id="resetDialog" width="80">
-    <h4 class="dialog__title">Reset the game</h4>
-    <div class="dialog__content">
-		<center>Do you really want to reset the game?</center>
-    </div>
-    <div class="dialog__actions">
-		<input type="button" value="Yes" class="resetgame btn btn-light" onClick="resetGame()">
-		<input type="button" value="No" class="closedialog btn btn-light">
-    </div>
-  </dialog>
-		<dialog id="eastereggDialog" width="500">
-    <h4 class="dialog__title">Minigame Easteregg</h4>
-    <div class="dialog__content">
-		<center>
-			<iframe id="minigameiframe" src="assets/easteregg/index.html" height="450" width="100%" scrolling="no" style="border: none;"></iframe>
-			<br>
-			<p><button id="reseteggbtn" onclick="resetunkdlg()">Restart Game</button></p>
-			<p><span>This game can be found </span>
-			<a href="https://www.w3schools.com/graphics/game_intro.asp">here</a><span>.</span><br>
-			<span>Sky image by </span><a href="https://opengameart.org/users/downdate">Downdate</a><span>.</span><br>
-			<span>Ship image by </span><a href="https://opengameart.org/users/gobusto">Gobusto</a><span>.</span></p>
-		</center>
-    </div>
-    <div class="dialog__actions">
-		<button type="button" class="close closeminigame" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-    </div>
-  </dialog>
-	<dialog id="creditsDialog" style="width: 80%; background-color: #333333;">
-		<h4 class="dialog__title" style="color: white;">Credits</h4>
-		<div class="dialog__content">
-			<iframe id="creditsiframe" src="assets/credits.html" height="300" width="100%" scrolling="no" style="border: none;"></iframe>
+		<div id="changelogModal" class="modal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable dialog" style="width: 100%;">
+				<div class="modal-content" style="height: 400px;">
+					<div class="modal-header">
+						<h5 class="modal-title changelog-dialog-title" style="color:black;">Changelog</h5>
+						<button type="button" class="btn-close close-changelog" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="changelog-text">
+							<p><h5>1.4.0</h5></p>
+							<ul>
+								<li>Languages added</li>
+								<li>Dialogs replaced by Bootstrap Modals</li>
+								<li>Helpy's Adventure link in "About" category</li>
+								<li>A lot of bug fixes and other minor things</li>
+							</ul>
+							<hr>
+							<p><h5>1.3.0</h5></p>
+							<ul>
+								<li>The new LPS system is finally here!</li>
+								<li>Save and Load System was added to the game.</li>
+								<li>Common and Special Upgrades are separated into tabs now.</li>
+								<li>Easter egg :P</li>
+							</ul>
+							<hr>
+							<p><h5>1.2.1</h5></p>
+							<ul>
+								<li>Now, the likes you have are shown in the page title.</li>
+								<li>The backgrounds now load faster.</li>
+								<li>???? added.</li>
+							</ul>
+							<hr>
+							<p><h5>1.2.0</h5></p>
+							<ul>
+								<li>Dark theme added.</li>
+								<li>"Other games" category has renamed to "More games".</li>
+								<li>Icons in options added.</li>
+								<li>Link of mobile app changed to Google Drive.</li>
+							</ul>
+							<hr>
+							<p><h5>1.1.2</h5></p>
+							<ul>
+								<li>Improvements in the UI of the shop.</li>
+								<li>"Other games" category added in options.</li>
+								<li>Store display improvements for mobile.</li>
+								<li>Material icons fixed in mobile app.</li>
+							</ul>
+							<hr>
+							<p><h5>1.1.1</h5></p>
+							<ul>
+								<li>Improvements in UI (Thanks Jollysixx for suggestions).</li>
+								<li>Background added.</li>
+							</ul>
+							<hr>
+							<p><h5>1.1.0</h5></p>
+							<ul>
+								<li>Settings and information are now on separate tabs.</li>
+								<li>The "Home" tab has been renamed as "Likes".</li>
+								<li>The "Settings" tab has been renamed as "Options".</li>
+								<li>Like Clicker For Android download link added to the "Info" tab.</li>
+								<li>Option to follow <a href="https://twitter.com/LikeClicker">@LikeClicker</a> added in the "Info" tab.</li>
+								<li>Option to share the Like Clicker on Twitter added in the "Info" tab.</li>
+								<li>The game was temporarily redirected to <a href="http://likeclicker.ezyro.com">this address</a>.</li>
+								<li>Game favicon added.</li>
+								<li>Redesigned store with better viewing on multiple devices.</li>
+								<li>Sound effects added.</li>
+								<li>Width of the changelog fixed in the mobile.</li>
+								<li>Website link fixed in changelog.</li>
+								<li>The images were changed by icons from the Material Design Font.</li>
+								<li>And many other bugs fixed.</li>
+							</ul>
+							<hr>
+							<p><h5>1.0.0</h5></p>
+							<p><h6>Layout enhancements</h6></p>
+							<ul>
+								<li>The game layout has been changed to suit various screen sizes.</li>
+							</ul>
+							<p><h6>Bug fixes</h6></p>
+							<ul>
+								<li>The holding the ENTER key bug on Mozilla Firefox has been fixed.</li>
+							</ul>
+							<hr>
+							<p><h5>0.3.1</h5></p>
+							<p><h6>News</h6></p>
+							<ul>
+								<li>Link to the GitHub repository of the game added.</li>
+								<li>"+1 Click" and "x2 Clicks" were changed to "+1 DPC" and "x2 DPC".</li>
+								<li>Short description of objects when mouseover was added.</li>
+							</ul>
+							<p><h6>Layout enhancements</h6></p>
+							<ul>
+								<li>The Ultra Fans box is no longer being covered by the footer. (Reported by xanderay04)</li>
+							</ul>
+							<p><h6>Bug fixes</h6></p>
+							<ul>
+								<li>The bots DPS has been fixed.</li>
+							</ul>
+							<hr>
+							<p><h5>0.3</h5></p>
+							<p><h6>News</h6></p>
+							<ul>
+								<li>DPS was added.</li>
+								<li>DPC was added.</li>
+								<li>Ultra Fans was added.</li>
+								<li>Link to the subreddit of the game added.</li>
+								<li>Upgrades "x2" now double the DPS of the next units.</li>
+								<li>The changelog has been updated.</li>
+							</ul>
+							<p><h6>Layout enhancements</h6></p>
+							<ul>
+								<li>The game now uses Bootstrap. (Suggestion by tarnos12)</li>
+								<li>The "Reset" button is away from the "Like" button. (Suggestion by Jim808)</li>
+							</ul>
+							<p><h6>Bug fixes</h6></p>
+							<ul>
+								<li>The "x2 Clicks" has been fixed. (Reported by Tdarkk, Xfrogman43 and Zepscv)</li>
+							</ul>
+							<hr>
+							<p><h5>0.2.1</h5></p>
+							<p><h6>Bug fixes</h6></p>
+							<ul>
+								<li>The mega fans have been fixed. (Reported by Slackermomrocks and SubliminalNexus)</li>
+								<li>Upgrade bugs have been fixed. (Reported by Slackermomrocks and Xfrogman43)</li>
+								<li>Language bugs have been fixed. (Reported by paintray98)</li>
+								<li>Several other hosting bugs fixed.</li>
+							</ul>
+							<hr>
+							<p><h5>0.2</h5></p>
+							<p><h6>Bug fixes</h6></p>
+							<ul>
+								<li>The second column of upgrades now appears in Mozilla Firefox. (Reported by Sevaloc)</li>
+								<li>The changelog dialog now works in Mozilla Firefox.</li>
+								<li>The holding the ENTER key bug has been fixed. (Reported by ArtificialFlavour and Meguri_Kano)</li>
+							</ul>
+							<p><h6>Balancing improvements</h6></p>
+							<ul>
+								<li>Now upgrades "x2" can only be purchased once.</li>
+							</ul>
+							<p><h6>Other changes</h6></p>
+							<ul>
+								<li>The warning of insufficient likes is now a lot less annoying.</li>
+							</ul>
+							<hr>
+							<p><h5>0.1</h5></p>
+							<ul>
+								<li>Release version.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="dialog__actions">
-			<button style="color: white;" type="button" class="close closecredits" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
+		<div id="resetModal" class="modal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable dialog" style="width: 100%;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title reset-game-dialog-title" style="color:black;">Reset the game</h5>
+						<button type="button" class="btn-close close-credits" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="changelog-text">
+							<center class="reset-game-dialog-string">Do you really want to reset the game?</center>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary reset-game-dialog-btn-no" data-bs-dismiss="modal">No</button>
+						<button type="button" class="btn btn-danger reset-game-dialog-btn-yes" data-bs-dismiss="modal" onClick="resetGame(); resetLang()">Yes</button>
+					</div>
+				</div>
+			</div>
 		</div>
-	</dialog>
+		<div id="minigameModal" class="modal fade" tabindex="-1" data-bs-backdrop="static">
+			<div class="modal-dialog modal-dialog-centered dialog" style="width: 100%;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" style="color:black;">Minigame Easteregg</h5>
+						<button type="button" class="btn-close close-credits" data-bs-dismiss="modal" aria-label="Close" onclick="resetCount()"></button>
+					</div>
+					<div class="modal-body">
+						<center>
+							<iframe id="minigameiframe" src="assets/easteregg/index.html" height="450" width="100%" scrolling="no" style="border: none;"></iframe>
+							<br>
+							<p><button class="restart-minigame-string" id="reseteggbtn" onclick="resetunkdlg()">Restart Game</button></p>
+							<div class="changelog-text">
+								<p><span class="minigame-source-string-one">This game can be found </span>
+								<a class="minigame-source-string-two" href="https://www.w3schools.com/graphics/game_intro.asp">here</a><span>.</span><br>
+								<span class="minigame-source-sky">Sky image by </span><a href="https://opengameart.org/users/downdate">Downdate</a><span>.</span><br>
+								<span class="minigame-source-ship">Ship image by </span><a href="https://opengameart.org/users/gobusto">Gobusto</a><span>.</span></p>
+							</div>
+						</center>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="creditsModal" class="modal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable dialog" style="width: 100%;">
+				<div class="modal-content" style="height: 400px;">
+					<div class="modal-header">
+						<h5 class="modal-title credits-title" style="color:black;">Credits</h5>
+						<button type="button" class="btn-close close-credits" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="changelog-text">
+							<center>
+								<span class="credits-string"><p><b><h6>Like Clicker</h6></b></p>
+								<p><span>Directed by TechHero</span><br>
+								<span>Developed by TechHero</span><br>
+								<span>Programmed by TechHero</span><br>
+								<span>Idealized by TechHero</span><br>
+								<span>Game design by TechHero</span><br>
+								<span>Game balance by TechHero</span><br>
+								</p>
+								<p>All by TechHero?</p></span>
+							</center>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<script src="js/dialog-polyfill.js"></script>
+		<script type="text/javascript" src="js/lang.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
 		</div>
 	</body>

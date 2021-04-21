@@ -1,4 +1,4 @@
-.page    { display: none; padding: 0 0.5em; }
+.page    { display: none; /*padding: 0 0.5em;*/ }
 
 #loading {
   display: block;
@@ -374,4 +374,33 @@ body {
 
 #reseteggbtn:focus {
 	outline: 0;
+}
+
+#LabelMenu {
+    color: rgb(0,0,0) !important;
+}
+
+.menuicon1, .menuicon2, .menuicon3 {
+    color: rgb(0,0,0) !important;
+}
+
+#verticalCenterDiv {
+  position: relative;
+}
+
+.vertical-center {
+	margin: 0;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.changelog-text {
+	color: black;
+}
+
+.link-option {
+	text-decoration: none;
 }
