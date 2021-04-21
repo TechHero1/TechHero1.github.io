@@ -104,8 +104,15 @@ var minigameSourceString2 = "";
 var minigameSourceSky = "";
 var minigameSourceShip = "";
 
+//LANGUAGE
+var languageString = "";
+var englishString = "";
+var portugueseString = "";
+var languageOptionTitle = "";
+
 function setLang(langString) {
 	lang = langString;
+	updateLang();
 }
 
 function updateLang() {
@@ -220,6 +227,12 @@ function updateLang() {
 		minigameSourceString2 = "here";
 		minigameSourceSky = "Sky image by ";
 		minigameSourceShip = "Ship image by ";
+		
+		//LANGUAGE
+		languageString = "Language";
+		englishString = "English";
+		portugueseString = "Portuguese";
+		languageOptionTitle = "Choose the language of the game";
 	}
 	if (lang == "pt") {
 		//MISC
@@ -332,6 +345,12 @@ function updateLang() {
 		minigameSourceString2 = "aqui";
 		minigameSourceSky = "Imagem do céu por ";
 		minigameSourceShip = "Imagem da nave por ";
+		
+		//LANGUAGE
+		languageString = "Idioma";
+		englishString = "Inglês";
+		portugueseString = "Português";
+		languageOptionTitle = "Escolha o idioma do jogo";
 	}
 
 	//LIKES
@@ -490,6 +509,14 @@ function updateLang() {
 	document.querySelector('.minigame-source-string-two').innerHTML = minigameSourceString2;
 	document.querySelector('.minigame-source-sky').innerHTML = minigameSourceSky;
 	document.querySelector('.minigame-source-ship').innerHTML = minigameSourceShip;
+	
+	//LANGUAGE
+	document.querySelector('.language-title').innerHTML = languageString;
+	document.querySelector('.language-english').innerHTML = englishString;
+	document.querySelector('.language-portuguese').innerHTML = portugueseString;
+	document.querySelector('.language-category').innerHTML = languageString;
+	document.querySelector('.language-option-title').title = languageOptionTitle;
+	document.querySelector('.language-option-string').innerHTML = languageString;
 }
 
 function loadLang() {
@@ -497,15 +524,13 @@ function loadLang() {
 	if (JSON.parse(localStorage.getItem("lang")) == null) {
 		lang = "en";
 	}
+	
+	updateLang();
 }
 
 function saveLang() {
 	localStorage.setItem("lang", JSON.stringify(lang));
 }
-
-setInterval(function(){
-	updateLang();
-}, 1000);
 
 function resetLang() {
 	setLang("en");

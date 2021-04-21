@@ -1481,7 +1481,7 @@ function disableDarkTheme() {
 	document.querySelector(".confighr1").style.border = "1px solid black";
 	document.querySelector(".confighr2").style.border = "1px solid black";
 	document.querySelector(".confighr3").style.border = "1px solid black";
-	/*document.querySelector(".confighr4").style.border = "1px solid black";*/
+	document.querySelector(".confighr4").style.border = "1px solid black";
 	document.querySelector(".confighr5").style.border = "1px solid black";
 	document.querySelector(".confighr6").style.border = "1px solid black";
 	/*document.querySelector(".confighr7").style.border = "1px solid black";*/
@@ -1500,9 +1500,9 @@ function disableDarkTheme() {
 	document.querySelector(".configoption5").style.border = "1px solid black";
 	document.querySelector(".configoption5").style.color = "black";
 	document.querySelector(".option5icon").style.color = "black";
-	/*document.querySelector(".configoption6").style.border = "1px solid black";
+	document.querySelector(".configoption6").style.border = "1px solid black";
 	document.querySelector(".configoption6").style.color = "black";
-	document.querySelector(".option6icon").style.color = "black";*/
+	document.querySelector(".option6icon").style.color = "black";
 	document.querySelector(".configoption7").style.border = "1px solid black";
 	document.querySelector(".configoption7").style.color = "black";
 	document.querySelector(".option7icon").style.color = "black";
@@ -1611,7 +1611,7 @@ function enableDarkTheme() {
 	document.querySelector(".confighr1").style.border = "1px solid white";
 	document.querySelector(".confighr2").style.border = "1px solid white";
 	document.querySelector(".confighr3").style.border = "1px solid white";
-	/*document.querySelector(".confighr4").style.border = "1px solid white";*/
+	document.querySelector(".confighr4").style.border = "1px solid white";
 	document.querySelector(".confighr5").style.border = "1px solid white";
 	document.querySelector(".confighr6").style.border = "1px solid white";
 	/*document.querySelector(".confighr7").style.border = "1px solid white";*/
@@ -1630,9 +1630,9 @@ function enableDarkTheme() {
 	document.querySelector(".configoption5").style.border = "1px solid white";
 	document.querySelector(".configoption5").style.color = "white";
 	document.querySelector(".option5icon").style.color = "white";
-	/*document.querySelector(".configoption6").style.border = "1px solid white";
+	document.querySelector(".configoption6").style.border = "1px solid white";
 	document.querySelector(".configoption6").style.color = "white";
-	document.querySelector(".option6icon").style.color = "white";*/
+	document.querySelector(".option6icon").style.color = "white";
 	document.querySelector(".configoption7").style.border = "1px solid white";
 	document.querySelector(".configoption7").style.color = "white";
 	document.querySelector(".option7icon").style.color = "white";

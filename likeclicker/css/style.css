@@ -135,6 +135,10 @@
     content: '\e801';
 }
 
+.fontelloicons.icon-language:before {
+    content: '\e80d';
+}
+
 input {
     font-size: 100%;
 }
