@@ -9,7 +9,7 @@ const version = '1.4.0';
 
 const files = [
 
-	'/likeclicker/',
+	'/likeclicker',
 
 	// General Files
 	'manifest.json',
