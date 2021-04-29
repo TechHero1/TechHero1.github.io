@@ -1,5 +1,5 @@
 {
-	"name": "Like Clicker",
+	"name": "LikeClicker",
 	"short_name": "LikeClicker",
 	"description": "Play Like Clicker, the best clicker game in the world! Well... Not really...",
 	"lang": "en-US",
@@ -16,8 +16,8 @@
 	],
 	"shortcuts": [
 		{
-			"name": "Like Clicker",
-			"short_name": "Like",
+			"name": "LikeClicker",
+			"short_name": "LikeClicker",
 			"description": "Play Like Clicker, the best clicker game in the world! Well... Not really...",
 			"url": "/likeclicker",
 			"icons": [{ "src": "assets/web-icon.png", "sizes": "512x512" }]
