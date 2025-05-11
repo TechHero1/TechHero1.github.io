@@ -80,14 +80,14 @@ function changeTab(selTab) {
         document.querySelector("#ShopSection").classList.remove("hide");
         document.querySelector("#ShopSection").classList.remove("pointer-events");
         document.querySelector(".shoptab").classList.add("active");
-        document.querySelector(".allshoptabs").classList.remove("hide");
-        document.querySelector(".allshoptabs").classList.remove("pointer-events");
+        /*document.querySelector(".allshoptabs").classList.remove("hide");
+        document.querySelector(".allshoptabs").classList.remove("pointer-events");*/
     } else {
         document.querySelector("#ShopSection").classList.add("hide");
         document.querySelector("#ShopSection").classList.add("pointer-events");
         document.querySelector(".shoptab").classList.remove("active");
-        document.querySelector(".allshoptabs").classList.add("hide");
-        document.querySelector(".allshoptabs").classList.add("pointer-events");
+        /*document.querySelector(".allshoptabs").classList.add("hide");
+        document.querySelector(".allshoptabs").classList.add("pointer-events");*/
     }
     if (activetab == "config") {
         document.querySelector("#ConfigSection").classList.remove("hide");
@@ -102,7 +102,7 @@ function changeTab(selTab) {
 }
 
 //change shop tab
-function changeShopTab(selTab) {
+/*function changeShopTab(selTab) {
     activeshoptab = selTab;
     var x=window.scrollX;
     window.scrollTo(x, 0);
@@ -130,11 +130,11 @@ function changeShopTab(selTab) {
         document.querySelector(".specialtab").classList.remove("active");
     }
 },300);
-}
+}*/
 
 //default tabs
 changeTab("likes");
-changeShopTab("common");
+//changeShopTab("common");
 
 //create common upgrades
 function createShopItems() {

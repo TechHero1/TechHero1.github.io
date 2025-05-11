@@ -68,7 +68,8 @@ html {
 
 .sections-overlap {
     padding-top: 40px;
-    padding-bottom: 95px;
+    /*padding-bottom: 95px;*/
+    padding-bottom: 60px;
 }
 
 .TabOpening.:not(.hide) {
@@ -525,12 +526,12 @@ span:not(.tab-text) {
     text-align: left;
 }
 
-.config-category, .config-option, .config-hr {
+.config-category, .shop-category, .config-option, .config-hr, .shop-hr {
     width: 80%;
 }
 
 @media only screen and (max-width: 600px) {
-    .config-category, .config-option, .config-hr {
+    .config-category, .shop-category, .config-option, .config-hr, .shop-hr {
         width: 90%;
     }
 }
@@ -553,7 +554,7 @@ span:not(.tab-text) {
     background-color: var(--option-hover);
 }
 
-.config-hr {
+.config-hr, .shop-hr {
     margin: 1rem 0;
     border: 1px solid var(--border-color);
     opacity: .25;
