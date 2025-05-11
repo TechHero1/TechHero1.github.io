@@ -145,7 +145,7 @@
             "saveLoadCategory": "Salvar e Carregar",
             "darkThemeCategory": "Tema Escuro",
             "langCategory": "Idioma",
-            "resetGameCategory": "Gerenciar Dados do Jogo",
+            "resetGameCategory": "Gerenciar Seus Dados",
             "aboutCategory": "Sobre",
             "saveGameLabel": "Salvar jogo",
             "loadGameLabel": "Carregar jogo",
@@ -160,7 +160,7 @@
     "reset": [
         {
             "resetDialogHeader": "Atenção!",
-            "resetDialogString": "Você quer mesmo apagar todos os dados do jogo?"
+            "resetDialogString": "Esteja ciente de que, ao prosseguir com esta escolha, você irá apagar todos os resquícios que evidenciam a sua existência. A sua presença será apagada até mesmo das memórias de todos que te acompanharam até aqui. Você quer MESMO fazer isso?"
         }
     ],
     "egg": [

@@ -145,7 +145,7 @@
             "saveLoadCategory": "Save and Load",
             "darkThemeCategory": "Dark Theme",
             "langCategory": "Language",
-            "resetGameCategory": "Manage Game Data",
+            "resetGameCategory": "Manage Your Data",
             "aboutCategory": "About",
             "saveGameLabel": "Save game",
             "loadGameLabel": "Load game",
@@ -160,7 +160,7 @@
     "reset": [
         {
             "resetDialogHeader": "Warning!",
-            "resetDialogString": "Do you really want to erase all game data?"
+            "resetDialogString": "Be aware that by proceeding with this choice, you will erase all traces that evidence your existence. Your presence will be erased even from the memories of everyone who has accompanied you until now. Do you REALLY want to do this?"
         }
     ],
     "egg": [
