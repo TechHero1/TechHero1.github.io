@@ -8,6 +8,8 @@ var followersNextCost = 10, fansNextCost = 100, paparazziNextCost = 500, stalker
 var followersDoublePurchased = fansDoublePurchased = paparazziDoublePurchased = stalkersDoublePurchased = lunaticsDoublePurchased = botsDoublePurchased = 1;
 var followersDoubleCost = 500, fansDoubleCost = 1000, paparazziDoubleCost = 6000, stalkersDoubleCost = 12000, lunaticsDoubleCost = 30000, botsDoubleCost = 90000;
 var uniqueUpgradesAvailable = 0;
+var followersItemCreated = fansItemCreated = paparazziItemCreated = stalkersItemCreated = lunaticsItemCreated = botsItemCreated = false;
+var followersItemSeen = fansItemSeen = paparazziItemSeen = stalkersItemSeen = lunaticsItemSeen = botsItemSeen = false;
 
 //click
 function likeClick() {
@@ -21,6 +23,7 @@ window.setInterval(function(){
 	likes += lps;
 	updateElementDisplay(document.getElementById("likestxt"),nf.format(likes),false);
     updateElementDisplay(document.getElementById("LabelLikes"),nf.format(likes),false);
+    if (activetab == "shop") updateLang(lang);
 }, 1000);
 
 function updateLPSValue() {
@@ -82,6 +85,7 @@ function changeTab(selTab) {
         document.querySelector(".shoptab").classList.add("active");
         /*document.querySelector(".allshoptabs").classList.remove("hide");
         document.querySelector(".allshoptabs").classList.remove("pointer-events");*/
+        updateLang(lang);
     } else {
         document.querySelector("#ShopSection").classList.add("hide");
         document.querySelector("#ShopSection").classList.add("pointer-events");
@@ -157,7 +161,7 @@ function createShopItems() {
             <div id="${divname}" class="shopitem">
             <div class="ItemDiv" id="${shopitemid}">
             <div class="ItemTable ItemRow">
-            <div class="ItemCell ItemBuy">
+            <div class="ItemCell ItemBuy item-buy-${namespanid}">
                     <div class="BuyButton pointer" onClick="${itemaction}">
 						<div class="BuyButtonContent">
 							<i class="material-icons shop-add-icon">${iconname}</i><br>
@@ -165,13 +169,13 @@ function createShopItems() {
 						</div>
 					</div>
             </div>
-            <div class="ItemCell ItemInfo parent-flex hide-mobile">
+            <div class="ItemCell ItemInfo parent-flex hide-mobile item-infopc-${namespanid}">
                 <div class="child-flex-vertical">
                     <span class="item-cost">Cost: </span><span id="${costspanid}">10</span><br />
                     <span class="${lpsspanclass} item-lps1"></span><span id="${lpsspanid}">1</span><span class="${lpsspanclass} item-lps2"></span><br />
 				</div>
             </div>
-            <div class="ItemCell ItemHave float-right">
+            <div class="ItemCell ItemHave float-right item-have-${namespanid}">
                 <div class="parent-flex">
                 <div class="child-flex-vertical item-number">
 					<span class="${namespanclass}">Followers: </span><span id="${namespanid}">0</span><br />
@@ -179,7 +183,7 @@ function createShopItems() {
                 </div>
             </div>
             </div>
-            <div class="ItemTable ItemRow hide-pc">
+            <div class="ItemTable ItemRow hide-pc item-infomobile-${namespanid}">
             <div class="ItemCell ItemInfoMobile parent-flex">
                 <div class="child-flex">
                     <span class="item-cost">Cost: </span><span id="${costspanid}">10</span><br />
@@ -196,7 +200,7 @@ function createShopItems() {
             </div>
         </div>
         </div>
-        <br>
+        <br class="br-${namespanid}">
         `;
         updateElementDisplay(document.getElementById(lpsspanid),eval(lpsspanid),false);
         updateElementDisplay(document.getElementById(costspanid),eval(costspanid),false);
@@ -717,6 +721,8 @@ function loadGame() {
         saveValue("botsDoublePurchased",botsDoublePurchased);
         checkDoubleCondition(bots,botsDoublePurchased,"doubleBots");
     }
+    followersItemCreated = fansItemCreated = paparazziItemCreated = stalkersItemCreated = lunaticsItemCreated = botsItemCreated = false;
+    followersItemSeen = fansItemSeen = paparazziItemSeen = stalkersItemSeen = lunaticsItemSeen = botsItemSeen = false;
     updateLPSValue();
 }
 

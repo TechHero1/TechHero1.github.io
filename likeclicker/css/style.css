@@ -774,3 +774,11 @@ canvas {
 #ConfigSection {
     padding-bottom: 10px;
 }
+
+.hide-complete {
+    opacity: 0 !important;
+}
+
+.none-complete {
+    display: none !important;
+}

@@ -173,11 +173,36 @@ function updateLang(selLang) {
 
         //FOLLOWERS
         followersName = data.upgrade_items[0].followers[0].followersName;
-        updateElementDisplay(document.querySelector(".followers-name"),followersName,false);
         plusFollower = data.upgrade_items[0].followers[0].plusFollower;
-        updateElementDisplay(document.querySelector(".plus-follower"),plusFollower,false);
         descFollower = data.upgrade_items[0].followers[0].descFollower;
+        updateElementDisplay(document.querySelector(".followers-name"),followersName,false);
+        updateElementDisplay(document.querySelector(".plus-follower"),plusFollower,false);
         updateElementDisplay(document.querySelector(".desc-follower-string"),descFollower,false);
+        /*if (followers > 0 || likes >= (followersBaseCost/5)*2) {
+            document.querySelector("#FollowersDiv").classList.remove("none-complete");
+            document.querySelector(".br-followers").classList.remove("none-complete");
+            followersItemCreated = true;
+        } else if (!followersItemCreated) {
+            document.querySelector("#FollowersDiv").classList.add("none-complete");
+            document.querySelector(".br-followers").classList.add("none-complete");
+        }
+        if (followers > 0 || likes >= (followersBaseCost/5)*4) {
+            updateElementDisplay(document.querySelector(".followers-name"),followersName,false);
+            updateElementDisplay(document.querySelector(".plus-follower"),plusFollower,false);
+            updateElementDisplay(document.querySelector(".desc-follower-string"),descFollower,false);
+            document.querySelector(".item-infopc-followers").classList.remove("hide-complete");
+            document.querySelector(".item-infomobile-followers").classList.remove("hide-complete");
+            document.querySelector(".item-have-followers").classList.remove("hide-complete");
+            followersItemSeen = true;
+        } else if (!followersItemSeen) {
+            updateElementDisplay(document.querySelector(".followers-name"),"???",false);
+            updateElementDisplay(document.querySelector(".plus-follower"),"???",false);
+            updateElementDisplay(document.querySelector(".desc-follower-string"),"???",false);
+            document.querySelector(".item-infopc-followers").classList.add("hide-complete");
+            document.querySelector(".item-infomobile-followers").classList.add("hide-complete");
+            document.querySelector(".item-have-followers").classList.add("hide-complete");
+        }*/
+
         if (document.querySelector(".double-followers-string") !== null) {
             doubleFollowers = data.upgrade_items[0].doubleFollowers[0].doubleFollowers;
             updateElementDisplay(document.querySelector(".double-followers-string"),doubleFollowers,false);
@@ -189,11 +214,33 @@ function updateLang(selLang) {
 
         //FANS
         fansName = data.upgrade_items[0].fans[0].fansName;
-        updateElementDisplay(document.querySelector(".fans-name"),fansName,false);
         plusFan = data.upgrade_items[0].fans[0].plusFan;
-        updateElementDisplay(document.querySelector(".plus-fan"),plusFan,false);
         descFan = data.upgrade_items[0].fans[0].descFan;
-        updateElementDisplay(document.querySelector(".desc-fan-string"),descFan,false);
+        if (fans > 0 || likes >= (fansBaseCost/5)*2) {
+            document.querySelector("#FansDiv").classList.remove("none-complete");
+            document.querySelector(".br-fans").classList.remove("none-complete");
+            fansItemCreated = true;
+        } else if (!fansItemCreated) {
+            document.querySelector("#FansDiv").classList.add("none-complete");
+            document.querySelector(".br-fans").classList.add("none-complete");
+        }
+        if (fans > 0 || likes >= (fansBaseCost/5)*4) {
+            updateElementDisplay(document.querySelector(".fans-name"),fansName,false);
+            updateElementDisplay(document.querySelector(".plus-fan"),plusFan,false);
+            updateElementDisplay(document.querySelector(".desc-fan-string"),descFan,false);
+            document.querySelector(".item-infopc-fans").classList.remove("hide-complete");
+            document.querySelector(".item-infomobile-fans").classList.remove("hide-complete");
+            document.querySelector(".item-have-fans").classList.remove("hide-complete");
+            fansItemSeen = true;
+        } else if (!fansItemSeen) {
+            updateElementDisplay(document.querySelector(".fans-name"),"???",false);
+            updateElementDisplay(document.querySelector(".plus-fan"),"???",false);
+            updateElementDisplay(document.querySelector(".desc-fan-string"),"???",false);
+            document.querySelector(".item-infopc-fans").classList.add("hide-complete");
+            document.querySelector(".item-infomobile-fans").classList.add("hide-complete");
+            document.querySelector(".item-have-fans").classList.add("hide-complete");
+        }
+
         if (document.querySelector(".double-fans-string") !== null) {
             doubleFans = data.upgrade_items[0].doubleFans[0].doubleFans;
             updateElementDisplay(document.querySelector(".double-fans-string"),doubleFans,false);
@@ -205,11 +252,33 @@ function updateLang(selLang) {
 
         //PAPARAZZI
         paparazziName = data.upgrade_items[0].paparazzi[0].paparazziName;
-        updateElementDisplay(document.querySelector(".paparazzi-name"),paparazziName,false);
         plusPaparazzo = data.upgrade_items[0].paparazzi[0].plusPaparazzo;
-        updateElementDisplay(document.querySelector(".plus-paparazzo"),plusPaparazzo,false);
         descPaparazzo = data.upgrade_items[0].paparazzi[0].descPaparazzo;
-        updateElementDisplay(document.querySelector(".desc-paparazzo-string"),descPaparazzo,false);
+        if (paparazzi > 0 || likes >= (paparazziBaseCost/5)*2) {
+            document.querySelector("#PaparazziDiv").classList.remove("none-complete");
+            document.querySelector(".br-paparazzi").classList.remove("none-complete");
+            paparazziItemCreated = true;
+        } else if (!paparazziItemCreated) {
+            document.querySelector("#PaparazziDiv").classList.add("none-complete");
+            document.querySelector(".br-paparazzi").classList.add("none-complete");
+        }
+        if (paparazzi > 0 || likes >= (paparazziBaseCost/5)*4) {
+            updateElementDisplay(document.querySelector(".paparazzi-name"),paparazziName,false);
+            updateElementDisplay(document.querySelector(".plus-paparazzo"),plusPaparazzo,false);
+            updateElementDisplay(document.querySelector(".desc-paparazzo-string"),descPaparazzo,false);
+            document.querySelector(".item-infopc-paparazzi").classList.remove("hide-complete");
+            document.querySelector(".item-infomobile-paparazzi").classList.remove("hide-complete");
+            document.querySelector(".item-have-paparazzi").classList.remove("hide-complete");
+            paparazziItemSeen = true;
+        } else if (!paparazziItemSeen) {
+            updateElementDisplay(document.querySelector(".paparazzi-name"),"???",false);
+            updateElementDisplay(document.querySelector(".plus-paparazzo"),"???",false);
+            updateElementDisplay(document.querySelector(".desc-paparazzo-string"),"???",false);
+            document.querySelector(".item-infopc-paparazzi").classList.add("hide-complete");
+            document.querySelector(".item-infomobile-paparazzi").classList.add("hide-complete");
+            document.querySelector(".item-have-paparazzi").classList.add("hide-complete");
+        }
+
         if (document.querySelector(".double-paparazzi-string") !== null) {
             doublePaparazzi = data.upgrade_items[0].doublePaparazzi[0].doublePaparazzi;
             updateElementDisplay(document.querySelector(".double-paparazzi-string"),doublePaparazzi,false);
@@ -221,11 +290,33 @@ function updateLang(selLang) {
 
         //STALKERS
         stalkersName = data.upgrade_items[0].stalkers[0].stalkersName;
-        updateElementDisplay(document.querySelector(".stalkers-name"),stalkersName,false);
         plusStalker = data.upgrade_items[0].stalkers[0].plusStalker;
-        updateElementDisplay(document.querySelector(".plus-stalker"),plusStalker,false);
         descStalker = data.upgrade_items[0].stalkers[0].descStalker;
-        updateElementDisplay(document.querySelector(".desc-stalker-string"),descStalker,false);
+        if (stalkers > 0 || likes >= (stalkersBaseCost/5)*2) {
+            document.querySelector("#StalkersDiv").classList.remove("none-complete");
+            document.querySelector(".br-stalkers").classList.remove("none-complete");
+            stalkersItemCreated = true;
+        } else if (!stalkersItemCreated) {
+            document.querySelector("#StalkersDiv").classList.add("none-complete");
+            document.querySelector(".br-stalkers").classList.add("none-complete");
+        }
+        if (stalkers > 0 || likes >= (stalkersBaseCost/5)*4) {
+            updateElementDisplay(document.querySelector(".stalkers-name"),stalkersName,false);
+            updateElementDisplay(document.querySelector(".plus-stalker"),plusStalker,false);
+            updateElementDisplay(document.querySelector(".desc-stalker-string"),descStalker,false);
+            document.querySelector(".item-infopc-stalkers").classList.remove("hide-complete");
+            document.querySelector(".item-infomobile-stalkers").classList.remove("hide-complete");
+            document.querySelector(".item-have-stalkers").classList.remove("hide-complete");
+            stalkersItemSeen = true;
+        } else if (!stalkersItemSeen) {
+            updateElementDisplay(document.querySelector(".stalkers-name"),"???",false);
+            updateElementDisplay(document.querySelector(".plus-stalker"),"???",false);
+            updateElementDisplay(document.querySelector(".desc-stalker-string"),"???",false);
+            document.querySelector(".item-infopc-stalkers").classList.add("hide-complete");
+            document.querySelector(".item-infomobile-stalkers").classList.add("hide-complete");
+            document.querySelector(".item-have-stalkers").classList.add("hide-complete");
+        }
+
         if (document.querySelector(".double-stalkers-string") !== null) {
             doubleStalkers = data.upgrade_items[0].doubleStalkers[0].doubleStalkers;
             updateElementDisplay(document.querySelector(".double-stalkers-string"),doubleStalkers,false);
@@ -237,11 +328,33 @@ function updateLang(selLang) {
 
         //LUNATICS
         lunaticsName = data.upgrade_items[0].lunatics[0].lunaticsName;
-        updateElementDisplay(document.querySelector(".lunatics-name"),lunaticsName,false);
         plusLunatic = data.upgrade_items[0].lunatics[0].plusLunatic;
-        updateElementDisplay(document.querySelector(".plus-lunatic"),plusLunatic,false);
         descLunatic = data.upgrade_items[0].lunatics[0].descLunatic;
-        updateElementDisplay(document.querySelector(".desc-lunatic-string"),descLunatic,false);
+        if (lunatics > 0 || likes >= (lunaticsBaseCost/5)*2) {
+            document.querySelector("#LunaticsDiv").classList.remove("none-complete");
+            document.querySelector(".br-lunatics").classList.remove("none-complete");
+            lunaticsItemCreated = true;
+        } else if (!lunaticsItemCreated) {
+            document.querySelector("#LunaticsDiv").classList.add("none-complete");
+            document.querySelector(".br-lunatics").classList.add("none-complete");
+        }
+        if (lunatics > 0 || likes >= (lunaticsBaseCost/5)*4) {
+            updateElementDisplay(document.querySelector(".lunatics-name"),lunaticsName,false);
+            updateElementDisplay(document.querySelector(".plus-lunatic"),plusLunatic,false);
+            updateElementDisplay(document.querySelector(".desc-lunatic-string"),descLunatic,false);
+            document.querySelector(".item-infopc-lunatics").classList.remove("hide-complete");
+            document.querySelector(".item-infomobile-lunatics").classList.remove("hide-complete");
+            document.querySelector(".item-have-lunatics").classList.remove("hide-complete");
+            lunaticsItemSeen = true;
+        } else if (!lunaticsItemSeen) {
+            updateElementDisplay(document.querySelector(".lunatics-name"),"???",false);
+            updateElementDisplay(document.querySelector(".plus-lunatic"),"???",false);
+            updateElementDisplay(document.querySelector(".desc-lunatic-string"),"???",false);
+            document.querySelector(".item-infopc-lunatics").classList.add("hide-complete");
+            document.querySelector(".item-infomobile-lunatics").classList.add("hide-complete");
+            document.querySelector(".item-have-lunatics").classList.add("hide-complete");
+        }
+
         if (document.querySelector(".double-lunatics-string") !== null) {
             doubleLunatics = data.upgrade_items[0].doubleLunatics[0].doubleLunatics;
             updateElementDisplay(document.querySelector(".double-lunatics-string"),doubleLunatics,false);
@@ -253,11 +366,33 @@ function updateLang(selLang) {
 
         //BOTS
         botsName = data.upgrade_items[0].bots[0].botsName;
-        updateElementDisplay(document.querySelector(".bots-name"),botsName,false);
         plusBot = data.upgrade_items[0].bots[0].plusBot;
-        updateElementDisplay(document.querySelector(".plus-bot"),plusBot,false);
         descBot = data.upgrade_items[0].bots[0].descBot;
-        updateElementDisplay(document.querySelector(".desc-bot-string"),descBot,false);
+        if (bots > 0 || likes >= (botsBaseCost/5)*2) {
+            document.querySelector("#BotsDiv").classList.remove("none-complete");
+            document.querySelector(".br-bots").classList.remove("none-complete");
+            botsItemCreated = true;
+        } else if (!botsItemCreated) {
+            document.querySelector("#BotsDiv").classList.add("none-complete");
+            document.querySelector(".br-bots").classList.add("none-complete");
+        }
+        if (bots > 0 || likes >= (botsBaseCost/5)*4) {
+            updateElementDisplay(document.querySelector(".bots-name"),botsName,false);
+            updateElementDisplay(document.querySelector(".plus-bot"),plusBot,false);
+            updateElementDisplay(document.querySelector(".desc-bot-string"),descBot,false);
+            document.querySelector(".item-infopc-bots").classList.remove("hide-complete");
+            document.querySelector(".item-infomobile-bots").classList.remove("hide-complete");
+            document.querySelector(".item-have-bots").classList.remove("hide-complete");
+            botsItemSeen = true;
+        } else if (!botsItemSeen) {
+            updateElementDisplay(document.querySelector(".bots-name"),"???",false);
+            updateElementDisplay(document.querySelector(".plus-bot"),"???",false);
+            updateElementDisplay(document.querySelector(".desc-bot-string"),"???",false);
+            document.querySelector(".item-infopc-bots").classList.add("hide-complete");
+            document.querySelector(".item-infomobile-bots").classList.add("hide-complete");
+            document.querySelector(".item-have-bots").classList.add("hide-complete");
+        }
+
         if (document.querySelector(".double-bots-string") !== null) {
             doubleBots = data.upgrade_items[0].doubleBots[0].doubleBots;
             updateElementDisplay(document.querySelector(".double-bots-string"),doubleBots,false);
