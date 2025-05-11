@@ -12,20 +12,20 @@ var uniqueUpgradesAvailable = 0;
 //click
 function likeClick() {
     likes += lpc;
-	updateElementDisplay(document.getElementById("likestxt"),likes,false);
-    updateElementDisplay(document.getElementById("LabelLikes"),likes,false);
+	updateElementDisplay(document.getElementById("likestxt"),nf.format(likes),false);
+    updateElementDisplay(document.getElementById("LabelLikes"),nf.format(likes),false);
 }
 
 //lps logic
 window.setInterval(function(){
 	likes += lps;
-	updateElementDisplay(document.getElementById("likestxt"),likes,false);
-    updateElementDisplay(document.getElementById("LabelLikes"),likes,false);
+	updateElementDisplay(document.getElementById("likestxt"),nf.format(likes),false);
+    updateElementDisplay(document.getElementById("LabelLikes"),nf.format(likes),false);
 }, 1000);
 
 function updateLPSValue() {
     lps = ((followersLPS * followersDoublePurchased) * followers) + ((fansLPS * fansDoublePurchased) * fans) + ((paparazziLPS * paparazziDoublePurchased) * paparazzi) + ((stalkersLPS * stalkersDoublePurchased) * stalkers) + ((lunaticsLPS * lunaticsDoublePurchased) * lunatics) + ((botsLPS * botsDoublePurchased) * bots);
-    updateElementDisplay(document.getElementById("lps"),lps,false);
+    updateElementDisplay(document.getElementById("lps"),nf.format(lps),false);
 }
 
 //update like display
@@ -468,12 +468,12 @@ function buyCommon(item,itemName,itemNextCost,itemNextCostName,itemBaseCost,item
         likes -= itemNextCost;
         eval(itemName+"+=1");
         updateLPSValue();
-        updateElementDisplay(document.getElementById("lpc"),lpc,false);
-        updateElementDisplay(document.getElementById("lpcshop"),lpc,false);
-        updateElementDisplay(document.getElementById(itemName),item+1,false);
+        updateElementDisplay(document.getElementById("lpc"),nf.format(lpc),false);
+        updateElementDisplay(document.getElementById("lpcshop"),nf.format(lpc),false);
+        updateElementDisplay(document.getElementById(itemName),nf.format(item+1),false);
         updateNextCost(item,itemName,itemBaseCost,itemNextCostName,false);
-        updateElementDisplay(document.getElementById("likestxt"),likes,false);
-        updateElementDisplay(document.getElementById("LabelLikes"),likes,false);
+        updateElementDisplay(document.getElementById("likestxt"),nf.format(likes),false);
+        updateElementDisplay(document.getElementById("LabelLikes"),nf.format(likes),false);
         if (itemName !== "lpc") checkDoubleCondition(item+1,itemPurchased,itemDoubleCreateID,itemDoubleDivID);
     } else {
         openToast("NotEnoughLikesToast");
@@ -485,7 +485,7 @@ function updateNextCost(item,itemName,itemBaseCost,itemNextCostName) {
     let scale_value = 1.15;
     if (itemName == "lpc") scale_value = 1.175;
     eval(itemNextCostName+"="+Math.floor(itemBaseCost * Math.pow(1.15,(item+1))));
-    updateElementDisplay(document.querySelectorAll("#"+itemNextCostName),Math.floor(itemBaseCost * Math.pow(scale_value,(item+1))),true);
+    updateElementDisplay(document.querySelectorAll("#"+itemNextCostName),nf.format(Math.floor(itemBaseCost * Math.pow(scale_value,(item+1)))),true);
 }
 
 //buy special item
@@ -494,10 +494,10 @@ function buySpecial(itemDoubleCost,itemDestroyClass,itemPurchasedName,targetLPS,
         likes -= itemDoubleCost;
         eval(itemPurchasedName+"=2");
         updateLPSValue();
-        updateElementDisplay(document.querySelectorAll("#"+targetLPSID),targetLPS*2,true);
+        updateElementDisplay(document.querySelectorAll("#"+targetLPSID),nf.format(targetLPS*2),true);
         destroySpecialShopItem(itemDestroyClass);
-        updateElementDisplay(document.getElementById("likestxt"),likes,false);
-        updateElementDisplay(document.getElementById("LabelLikes"),likes,false);
+        updateElementDisplay(document.getElementById("likestxt"),nf.format(likes),false);
+        updateElementDisplay(document.getElementById("LabelLikes"),nf.format(likes),false);
     } else {
         openToast("NotEnoughLikesToast");
     }
@@ -552,23 +552,23 @@ function loadGame() {
     //likes
     if (loadValue("likes") !== null) {
         likes = loadValue("likes");
-        updateElementDisplay(document.getElementById("likestxt"),likes,false);
-        updateElementDisplay(document.getElementById("LabelLikes"),likes,false);
+        updateElementDisplay(document.getElementById("likestxt"),nf.format(likes),false);
+        updateElementDisplay(document.getElementById("LabelLikes"),nf.format(likes),false);
     } else {
         saveValue("likes",likes);
-        updateElementDisplay(document.getElementById("likestxt"),likes,false);
-        updateElementDisplay(document.getElementById("LabelLikes"),likes,false);
+        updateElementDisplay(document.getElementById("likestxt"),nf.format(likes),false);
+        updateElementDisplay(document.getElementById("LabelLikes"),nf.format(likes),false);
     }
     if (loadValue("lpc") !== null) {
         lpc = loadValue("lpc");
-        updateElementDisplay(document.getElementById("lpcshop"),lpc,false);
-        updateElementDisplay(document.getElementById("lpc"),lpc,false);
+        updateElementDisplay(document.getElementById("lpcshop"),nf.format(lpc),false);
+        updateElementDisplay(document.getElementById("lpc"),nf.format(lpc),false);
         lpcNextCost = Math.floor(lpcBaseCost * Math.pow(1.175,(lpc)),false);
-        updateElementDisplay(document.querySelectorAll("#lpcNextCost"),lpcNextCost,true);
+        updateElementDisplay(document.querySelectorAll("#lpcNextCost"),nf.format(lpcNextCost),true);
     } else {
         saveValue("lpc",lpc);
-        updateElementDisplay(document.getElementById("lpcshop"),lpc,false);
-        updateElementDisplay(document.getElementById("lpc"),lpc,false);
+        updateElementDisplay(document.getElementById("lpcshop"),nf.format(lpc),false);
+        updateElementDisplay(document.getElementById("lpc"),nf.format(lpc),false);
     }
     //options
     if (loadValue("lang") !== null) {
@@ -600,16 +600,16 @@ function loadGame() {
     //followers
     if (loadValue("followers") !== null) {
         followers = loadValue("followers");
-        updateElementDisplay(document.getElementById("followers"),followers,false);
+        updateElementDisplay(document.getElementById("followers"),nf.format(followers),false);
         followersNextCost = Math.floor(followersBaseCost * Math.pow(1.15,(followers)));
-        updateElementDisplay(document.querySelectorAll("#followersNextCost"),followersNextCost,true);
+        updateElementDisplay(document.querySelectorAll("#followersNextCost"),nf.format(followersNextCost),true);
     } else {
         saveValue("followers",followers);
-        updateElementDisplay(document.getElementById("followers"),followers,false);
+        updateElementDisplay(document.getElementById("followers"),nf.format(followers),false);
     }
     if (loadValue("followersDoublePurchased") !== null) {
         followersDoublePurchased = loadValue("followersDoublePurchased");
-        updateElementDisplay(document.querySelectorAll("#followersLPS"),followersLPS*followersDoublePurchased),true;
+        updateElementDisplay(document.querySelectorAll("#followersLPS"),nf.format(followersLPS*followersDoublePurchased)),true;
         if (followersDoublePurchased == 1){
             checkDoubleCondition(followers,followersDoublePurchased,"doubleFollowers");
         }
@@ -620,16 +620,16 @@ function loadGame() {
     //fans
     if (loadValue("fans") !== null) {
         fans = loadValue("fans");
-        updateElementDisplay(document.getElementById("fans"),fans,false);
+        updateElementDisplay(document.getElementById("fans"),nf.format(fans),false);
         fansNextCost = Math.floor(fansBaseCost * Math.pow(1.15,(fans)));
-        updateElementDisplay(document.querySelectorAll("#fansNextCost"),fansNextCost,true);
+        updateElementDisplay(document.querySelectorAll("#fansNextCost"),nf.format(fansNextCost),true);
     } else {
         saveValue("fans",fans);
-        updateElementDisplay(document.getElementById("fans"),fans,false);
+        updateElementDisplay(document.getElementById("fans"),nf.format(fans),false);
     }
     if (loadValue("fansDoublePurchased") !== null) {
         fansDoublePurchased = loadValue("fansDoublePurchased");
-        updateElementDisplay(document.querySelectorAll("#fansLPS"),fansLPS*fansDoublePurchased,true);
+        updateElementDisplay(document.querySelectorAll("#fansLPS"),nf.format(fansLPS*fansDoublePurchased),true);
         if (fansDoublePurchased == 1){
             checkDoubleCondition(fans,fansDoublePurchased,"doubleFans");
         }
@@ -640,16 +640,16 @@ function loadGame() {
     //paparazzi
     if (loadValue("paparazzi") !== null) {
         paparazzi = loadValue("paparazzi");
-        updateElementDisplay(document.getElementById("paparazzi"),paparazzi,false);
+        updateElementDisplay(document.getElementById("paparazzi"),nf.format(paparazzi),false);
         paparazziNextCost = Math.floor(paparazziBaseCost * Math.pow(1.15,(paparazzi)));
-        updateElementDisplay(document.querySelectorAll("#paparazziNextCost"),paparazziNextCost,true);
+        updateElementDisplay(document.querySelectorAll("#paparazziNextCost"),nf.format(paparazziNextCost),true);
     } else {
         saveValue("paparazzi",paparazzi);
-        updateElementDisplay(document.getElementById("paparazzi"),paparazzi,false);
+        updateElementDisplay(document.getElementById("paparazzi"),nf.format(paparazzi),false);
     }
     if (loadValue("paparazziDoublePurchased") !== null) {
         paparazziDoublePurchased = loadValue("paparazziDoublePurchased");
-        updateElementDisplay(document.querySelectorAll("#paparazziLPS"),paparazziLPS*paparazziDoublePurchased,true);
+        updateElementDisplay(document.querySelectorAll("#paparazziLPS"),nf.format(paparazziLPS*paparazziDoublePurchased),true);
         if (paparazziDoublePurchased == 1){
             checkDoubleCondition(paparazzi,paparazziDoublePurchased,"doublePaparazzi");
         }
@@ -660,16 +660,16 @@ function loadGame() {
     //stalkers
     if (loadValue("stalkers") !== null) {
         stalkers = loadValue("stalkers");
-        updateElementDisplay(document.getElementById("stalkers"),stalkers,false);
+        updateElementDisplay(document.getElementById("stalkers"),nf.format(stalkers),false);
         stalkersNextCost = Math.floor(stalkersBaseCost * Math.pow(1.15,(stalkers)));
-        updateElementDisplay(document.querySelectorAll("#stalkersNextCost"),stalkersNextCost,true);
+        updateElementDisplay(document.querySelectorAll("#stalkersNextCost"),nf.format(stalkersNextCost),true);
     } else {
         saveValue("stalkers",stalkers);
-        updateElementDisplay(document.getElementById("stalkers"),stalkers,false);
+        updateElementDisplay(document.getElementById("stalkers"),nf.format(stalkers),false);
     }
     if (loadValue("stalkersDoublePurchased") !== null) {
         stalkersDoublePurchased = loadValue("stalkersDoublePurchased");
-        updateElementDisplay(document.querySelectorAll("#stalkersLPS"),stalkersLPS*stalkersDoublePurchased,true);
+        updateElementDisplay(document.querySelectorAll("#stalkersLPS"),nf.format(stalkersLPS*stalkersDoublePurchased),true);
         if (stalkersDoublePurchased == 1){
             checkDoubleCondition(stalkers,stalkersDoublePurchased,"doubleStalkers");
         }
@@ -680,16 +680,16 @@ function loadGame() {
     //lunatics
     if (loadValue("lunatics") !== null) {
         lunatics = loadValue("lunatics");
-        updateElementDisplay(document.getElementById("lunatics"),lunatics,false);
+        updateElementDisplay(document.getElementById("lunatics"),nf.format(lunatics),false);
         lunaticsNextCost = Math.floor(lunaticsBaseCost * Math.pow(1.15,(lunatics)));
-        updateElementDisplay(document.querySelectorAll("#lunaticsNextCost"),lunaticsNextCost,true);
+        updateElementDisplay(document.querySelectorAll("#lunaticsNextCost"),nf.format(lunaticsNextCost),true);
     } else {
         saveValue("lunatics",lunatics);
-        updateElementDisplay(document.getElementById("lunatics"),lunatics,false);
+        updateElementDisplay(document.getElementById("lunatics"),nf.format(lunatics),false);
     }
     if (loadValue("lunaticsDoublePurchased") !== null) {
         lunaticsDoublePurchased = loadValue("lunaticsDoublePurchased");
-        updateElementDisplay(document.querySelectorAll("#lunaticsLPS"),lunaticsLPS*lunaticsDoublePurchased,true);
+        updateElementDisplay(document.querySelectorAll("#lunaticsLPS"),nf.format(lunaticsLPS*lunaticsDoublePurchased),true);
         if (lunaticsDoublePurchased == 1){
             checkDoubleCondition(lunatics,lunaticsDoublePurchased,"doubleLunatics");
         }
@@ -700,16 +700,16 @@ function loadGame() {
     //bots
     if (loadValue("bots") !== null) {
         bots = loadValue("bots");
-        updateElementDisplay(document.getElementById("bots"),bots,false);
+        updateElementDisplay(document.getElementById("bots"),nf.format(bots),false);
         botsNextCost = Math.floor(botsBaseCost * Math.pow(1.15,(bots)));
-        updateElementDisplay(document.querySelectorAll("#botsNextCost"),botsNextCost,true);
+        updateElementDisplay(document.querySelectorAll("#botsNextCost"),nf.format(botsNextCost),true);
     } else {
         saveValue("bots",bots);
-        updateElementDisplay(document.getElementById("bots"),bots,false);
+        updateElementDisplay(document.getElementById("bots"),nf.format(bots),false);
     }
     if (loadValue("botsDoublePurchased") !== null) {
         botsDoublePurchased = loadValue("botsDoublePurchased");
-        updateElementDisplay(document.querySelectorAll("#botsLPS"),botsLPS*botsDoublePurchased,true);
+        updateElementDisplay(document.querySelectorAll("#botsLPS"),nf.format(botsLPS*botsDoublePurchased),true);
         if (botsDoublePurchased == 1){
             checkDoubleCondition(bots,botsDoublePurchased,"doubleBots");
         }
