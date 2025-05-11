@@ -2,11 +2,11 @@ var activetab, activeshoptab;
 var likes = 0, lps = 0, lpc = 1, lpcBaseCost = 1000, lpcNextCost = 1000;
 var darkenabled = false, autosaveenabled = true;
 var followers = fans = paparazzi = stalkers = lunatics = bots = 0;
-var followersLPS = 1, fansLPS = 2, paparazziLPS = 4, stalkersLPS = 8, lunaticsLPS = 16, botsLPS = 32;
-var followersBaseCost = 10, fansBaseCost = 100, paparazziBaseCost = 500, stalkersBaseCost = 1000, lunaticsBaseCost = 5000, botsBaseCost = 10000;
-var followersNextCost = 10, fansNextCost = 100, paparazziNextCost = 500, stalkersNextCost = 1000, lunaticsNextCost = 5000, botsNextCost = 10000;
+var followersLPS = 1, fansLPS = 2, paparazziLPS = 4, stalkersLPS = 8, lunaticsLPS = 16, botsLPS = 64;
+var followersBaseCost = 10, fansBaseCost = 100, paparazziBaseCost = 500, stalkersBaseCost = 1000, lunaticsBaseCost = 5000, botsBaseCost = 20000;
+var followersNextCost = 10, fansNextCost = 100, paparazziNextCost = 500, stalkersNextCost = 1000, lunaticsNextCost = 5000, botsNextCost = 20000;
 var followersDoublePurchased = fansDoublePurchased = paparazziDoublePurchased = stalkersDoublePurchased = lunaticsDoublePurchased = botsDoublePurchased = 1;
-var followersDoubleCost = 500, fansDoubleCost = 1000, paparazziDoubleCost = 6000, stalkersDoubleCost = 12000, lunaticsDoubleCost = 25000, botsDoubleCost = 50000;
+var followersDoubleCost = 500, fansDoubleCost = 1000, paparazziDoubleCost = 6000, stalkersDoubleCost = 12000, lunaticsDoubleCost = 30000, botsDoubleCost = 90000;
 var uniqueUpgradesAvailable = 0;
 
 //click
