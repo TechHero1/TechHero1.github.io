@@ -351,9 +351,17 @@ window.setInterval(function(){
 }, 1000);
 
 //destroy special upgrade
-function destroySpecialShopItem(item_destroyclass) {
+/*function destroySpecialShopItem(item_destroyclass) {
     document.querySelectorAll("."+item_destroyclass).forEach(el => {
         el.style.display = "none";
+    });
+    uniqueUpgradesAvailable--;
+}*/
+
+//REALLY destroy special upgrade
+function destroySpecialShopItem(item_destroyclass) {
+    document.querySelectorAll("."+item_destroyclass).forEach(el => {
+        el.remove();
     });
     uniqueUpgradesAvailable--;
 }
