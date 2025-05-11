@@ -770,3 +770,7 @@ canvas {
 .toast {
     --bs-toast-max-width: none !important;
 }
+
+#ConfigSection {
+    padding-bottom: 10px;
+}
