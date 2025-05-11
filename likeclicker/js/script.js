@@ -1,5 +1,5 @@
 var activetab, activeshoptab;
-var likes = 0, lps = 0, lpc = 1, lpcBaseCost = 1000, lpcNextCost = 1000;
+var likes = 0, lps = 0, lpc = 1, lpcBaseCost = 851.06382979, lpcNextCost = 1000;
 var darkenabled = false, autosaveenabled = true;
 var followers = fans = paparazzi = stalkers = lunatics = bots = 0;
 var followersLPS = 1, fansLPS = 2, paparazziLPS = 4, stalkersLPS = 8, lunaticsLPS = 16, botsLPS = 64;
