@@ -205,7 +205,7 @@ var option_items = `
     "load": {
             "type": "option_simple",
             "textclass": "load-game-label",
-            "action": "loadGame()",
+            "action": "location.reload()",
             "icon": "icon-load",
             "checkname": "",
             "checkid": ""
