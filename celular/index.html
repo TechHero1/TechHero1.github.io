@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:title" content="Celular">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Celular</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="script.js"></script>
+    <style>
+      @font-face {
+        font-family: 'AdwaitaSans-Regular';
+        src: url('../shared/fonts/adwaita-sans/AdwaitaSans-Regular.ttf') format('truetype');
+      }
+      * {
+        transition: 0.3s ease, display 0.3s ease allow-discrete;
+        user-select: none;
+      }
+      ruffle-player {
+        height: 100%;
+        width: 100vw;
+      }
+      @media (width >= 40rem) {
+        ruffle-player {
+        width: 412px;
+      }
+      }
+    </style>
+  </head>
+  <body class="font-[AdwaitaSans-Regular] bg-black" onload="updateClock();setBGColor(loadValue('bg'))">
+    <center>
+      <div class="w-[100vw] sm:w-[412px] h-[100vh] hidden sm:block border-l-1 border-r-1 z-index-2 absolute left-[50%] translate-x-[-50%] pointer-events-none"></div>
+      <div class="phone-bg bg-blue-200 w-[100vw] sm:w-[412px] h-[100vh] flex flex-col">
+        <div class="bg-gray-800 w-[100vw] sm:w-[412px] fixed text-white basis-1/20">
+          <div class="grid grid-cols-2 gap-4 flex items-stretch">
+            <span class="clock text-left p-1">00:00</span>
+            <span class="text-right p-1">100% <i class="fa fa-battery-full"></i></span>
+          </div>
+        </div>
+        <div class="tab tab-home grid grid-cols-4 gap-4 flex pt-18 pb-58 px-4 w-[100vw] sm:w-[412px] basis-18/20">
+          <div class="p-2 cursor-pointer flex flex-col items-center" onclick="changeTab('browser');changeUrl('')"><i class="fa fa-globe fa-3x"></i>Navegador</div>
+          <div class="p-2 cursor-pointer flex flex-col items-center" onclick="changeTab('browser');changeUrl('techhero1.github.io/celular/')"><i class="fa fa-mobile fa-3x"></i>Celular</div>
+          <div class="p-2 cursor-pointer flex flex-col items-center" onclick="changeTab('wallpaper');"><i class="fa fa-globe fa-3x"></i>Papel de Parede</div>
+        </div>
+        <div class="tab tab-browser hidden py-8 w-[100vw] sm:w-[412px] h-[100%] flex-col basis-20/20">
+          <div class="p-2 w-[100vw] sm:w-[412px] basis-1/20">
+            <div class="flex flex-row bg-white border-1">
+              <input class="p-2 cursor-pointer w-[100%] basis-9/10" name="url-input" type="text">
+              <button class="p-2 cursor-pointer w-[100%] basis-1/10" onclick="changeUrl(document.getElementsByName('url-input')[0].value)"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+          <iframe class="browser-iframe h-[100%] w-[100vw] sm:w-[412px] basis-19/20" src=""></iframe>
+        </div>
+        <div class="tab tab-wallpaper hidden py-8 w-[100vw] sm:w-[412px] h-[100%] flex-col basis-20/20">
+          <div class="content h-[100%] w-[100vw] sm:w-[412px] basis-20/20 flex flex-col gap-4 px-2 py-5">
+            <span class="text-left">Papel de Parede</span>
+            <button class="text-left" onclick="setBGColor('random')">Cor Aleatória</button>
+            <button class="text-left" onclick="setBGColor('default')">Padrão</button>
+          </div>
+        </div>
+        <div class="bg-gray-800 w-[100vw] sm:w-[412px] fixed bottom-0 text-white basis-1/20">
+          <div class="grid grid-cols-3 gap-4 flex items-stretch">
+            <span class="p-1 cursor-pointer" onclick="changeTab('home')"><i class="fa fa-chevron-left"></i></span> <!--não to la com toda essa vontade de fazer um historico de verdade, então...-->
+            <span class="p-1 cursor-pointer" onclick="changeTab('home')"><i class="fa fa-home"></i></span>
+            <span class="p-1 cursor-pointer"><i class="fa fa-bars"></i></span>
+          </div>
+        </div>
+      </div>
+    </center>
+    <script>
+      document.getElementsByName('url-input')[0].addEventListener("keydown", function (e) {
+        if (e.code === "Enter") {
+          changeUrl(document.getElementsByName('url-input')[0].value);
+        }
+      });
+    </script>
+  </body>
+</html>
