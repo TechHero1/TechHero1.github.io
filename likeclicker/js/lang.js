@@ -1,7 +1,7 @@
 var lang = "en";
 //var nf = new Intl.NumberFormat(lang, {style:'decimal'});
 var nf = new Intl.NumberFormat('fr-FR');
-var gameVersion = "2.0.1";
+var gameVersion = "2.1.0";
 
 //MISC
 var yesString;
