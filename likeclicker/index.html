@@ -53,6 +53,59 @@
 					<span class="lpc-home-string">LPC: </span><span id="lpc">1</span><br>
 					<span class="lps-home-string">LPS: </span><span id="lps">0</span><br>
 				</div>
+                <!--funny thing uncomment this ↓-->
+                <!--<br>
+                <div class="stupidvar-area" style="width:90%;border:1px solid black;padding:1em">
+                    <p>supid var <button onclick="testCheat(document.getElementById('addlpsvalue').valueAsNumber)">get more likes</button> <input id="addlpsvalue" type="number" step="1"></p>
+                    <p><span class="fooprice-string">10</span> likes = 1 "o"</p>
+                    <button class="addvar-button" onclick="addFoo(1)">+1</button><button class="addvar-button" onclick="addFoo(5)">+5</button><button class="addvar-button" onclick="addFoo(10)">+10</button><br>
+                    <span class="foo-string" style="overflow-x:auto;width:100%;display:block;padding:8px 0">foobar</span><br><br>
+                    <p><span class="quuxprice-string">100</span> likes = 1 "u"</p>
+                    <button class="addvar-button" onclick="addQuux(1)">+1</button><button class="addvar-button" onclick="addQuux(5)">+5</button><button class="addvar-button" onclick="addQuux(10)">+10</button><br>
+                    <span class="quux-string" style="overflow-x:auto;width:100%;display:block;padding:8px 0">quux</span>
+                </div>-->
+                <!--then put this ↓ on console-->
+                <!--//stupid variables
+                    var foo = "foo";
+                    var quux = "quu";
+
+                    var fooprice = 10;
+                    var quuxprice = 100;
+
+                    function addFoo(times) {
+                        if (likes >= fooprice*(1.1**(times-1))) {
+                            for (let i = 0; i < (times); i++) {
+                                foo += "o";
+                                document.querySelector(".foo-string").innerHTML = foo + "bar";
+                                likes -= fooprice;
+                                updateElementDisplay(document.getElementById("likestxt"),nf.format(likes),false);
+                                updateElementDisplay(document.getElementById("LabelLikes"),nf.format(likes),false);
+                                fooprice = Math.round(fooprice*1.1);
+                            }
+                            document.querySelector(".fooprice-string").innerHTML = fooprice;
+                        }
+                    }
+
+                    function addQuux(times) {
+                        if (likes >= quuxprice*(1.1**(times-1))) {
+                            for (let i = 0; i < (times); i++) {
+                                quux += "u";
+                                document.querySelector(".quux-string").innerHTML = quux + "x";
+                                likes -= quuxprice;
+                                updateElementDisplay(document.getElementById("likestxt"),nf.format(likes),false);
+                                updateElementDisplay(document.getElementById("LabelLikes"),nf.format(likes),false);
+                                quuxprice = Math.round(quuxprice*1.1);
+                            }
+                            document.querySelector(".quuxprice-string").innerHTML = quuxprice;
+                        }
+                    }
+
+                    function testCheat(value) {
+                        if (isNaN(value)) value = 0;
+                        lps += value;
+                        updateElementDisplay(document.getElementById("lps"),nf.format(lps),false);
+                    }
+                -->
 			</div>
 			</div>
             </center>
