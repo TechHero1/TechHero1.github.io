@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <script type="text/javascript" src="data/shop_items.js"></script>
+    <script type="text/javascript" src="data/strings.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" media="all" />
+</head>
+<body onload="start()">
+    <center>
+        <h2>Like Clicker Experiment</h2>
+        <div>
+            <span>set lang</span>
+            <div class="lang_buttons_area"></div>
+        </div>
+        <br>
+        <div>
+            <span>item id</span>
+            <input id="item_name" type="text">
+            <br>
+            <button onclick="add_shop_item(document.querySelector('#item_name').value)">add</button>
+            <button onclick="add_double_item(document.querySelector('#item_name').value)">add double</button>
+            <button onclick="add_lpc_item()">add lpc</button>
+            <br>
+            <br>
+            <div class="shop_items_area"></div>
+        </div>
+    </center>
+</body>
