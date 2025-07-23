@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+</head>
+<body onload="remote_open_tab('Arquivo')">
+    <center>
+        <h2>List Experiment (Proof of Concept)</h2>
+    </center>
+    <div class="tab">
+        <button class="tablinks" onclick="open_tab(event, 'Arquivo')">Arquivo</button>
+        <button class="tablinks" onclick="open_tab(event, 'Visualizar')">Visualizar</button>
+        <button class="tablinks" style="display:none" onclick="open_tab(event, 'Editar')">Editar</button>
+    </div>
+
+    <div id="Arquivo" class="tabcontent">
+        <div style="padding: 1rem">
+            <label for="jsonfile">Importar arquivo salvo da lista</label>
+            <br>
+            <input type="file" id="jsonfile" name="jsonfile">
+        </div>
+        <div style="padding: 1rem">
+            <button>Exportar lista para um arquivo</button>
+        </div>
+    </div>
+
+    <div id="Editar" class="tabcontent">
+        <h3>Editar informações</h3>
+        <div style="padding: 1rem">
+            <label for="item_type">Tipo</label>
+            <select name="item_type" id="item_type">
+                <option value="novel">Novel</option>
+                <option value="anime">Anime</option>
+                <option value="manga">Mangá</option>
+                <option value="jogo">Jogo</option>
+                <option value="filme">Filme</option>
+                <option value="audio">Áudio</option>
+            </select>
+        </div>
+
+        <div style="padding: 1rem">
+            <label for="title">Título</label>
+            <input type="text" id="title" name="title">
+        </div>
+
+        <div style="padding: 1rem">
+            <label for="status">Status</label>
+            <select name="status" id="status">
+                <option value="completo">Completo</option>
+                <option value="progredindo">Progredindo</option>
+                <option value="planejo" selected>Planejo</option>
+                <option value="dropado">Dropado</option>
+                <option value="repetindo">Repetindo</option>
+                <option value="pausado">Pausado</option>
+            </select>
+        </div>
+
+        <div style="padding: 1rem">
+            <label for="progress">Progresso</label>
+            <input type="number" id="progress" name="progress" value="0">
+            <label for="volumes">Volumes</label>
+            <input type="number" id="volumes" name="volumes" value="0">
+        </div>
+
+        <div style="padding: 1rem">
+            <label for="hours">Horas</label>
+            <input type="number" id="hours" name="hours" value="0">
+            <label for="minutes">Minutos</label>
+            <input type="number" id="minutes" name="minutes" value="0">
+        </div>
+
+        <div style="padding: 1rem">
+            <label for="moji">Caracteres (Moji)</label>
+            <input type="number" id="moji" name="moji" value="0">
+        </div>
+
+        <div style="padding: 1rem">
+            <label for="img_url">URL da Imagem</label>
+            <input type="text" id="img_url" name="img_url">
+        </div>
+
+        <div style="padding: 1rem">
+            <button onclick="remote_open_tab('Visualizar')">Salvar</button>
+            <button onclick="remote_open_tab('Visualizar')">Cancelar</button>
+        </div>
+    </div>
+
+    <div id="Visualizar" class="tabcontent">
+        <div  style="padding: 1rem">
+            <div style="padding: 1rem;display: flex;flex-wrap: nowrap;">
+                <img style="padding: 1rem;" src="https://techhero1.github.io/game-thumb-viewer/preview.jpg" width="150" height="225">
+                <div>
+                    <div style="padding: 1rem">
+                        <b>item 1</b>
+                        <button onclick="remote_open_tab('Editar')">Editar</button>
+                    </div>
+                    <p>tipo</p>
+                    <p>status</p>
+                    <p style="display: flex;flex-wrap: nowrap;gap: 10px;">
+                        <span>progresso</span>
+                        <span>volumes</span>
+                    </p>
+                    <p>00:00</p>
+                    <p>moji</p>
+                </div>
+            </div>
+        </div>
+
+        <div  style="padding: 1rem">
+            <div style="padding: 1rem;display: flex;flex-wrap: nowrap;">
+                <img style="padding: 1rem;" src="https://techhero1.github.io/game-thumb-viewer/preview.jpg" width="150" height="225">
+                <div>
+                    <div style="padding: 1rem">
+                        <b>item 2</b>
+                        <button onclick="remote_open_tab('Editar')">Editar</button>
+                    </div>
+                    <p>tipo</p>
+                    <p>status</p>
+                    <p style="display: flex;flex-wrap: nowrap;gap: 10px;">
+                        <span>progresso</span>
+                        <span>volumes</span>
+                    </p>
+                    <p>00:00</p>
+                    <p>moji</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,30 @@
+{
+    "itens": [
+        {
+            "tipo": "novel",
+            "dados": {
+                "titulo": " ぼくのかぞく",
+                "status": "completo",
+                "progresso": 0,
+                "moji": 357,
+                "horas": 0,
+                "minutos": 0,
+                "volumes": 1,
+                "img": "https://tadoku.org/japanese/wp-content/uploads/f0103t-bokunokazoku.jpg"
+            }
+        },
+        {
+            "tipo": "anime",
+            "dados": {
+                "titulo": "わんだふるぷりきゅあ！",
+                "status": "completo",
+                "progresso": 50,
+                "moji": 0,
+                "horas": 20,
+                "minutos": 50,
+                "volumes": 0,
+                "img": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171030-U7zjkqv8pQFq.jpg"
+            }
+        }
+    ]
+}
