@@ -27,14 +27,18 @@ function open_tab(evt, tab_name) {
 }
 
 function switch_view() {
-  let list = document.querySelector(".content_list");
+  let content_list = document.querySelector(".content_list");
   let button = document.querySelector(".switch_view_btn");
-  if (list.classList.contains("grid-list-view")) {
-    list.classList.remove("grid-list-view");
+  if (content_list.classList.contains("grid-list-view")) {
+    content_list.classList.remove("grid-list-view");
+    list.list_mode = "grid";
+    console.log(list.list_mode);
     button.innerHTML = "Ver em lista vertical";
     return
   }
-  list.classList.add("grid-list-view");
+  content_list.classList.add("grid-list-view");
+  list.list_mode = "list";
+  console.log(list.list_mode);
   button.innerHTML = "Ver em grid";
 }
 
@@ -56,6 +60,7 @@ function edit_item(id) {
     document.querySelector(".moji_input").value = 0;
     document.querySelector(".img_input").value = "";
     document.querySelector(".img_preview").src = "";
+    document.querySelector(".img_preview").classList.add('hidden');
   } else {
     document.querySelector(".edit_title").innerHTML = "Editar item \""+list.itens[id].dados.titulo+"\"";
     document.querySelector(".tipo_input").value = list.itens[id].tipo;
@@ -68,6 +73,7 @@ function edit_item(id) {
     document.querySelector(".moji_input").value = list.itens[id].dados.moji;
     document.querySelector(".img_input").value = list.itens[id].dados.img;
     document.querySelector(".img_preview").src = list.itens[id].dados.img;
+    document.querySelector(".img_preview").classList.remove('hidden');
   }
 }
 
@@ -127,6 +133,7 @@ function cancel_item(){
 
 var list = {
     "itens": [],
+    "list_mode": "grid",
     "apoio": false
 };
 
@@ -158,6 +165,16 @@ function download_list() {
 
 function load_list() {
   document.querySelector(".content_list").innerHTML = "";
+  
+  let content_list = document.querySelector(".content_list");
+  let button = document.querySelector(".switch_view_btn");
+  if (content_list.classList.contains("grid-list-view") && list.list_mode == "grid") {
+    button.click();
+  }
+  if (!content_list.classList.contains("grid-list-view") && list.list_mode == "list") {
+    button.click();
+  }
+
   if (list.apoio) {
     document.querySelector(".iichan_tab").classList.remove('hidden');
     document.querySelector(".iichan_nav").classList.remove('hidden');
@@ -193,8 +210,8 @@ function load_list() {
         <img src="${list.itens[i].dados.img}" class="aspect-[1/1.33]">
         <div class="w-[100%]">
           <b>${list.itens[i].dados.titulo}</b>
-          <button class="float-right opacity-0 group-hover/title:opacity-100"><i class="fa fa-pencil"></i></button>
-          <br>
+          <button class="float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa fa-pencil"></i></button>
+          <br><br>
           <p>${list.itens[i].tipo}</p>
           <p>${list.itens[i].dados.status}</p>
           <p class="flex flex-row gap-2 items-center">
@@ -211,4 +228,5 @@ function load_list() {
 
 function update_preview_image() {
   document.querySelector(".img_preview").src = document.querySelector(".img_input").value;
+  document.querySelector(".img_preview").classList.remove('hidden');
 }

@@ -17,10 +17,10 @@
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150 iichan_tab hidden" onclick="open_tab(event, 'Apoio')">Apoio</button>
         </div>
         <div class="iichan_nav pr-3 flex flex-row-reverse items-center gap-2 w-[100%] sm:w-[50%] hidden">
-            <img class="aspect-[21/9] max-h-[7.47rem]" src="iichan_face.png">
+            <img class="aspect-[21/9] h-[50px]" src="iichan_face.png">
             <div class="flex flex-row gap-1 items-center">
                 <div class="p-3 w-min text-red-400 font-bold">LIVE</div>
-                <img class="aspect-square max-h-[3.22rem]" src="iichan_face.png">
+                <img class="aspect-square h-[50px]" src="iichan_face.png">
                 <div class="p-3 w-min text-red-400 font-bold">REACTION:</div>
             </div>
         </div>
@@ -62,7 +62,7 @@
         <hr class="border-gray-200">
         <div class="p-3 flex flex-row gap-3 items-center">
             <label for="title">Título</label>
-            <input class="name_input textinput w-[clamp(710px,70%,1000px)]" type="text" id="title" name="title">
+            <input class="name_input textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]" type="text" id="title" name="title">
         </div>
         
         <div class="p-3 flex flex-row gap-3 items-center">
@@ -106,9 +106,11 @@
         </div>
         <hr class="border-gray-200">
         <div class="p-3 flex flex-col md:flex-row gap-3 items-center">
-            <label for="img_url">URL da Imagem</label>
-            <input class="img_input textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]" type="text" id="img_url" name="img_url" onchange="update_preview_image()">
-            <img src="" class="img_preview h-[225px] aspect-[1/1.33]">
+            <div class="p-3 flex flex-row gap-3 items-center w-[100%]">
+                <label for="img_url">URL da Imagem</label>
+                <input class="img_input textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]" type="text" id="img_url" name="img_url" onchange="update_preview_image()">
+            </div>
+            <img src="" class="img_preview h-[225px] aspect-[1/1.33] hidden">
         </div>
         </div>
         <div class="p-3 flex flex-row gap-3 items-center">
