@@ -64,12 +64,15 @@ function loadfile(file) {
                         volumes_name = "VOLUMES";
                     }
 
-                    /*let volumes_value = results.data[i].VOL;
-                    console.log(volumes_value);
-                    if (volumes_value == null) {
-                        volumes_value = 0;
-                        console.log(volumes_value);
-                    }*/
+                    console.log(results.data[i].MOJI);
+                    console.log(results.data[i].MOJI.replaceAll(/[.]/g,""));
+                    let moji_value = results.data[i].MOJI.replaceAll(/[.]/g,"");
+                    console.log(moji_value);
+                    if (moji_value == "") {
+                        moji_value = "0";
+                    }
+                    console.log(moji_value);
+                    console.log(Number(moji_value));
     
                     list.itens[listnew] = {
                     "tipo": formato_first,
@@ -77,7 +80,7 @@ function loadfile(file) {
                         "titulo": results.data[i].TÍTULO,
                         "status": status,
                         "progresso": Number(results.data[i][progresso_name]),
-                        "moji": Number(results.data[i].MOJI),
+                        "moji": Number(moji_value),
                         "horas": Number(time_array[0]),
                         "minutos": Number(time_array[1]),
                         "volumes": Number(results.data[i][volumes_name]),
