@@ -53,7 +53,19 @@ function switch_apoio() {
   list.apoio = false;
   //console.log(list.apoio);
   document.querySelector(".iichan_tab").classList.add('hidden');
-    document.querySelector(".iichan_nav").classList.add('hidden');
+  document.querySelector(".iichan_nav").classList.add('hidden');
+}
+
+function switch_cores() {
+  if (!list.cores) {
+    list.cores = true;
+    //console.log(list.cores);
+    load_list();
+    return
+  }
+  list.cores = false;
+  //console.log(list.cores);
+  load_list();
 }
 
 var cur_editing_id;
@@ -111,7 +123,7 @@ function save_item(){
     };
     remote_open_tab('Visualizar');
     load_list();
-    console.log(list);
+    //console.log(list);
     return
   }
   //substituir[id]
@@ -148,6 +160,7 @@ function cancel_item(){
 var list = {
     "itens": [],
     "list_mode": "grid",
+    "cores": true,
     "apoio": false
 };
 
@@ -195,21 +208,38 @@ function load_list() {
   }
   for (i = 0; i < list.itens.length; i++) {
     let progresso_string;
+    let volumes_string;
+    let progresso_traço;
+
     if (list.itens[i].tipo == "Novel" || list.itens[i].tipo == "Mangá") {
       progresso_string = list.itens[i].dados.progresso + " capítulos";
-    } else if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio") {
+      if (list.itens[i].dados.volumes <= 1) {
+        volumes_string = list.itens[i].dados.volumes + " volume";
+        progresso_traço = " - ";
+      } else {
+        volumes_string = list.itens[i].dados.volumes + " volumes";
+        progresso_traço = " - ";
+      }
+    }
+    if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série") {
       progresso_string = list.itens[i].dados.progresso + " episódios";
+      volumes_string = "";
+      progresso_traço = "";
+    }
+    if (list.itens[i].tipo == "Jogo") {
+      progresso_string = "";
+      progresso_traço = "";
+      volumes_string = "";
     }
 
-    let volumes_string;
-    if (list.itens[i].dados.volumes <= 1) {
-      volumes_string = list.itens[i].dados.volumes + " volume";
-    } else {
-      volumes_string = list.itens[i].dados.volumes + " volumes";
+    if (list.itens[i].dados.status == "Planejo" && list.itens[i].dados.progresso == 0) {
+      progresso_string = "";
     }
 
     let moji_string;
-    if (list.itens[i].dados.moji <= 1) {
+    if (list.itens[i].dados.moji == 0) {
+      moji_string = "";
+    } else if (list.itens[i].dados.moji == 1) {
       moji_string = list.itens[i].dados.moji + " caractere";
     } else {
       moji_string = list.itens[i].dados.moji + " caracteres";
@@ -217,9 +247,42 @@ function load_list() {
 
     let horas = String(list.itens[i].dados.horas).padStart(2, '0');
     let minutos = String(list.itens[i].dados.minutos).padStart(2, '0');
+    let tempo_string;
+    if (list.itens[i].dados.horas == 0 && list.itens[i].dados.minutos == 0) {
+      tempo_string = "";
+    } else {
+      tempo_string = horas+":"+minutos;
+    }
+
+    let bg_color = "#ffffff";
+    if (list.cores) {
+      switch(list.itens[i].tipo) {
+        default:
+          bg_color = "#ffffff";
+          break;
+        case "Novel":
+          bg_color = "#e6cff2";
+          break;
+        case "Anime":
+          bg_color = "#bfe1f6";
+          break;
+        case "Mangá":
+          bg_color = "#d4edbc";
+          break;
+        case "Jogo":
+          bg_color = "#ffcfc9";
+          break;
+        case "Filme":
+          bg_color = "#c6dbe1";
+          break;
+        case "Áudio":
+          bg_color = "#ffc8aa";
+          break;
+      }
+    }
 
     document.querySelector(".content_list").innerHTML += `
-    <div class="p-1 rounded-md m-2 sm:p-5 bg-white shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200" id="${i}" onclick="edit_item(this.id)">
+    <div style="background-color:${bg_color}" class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200" id="${i}" onclick="edit_item(this.id)">
       <div class="p-1 flex flex-row gap-2 h-[225px]">
         <img src="${list.itens[i].dados.img}" class="aspect-[1/1.33]">
         <div class="w-[100%]">
@@ -229,9 +292,9 @@ function load_list() {
           <p>${list.itens[i].tipo}</p>
           <p>${list.itens[i].dados.status}</p>
           <p class="flex flex-row gap-2 items-center">
-            <span>${progresso_string} - ${volumes_string}</span>
+            <span>${progresso_string}${progresso_traço}${volumes_string}</span>
           </p>
-          <p>${horas}:${minutos}</p>
+          <p>${tempo_string}</p>
           <p>${moji_string}</p>
         </div>
       </div>
