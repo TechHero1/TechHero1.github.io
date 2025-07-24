@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'AdwaitaSans-Regular';
+    src: url('../../shared/fonts/adwaita-sans/AdwaitaSans-Regular.ttf') format('truetype');
+}
+
+:root {
+    --color-black: #000;
+    --color-red: #f00;
+    --color-red-200: oklch(88.5% 0.062 18.334);
+    --color-slate-500: oklch(55.4% 0.046 257.417);
+    --color-gray-200: oklch(92.8% 0.006 264.531);
+
+    --spacing: 0.25rem;
+}
+
+.tab button.active {
+    background-color: var(--color-slate-500) !important;
+}
+
+.button {
+    background-color: inherit;
+    color: inherit;
+    padding: calc(var(--spacing) * 2);
+    border: 1px solid var(--color-black);
+    border-radius: var(--spacing);
+    cursor: pointer;
+    transition: all;
+    transition-duration: 150ms;
+}
+
+.button:hover {
+    background-color: var(--color-gray-200);
+}
+
+.button-danger {
+    border-color: 1px solid var(--color-red);
+    color: var(--color-red);
+}
+
+.button-danger:hover {
+    background-color: var(--color-red-200);
+}
+
+.grid-list-view {
+    grid-template-columns: 1fr;
+}
+
+.textinput {
+    background-color: inherit;
+    padding: calc(var(--spacing) * 2);
+    border: 1px solid var(--color-black);
+    border-radius: var(--spacing);
+    cursor: text;
+    transition: all;
+    transition-duration: 150ms;
+}
