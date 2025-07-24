@@ -234,6 +234,8 @@ function load_list() {
 
     if (list.itens[i].dados.status == "Planejo" && list.itens[i].dados.progresso == 0) {
       progresso_string = "";
+      progresso_traço = "";
+      volumes_string = "";
     }
 
     let moji_string;
@@ -281,10 +283,13 @@ function load_list() {
       }
     }
 
+    let img_hidden = "";
+    if (list.itens[i].dados.img == "") img_hidden = "hidden";
+
     document.querySelector(".content_list").innerHTML += `
     <div style="background-color:${bg_color}" class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200" id="${i}" onclick="edit_item(this.id)">
       <div class="p-1 flex flex-row gap-2 h-[225px]">
-        <img src="${list.itens[i].dados.img}" class="aspect-[1/1.33]">
+        <img src="${list.itens[i].dados.img}" class="aspect-[1/1.33] ${img_hidden}">
         <div class="w-[100%]">
           <b>${list.itens[i].dados.titulo}</b>
           <button class="float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa fa-pencil"></i></button>
