@@ -13,6 +13,7 @@
         <div class="tab w-[100%] sm:w-[50%]">
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Arquivo')">Arquivo</button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Visualizar')">Visualizar</button>
+            <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Estatísticas')">Estatísticas</button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150 hidden" onclick="open_tab(event, 'Editar')">Editar</button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150 iichan_tab hidden" onclick="open_tab(event, 'Apoio')">Apoio</button>
         </div>
@@ -28,12 +29,12 @@
 
     <div id="Arquivo" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md">
         <div class="p-2">
-            <label class="button" for="jsonfile">Importar lista já existente</label>
+            <label class="button" for="jsonfile"><i class="fa fa-upload"></i> Importar lista já existente</label>
             <br>
             <input class="hidden" type="file" id="jsonfile" name="jsonfile" accept="application/json" onchange="upload_list(this.files[0])">
         </div>
         <div class="p-2">
-            <button class="button" onclick="download_list()">Baixar lista</button>
+            <button class="button" onclick="download_list()"><i class="fa fa-download"></i> Baixar lista</button>
             <a class="hidden download_link"></a>
         </div>
     </div>
@@ -42,6 +43,12 @@
         <div class="p-2 flex flex-col gap-2 items-center">
             <span class="p-2">iichan de apoio</span>
             <img src="iichan.png">
+        </div>
+    </div>
+
+    <div id="Estatísticas" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
+        <div class="p-2 flex flex-col gap-2 items-center">
+            <span class="p-2">ah, eto... bleh! ¦P</span>
         </div>
     </div>
 
@@ -126,8 +133,9 @@
 
     <div id="Visualizar" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
         <div class="p-2 w-[100%] flex flex-row-reverse gap-2">
-            <button class="button" onclick="edit_item('new')">Adicionar um novo item</button>
-            <button class="button switch_view_btn" onclick="switch_view()">Ver em lista vertical</button>
+            <button class="button" onclick="edit_item('new')"><i class="fa fa-plus"></i></button>
+            <button class="button switch_view_btn" onclick="switch_view()"><i class="fa fa-th"></i></button>
+            <button class="button" onclick="switch_apoio()">Apoio</button>
         </div>
         <div class="content_list p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2">
 

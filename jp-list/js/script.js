@@ -32,14 +32,28 @@ function switch_view() {
   if (content_list.classList.contains("grid-list-view")) {
     content_list.classList.remove("grid-list-view");
     list.list_mode = "grid";
-    console.log(list.list_mode);
-    button.innerHTML = "Ver em lista vertical";
+    //console.log(list.list_mode);
+    button.innerHTML = `<i class="fa fa-th"></i>`;
     return
   }
   content_list.classList.add("grid-list-view");
   list.list_mode = "list";
-  console.log(list.list_mode);
-  button.innerHTML = "Ver em grid";
+  //console.log(list.list_mode);
+  button.innerHTML = `<i class="fa fa-list"></i>`;
+}
+
+function switch_apoio() {
+  if (!list.apoio) {
+    list.apoio = true;
+    //console.log(list.apoio);
+    document.querySelector(".iichan_tab").classList.remove('hidden');
+    document.querySelector(".iichan_nav").classList.remove('hidden');
+    return
+  }
+  list.apoio = false;
+  //console.log(list.apoio);
+  document.querySelector(".iichan_tab").classList.add('hidden');
+    document.querySelector(".iichan_nav").classList.add('hidden');
 }
 
 var cur_editing_id;
