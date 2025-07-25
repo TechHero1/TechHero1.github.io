@@ -183,8 +183,32 @@ function cancel_item(){
   window.scrollTo(scroll_y, last_item_pos);
 }
 
-var filters = {
+/*var filters = {
   "Tudo": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage","Fanfic","Short Story","Ensaio"]',
+  "Mídia": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage"]',
+  "Short Stories e Fanfics": '["Fanfic","Short Story","Ensaio"]',
+  "Novel": '["Novel"]',
+  "Anime": '["Anime"]',
+  "Mangá": '["Mangá"]',
+  "Jogo": '["Jogo"]',
+  "Filme": '["Filme"]',
+  "Áudio": '["Áudio"]',
+  "Dorama/Série": '["Dorama/Série"]',
+  "Stage": '["Stage"]',
+  "Fanfic": '["Fanfic"]',
+  "Short Story": '["Short Story"]',
+  "Ensaio": '["Ensaio"]',
+  "Planejamento": '["Planejo"]',
+  "Pendente": '["Progredindo"]',
+  "Repetindo": '["Repetindo"]',
+  "Concluído": '["Completo"]',
+  "Pausado": '["Pausado"]',
+  "Dropado": '["Dropado"]'
+}*/
+
+var filters = {
+  "Tudo_tipo": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage","Fanfic","Short Story","Ensaio"]',
+  "Tudo_status": '["Progredindo","Planejo","Repetindo","Completo","Pausado","Dropado"]',
   "Mídia": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage"]',
   "Short Stories e Fanfics": '["Fanfic","Short Story","Ensaio"]',
   "Novel": '["Novel"]',
@@ -211,7 +235,7 @@ var list = {
     "list_mode": "grid",
     "cores": true,
     "apoio": false,
-    "last_filter": ['Tudo','tipo']
+    "last_filter": ['Tudo_tipo','Tudo_status']
 };
 
 function upload_list(files) {
@@ -222,7 +246,7 @@ function upload_list(files) {
       let result = JSON.parse(e.target.result);
       let formatted = JSON.stringify(result, null, 2);
       list = JSON.parse(formatted);
-      if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo','tipo'];
+      if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo_tipo','Tudo_status'];
       console.log(list.last_filter);
       change_filter(list.last_filter[0],list.last_filter[1]);
       load_list();
@@ -261,19 +285,10 @@ function load_list() {
   }
 
   let filtered_list = [];
-  if (cur_filter_type == "tipo") {
-    for (i = 0; i < list.itens.length; i++) {
-      if (JSON.parse(filters[cur_filter]).includes(list.itens[i].tipo)) {
+  for (i = 0; i < list.itens.length; i++) {
+      if (JSON.parse(filters[cur_filter_tipo]).includes(list.itens[i].tipo) && JSON.parse(filters[cur_filter_status]).includes(list.itens[i].dados.status)) {
         filtered_list.push(i);
       }
-    }
-  }
-  if (cur_filter_type == "status") {
-    for (i = 0; i < list.itens.length; i++) {
-      if (JSON.parse(filters[cur_filter]).includes(list.itens[i].dados.status)) {
-        filtered_list.push(i);
-      }
-    }
   }
 
   for (i = 0; i < list.itens.length; i++) {
@@ -409,7 +424,8 @@ function update_preview_image() {
   document.querySelector(".img_preview").classList.remove('hidden');
 }
 
-var cur_filter = "Tudo";
+var cur_filter_tipo = "Tudo_tipo";
+var cur_filter_status = "Tudo_status";
 
 function switch_filter() {
   if (document.querySelector(".filter_dropdown").classList.contains('hidden')) {
@@ -419,14 +435,13 @@ function switch_filter() {
   document.querySelector(".filter_dropdown").classList.add('hidden');
 }
 
-var cur_filter_type = "tipo";
-
-function change_filter(selected_filter,filter_type) {
-  cur_filter = selected_filter;
-  cur_filter_type = filter_type;
+function change_filter(filter_tipo,filter_status) {
+  if (filter_tipo != "") cur_filter_tipo = filter_tipo;
+  if (filter_status != "") cur_filter_status = filter_status;
   load_list();
-  document.querySelector(".filter_dropdown").classList.add('hidden');
-  list.last_filter = [cur_filter,cur_filter_type];
+  //document.querySelector(".filter_dropdown").classList.add('hidden');
+  list.last_filter = [cur_filter_tipo,cur_filter_status];
+  console.log([cur_filter_tipo,cur_filter_status]);
 }
 
 window.addEventListener('click', function(e){   
