@@ -150,38 +150,6 @@
             <button class="button switch_view_btn" onclick="switch_view()"><i class="fa fa-th"></i></button>
             <div class="filter_dropdown_area md:relative inline-block">
                 <button class="button" onclick="switch_filter()"><i class="fa fa-filter"></i></button>
-                <!--<div class="filter_dropdown absolute right-0 z-10 mt-2 w-[100%] md:w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
-                    <div role="none" class="all_filters py-1">
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Tudo','tipo')">Tudo</a>
-                    </div>
-                    <div role="none" class="custom_filters py-1">
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Mídia','tipo')">Mídia</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Short Stories e Fanfics','tipo')">Short Stories e Fanfics</a>
-                    </div>
-                    <div role="none" class="status_filters py-1">
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Pendente','status')">Pendente</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Planejamento','status')">Planejamento</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Repetindo','status')">Repetindo</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Concluído','status')">Concluído</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Pausado','status')">Pausado</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Dropado','status')">Dropado</a>
-                    </div>
-                    <div role="none" class="tipo_filters py-1">
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Novel','tipo')">Novel</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Anime','tipo')">Anime</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Mangá','tipo')">Mangá</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Jogo','tipo')">Jogo</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Filme','tipo')">Filme</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Áudio','tipo')">Áudio</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Dorama/Série','tipo')">Dorama/Série</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Stage','tipo')">Stage</a>
-                    </div>
-                    <div role="none" class="extra_filters py-1">
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Fanfic','tipo')">Fanfic</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Short Story','tipo')">Short Story</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Ensaio','tipo')">Ensaio</a>
-                    </div>
-                </div>-->
                 <div class="filter_dropdown absolute right-0 z-10 mt-2 w-[100%] md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
                     <div role="none" class="custom_filters py-1">
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Tudo_tipo','Tudo_status')">Tudo</a>
@@ -192,35 +160,35 @@
                     <div class="flex flex-row items-stretch">
                         <div class="tipo_all divide-y divide-gray-300 w-[100%] border-r-1 border-gray-300">
                             <div role="none" class="all_filters py-1">
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Tudo_tipo','')">Todos os formatos</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Tudo_tipo','')"><span class="icon_tipo_tudo"><i class="fa fa-check"></i> </span>Todos os formatos</a>
                             </div>
                             <div role="none" class="tipo_filters py-1">
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Novel','')">Novel</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Anime','')">Anime</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Mangá','')">Mangá</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Jogo','')">Jogo</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Filme','')">Filme</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Áudio','')">Áudio</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Dorama/Série','')">Dorama/Série</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Stage','')">Stage</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Novel','')"><span class="icon_tipo_novel hidden"><i class="fa fa-check"></i> </span>Novel</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Anime','')"><span class="icon_tipo_anime hidden"><i class="fa fa-check"></i> </span>Anime</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Mangá','')"><span class="icon_tipo_manga hidden"><i class="fa fa-check"></i> </span>Mangá</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Jogo','')"><span class="icon_tipo_jogo hidden"><i class="fa fa-check"></i> </span>Jogo</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Filme','')"><span class="icon_tipo_filme hidden"><i class="fa fa-check"></i> </span>Filme</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Áudio','')"><span class="icon_tipo_audio hidden"><i class="fa fa-check"></i> </span>Áudio</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Dorama/Série','')"><span class="icon_tipo_doramaserie hidden"><i class="fa fa-check"></i> </span>Dorama/Série</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Stage','')"><span class="icon_tipo_stage hidden"><i class="fa fa-check"></i> </span>Stage</a>
                             </div>
                             <div role="none" class="extra_filters py-1">
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Fanfic','')">Fanfic</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Short Story','')">Short Story</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Ensaio','')">Ensaio</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Fanfic','')"><span class="icon_tipo_fanfic hidden"><i class="fa fa-check"></i> </span>Fanfic</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Short Story','')"><span class="icon_tipo_shortstory hidden"><i class="fa fa-check"></i> </span>Short Story</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Ensaio','')"><span class="icon_tipo_ensaio hidden"><i class="fa fa-check"></i> </span>Ensaio</a>
                             </div>
                         </div>
                         <div class="status_all divide-y divide-gray-300 w-[100%]">
                             <div role="none" class="all_filters py-1">
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Tudo_status')">Todos os status</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Tudo_status')"><span class="icon_status_tudo"><i class="fa fa-check"></i> </span>Todos os status</a>
                             </div>
                             <div role="none" class="status_filters py-1">
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Pendente')">Pendente</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Planejamento')">Planejando</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Repetindo')">Repetindo</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Concluído')">Concluído</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Pausado')">Pausado</a>
-                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Dropado')">Dropado</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Pendente')"><span class="icon_status_pendente hidden"><i class="fa fa-check"></i> </span>Pendente</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Planejamento')"><span class="icon_status_planejando hidden"><i class="fa fa-check"></i> </span>Planejando</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Repetindo')"><span class="icon_status_repetindo hidden"><i class="fa fa-check"></i> </span>Repetindo</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Concluído')"><span class="icon_status_concluido hidden"><i class="fa fa-check"></i> </span>Concluído</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Pausado')"><span class="icon_status_pausado hidden"><i class="fa fa-check"></i> </span>Pausado</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Dropado')"><span class="icon_status_dropado hidden"><i class="fa fa-check"></i> </span>Dropado</a>
                             </div>
                         </div>
                     </div>

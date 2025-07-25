@@ -442,6 +442,7 @@ function change_filter(filter_tipo,filter_status) {
   //document.querySelector(".filter_dropdown").classList.add('hidden');
   list.last_filter = [cur_filter_tipo,cur_filter_status];
   console.log([cur_filter_tipo,cur_filter_status]);
+  update_filter_checks();
 }
 
 window.addEventListener('click', function(e){   
@@ -449,3 +450,95 @@ window.addEventListener('click', function(e){
     document.querySelector(".filter_dropdown").classList.add('hidden');
   }
 });
+
+function update_filter_checks() {
+  document.querySelector(".icon_tipo_tudo").classList.add("hidden");
+  document.querySelector(".icon_tipo_novel").classList.add("hidden");
+  document.querySelector(".icon_tipo_anime").classList.add("hidden");
+  document.querySelector(".icon_tipo_manga").classList.add("hidden");
+  document.querySelector(".icon_tipo_jogo").classList.add("hidden");
+  document.querySelector(".icon_tipo_filme").classList.add("hidden");
+  document.querySelector(".icon_tipo_audio").classList.add("hidden");
+  document.querySelector(".icon_tipo_doramaserie").classList.add("hidden");
+  document.querySelector(".icon_tipo_stage").classList.add("hidden");
+  document.querySelector(".icon_tipo_fanfic").classList.add("hidden");
+  document.querySelector(".icon_tipo_shortstory").classList.add("hidden");
+  document.querySelector(".icon_tipo_ensaio").classList.add("hidden");
+
+  switch(cur_filter_tipo) {
+    case "Mídia":
+      document.querySelector(".icon_tipo_tudo").classList.remove("hidden");
+      break;
+    case "Short Stories e Fanfics":
+      document.querySelector(".icon_tipo_tudo").classList.remove("hidden");
+      break;
+    case "Tudo_tipo":
+      document.querySelector(".icon_tipo_tudo").classList.remove("hidden");
+      break;
+    case "Novel":
+      document.querySelector(".icon_tipo_novel").classList.remove("hidden");
+      break;
+    case "Anime":
+      document.querySelector(".icon_tipo_anime").classList.remove("hidden");
+      break;
+    case "Mangá":
+      document.querySelector(".icon_tipo_manga").classList.remove("hidden");
+      break;
+    case "Jogo":
+      document.querySelector(".icon_tipo_jogo").classList.remove("hidden");
+      break;
+    case "Filme":
+      document.querySelector(".icon_tipo_filme").classList.remove("hidden");
+      break;
+    case "Áudio":
+      document.querySelector(".icon_tipo_audio").classList.remove("hidden");
+      break;
+    case "Dorama/Série":
+      document.querySelector(".icon_tipo_doramaserie").classList.remove("hidden");
+      break;
+    case "Stage":
+      document.querySelector(".icon_tipo_stage").classList.remove("hidden");
+      break;
+    case "Fanfic":
+      document.querySelector(".icon_tipo_fanfic").classList.remove("hidden");
+      break;
+    case "Short Story":
+      document.querySelector(".icon_tipo_shortstory").classList.remove("hidden");
+      break;
+    case "Ensaio":
+      document.querySelector(".icon_tipo_ensaio").classList.remove("hidden");
+      break;
+  }
+
+  document.querySelector(".icon_status_tudo").classList.add("hidden");
+  document.querySelector(".icon_status_pendente").classList.add("hidden");
+  document.querySelector(".icon_status_planejando").classList.add("hidden");
+  document.querySelector(".icon_status_repetindo").classList.add("hidden");
+  document.querySelector(".icon_status_concluido").classList.add("hidden");
+  document.querySelector(".icon_status_pausado").classList.add("hidden");
+  document.querySelector(".icon_status_dropado").classList.add("hidden");
+
+  switch(cur_filter_status) {
+    case "Tudo_status":
+      document.querySelector(".icon_status_tudo").classList.remove("hidden");
+      break;
+    case "Pendente":
+      document.querySelector(".icon_status_pendente").classList.remove("hidden");
+      break;
+    case "Planejamento":
+      document.querySelector(".icon_status_planejando").classList.remove("hidden");
+      break;
+    case "Repetindo":
+      document.querySelector(".icon_status_repetindo").classList.remove("hidden");
+      break;
+    case "Concluído":
+      document.querySelector(".icon_status_concluido").classList.remove("hidden");
+      break;
+    case "Pausado":
+      document.querySelector(".icon_status_pausado").classList.remove("hidden");
+      break;
+    case "Dropado":
+      document.querySelector(".icon_status_dropado").classList.remove("hidden");
+      break;
+  }
+}
