@@ -199,7 +199,11 @@ var filters = {
   "Short Story": '["Short Story"]',
   "Ensaio": '["Ensaio"]',
   "Planejamento": '["Planejo"]',
-  "Pendente": '["Progredindo"]'
+  "Pendente": '["Progredindo"]',
+  "Repetindo": '["Repetindo"]',
+  "Concluído": '["Completo"]',
+  "Pausado": '["Pausado"]',
+  "Dropado": '["Dropado"]'
 }
 
 var list = {

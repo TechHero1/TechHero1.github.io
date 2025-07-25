@@ -147,17 +147,23 @@
         <div class="p-2 w-[100%] flex flex-row-reverse gap-2">
             <button class="button" onclick="edit_item('new')"><i class="fa fa-plus"></i></button>
             <button class="button switch_view_btn" onclick="switch_view()"><i class="fa fa-th"></i></button>
-            <div class="filter_dropdown_area relative inline-block">
+            <div class="filter_dropdown_area md:relative inline-block">
                 <button class="button" onclick="switch_filter()"><i class="fa fa-filter"></i></button>
-                <div class="filter_dropdown absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
-                    <div role="none" class="status_filters py-1">
+                <div class="filter_dropdown absolute right-0 z-10 mt-2 w-[100%] md:w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
+                    <div role="none" class="all_filters py-1">
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Tudo','tipo')">Tudo</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Pendente','status')">Pendente</a>
                     </div>
                     <div role="none" class="custom_filters py-1">
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Mídia','tipo')">Mídia</a>
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Short Stories e Fanfics','tipo')">Short Stories e Fanfics</a>
+                    </div>
+                    <div role="none" class="status_filters py-1">
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Pendente','status')">Pendente</a>
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Planejamento','status')">Planejamento</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Repetindo','status')">Repetindo</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Concluído','status')">Concluído</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Pausado','status')">Pausado</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Dropado','status')">Dropado</a>
                     </div>
                     <div role="none" class="tipo_filters py-1">
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Novel','tipo')">Novel</a>
