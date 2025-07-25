@@ -69,8 +69,12 @@ function switch_cores() {
 }
 
 var cur_editing_id;
+var scroll_y = window.scrollY;
+var last_item_pos;
 
 function edit_item(id) {
+  last_item_pos = window.scrollY;
+  window.scrollTo(scroll_y, 0);
   cur_editing_id = id;
   //console.log(list.itens);
   remote_open_tab('Editar');
@@ -87,6 +91,7 @@ function edit_item(id) {
     document.querySelector(".img_input").value = "";
     document.querySelector(".img_preview").src = "";
     document.querySelector(".img_preview").classList.add('hidden');
+    document.querySelector(".nota_input").value = "";
   } else {
     document.querySelector(".edit_title").innerHTML = "Editar item \""+list.itens[id].dados.titulo+"\"";
     document.querySelector(".tipo_input").value = list.itens[id].tipo;
@@ -99,7 +104,22 @@ function edit_item(id) {
     document.querySelector(".moji_input").value = list.itens[id].dados.moji;
     document.querySelector(".img_input").value = list.itens[id].dados.img;
     document.querySelector(".img_preview").src = list.itens[id].dados.img;
-    document.querySelector(".img_preview").classList.remove('hidden');
+    if (document.querySelector(".img_input").value != "") {
+      document.querySelector(".img_preview").classList.remove('hidden');
+    } else {
+      document.querySelector(".img_preview").classList.add('hidden');
+    }
+    let anotacao = list.itens[id].dados.nota;
+    if (!list.itens[id].dados.hasOwnProperty("nota")) anotacao = "";
+    document.querySelector(".nota_input").value = anotacao;
+  }
+
+  if (document.querySelector('.nota_link') != null) {
+    window.addEventListener('click', function(e){   
+      if (document.querySelector('.nota_link').contains(e.target)){
+        remote_open_tab('Visualizar');
+      }
+    });
   }
 }
 
@@ -118,12 +138,14 @@ function save_item(){
         "horas": document.querySelector(".horas_input").value,
         "minutos": document.querySelector(".minutos_input").value,
         "volumes": document.querySelector(".volumes_input").value,
-        "img": document.querySelector(".img_input").value
+        "img": document.querySelector(".img_input").value,
+        "nota": document.querySelector(".nota_input").value
       }
     };
     remote_open_tab('Visualizar');
     load_list();
     //console.log(list);
+    window.scrollTo(scroll_y, last_item_pos);
     return
   }
   //substituir[id]
@@ -137,11 +159,13 @@ function save_item(){
       "horas": document.querySelector(".horas_input").value,
       "minutos": document.querySelector(".minutos_input").value,
       "volumes": document.querySelector(".volumes_input").value,
-      "img": document.querySelector(".img_input").value
+      "img": document.querySelector(".img_input").value,
+      "nota": document.querySelector(".nota_input").value
     }
   };
   remote_open_tab('Visualizar');
   load_list();
+  window.scrollTo(scroll_y, last_item_pos);
 }
 
 function delete_item(){
@@ -151,17 +175,39 @@ function delete_item(){
   }
   remote_open_tab('Visualizar');
   load_list();
+  window.scrollTo(scroll_y, last_item_pos);
 }
 
 function cancel_item(){
   remote_open_tab('Visualizar');
+  window.scrollTo(scroll_y, last_item_pos);
+}
+
+var filters = {
+  "Tudo": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage","Fanfic","Short Story","Ensaio"]',
+  "Mídia": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage"]',
+  "Short Stories e Fanfics": '["Fanfic","Short Story","Ensaio"]',
+  "Novel": '["Novel"]',
+  "Anime": '["Anime"]',
+  "Mangá": '["Mangá"]',
+  "Jogo": '["Jogo"]',
+  "Filme": '["Filme"]',
+  "Áudio": '["Áudio"]',
+  "Dorama/Série": '["Dorama/Série"]',
+  "Stage": '["Stage"]',
+  "Fanfic": '["Fanfic"]',
+  "Short Story": '["Short Story"]',
+  "Ensaio": '["Ensaio"]',
+  "Planejamento": '["Planejo"]',
+  "Pendente": '["Progredindo"]'
 }
 
 var list = {
     "itens": [],
     "list_mode": "grid",
     "cores": true,
-    "apoio": false
+    "apoio": false,
+    "last_filter": ['Tudo','tipo']
 };
 
 function upload_list(files) {
@@ -172,6 +218,9 @@ function upload_list(files) {
       let result = JSON.parse(e.target.result);
       let formatted = JSON.stringify(result, null, 2);
       list = JSON.parse(formatted);
+      if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo','tipo'];
+      console.log(list.last_filter);
+      change_filter(list.last_filter[0],list.last_filter[1]);
       load_list();
       remote_open_tab('Visualizar');
     }
@@ -206,7 +255,25 @@ function load_list() {
     document.querySelector(".iichan_tab").classList.remove('hidden');
     document.querySelector(".iichan_nav").classList.remove('hidden');
   }
+
+  let filtered_list = [];
+  if (cur_filter_type == "tipo") {
+    for (i = 0; i < list.itens.length; i++) {
+      if (JSON.parse(filters[cur_filter]).includes(list.itens[i].tipo)) {
+        filtered_list.push(i);
+      }
+    }
+  }
+  if (cur_filter_type == "status") {
+    for (i = 0; i < list.itens.length; i++) {
+      if (JSON.parse(filters[cur_filter]).includes(list.itens[i].dados.status)) {
+        filtered_list.push(i);
+      }
+    }
+  }
+
   for (i = 0; i < list.itens.length; i++) {
+    if (filtered_list.includes(i)) {
     let progresso_string;
     let volumes_string;
     let progresso_traço;
@@ -221,12 +288,12 @@ function load_list() {
         progresso_traço = " - ";
       }
     }
-    if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série") {
+    if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série" || list.itens[i].tipo == "Stage") {
       progresso_string = list.itens[i].dados.progresso + " episódios";
       volumes_string = "";
       progresso_traço = "";
     }
-    if (list.itens[i].tipo == "Jogo") {
+    if (list.itens[i].tipo == "Jogo" || list.itens[i].tipo == "Fanfic" || list.itens[i].tipo == "Short Story" || list.itens[i].tipo == "Ensaio") {
       progresso_string = "";
       progresso_traço = "";
       volumes_string = "";
@@ -280,19 +347,42 @@ function load_list() {
         case "Áudio":
           bg_color = "#ffc8aa";
           break;
+        case "Dorama/Série":
+          bg_color = "#fe3967";
+          break;
+        case "Stage":
+          bg_color = "#efe80e";
+          break;
+        case "Fanfic":
+          bg_color = "#a8a8a8";
+          break;
+        case "Short Story":
+          bg_color = "#ce5add";
+          break;
+        case "Ensaio":
+          bg_color = "#ffffff";
+          break;
       }
     }
 
     let img_hidden = "";
     if (list.itens[i].dados.img == "") img_hidden = "hidden";
 
+    let anotacao = list.itens[i].dados.nota;
+    if (!list.itens[i].dados.hasOwnProperty("nota")) anotacao = "";
+    anotacao = anotacao.linkify({
+      className: "nota_link text-blue-500",
+      target: "_blank"
+    });
+    anotacao = anotacao.replaceAll(/[\n]/g,"<br>");
+
     document.querySelector(".content_list").innerHTML += `
-    <div style="background-color:${bg_color}" class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200" id="${i}" onclick="edit_item(this.id)">
+    <div style="background-color:${bg_color}" class="flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200" id="${i}" onclick="edit_item(this.id)">
       <div class="p-1 flex flex-row gap-2 h-[225px]">
         <img src="${list.itens[i].dados.img}" class="aspect-[1/1.33] ${img_hidden}">
         <div class="w-[100%]">
           <b>${list.itens[i].dados.titulo}</b>
-          <button class="float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa fa-pencil"></i></button>
+          <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa fa-pencil"></i></button>
           <br><br>
           <p>${list.itens[i].tipo}</p>
           <p>${list.itens[i].dados.status}</p>
@@ -303,8 +393,10 @@ function load_list() {
           <p>${moji_string}</p>
         </div>
       </div>
+      <p class="nota_div p-1">${anotacao}</p>
     </div>
     `
+  }
   }
 }
 
@@ -312,3 +404,29 @@ function update_preview_image() {
   document.querySelector(".img_preview").src = document.querySelector(".img_input").value;
   document.querySelector(".img_preview").classList.remove('hidden');
 }
+
+var cur_filter = "Tudo";
+
+function switch_filter() {
+  if (document.querySelector(".filter_dropdown").classList.contains('hidden')) {
+    document.querySelector(".filter_dropdown").classList.remove('hidden');
+    return
+  }
+  document.querySelector(".filter_dropdown").classList.add('hidden');
+}
+
+var cur_filter_type = "tipo";
+
+function change_filter(selected_filter,filter_type) {
+  cur_filter = selected_filter;
+  cur_filter_type = filter_type;
+  load_list();
+  document.querySelector(".filter_dropdown").classList.add('hidden');
+  list.last_filter = [cur_filter,cur_filter_type];
+}
+
+window.addEventListener('click', function(e){   
+  if (!document.querySelector('.filter_dropdown_area').contains(e.target)){
+    document.querySelector(".filter_dropdown").classList.add('hidden');
+  }
+});

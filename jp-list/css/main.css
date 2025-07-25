@@ -45,6 +45,17 @@
     grid-template-columns: 1fr;
 }
 
+@media (width >= 48rem) {
+    .grid-list-view > div {
+        flex-direction: row;
+        gap: 50px;
+        align-items: center;
+    }
+    .grid-list-view > div > .nota_div {
+        max-width: 65%;
+    }
+}
+
 .textinput {
     background-color: inherit;
     padding: calc(var(--spacing) * 2);

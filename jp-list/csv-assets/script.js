@@ -11,19 +11,20 @@ var list = {
 
 function loadfile(file) {
     //csvToJsonRegex(this.files[0])
+    //console.log(file.name);
     Papa.parse(file, {
         header: true,
         skipEmptyLines: true,
         complete: function(results, file) {
-            console.log("Parsing complete:", results, file);
-            console.log(Object.keys(results.data[0]));
-            console.log("TÍTULO");
-            console.log(results.data[0].TÍTULO);
-            console.log(results.data[0]);
+            //console.log("Parsing complete:", results, file);
+            //console.log(Object.keys(results.data[0]));
+            //console.log("TÍTULO");
+            //console.log(results.data[0].TÍTULO);
+            //console.log(results.data[0]);
             //results.data = results.data.map(results.data, obj => _.pick(obj, [ 'FORMATO','TÍTULO','STATUS','EP/CAP','MOJI','HORAS','VOL']));
             for (let i = 0; i < 1000; i++) {
                 if (results.data.hasOwnProperty(i) && results.data[i].TÍTULO != "") {
-                    console.log(results.data[i]);
+                    //console.log(results.data[i]);
                     let listnew = list.itens.length;
 
                     let formato_min = results.data[i].FORMATO.toLowerCase();
@@ -64,15 +65,15 @@ function loadfile(file) {
                         volumes_name = "VOLUMES";
                     }
 
-                    console.log(results.data[i].MOJI);
-                    console.log(results.data[i].MOJI.replaceAll(/[.]/g,""));
+                    //console.log(results.data[i].MOJI);
+                    //console.log(results.data[i].MOJI.replaceAll(/[.]/g,""));
                     let moji_value = results.data[i].MOJI.replaceAll(/[.]/g,"");
-                    console.log(moji_value);
+                    //console.log(moji_value);
                     if (moji_value == "") {
                         moji_value = "0";
                     }
-                    console.log(moji_value);
-                    console.log(Number(moji_value));
+                    //console.log(moji_value);
+                    //console.log(Number(moji_value));
     
                     list.itens[listnew] = {
                     "tipo": formato_first,
@@ -90,16 +91,17 @@ function loadfile(file) {
                 }
             }
             //console.log(list);
-            download_list();
+            download_list(file.name);
         }
     });
 }
 
-function download_list() {
+function download_list(file_name) {
   var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(list, null, 2));
   var dlAnchorElem = document.querySelector('.download_link');
   dlAnchorElem.setAttribute("href", dataStr);
-  dlAnchorElem.setAttribute("download", "lista_convertida.json");
+  let file_only_name = file_name.split(".");
+  dlAnchorElem.setAttribute("download", file_only_name[0]+".json");
   //dlAnchorElem.style.display = "block";
   dlAnchorElem.click();
 }

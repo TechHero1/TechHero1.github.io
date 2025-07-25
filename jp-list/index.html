@@ -4,6 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/linkify.min.js"></script>
+    <script type="text/javascript" src="js/linkify-string.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
@@ -65,6 +67,10 @@
                 <option value="Filme">Filme</option>
                 <option value="Áudio">Áudio</option>
                 <option value="Dorama/Série">Dorama/Série</option>
+                <option value="Stage">Stage</option>
+                <option value="Fanfic">Fanfic</option>
+                <option value="Short Story">Short Story</option>
+                <option value="Ensaio">Ensaio</option>
             </select>
         </div>
         <hr class="border-gray-200">
@@ -120,6 +126,11 @@
             </div>
             <img src="" class="img_preview h-[225px] aspect-[1/1.33] hidden">
         </div>
+        <hr class="border-gray-200">
+        <div class="p-3 flex flex-row gap-3 items-center">
+            <label for="nota_textarea">Anotação</label>
+            <textarea class="nota_input textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]" type="textarea" id="nota_textarea" name="nota_textarea" onchange=""></textarea>
+        </div>
         </div>
         <div class="p-3 flex flex-row gap-3 items-center">
             <div class="flex flex-row gap-3 items-center w-[100%]">
@@ -136,10 +147,39 @@
         <div class="p-2 w-[100%] flex flex-row-reverse gap-2">
             <button class="button" onclick="edit_item('new')"><i class="fa fa-plus"></i></button>
             <button class="button switch_view_btn" onclick="switch_view()"><i class="fa fa-th"></i></button>
+            <div class="filter_dropdown_area relative inline-block">
+                <button class="button" onclick="switch_filter()"><i class="fa fa-filter"></i></button>
+                <div class="filter_dropdown absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
+                    <div role="none" class="status_filters py-1">
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Tudo','tipo')">Tudo</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Pendente','status')">Pendente</a>
+                    </div>
+                    <div role="none" class="custom_filters py-1">
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Mídia','tipo')">Mídia</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Short Stories e Fanfics','tipo')">Short Stories e Fanfics</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Planejamento','status')">Planejamento</a>
+                    </div>
+                    <div role="none" class="tipo_filters py-1">
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Novel','tipo')">Novel</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Anime','tipo')">Anime</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Mangá','tipo')">Mangá</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Jogo','tipo')">Jogo</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Filme','tipo')">Filme</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Áudio','tipo')">Áudio</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Dorama/Série','tipo')">Dorama/Série</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Stage','tipo')">Stage</a>
+                    </div>
+                    <div role="none" class="extra_filters py-1">
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Fanfic','tipo')">Fanfic</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Short Story','tipo')">Short Story</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Ensaio','tipo')">Ensaio</a>
+                    </div>
+                </div>
+            </div>
             <button class="button" onclick="switch_cores()">Cores</button>
             <button class="button" onclick="switch_apoio()">Apoio</button>
         </div>
-        <div class="content_list p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2">
+        <div class="content_list p-2 grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-2">
 
         </div>
     </div>
