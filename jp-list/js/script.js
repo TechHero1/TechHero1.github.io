@@ -566,7 +566,7 @@ function gerar_stats() {
   let tipo_pie_data = [{
     values: graph_types_values,
     labels: graph_types,
-    textinfo: "label+value",
+    textinfo: "label+percent",
     hoverinfo: "label+value+percent",
     marker: {
       colors: graph_types_colors,
@@ -673,7 +673,7 @@ function gerar_stats() {
   let status_pie_data = [{
     values: graph_status_values,
     labels: graph_status,
-    textinfo: "label+value",
+    textinfo: "label+percent",
     hoverinfo: "label+value+percent",
     marker: {
       colors: graph_status_colors,
