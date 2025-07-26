@@ -601,7 +601,8 @@ function gerar_stats() {
       scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
     },
     displayModeBar: true,
-    modeBarButtonsToRemove: ['select', 'lasso']
+    modeBarButtonsToRemove: ['select', 'lasso'],
+    displaylogo: false
   };
 
   Plotly.newPlot(document.querySelector(".tipo_pie"), tipo_pie_data, tipo_pie_layout, tipo_pie_config);
@@ -647,7 +648,8 @@ function gerar_stats() {
       scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
     },
     displayModeBar: true,
-    modeBarButtonsToRemove: ['select', 'lasso']
+    modeBarButtonsToRemove: ['select', 'lasso'],
+    displaylogo: false
   };
 
   Plotly.newPlot(document.querySelector(".tipo_bar"), tipo_bar_data, tipo_bar_layout, tipo_bar_config);
@@ -708,7 +710,8 @@ function gerar_stats() {
       scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
     },
     displayModeBar: true,
-    modeBarButtonsToRemove: ['select', 'lasso']
+    modeBarButtonsToRemove: ['select', 'lasso'],
+    displaylogo: false
   };
 
   Plotly.newPlot(document.querySelector(".status_pie"), status_pie_data, status_pie_layout, status_pie_config);
@@ -755,12 +758,15 @@ function gerar_stats() {
       scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
     },
     displayModeBar: true,
-    modeBarButtonsToRemove: ['select', 'lasso']
+    modeBarButtonsToRemove: ['select', 'lasso'],
+    displaylogo: false
   };
 
   Plotly.newPlot(document.querySelector(".status_bar"), status_bar_data, status_bar_layout, status_bar_config);
 
   let graph_prog_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let graph_total_ep = 0;
+  let graph_total_cap = 0;
 
   for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
     //console.log(tipo_id+" "+graph_types[tipo_id]);
@@ -770,6 +776,16 @@ function gerar_stats() {
         graph_prog_types_values[tipo_id] += Number(list.itens[item_id].dados.progresso);
         //console.log(graph_prog_types_values);
         //console.log(Number(list.itens[item_id].dados.progresso));
+        if (list.itens[item_id].tipo == 'Anime' || list.itens[item_id].tipo == 'Filme' || list.itens[item_id].tipo == 'Áudio' || list.itens[item_id].tipo == 'Dorama/Série' || list.itens[item_id].tipo == 'Stage') {
+          graph_total_ep += Number(list.itens[item_id].dados.progresso);
+          //console.log("ep: "+list.itens[item_id].dados.progresso);
+          //console.log("total ep: "+graph_total_ep);
+        }
+        if (list.itens[item_id].tipo == 'Novel' || list.itens[item_id].tipo == 'Mangá' || list.itens[item_id].tipo == 'Jogo' || list.itens[item_id].tipo == 'Fanfic' || list.itens[item_id].tipo == 'Short Story' || list.itens[item_id].tipo == 'Ensaio') {
+          graph_total_cap += Number(list.itens[item_id].dados.progresso);
+          //console.log("cap: "+list.itens[item_id].dados.progresso);
+          //console.log("total cap: "+graph_total_cap);
+        }
       }
     }
   }
@@ -815,7 +831,8 @@ function gerar_stats() {
       scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
     },
     displayModeBar: true,
-    modeBarButtonsToRemove: ['select', 'lasso']
+    modeBarButtonsToRemove: ['select', 'lasso'],
+    displaylogo: false
   };
 
   Plotly.newPlot(document.querySelector(".prog_tipo_bar"), prog_tipo_bar_data, prog_tipo_bar_layout, prog_tipo_bar_config);
@@ -848,6 +865,9 @@ function gerar_stats() {
     }
   }
 
+  let graph_total_horas = 0;
+  let graph_total_minutos = 0;
+
   //console.log(graph_horas_types_values);
   //console.log(graph_minutos_types_values);
   for (let tipo_id = 0; tipo_id < graph_minutos_types_values.length; tipo_id++) {
@@ -856,8 +876,17 @@ function gerar_stats() {
     //console.log("minutos em horas "+Math.round(Number(graph_minutos_types_values[tipo_id])/60));
     graph_horas_types_values[tipo_id] += Math.round(Number(graph_minutos_types_values[tipo_id])/60);
     //console.log("horas somadas "+graph_horas_types_values[tipo_id]);
+    //console.log(graph_horas_types_values[tipo_id]);
+    graph_total_horas += graph_horas_types_values[tipo_id];
+    graph_total_minutos += Math.round(Number(graph_minutos_types_values[tipo_id])%60);
+    //console.log(graph_minutos_types_values[tipo_id]);
+    //console.log(graph_total_horas+":"+graph_total_minutos);
   }
   //console.log(graph_horas_types_values);
+
+  graph_total_horas += Math.round(graph_total_minutos/60);
+  graph_total_minutos = Math.round(graph_total_minutos%60);
+  //console.log(graph_total_horas+":"+graph_total_minutos);
 
   //horas por formato
 
@@ -900,8 +929,27 @@ function gerar_stats() {
       scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
     },
     displayModeBar: true,
-    modeBarButtonsToRemove: ['select', 'lasso']
+    modeBarButtonsToRemove: ['select', 'lasso'],
+    displaylogo: false
   };
 
   Plotly.newPlot(document.querySelector(".horas_tipo_bar"), horas_tipo_bar_data, horas_tipo_bar_layout, horas_tipo_bar_config);
+
+  let graph_total_moji = 0;
+  let graph_total_vol = 0;
+
+  for (let item_id = 0; item_id < list.itens.length; item_id++) {
+    //console.log("antes: "+graph_total_moji);
+    graph_total_moji += Number(list.itens[item_id].dados.moji);
+    //console.log("moji: "+list.itens[item_id].dados.moji);
+    //console.log("depois: "+graph_total_moji);
+    graph_total_vol += Number(list.itens[item_id].dados.volumes);
+  }
+
+  //document.querySelector(".time_counter").innerHTML = `${graph_total_horas}:${graph_total_minutos}`;
+  document.querySelector(".time_counter").innerHTML = `${String(graph_total_horas).padStart(2, '0')}:${String(graph_total_minutos).padStart(2, '0')}`;
+  document.querySelector(".ep_counter").innerHTML = graph_total_ep;
+  document.querySelector(".cap_counter").innerHTML = graph_total_cap;
+  document.querySelector(".moji_counter").innerHTML = graph_total_moji;
+  document.querySelector(".vol_counter").innerHTML = graph_total_vol;
 }

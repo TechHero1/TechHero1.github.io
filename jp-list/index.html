@@ -51,6 +51,59 @@
     </div>
 
     <div id="Estatísticas" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
+        <center>
+        <div class="p-2">
+            <table class="border-1 table-auto">
+                <thead>
+                    <th class="border-1 p-2" colspan="2">
+                        <div class="text-center">Total</div>
+                    </th>
+                </thead>
+                <tbody>
+                    <tr class="bg-(--color-anime)">
+                        <td class="border-1 p-2">
+                            <div class="text-center">Episódios</div>
+                        </td>
+                        <td class="border-1 p-2">
+                            <div class="text-center ep_counter">0</div>
+                        </td>
+                    </tr>
+                    <tr class="bg-(--color-manga)">
+                        <td class="border-1 p-2">
+                            <div class="text-center">Capítulos</div>
+                        </td>
+                        <td class="border-1 p-2">
+                            <div class="text-center cap_counter">0</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-1 p-2">
+                            <div class="text-center">Caracteres</div>
+                        </td>
+                        <td class="border-1 p-2">
+                            <div class="text-center moji_counter">0</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-1 p-2">
+                            <div class="text-center">Volumes</div>
+                        </td>
+                        <td class="border-1 p-2">
+                            <div class="text-center vol_counter">0</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-1 p-2">
+                            <div class="text-center">Horas (HH:MM)</div>
+                        </td>
+                        <td class="border-1 p-2">
+                            <div class="text-center time_counter">00:00</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </center>
         <div class="p-2 grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
             <!--<img class="p-2" src="https://media.tenor.com/XnGK5CaQTt4AAAAd/ah-eto-bleh-anime.gif">-->
             <div class="tipo_pie p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
@@ -111,7 +164,7 @@
                 <input class="volumes_input textinput" type="number" id="volumes" name="volumes" value="0">
             </div>
             <div class="pr-3 flex flex-row gap-3 items-center order-3 md:order-2">
-                <label for="hours">Horas</label>
+                <label for="hours">Horas (HH:MM)</label>
                 <input class="horas_input textinput" type="number" id="hours" name="hours" value="0">
             </div>
             <div class="flex flex-row gap-3 items-center order-4 md:order-4">

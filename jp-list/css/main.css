@@ -9,6 +9,17 @@
     --color-red-200: oklch(88.5% 0.062 18.334);
     --color-slate-500: oklch(55.4% 0.046 257.417);
     --color-gray-200: oklch(92.8% 0.006 264.531);
+    --color-novel: #e6cff2;
+    --color-anime: #bfe1f6;
+    --color-manga: #d4edbc;
+    --color-jogo: #ffcfc9;
+    --color-filme: #c6dbe1;
+    --color-audio: #ffc8aa;
+    --color-doramaserie: #fe3967;
+    --color-stage: #efe80e;
+    --color-fanfic: #a8a8a8;
+    --color-shortstory: #ce5add;
+    --color-ensaio: #ffffff;
 
     --spacing: 0.25rem;
 }
