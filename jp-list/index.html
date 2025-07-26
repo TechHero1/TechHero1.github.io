@@ -7,16 +7,17 @@
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript" src="js/linkify.min.js"></script>
     <script type="text/javascript" src="js/linkify-string.min.js"></script>
+    <script type="text/javascript" src="js/plotly-3.0.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
 </head>
 <body class="font-[AdwaitaSans-Regular] bg-gray-200" onload="remote_open_tab('Arquivo')">
-    <nav class="bg-gray-800 sticky top-0 w-[100%] text-white flex flex-col sm:flex-row items-center">
+    <nav class="bg-gray-800 sticky top-0 w-[100%] text-white flex flex-col sm:flex-row items-center z-10">
         <div class="tab w-[100%] sm:w-[50%]">
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Arquivo')">Arquivo</button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Visualizar')">Visualizar</button>
-            <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Estatísticas')">Estatísticas</button>
+            <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Estatísticas');gerar_stats()">Estatísticas</button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150 hidden" onclick="open_tab(event, 'Editar')">Editar</button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150 iichan_tab hidden" onclick="open_tab(event, 'Apoio')">Apoio</button>
         </div>
@@ -50,8 +51,14 @@
     </div>
 
     <div id="Estatísticas" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
-        <div class="p-2 flex flex-col gap-2 items-center">
-            <img class="p-2" src="https://media.tenor.com/XnGK5CaQTt4AAAAd/ah-eto-bleh-anime.gif">
+        <div class="p-2 grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
+            <!--<img class="p-2" src="https://media.tenor.com/XnGK5CaQTt4AAAAd/ah-eto-bleh-anime.gif">-->
+            <div class="tipo_pie p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
+            <div class="tipo_bar p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
+            <div class="status_pie p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
+            <div class="status_bar p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
+            <div class="prog_tipo_bar p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
+            <div class="horas_tipo_bar p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
         </div>
     </div>
 

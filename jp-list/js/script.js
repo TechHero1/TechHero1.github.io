@@ -247,7 +247,7 @@ function upload_list(files) {
       let formatted = JSON.stringify(result, null, 2);
       list = JSON.parse(formatted);
       if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo_tipo','Tudo_status'];
-      console.log(list.last_filter);
+      //console.log(list.last_filter);
       change_filter(list.last_filter[0],list.last_filter[1]);
       load_list();
       remote_open_tab('Visualizar');
@@ -397,8 +397,8 @@ function load_list() {
 
     document.querySelector(".content_list").innerHTML += `
     <div style="background-color:${bg_color}" class="flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200" id="${i}" onclick="edit_item(this.id)">
-      <div class="p-1 flex flex-row gap-2 h-[225px]">
-        <img src="${list.itens[i].dados.img}" class="aspect-[1/1.33] ${img_hidden}">
+      <div class="p-1 flex flex-row gap-2">
+        <img src="${list.itens[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] ${img_hidden}">
         <div class="w-[100%]">
           <b>${list.itens[i].dados.titulo}</b>
           <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa fa-pencil"></i></button>
@@ -441,7 +441,7 @@ function change_filter(filter_tipo,filter_status) {
   load_list();
   //document.querySelector(".filter_dropdown").classList.add('hidden');
   list.last_filter = [cur_filter_tipo,cur_filter_status];
-  console.log([cur_filter_tipo,cur_filter_status]);
+  //console.log([cur_filter_tipo,cur_filter_status]);
   update_filter_checks();
 }
 
@@ -541,4 +541,367 @@ function update_filter_checks() {
       document.querySelector(".icon_status_dropado").classList.remove("hidden");
       break;
   }
+}
+
+//stats
+function gerar_stats() {
+  let graph_types = ['Anime', 'Novel', 'Mangá', 'Jogo', 'Filme', 'Áudio', 'Dorama/Série', 'Stage', 'Fanfic', 'Short Story', 'Ensaio'];
+  let graph_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let graph_types_colors = ['#bfe1f6','#e6cff2','#d4edbc', '#ffcfc9', '#c6dbe1', '#ffc8aa', '#fe3967', '#efe80e', '#a8a8a8', '#ce5add', '#ffffff'];
+  let graph_types_lines = '#000000';
+
+  for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
+    //console.log(tipo_id+" "+graph_types[tipo_id]);
+    for (let item_id = 0; item_id < list.itens.length; item_id++) {
+      //console.log(list.itens[item_id].tipo);
+      if (list.itens[item_id].tipo == graph_types[tipo_id]) {
+        graph_types_values[tipo_id]++;
+        //console.log(graph_types_values);
+      }
+    }
+  }
+
+  //tipo pie
+
+  let tipo_pie_data = [{
+    values: graph_types_values,
+    labels: graph_types,
+    textinfo: "label+value",
+    hoverinfo: "label+value+percent",
+    marker: {
+      colors: graph_types_colors,
+      line: {
+        color: graph_types_lines,
+        width: 1.5
+      }
+    },
+    type: 'pie'
+  }];
+
+  let tipo_pie_layout = {
+    title: {
+      text: 'Formatos (pizza)'
+    },
+    font:{
+      family: 'Arial, sans-serif'
+    },
+    yaxis: {
+      fixedrange: true
+    },
+    xaxis: {
+      fixedrange: true
+    }
+  };
+
+  let tipo_pie_config = {
+    responsive: true,
+    toImageButtonOptions: {
+      format: 'png', // one of png, svg, jpeg, webp
+      filename: 'tipo_pie_chart',
+      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+    },
+    displayModeBar: true,
+    modeBarButtonsToRemove: ['select', 'lasso']
+  };
+
+  Plotly.newPlot(document.querySelector(".tipo_pie"), tipo_pie_data, tipo_pie_layout, tipo_pie_config);
+
+  //tipo bar
+
+  let tipo_bar_data = [{
+    y: graph_types_values,
+    x: graph_types,
+    marker: {
+      color: graph_types_colors,
+      line: {
+        color: graph_types_lines,
+        width: 1.5
+      }
+    },
+    type: 'bar',
+    text: graph_types_values.map(String),
+    textposition: 'auto',
+    hoverinfo: 'x+y'
+  }];
+
+  let tipo_bar_layout = {
+    title: {
+      text: 'Formatos (barras)'
+    },
+    font:{
+      family: 'Arial, sans-serif'
+    },
+    yaxis: {
+      fixedrange: true
+    },
+    xaxis: {
+      fixedrange: true
+    }
+  };
+
+  let tipo_bar_config = {
+    responsive: true,
+    toImageButtonOptions: {
+      format: 'png', // one of png, svg, jpeg, webp
+      filename: 'tipo_bar_chart',
+      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+    },
+    displayModeBar: true,
+    modeBarButtonsToRemove: ['select', 'lasso']
+  };
+
+  Plotly.newPlot(document.querySelector(".tipo_bar"), tipo_bar_data, tipo_bar_layout, tipo_bar_config);
+
+  let graph_status = ['Completo', 'Progredindo', 'Planejo', 'Dropado', 'Repetindo', 'Pausado'];
+  let graph_status_values = [0, 0, 0, 0, 0, 0];
+  let graph_status_colors = ['#4285f4','#00ff00','#cfe2f3', '#ff0000', '#11734b', '#ffe5a0'];
+  let graph_status_lines = '#000000';
+
+  for (let status_id = 0; status_id < graph_status.length; status_id++) {
+    //console.log(status_id+" "+graph_status[status_id]);
+    for (let item_id = 0; item_id < list.itens.length; item_id++) {
+      //console.log(list.itens[item_id].tipo);
+      if (list.itens[item_id].dados.status == graph_status[status_id]) {
+        graph_status_values[status_id]++;
+        //console.log(graph_status_values);
+      }
+    }
+  }
+
+  //status pie
+
+  let status_pie_data = [{
+    values: graph_status_values,
+    labels: graph_status,
+    textinfo: "label+value",
+    hoverinfo: "label+value+percent",
+    marker: {
+      colors: graph_status_colors,
+      line: {
+        color: graph_status_lines,
+        width: 1.5
+      }
+    },
+    type: 'pie'
+  }];
+
+  let status_pie_layout = {
+    title: {
+      text: 'Status (pizza)'
+    },
+    font:{
+      family: 'Arial, sans-serif'
+    },
+    yaxis: {
+      fixedrange: true
+    },
+    xaxis: {
+      fixedrange: true
+    }
+  };
+
+  let status_pie_config = {
+    responsive: true,
+    toImageButtonOptions: {
+      format: 'png', // one of png, svg, jpeg, webp
+      filename: 'status_pie_chart',
+      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+    },
+    displayModeBar: true,
+    modeBarButtonsToRemove: ['select', 'lasso']
+  };
+
+  Plotly.newPlot(document.querySelector(".status_pie"), status_pie_data, status_pie_layout, status_pie_config);
+
+  //status bar
+
+  let status_bar_data = [{
+    y: graph_status_values,
+    x: graph_status,
+    marker: {
+      color: graph_status_colors,
+      line: {
+        color: graph_status_lines,
+        width: 1.5
+      }
+    },
+    type: 'bar',
+    text: graph_status_values.map(String),
+    textposition: 'auto',
+    hoverinfo: 'x+y'
+
+  }];
+
+  let status_bar_layout = {
+    title: {
+      text: 'Status (barras)'
+    },
+    font:{
+      family: 'Arial, sans-serif'
+    },
+    yaxis: {
+      fixedrange: true
+    },
+    xaxis: {
+      fixedrange: true
+    }
+  };
+
+  let status_bar_config = {
+    responsive: true,
+    toImageButtonOptions: {
+      format: 'png', // one of png, svg, jpeg, webp
+      filename: 'status_bar_chart',
+      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+    },
+    displayModeBar: true,
+    modeBarButtonsToRemove: ['select', 'lasso']
+  };
+
+  Plotly.newPlot(document.querySelector(".status_bar"), status_bar_data, status_bar_layout, status_bar_config);
+
+  let graph_prog_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
+    //console.log(tipo_id+" "+graph_types[tipo_id]);
+    for (let item_id = 0; item_id < list.itens.length; item_id++) {
+      //console.log(list.itens[item_id].tipo);
+      if (list.itens[item_id].tipo == graph_types[tipo_id]) {
+        graph_prog_types_values[tipo_id] += Number(list.itens[item_id].dados.progresso);
+        //console.log(graph_prog_types_values);
+        //console.log(Number(list.itens[item_id].dados.progresso));
+      }
+    }
+  }
+
+  //progresso por formato
+
+  let prog_tipo_bar_data = [{
+    y: graph_prog_types_values,
+    x: graph_types,
+    marker: {
+      color: graph_types_colors,
+      line: {
+        color: graph_types_lines,
+        width: 1.5
+      }
+    },
+    type: 'bar',
+    text: graph_prog_types_values.map(String),
+    textposition: 'auto',
+    hoverinfo: 'x+y'
+  }];
+
+  let prog_tipo_bar_layout = {
+    title: {
+      text: 'Progresso por formato'
+    },
+    font:{
+      family: 'Arial, sans-serif'
+    },
+    yaxis: {
+      fixedrange: true
+    },
+    xaxis: {
+      fixedrange: true
+    }
+  };
+
+  let prog_tipo_bar_config = {
+    responsive: true,
+    toImageButtonOptions: {
+      format: 'png', // one of png, svg, jpeg, webp
+      filename: 'prog_tipo_bar_chart',
+      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+    },
+    displayModeBar: true,
+    modeBarButtonsToRemove: ['select', 'lasso']
+  };
+
+  Plotly.newPlot(document.querySelector(".prog_tipo_bar"), prog_tipo_bar_data, prog_tipo_bar_layout, prog_tipo_bar_config);
+
+  let graph_horas_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
+    //console.log(tipo_id+" "+graph_types[tipo_id]);
+    for (let item_id = 0; item_id < list.itens.length; item_id++) {
+      //console.log(list.itens[item_id].tipo);
+      if (list.itens[item_id].tipo == graph_types[tipo_id]) {
+        graph_horas_types_values[tipo_id] += Number(list.itens[item_id].dados.horas);
+        //console.log(graph_horas_types_values);
+        //console.log(Number(list.itens[item_id].dados.horas));
+      }
+    }
+  }
+
+  let graph_minutos_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
+    //console.log(tipo_id+" "+graph_types[tipo_id]);
+    for (let item_id = 0; item_id < list.itens.length; item_id++) {
+      //console.log(list.itens[item_id].tipo);
+      if (list.itens[item_id].tipo == graph_types[tipo_id]) {
+        graph_minutos_types_values[tipo_id] += Number(list.itens[item_id].dados.minutos);
+        //console.log(graph_minutos_types_values);
+        //console.log(Number(list.itens[item_id].dados.minutos));
+      }
+    }
+  }
+
+  //console.log(graph_horas_types_values);
+  //console.log(graph_minutos_types_values);
+  for (let tipo_id = 0; tipo_id < graph_minutos_types_values.length; tipo_id++) {
+    //console.log("horas "+graph_horas_types_values[tipo_id]);
+    //console.log("minutos "+graph_minutos_types_values[tipo_id]);
+    //console.log("minutos em horas "+Math.round(Number(graph_minutos_types_values[tipo_id])/60));
+    graph_horas_types_values[tipo_id] += Math.round(Number(graph_minutos_types_values[tipo_id])/60);
+    //console.log("horas somadas "+graph_horas_types_values[tipo_id]);
+  }
+  //console.log(graph_horas_types_values);
+
+  //horas por formato
+
+  let horas_tipo_bar_data = [{
+    y: graph_horas_types_values,
+    x: graph_types,
+    marker: {
+      color: graph_types_colors,
+      line: {
+        color: graph_types_lines,
+        width: 1.5
+      }
+    },
+    type: 'bar',
+    text: graph_horas_types_values.map(String),
+    textposition: 'auto',
+    hoverinfo: 'x+y'
+  }];
+
+  let horas_tipo_bar_layout = {
+    title: {
+      text: 'Horas por formato'
+    },
+    font:{
+      family: 'Arial, sans-serif'
+    },
+    yaxis: {
+      fixedrange: true
+    },
+    xaxis: {
+      fixedrange: true
+    }
+  };
+
+  let horas_tipo_bar_config = {
+    responsive: true,
+    toImageButtonOptions: {
+      format: 'png', // one of png, svg, jpeg, webp
+      filename: 'horas_tipo_bar_chart',
+      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+    },
+    displayModeBar: true,
+    modeBarButtonsToRemove: ['select', 'lasso']
+  };
+
+  Plotly.newPlot(document.querySelector(".horas_tipo_bar"), horas_tipo_bar_data, horas_tipo_bar_layout, horas_tipo_bar_config);
 }
