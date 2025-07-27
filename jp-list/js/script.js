@@ -1,4 +1,5 @@
 var i;
+var nf = new Intl.NumberFormat('fr-FR');
 
 function remote_open_tab(tab_name) {
     var tablinks;
@@ -298,17 +299,17 @@ function load_list() {
     let progresso_traço;
 
     if (list.itens[i].tipo == "Novel" || list.itens[i].tipo == "Mangá") {
-      progresso_string = list.itens[i].dados.progresso + " capítulos";
+      progresso_string = nf.format(list.itens[i].dados.progresso) + " capítulos";
       if (list.itens[i].dados.volumes <= 1) {
-        volumes_string = list.itens[i].dados.volumes + " volume";
+        volumes_string = nf.format(list.itens[i].dados.volumes) + " volume";
         progresso_traço = " - ";
       } else {
-        volumes_string = list.itens[i].dados.volumes + " volumes";
+        volumes_string = nf.format(list.itens[i].dados.volumes) + " volumes";
         progresso_traço = " - ";
       }
     }
     if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série" || list.itens[i].tipo == "Stage") {
-      progresso_string = list.itens[i].dados.progresso + " episódios";
+      progresso_string = nf.format(list.itens[i].dados.progresso) + " episódios";
       volumes_string = "";
       progresso_traço = "";
     }
@@ -328,9 +329,9 @@ function load_list() {
     if (list.itens[i].dados.moji == 0) {
       moji_string = "";
     } else if (list.itens[i].dados.moji == 1) {
-      moji_string = list.itens[i].dados.moji + " caractere";
+      moji_string = nf.format(list.itens[i].dados.moji) + " caractere";
     } else {
-      moji_string = list.itens[i].dados.moji + " caracteres";
+      moji_string = nf.format(list.itens[i].dados.moji) + " caracteres";
     }
 
     let horas = String(list.itens[i].dados.horas).padStart(2, '0');
@@ -948,8 +949,8 @@ function gerar_stats() {
 
   //document.querySelector(".time_counter").innerHTML = `${graph_total_horas}:${graph_total_minutos}`;
   document.querySelector(".time_counter").innerHTML = `${String(graph_total_horas).padStart(2, '0')}:${String(graph_total_minutos).padStart(2, '0')}`;
-  document.querySelector(".ep_counter").innerHTML = graph_total_ep;
-  document.querySelector(".cap_counter").innerHTML = graph_total_cap;
-  document.querySelector(".moji_counter").innerHTML = graph_total_moji;
-  document.querySelector(".vol_counter").innerHTML = graph_total_vol;
+  document.querySelector(".ep_counter").innerHTML = nf.format(graph_total_ep);
+  document.querySelector(".cap_counter").innerHTML = nf.format(graph_total_cap);
+  document.querySelector(".moji_counter").innerHTML = nf.format(graph_total_moji);
+  document.querySelector(".vol_counter").innerHTML = nf.format(graph_total_vol);
 }
