@@ -239,6 +239,8 @@ var list = {
     "last_filter": ['Tudo_tipo','Tudo_status']
 };
 
+var listname = "";
+
 function upload_list(files) {
   try {
     let reader = new FileReader();
@@ -251,6 +253,8 @@ function upload_list(files) {
       //console.log(list.last_filter);
       change_filter(list.last_filter[0],list.last_filter[1]);
       load_list();
+      listname = files.name.replaceAll(/.json/g,"");
+      document.querySelector(".file_name_input").value = listname;
       remote_open_tab('Visualizar');
     }
 
@@ -264,7 +268,8 @@ function download_list() {
   var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(list, null, 2));
   var dlAnchorElem = document.querySelector('.download_link');
   dlAnchorElem.setAttribute("href", dataStr);
-  dlAnchorElem.setAttribute("download", "lista.json");
+  listname = document.querySelector(".file_name_input").value;
+  dlAnchorElem.setAttribute("download", listname+".json");
   dlAnchorElem.click();
 }
 

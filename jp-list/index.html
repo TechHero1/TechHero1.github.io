@@ -32,14 +32,20 @@
     </nav>
 
     <div id="Arquivo" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md">
-        <div class="p-2">
+        <div class="p-2 flex flex-col gap-10">
+        <div>
             <label class="button" for="jsonfile"><i class="fa fa-upload"></i> Importar lista já existente</label>
             <br>
             <input class="hidden" type="file" id="jsonfile" name="jsonfile" accept="application/json" onchange="upload_list(this.files[0])">
         </div>
-        <div class="p-2">
+        <div>
+            <div class="pb-3 flex flex-col gap-3 w-[100%]">
+                <label for="file_name">Nome do arquivo</label>
+                <input class="file_name_input textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]" type="text" id="file_name" name="file_name">
+            </div>
             <button class="button" onclick="download_list()"><i class="fa fa-download"></i> Baixar lista</button>
             <a class="hidden download_link"></a>
+        </div>
         </div>
     </div>
 
