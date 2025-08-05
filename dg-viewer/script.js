@@ -8,6 +8,7 @@ function upload_json(files) {
       let result = JSON.parse(e.target.result);
       let formatted = JSON.stringify(result, null, 2);
       json_list = JSON.parse(formatted);
+      document.querySelector(".file_name").innerHTML = files.name;
       load_list();
     }
 
