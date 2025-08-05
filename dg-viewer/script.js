@@ -35,13 +35,18 @@ const texto_azul_debate_noend = /\<CLT=cltAGREE\>(.*?)$/g;
 //const texto_amarelo_debate_noend = /\<CLT=cltWEAK\>(.*?)(!\<CLT=cltNORMAL\>)/g;
 const texto_amarelo_debate_noend = /\<CLT=cltWEAK\>(.*?)$/g;
 
+const size_tag = /\<CLT=size\d\>|\<CLT=size(\d\.\d)\>/g;
+
 function load_list() {
     let content_list = document.querySelector(".dialogue_list");
+    content_list.innerHTML = "";
     for (i = 0; i < json_list.length; i++) {
         let current_string = json_list[i].Text;
         current_string = current_string.replaceAll(/[\n]/g,"<br>");
 
-        //console.log(texto_azul);
+        for (itag = 0; itag < (current_string.match(size_tag) || []).length; itag++) {
+            console.log(i+" "+current_string.match(size_tag)[itag]);
+        }
 
         //AZUL - MIND - NORMAL
         for (itag = 0; itag < (current_string.match(texto_azul) || []).length; itag++) {
