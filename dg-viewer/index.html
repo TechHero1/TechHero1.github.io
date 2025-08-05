@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:title" content="Danganronpa Dialogue Viewer">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="script.js"></script>
+    <title>Danganronpa Dialogue Viewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      @font-face {
+        font-family: 'AdwaitaSans-Regular';
+        src: url('../shared/fonts/adwaita-sans/AdwaitaSans-Regular.ttf') format('truetype');
+      }
+
+      :root {
+          --color-black: #000;
+          --color-red: #f00;
+          --color-red-200: oklch(88.5% 0.062 18.334);
+          --color-slate-500: oklch(55.4% 0.046 257.417);
+          --color-gray-200: oklch(92.8% 0.006 264.531);
+          --color-novel: #e6cff2;
+          --color-anime: #bfe1f6;
+          --color-manga: #d4edbc;
+          --color-jogo: #ffcfc9;
+          --color-filme: #c6dbe1;
+          --color-audio: #ffc8aa;
+          --color-doramaserie: #fe3967;
+          --color-stage: #efe80e;
+          --color-fanfic: #a8a8a8;
+          --color-shortstory: #ce5add;
+          --color-ensaio: #ffffff;
+
+          --spacing: 0.25rem;
+      }
+
+      .button {
+          background-color: inherit;
+          color: inherit;
+          padding: calc(var(--spacing) * 2);
+          border: 1px solid var(--color-black);
+          border-radius: var(--spacing);
+          cursor: pointer;
+          transition: all;
+          transition-duration: 150ms;
+      }
+
+      .button:hover {
+          background-color: var(--color-gray-200);
+      }
+
+      .button-danger {
+          border-color: 1px solid var(--color-red);
+          color: var(--color-red);
+      }
+
+      .button-danger:hover {
+          background-color: var(--color-red-200);
+      }
+    </style>
+  </head>
+  <body class="font-[AdwaitaSans-Regular] bg-gray-200">
+    <nav class="bg-gray-800">
+      <div class="mx-auto py-2 px-2 sm:px-6 lg:px-8 text-white text-[1.25rem]">
+        Danganronpa Dialogue Viewer
+      </div>
+    </nav>
+
+    <div class="mx-auto flex flex-col gap-4 p-2 sm:px-6 lg:px-8">
+        <div class="rounded-md p-2 bg-white shadow-md flex justify-center">
+          <label class="button" for="jsonfile"><i class="fa fa-upload"></i> Importar json</label>
+          <br>
+          <input class="hidden" type="file" id="jsonfile" name="jsonfile" accept="application/json" onchange="upload_json(this.files[0])">
+        </div>
+        <div class="dialogue_list p-2 flex flex-col gap-4 p-2 items-center rounded-md bg-white shadow-md">
+
+          <!--<div class="dialogue p-2 bg-black text-white w-[100%]">
+            <div class="relative">
+              <div class="dialogue_id absolute right-2 top-1">
+                0
+              </div>
+            </div>
+            <div class="flex flex-row gap-4">
+              <div class="dialogue_image p-2">
+                <img class="dialogue_img w-30 h-30" src="../game-thumb-viewer/preview.jpg">
+              </div>
+              <div class="dialogue_text flex flex-col p-2 gap-1">
+                <div class="dialogue_speaker">
+                  <b>Monokuma</b>
+                </div>
+                <div class="dialogue_string">
+                  teste
+                </div>
+              </div>
+            </div>
+          </div>-->
+
+        </div>
+    </div>
+  </body>
+</html>
