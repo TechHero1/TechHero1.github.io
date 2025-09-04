@@ -18,25 +18,6 @@ function upload_json(files) {
   }
 }
 
-const texto_azul = /\<CLT=cltMIND\>(.*?)\<CLT=cltNORMAL\>/g;
-const texto_amarelo = /\<CLT=cltSTRONG\>(.*?)\<CLT=cltNORMAL\>/g;
-const texto_verde = /\<CLT=cltSYSTEM\>(.*?)\<CLT=cltNORMAL\>/g;
-const texto_azul_debate = /\<CLT=cltAGREE\>(.*?)\<CLT=cltNORMAL\>/g;
-const texto_amarelo_debate = /\<CLT=cltWEAK\>(.*?)\<CLT=cltNORMAL\>/g;
-
-//const texto_azul_noend = /\<CLT=cltMIND\>(.*?)(!\<CLT=cltNORMAL\>)/g;
-const texto_azul_noend = /\<CLT=cltMIND\>(.*?)$/g;
-//const texto_amarelo_noend = /\<CLT=cltSTRONG\>(.*?)(!\<CLT=cltNORMAL\>)/g;
-const texto_amarelo_noend = /\<CLT=cltSTRONG\>(.*?)$/g;
-//const texto_verde_noend = /\<CLT=cltSYSTEM\>(.*?)(!\<CLT=cltNORMAL\>)/g;
-const texto_verde_noend = /\<CLT=cltSYSTEM\>(.*?)$/g;
-//const texto_azul_debate_noend = /\<CLT=cltAGREE\>(.*?)(!\<CLT=cltNORMAL\>)/g;
-const texto_azul_debate_noend = /\<CLT=cltAGREE\>(.*?)$/g;
-//const texto_amarelo_debate_noend = /\<CLT=cltWEAK\>(.*?)(!\<CLT=cltNORMAL\>)/g;
-const texto_amarelo_debate_noend = /\<CLT=cltWEAK\>(.*?)$/g;
-
-const size_tag = /\<CLT=size\d\>|\<CLT=size(\d\.\d)\>/g;
-
 function load_list() {
     let content_list = document.querySelector(".dialogue_list");
     content_list.innerHTML = "";
@@ -44,81 +25,51 @@ function load_list() {
         let current_string = json_list[i].Text;
         current_string = current_string.replaceAll(/[\n]/g,"<br>");
 
-        for (itag = 0; itag < (current_string.match(size_tag) || []).length; itag++) {
-            console.log(i+" "+current_string.match(size_tag)[itag]);
+        /*for (itag = 0; itag < (current_string.match(size_tag) || []).length; itag++) {
+            console.log(current_string.match(size_tag)[itag]);
+            console.log(getFirstGroup(size_tag,current_string.match(size_tag)[itag]));
+            console.log(`[size ${getFirstGroup(size_tag,current_string.match(size_tag)[itag])}]`);
+            //current_string = current_string.replaceAll(current_string.match(size_tag)[itag],`[size ${getFirstGroup(size_tag,current_string.match(size_tag)[itag])}]`);
+            current_string = current_string.replaceAll(current_string.match(size_tag),`[size ${getFirstGroup(size_tag,current_string)}]`);
+            console.log(`trocou ${current_string.match(size_tag)} por ${`[size ${getFirstGroup(size_tag,(current_string.match(size_tag)))}]`}`)
+        }*/
+
+        /*console.log(current_string.match(size_tag));
+        console.log(getFirstGroup(size_tag,current_string));
+        for (itag = 0; itag < getFirstGroup(size_tag,current_string).length; itag++) {
+            console.log(current_string.match(size_tag)[itag]+"\n[size "+getFirstGroup(size_tag,current_string)[itag]+"]");
+        }
+        current_string = current_string.replaceAll(current_string.match(size_tag),getFirstGroup(size_tag,current_string));*/
+
+        //NORMAL
+        for (itag = 0; itag < (current_string.match("<CLT=cltNORMAL>") || []).length; itag++) {
+            current_string = current_string.replaceAll("<CLT=cltNORMAL>",`<span class="text-white">`);
         }
 
-        //AZUL - MIND - NORMAL
-        for (itag = 0; itag < (current_string.match(texto_azul) || []).length; itag++) {
-            //console.log(i+" "+current_string.match(texto_azul)[itag]+" end");
-            current_string = current_string.replaceAll(texto_azul,`<span class="text-blue-200">${current_string.match(texto_azul)[itag]}</span>`);
-            current_string = current_string.replaceAll("<CLT=cltMIND>","");
+        //AZUL - MIND
+        for (itag = 0; itag < (current_string.match("<CLT=cltMIND>") || []).length; itag++) {
+            current_string = current_string.replaceAll("<CLT=cltMIND>",`<span class="text-blue-200">`);
         }
 
-        //AZUL - MIND - NOEND
-        for (itag = 0; itag < (current_string.match(texto_azul_noend) || []).length; itag++) {
-            //console.log(i+" "+current_string.match(texto_azul_noend)[itag]+" no_end");
-            //current_string = current_string.replaceAll(current_string,`${current_string.split(current_string.match(texto_azul_noend)[itag])[0]}<span class="text-blue-200">${current_string.split(current_string.match(texto_azul_noend)[itag])[1]}</span>`);
-            current_string = current_string.replaceAll(texto_azul_noend,`<span class="text-blue-200">${current_string.match(texto_azul_noend)[itag]}</span>`);
+        //AMARELO - STRONG
+        for (itag = 0; itag < (current_string.match("<CLT=cltSTRONG>") || []).length; itag++) {
+            current_string = current_string.replaceAll("<CLT=cltSTRONG>",`<span class="text-yellow-200">`);
         }
 
-        //AMARELO - STRONG - NORMAL
-        for (itag = 0; itag < (current_string.match(texto_amarelo) || []).length; itag++) {
-            //console.log(i+" "+current_string.match(texto_amarelo)[itag]+" end");
-            current_string = current_string.replaceAll(texto_amarelo,`<span class="text-yellow-200">${current_string.match(texto_amarelo)[itag]}</span>`);
-            current_string = current_string.replaceAll("<CLT=cltSTRONG>","");
+        //VERDE - SYSTEM
+        for (itag = 0; itag < (current_string.match("<CLT=cltSYSTEM>") || []).length; itag++) {
+            current_string = current_string.replaceAll("<CLT=cltSYSTEM>",`<span class="text-green-200">`);
         }
 
-        //AMARELO - STRONG - NOEND
-        for (itag = 0; itag < (current_string.match(texto_amarelo_noend) || []).length; itag++) {
-            //console.log(i+" "+current_string.match(texto_amarelo_noend)[itag]+" no_end");
-            //current_string = current_string.replaceAll(current_string,`${current_string.split(current_string.match(texto_amarelo_noend)[itag])[0]}<span class="text-yellow-200">${current_string.split(current_string.match(texto_amarelo_noend)[itag])[1]}</span>`);
-            current_string = current_string.replaceAll(texto_amarelo_noend,`<span class="text-yellow-200">${current_string.match(texto_amarelo_noend)[itag]}</span>`);
+        //AZUL - AGREE
+        for (itag = 0; itag < (current_string.match("<CLT=cltAGREE>") || []).length; itag++) {
+            current_string = current_string.replaceAll("<CLT=cltAGREE>",`<span class="text-blue-200">`);
         }
 
-        //VERDE - SYSTEM - NORMAL
-        for (itag = 0; itag < (current_string.match(texto_verde) || []).length; itag++) {
-            //console.log(i+" "+current_string.match(texto_verde)[itag]+" end");
-            current_string = current_string.replaceAll(texto_verde,`<span class="text-green-200">${current_string.match(texto_verde)[itag]}</span>`);
-            current_string = current_string.replaceAll("<CLT=cltSYSTEM>","");
+        //AMARELO - WEAK
+        for (itag = 0; itag < (current_string.match("<CLT=cltWEAK>") || []).length; itag++) {
+            current_string = current_string.replaceAll("<CLT=cltWEAK>",`<span class="text-yellow-200">`);
         }
-
-        //VERDE - SYSTEM - NOEND
-        for (itag = 0; itag < (current_string.match(texto_verde_noend) || []).length; itag++) {
-            //console.log(i+" "+current_string.match(texto_verde_noend)[itag]+" no_end");
-            //current_string = current_string.replaceAll(current_string,`${current_string.split(current_string.match(texto_verde_noend)[itag])[0]}<span class="text-green-200">${current_string.split(current_string.match(texto_verde_noend)[itag])[1]}</span>`);
-            current_string = current_string.replaceAll(texto_verde_noend,`<span class="text-green-200">${current_string.match(texto_verde_noend)[itag]}</span>`);
-        }
-
-        //AZUL - AGREE - NORMAL
-        for (itag = 0; itag < (current_string.match(texto_azul_debate) || []).length; itag++) {
-            //console.log(i+" "+current_string.match(texto_azul_debate)[itag]+" end");
-            current_string = current_string.replaceAll(texto_azul_debate,`<span class="text-blue-200">${current_string.match(texto_azul_debate)[itag]}</span>`);
-            current_string = current_string.replaceAll("<CLT=cltAGREE>","");
-        }
-
-        //AZUL - AGREE - NOEND
-        for (itag = 0; itag < (current_string.match(texto_azul_debate_noend) || []).length; itag++) {
-            //console.log(i+" "+current_string.match(texto_azul_debate_noend)[itag]+" no_end");
-            //current_string = current_string.replaceAll(current_string,`${current_string.split(current_string.match(texto_azul_debate_noend)[itag])[0]}<span class="text-blue-200">${current_string.split(current_string.match(texto_azul_debate_noend)[itag])[1]}</span>`);
-            current_string = current_string.replaceAll(texto_azul_debate_noend,`<span class="text-blue-200">${current_string.match(texto_azul_debate_noend)[itag]}</span>`);
-        }
-
-        //AMARELO - WEAK - NORMAL
-        for (itag = 0; itag < (current_string.match(texto_amarelo_debate) || []).length; itag++) {
-            //console.log(i+" "+current_string.match(texto_amarelo_debate)[itag]+" end");
-            current_string = current_string.replaceAll(texto_amarelo_debate,`<span class="text-yellow-200">${current_string.match(texto_amarelo_debate)[itag]}</span>`);
-            current_string = current_string.replaceAll("<CLT=cltWEAK>","");
-        }
-
-        //AMARELO - WEAK - NOEND
-        for (itag = 0; itag < (current_string.match(texto_amarelo_debate_noend) || []).length; itag++) {
-            //console.log(i+" "+current_string.match(texto_amarelo_debate_noend)[itag]+" no_end");
-            //current_string = current_string.replaceAll(current_string,`${current_string.split(current_string.match(texto_amarelo_debate_noend)[itag])[0]}<span class="text-yellow-200">${current_string.split(current_string.match(texto_amarelo_debate_noend)[itag])[1]}</span>`);
-            current_string = current_string.replaceAll(texto_amarelo_debate_noend,`<span class="text-yellow-200">${current_string.match(texto_amarelo_debate_noend)[itag]}</span>`);
-        }
-
-        //current_string = current_string.replaceAll(texto_azul,"<br>");
 
         if (json_list[i].hasOwnProperty("Speaker")) {
         content_list.innerHTML += `
