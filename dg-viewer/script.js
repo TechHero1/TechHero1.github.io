@@ -18,6 +18,9 @@ function upload_json(files) {
   }
 }
 
+//const size_tag = /\<CLT=size(\d)\>|\<CLT=size(\d\.\d)\>/g;
+const size_tag = /\<CLT=size(\d|\d\.\d)\>/g;
+
 function load_list() {
     let content_list = document.querySelector(".dialogue_list");
     content_list.innerHTML = "";
@@ -25,21 +28,15 @@ function load_list() {
         let current_string = json_list[i].Text;
         current_string = current_string.replaceAll(/[\n]/g,"<br>");
 
-        /*for (itag = 0; itag < (current_string.match(size_tag) || []).length; itag++) {
-            console.log(current_string.match(size_tag)[itag]);
-            console.log(getFirstGroup(size_tag,current_string.match(size_tag)[itag]));
-            console.log(`[size ${getFirstGroup(size_tag,current_string.match(size_tag)[itag])}]`);
-            //current_string = current_string.replaceAll(current_string.match(size_tag)[itag],`[size ${getFirstGroup(size_tag,current_string.match(size_tag)[itag])}]`);
-            current_string = current_string.replaceAll(current_string.match(size_tag),`[size ${getFirstGroup(size_tag,current_string)}]`);
-            console.log(`trocou ${current_string.match(size_tag)} por ${`[size ${getFirstGroup(size_tag,(current_string.match(size_tag)))}]`}`)
-        }*/
+        //SIZE
+        for (itag = 0; itag < (current_string.match(size_tag) || []).length; itag++) {
+            let size_match;
 
-        /*console.log(current_string.match(size_tag));
-        console.log(getFirstGroup(size_tag,current_string));
-        for (itag = 0; itag < getFirstGroup(size_tag,current_string).length; itag++) {
-            console.log(current_string.match(size_tag)[itag]+"\n[size "+getFirstGroup(size_tag,current_string)[itag]+"]");
+            while ((size_match = size_tag.exec(current_string)) !== null) {
+                console.log(size_match[1]);
+                current_string = current_string.replaceAll(size_match[0],`<span class="text-[${size_match[1]}rem]">`);
+            }
         }
-        current_string = current_string.replaceAll(current_string.match(size_tag),getFirstGroup(size_tag,current_string));*/
 
         //NORMAL
         for (itag = 0; itag < (current_string.match("<CLT=cltNORMAL>") || []).length; itag++) {
