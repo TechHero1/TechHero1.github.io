@@ -6,7 +6,7 @@ function remote_open_tab(tab_name) {
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
-        if (tab_name == tablinks[i].innerHTML) {
+        if (tab_name+"_tab" == tablinks[i].id) {
             tablinks[i].click();
             return
         }
@@ -430,6 +430,7 @@ function update_preview_image() {
   document.querySelector(".img_preview").classList.remove('hidden');
 }
 
+//filtros da lista
 var cur_filter_tipo = "Tudo_tipo";
 var cur_filter_status = "Tudo_status";
 
@@ -548,6 +549,38 @@ function update_filter_checks() {
       break;
   }
 }
+
+//filtros de streaming
+function switch_streaming_filter() {
+  if (document.querySelector(".streaming_filter_dropdown").classList.contains('hidden')) {
+    document.querySelector(".streaming_filter_dropdown").classList.remove('hidden');
+    return
+  }
+  document.querySelector(".streaming_filter_dropdown").classList.add('hidden');
+}
+
+function change_streaming_filter(midia) {
+  let streaming_items;
+    streaming_items = document.getElementsByClassName("streaming_item");
+    if (midia != "tudo") {
+      for (i = 0; i < streaming_items.length; i++) {
+        streaming_items[i].classList.add('hidden');
+        if (streaming_items[i].classList.contains("streaming_item_"+midia)) {
+            streaming_items[i].classList.remove('hidden');
+        }
+      }
+    } else {
+      for (i = 0; i < streaming_items.length; i++) {
+        streaming_items[i].classList.remove('hidden');
+      }
+    }
+}
+
+window.addEventListener('click', function(e){   
+  if (!document.querySelector('.streaming_filter_dropdown_area').contains(e.target)){
+    document.querySelector(".streaming_filter_dropdown").classList.add('hidden');
+  }
+});
 
 //stats
 function gerar_stats() {
