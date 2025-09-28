@@ -161,7 +161,7 @@
 
         <hr class="md:hidden border-gray-200">
 
-        <div class="p-3 grid grid-cols-1 md:grid-cols-2 gap-3 items-center w-[100%] md:w-[clamp(710px,70%,1000px)]">
+        <!--<div class="p-3 grid grid-cols-1 md:grid-cols-2 gap-3 items-center w-[100%] md:w-[clamp(710px,70%,1000px)]">
             <div class="pr-3 flex flex-row gap-3 items-center md:border-r-3 md:border-solid md:border-gray-200 order-1 md:order-1">
                 <label for="progress">Progresso</label>
                 <input class="progresso_input textinput" type="number" id="progress" name="progress" value="0">
@@ -178,9 +178,47 @@
                 <label for="minutes">Minutos</label>
                 <input class="minutos_input textinput" type="number" id="minutes" name="minutes" value="0">
             </div>
+        </div>-->
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 items-center">
+            <div class="flex flex-row gap-3 items-center">
+                <label for="progress">Progresso</label>
+                <input class="progresso_input textinput" type="number" id="progress" name="progress" value="0">
+            </div>
+            <div class="flex flex-row gap-3 items-center">
+                <label for="volumes">Volumes</label>
+                <input class="volumes_input textinput" type="number" id="volumes" name="volumes" value="0">
+            </div>
         </div>
 
-        <hr class="md:hidden border-gray-200">
+        <hr class="border-gray-200">
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 items-center">
+            <div class="flex flex-row gap-3 items-center">
+                <label for="autotime">Tempo automático</label>
+                <input class="autotime_input textinput" type="checkbox" id="autotime" name="autotime" onclick="update_autotime()">
+            </div>
+        </div>
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 items-center autotime_number">
+            <div class="flex flex-row gap-3 items-center">
+                <label for="prog_min">Minutos por progresso</label>
+                <input class="prog_min_input textinput" type="number" id="prog_min" name="prog_min" value="0">
+            </div>
+        </div>
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 items-center normaltime_number">
+            <div class="flex flex-row gap-3 items-center">
+                <label for="hours">Horas</label>
+                <input class="horas_input textinput" type="number" id="hours" name="hours" value="0">
+            </div>
+            <div class="flex flex-row gap-3 items-center">
+                <label for="minutes">Minutos</label>
+                <input class="minutos_input textinput" type="number" id="minutes" name="minutes" value="0">
+            </div>
+        </div>
+
+        <hr class="border-gray-200">
 
         <div class="p-3 flex flex-row gap-3 items-center">
             <label for="moji">Caracteres (Moji)</label>

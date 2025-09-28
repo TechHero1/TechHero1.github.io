@@ -93,6 +93,9 @@ function edit_item(id) {
     document.querySelector(".img_preview").src = "";
     document.querySelector(".img_preview").classList.add('hidden');
     document.querySelector(".nota_input").value = "";
+    document.querySelector(".autotime_input").checked = false;
+    document.querySelector(".prog_min_input").value = 0;
+    update_autotime();
   } else {
     document.querySelector(".edit_title").innerHTML = "Editar item \""+list.itens[id].dados.titulo+"\"";
     document.querySelector(".tipo_input").value = list.itens[id].tipo;
@@ -113,6 +116,14 @@ function edit_item(id) {
     let anotacao = list.itens[id].dados.nota;
     if (!list.itens[id].dados.hasOwnProperty("nota")) anotacao = "";
     document.querySelector(".nota_input").value = anotacao;
+
+    let autotime = list.itens[id].dados.autotime;
+    if (!list.itens[id].dados.hasOwnProperty("autotime")) autotime = false;
+    document.querySelector(".autotime_input").checked = autotime;
+    let prog_min = list.itens[id].dados.prog_min;
+    if (!list.itens[id].dados.hasOwnProperty("prog_min")) prog_min = false;
+    document.querySelector(".prog_min_input").value = prog_min;
+    update_autotime();
   }
 
   if (document.querySelector('.nota_link') != null) {
@@ -140,7 +151,9 @@ function save_item(){
         "minutos": document.querySelector(".minutos_input").value,
         "volumes": document.querySelector(".volumes_input").value,
         "img": document.querySelector(".img_input").value,
-        "nota": document.querySelector(".nota_input").value
+        "nota": document.querySelector(".nota_input").value,
+        "autotime": document.querySelector(".autotime_input").checked,
+        "prog_min": document.querySelector(".prog_min_input").value
       }
     };
     remote_open_tab('Visualizar');
@@ -161,7 +174,9 @@ function save_item(){
       "minutos": document.querySelector(".minutos_input").value,
       "volumes": document.querySelector(".volumes_input").value,
       "img": document.querySelector(".img_input").value,
-      "nota": document.querySelector(".nota_input").value
+      "nota": document.querySelector(".nota_input").value,
+      "autotime": document.querySelector(".autotime_input").checked,
+      "prog_min": document.querySelector(".prog_min_input").value
     }
   };
   remote_open_tab('Visualizar');
@@ -304,7 +319,13 @@ function load_list() {
     let progresso_traço;
 
     if (list.itens[i].tipo == "Novel" || list.itens[i].tipo == "Mangá") {
-      progresso_string = nf.format(list.itens[i].dados.progresso) + " capítulos";
+      //progresso_string = nf.format(list.itens[i].dados.progresso) + " capítulos";
+      if (list.itens[i].dados.progresso == 1) {
+        progresso_string = nf.format(list.itens[i].dados.progresso) + " capítulo";
+      } else {
+        progresso_string = nf.format(list.itens[i].dados.progresso) + " capítulos";
+      }
+
       if (list.itens[i].dados.volumes <= 1) {
         volumes_string = nf.format(list.itens[i].dados.volumes) + " volume";
         progresso_traço = " - ";
@@ -314,7 +335,13 @@ function load_list() {
       }
     }
     if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série" || list.itens[i].tipo == "Stage") {
-      progresso_string = nf.format(list.itens[i].dados.progresso) + " episódios";
+      //progresso_string = nf.format(list.itens[i].dados.progresso) + " episódios";
+      if (list.itens[i].dados.progresso == 1) {
+        progresso_string = nf.format(list.itens[i].dados.progresso) + " episódio";
+      } else {
+        progresso_string = nf.format(list.itens[i].dados.progresso) + " episódios";
+      }
+
       volumes_string = "";
       progresso_traço = "";
     }
@@ -339,13 +366,24 @@ function load_list() {
       moji_string = nf.format(list.itens[i].dados.moji) + " caracteres";
     }
 
+    if (!list.itens[i].dados.hasOwnProperty("autotime")) list.itens[i].dados.autotime = false;
+    let autotime = list.itens[i].dados.autotime;
+
     let horas = String(list.itens[i].dados.horas).padStart(2, '0');
     let minutos = String(list.itens[i].dados.minutos).padStart(2, '0');
     let tempo_string;
-    if (list.itens[i].dados.horas == 0 && list.itens[i].dados.minutos == 0) {
-      tempo_string = "";
+    if (!autotime) {
+      if (list.itens[i].dados.horas == 0 && list.itens[i].dados.minutos == 0) {
+        tempo_string = "";
+      } else {
+        tempo_string = horas+":"+minutos;
+      }
     } else {
-      tempo_string = horas+":"+minutos;
+      if (list.itens[i].dados.prog_min == 0 && list.itens[i].dados.autotime) {
+        tempo_string = "";
+      } else {
+        tempo_string = String(Math.round((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)/60)).padStart(2, '0')+":"+String((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)%60).padStart(2, '0');
+      }
     }
 
     let bg_color = "#ffffff";
@@ -883,9 +921,16 @@ function gerar_stats() {
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
       //console.log(list.itens[item_id].tipo);
       if (list.itens[item_id].tipo == graph_types[tipo_id]) {
-        graph_horas_types_values[tipo_id] += Number(list.itens[item_id].dados.horas);
+        //graph_horas_types_values[tipo_id] += Number(list.itens[item_id].dados.horas);
+
+        if (!list.itens[item_id].dados.autotime) {
+          graph_horas_types_values[tipo_id] += Number(list.itens[item_id].dados.horas);
+        } else {
+          graph_horas_types_values[tipo_id] += Math.round((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)/60);
+        }
         //console.log(graph_horas_types_values);
         //console.log(Number(list.itens[item_id].dados.horas));
+        //console.log(Math.round((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)/60));
       }
     }
   }
@@ -897,9 +942,16 @@ function gerar_stats() {
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
       //console.log(list.itens[item_id].tipo);
       if (list.itens[item_id].tipo == graph_types[tipo_id]) {
-        graph_minutos_types_values[tipo_id] += Number(list.itens[item_id].dados.minutos);
+        //graph_minutos_types_values[tipo_id] += Number(list.itens[item_id].dados.minutos);
+
+        if (!list.itens[item_id].dados.autotime) {
+          graph_minutos_types_values[tipo_id] += Number(list.itens[item_id].dados.minutos);
+        } else {
+          graph_minutos_types_values[tipo_id] += Number((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)%60);
+        }
         //console.log(graph_minutos_types_values);
         //console.log(Number(list.itens[item_id].dados.minutos));
+        //console.log(Number((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)%60));
       }
     }
   }
@@ -912,8 +964,8 @@ function gerar_stats() {
   for (let tipo_id = 0; tipo_id < graph_minutos_types_values.length; tipo_id++) {
     //console.log("horas "+graph_horas_types_values[tipo_id]);
     //console.log("minutos "+graph_minutos_types_values[tipo_id]);
-    //console.log("minutos em horas "+Math.round(Number(graph_minutos_types_values[tipo_id])/60));
-    graph_horas_types_values[tipo_id] += Math.round(Number(graph_minutos_types_values[tipo_id])/60);
+    //console.log("minutos em horas "+Math.trunc(Number(graph_minutos_types_values[tipo_id])/60));
+    graph_horas_types_values[tipo_id] += Math.trunc(Number(graph_minutos_types_values[tipo_id])/60);
     //console.log("horas somadas "+graph_horas_types_values[tipo_id]);
     //console.log(graph_horas_types_values[tipo_id]);
     graph_total_horas += graph_horas_types_values[tipo_id];
@@ -923,7 +975,7 @@ function gerar_stats() {
   }
   //console.log(graph_horas_types_values);
 
-  graph_total_horas += Math.round(graph_total_minutos/60);
+  graph_total_horas += Math.trunc(graph_total_minutos/60);
   graph_total_minutos = Math.round(graph_total_minutos%60);
   //console.log(graph_total_horas+":"+graph_total_minutos);
 
@@ -991,4 +1043,14 @@ function gerar_stats() {
   document.querySelector(".cap_counter").innerHTML = nf.format(graph_total_cap);
   document.querySelector(".moji_counter").innerHTML = nf.format(graph_total_moji);
   document.querySelector(".vol_counter").innerHTML = nf.format(graph_total_vol);
+}
+
+function update_autotime() {
+  if (document.querySelector(".autotime_input").checked) {
+    document.querySelector(".autotime_number").classList.remove("hidden");
+    document.querySelector(".normaltime_number").classList.add("hidden");
+  } else {
+    document.querySelector(".autotime_number").classList.add("hidden");
+    document.querySelector(".normaltime_number").classList.remove("hidden");
+  }
 }
