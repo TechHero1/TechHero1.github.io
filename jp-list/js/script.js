@@ -382,7 +382,7 @@ function load_list() {
       if (list.itens[i].dados.prog_min == 0 && list.itens[i].dados.autotime) {
         tempo_string = "";
       } else {
-        tempo_string = String(Math.round((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)/60)).padStart(2, '0')+":"+String((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)%60).padStart(2, '0');
+        tempo_string = String(Math.trunc((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)/60)).padStart(2, '0')+":"+String((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)%60).padStart(2, '0');
       }
     }
 
