@@ -926,11 +926,11 @@ function gerar_stats() {
         if (!list.itens[item_id].dados.autotime) {
           graph_horas_types_values[tipo_id] += Number(list.itens[item_id].dados.horas);
         } else {
-          graph_horas_types_values[tipo_id] += Math.round((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)/60);
+          graph_horas_types_values[tipo_id] += Math.trunc((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)/60);
         }
         //console.log(graph_horas_types_values);
         //console.log(Number(list.itens[item_id].dados.horas));
-        //console.log(Math.round((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)/60));
+        //console.log(Math.trunc((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)/60));
       }
     }
   }
@@ -969,14 +969,14 @@ function gerar_stats() {
     //console.log("horas somadas "+graph_horas_types_values[tipo_id]);
     //console.log(graph_horas_types_values[tipo_id]);
     graph_total_horas += graph_horas_types_values[tipo_id];
-    graph_total_minutos += Math.round(Number(graph_minutos_types_values[tipo_id])%60);
+    graph_total_minutos += Math.trunc(Number(graph_minutos_types_values[tipo_id])%60);
     //console.log(graph_minutos_types_values[tipo_id]);
     //console.log(graph_total_horas+":"+graph_total_minutos);
   }
   //console.log(graph_horas_types_values);
 
   graph_total_horas += Math.trunc(graph_total_minutos/60);
-  graph_total_minutos = Math.round(graph_total_minutos%60);
+  graph_total_minutos = Math.trunc(graph_total_minutos%60);
   //console.log(graph_total_horas+":"+graph_total_minutos);
 
   //horas por formato
