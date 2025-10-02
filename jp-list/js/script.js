@@ -442,7 +442,7 @@ function load_list() {
     document.querySelector(".content_list").innerHTML += `
     <div style="background-color:${bg_color}" class="flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200" id="${i}" onclick="edit_item(this.id)">
       <div class="p-1 flex flex-row gap-2">
-        <img src="${list.itens[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] ${img_hidden}">
+        <img src="${list.itens[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
         <div class="w-[100%]">
           <b>${list.itens[i].dados.titulo}</b>
           <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa fa-pencil"></i></button>
