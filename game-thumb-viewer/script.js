@@ -5,7 +5,7 @@ var systems = [
     "Atari_-_2600",
 	"Atari_-_5200",
 	"Atari_-_7800",
-	"Atari_-_8-bit",
+	"Atari_-_8-bit_Family",
     "Atari_-_Jaguar",
     "Atari_-_Lynx",
     "Atari_-_ST",
@@ -125,6 +125,7 @@ var systems = [
 
 var types = [
     "Named_Boxarts",
+    "Named_Logos",
     "Named_Snaps",
     "Named_Titles"
 ]
