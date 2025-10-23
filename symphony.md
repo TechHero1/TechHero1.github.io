@@ -57,11 +57,11 @@ Perto da entrada dos Esgotos (Underground Caverns), um morcego pode entrar em um
 
 ## Macaco do Barril
 
-Explorando os Esgotos (Underground Caverns) você vai achar uma cachoeira. No topo dela, à esquerda tem um botão interessante. Observe o que acontece e tente replicar em outro lugar, atraindo o macaco aos poucos.
+Explorando os Esgotos (Underground Caverns) você vai achar uma cachoeira. No topo dela, à esquerda, tem um botão interessante. Observe o que acontece e tente replicar em outro lugar, atraindo o macaco aos poucos.
 
 ## Sala Escura
 
-Nas Catacumbas, tem uma sala escura. Use Echo of Bat pra te ajudar. Quando enxergar a luz, pode voltar ao normal e seguir em frente pra pegar uma Armadura Quebradora.
+Nas Catacumbas, tem uma sala escura. Use Echo of Bat pra te ajudar. Quando enxergar um chão iluminado, pode voltar ao normal e seguir em frente pra pegar uma Armadura Quebradora.
 
 ## Silver Ring
 
@@ -69,7 +69,7 @@ Agora que você tem a Armadura Quebradora, talvez tenha algo pra ela quebrar em 
 
 ## Holy Glasses
 
-Quando te derem os dois Anéis (lá ele), equipe eles e analise o que eles dizem.
+Quando te derem os dois Anéis 🤨, equipe eles e analise o que eles dizem.
 
 (obs: a tradução desse jogo é uma merda, torre = sala.)
 
@@ -77,9 +77,9 @@ Quando te derem os dois Anéis (lá ele), equipe eles e analise o que eles dizem
 
 Se ainda quiser explorar mais o castelo, pode fazer isso.
 
-Se quiser continuar, procure aquelas escadas vermelhas do começo do jogo (agora quebradas), equipe os Holy Glasses, e derrote o inimigo (mas cuidado pra não atacar um amigo sem querer).
+Se quiser continuar, procure aquelas escadas vermelhas do começo do jogo (agora quebradas), equipe os Holy Glasses 🤓, e derrote o inimigo 🟢 (mas cuidado pra não atacar um amigo sem querer).
 
-Agora é só coletar as relíquias (partes do corpo) do capeta em pessoa (ou melhor, vampiro) e termine tudo no relojão.
+Agora é só coletar as relíquias (partes do corpo) do capeta em pessoa (ou melhor, vampiro 🧛‍♂️) e termine tudo no relojão.
 
 ## Não entendeu? Precisa de visual? Não tô na live?
 
