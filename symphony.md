@@ -1,3 +1,5 @@
+# Dicas
+
 ## mapa
 
 O mapa é seu amigo, enquanto tiver aberturinhas nos quadrados azuis, você tem pra onde ir.
@@ -9,6 +11,8 @@ Talvez você perceba observando o mapa, mas nem todas as salas de save têm só 
 ## paredes secretas
 
 Existem paredes falsas espalhadas pelo castelo. Achou uma parede ou chão suspeitos? Tente quebrar.
+
+# Progressão
 
 ## Jewel of Open
 
