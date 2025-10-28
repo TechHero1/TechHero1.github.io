@@ -2,15 +2,17 @@
 
 ## mapa
 
-O mapa é seu amigo, enquanto tiver aberturinhas nos quadrados azuis, você tem pra onde ir.
+Qualquer parte do jogo é alcançável... talvez só não agora 💀
 
-Você também pode comprar partes dele pra te ajudar (aparece em quadrados cinzas).
+O mapa é seu amigo, enquanto tiver aberturinhas nos quadrados azuis 🟦, você tem pra onde ir.
 
-Talvez você perceba observando o mapa, mas nem todas as salas de save têm só 1 saída.
+Você também pode comprar partes do mapa do castelo pra te ajudar (as salas que você ainda não visitou aparecem em quadrados cinzas).
+
+Talvez você já perceba isso observando o mapa, mas nem todas as salas de save têm só 1 saída.
 
 ## paredes secretas
 
-Existem paredes falsas espalhadas pelo castelo. Achou uma parede ou chão suspeitos? Tente quebrar.
+Existem paredes falsas espalhadas pelo castelo. Achou uma parede, chão ou teto suspeitos? Tente quebrar.
 
 # Progressão
 
