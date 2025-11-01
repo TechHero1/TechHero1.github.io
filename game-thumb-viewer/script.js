@@ -154,6 +154,6 @@ function getImage() {
     let system_val = document.querySelector("#system").value;
     let type_val = document.querySelector("#type").value;
     let game_name = document.querySelector("#name").value;
-    //let game_val = document.querySelector("#name").value.replaceAll(/\_/g, "%20");
-    document.querySelector(".img-preview").src = `https://raw.githubusercontent.com/libretro-thumbnails/${system_val}/refs/heads/master/${type_val}/${game_name}.png`;
+    let game_replace = game_name.replaceAll(/&/g, "_");
+    document.querySelector(".img-preview").src = `https://raw.githubusercontent.com/libretro-thumbnails/${system_val}/refs/heads/master/${type_val}/${game_replace}.png`;
 }
