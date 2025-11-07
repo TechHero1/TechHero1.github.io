@@ -6,6 +6,8 @@ Qualquer parte do jogo é alcançável... talvez só não agora 💀
 
 O mapa é seu amigo, enquanto tiver aberturinhas nos quadrados azuis 🟦, você tem pra onde ir.
 
+Os quadradinhos vermelhos são save 🟥, aperte pra cima em baixo da "bola" pulsando pra salvar.
+
 Você também pode comprar partes do mapa do castelo pra te ajudar (as salas que você ainda não visitou aparecem em quadrados cinzas).
 
 Talvez você já perceba isso observando o mapa, mas nem todas as salas de save têm só 1 saída.
@@ -13,6 +15,10 @@ Talvez você já perceba isso observando o mapa, mas nem todas as salas de save 
 ## paredes secretas
 
 Existem paredes falsas espalhadas pelo castelo. Achou uma parede, chão ou teto suspeitos? Tente quebrar.
+
+## corações
+
+Corações não são a sua vida, mas sim munição de armas secundárias, que vocề usa segurando pra cima e atacando.
 
 # Progressão
 
