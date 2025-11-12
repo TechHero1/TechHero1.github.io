@@ -61,23 +61,23 @@ Em Olrox's Quarters, tinha um buraco no teto que agora você pode entrar. Morceg
 
 ## Esgotos
 
-Caso você não tenha visto, ou não se lembre, em Marble Gallery tem uma daquelas portas azuis. Nela você vai liberar os Esgotos (Underground Caverns).
+Caso você não tenha visto, ou não se lembre, em Marble Gallery tem uma daquelas portas azuis. Nela você vai abrir um pedacinho vermelho do chão e liberar os Esgotos (Underground Caverns).
 
 ## Gold Ring
 
 Perto da entrada dos Esgotos (Underground Caverns), um morcego pode entrar em uma sala impossível de acessar a pé. Nela vai ter 2 salas de save, por que será 😜?
 
-## Macaco do Barril
+## Macaco Esqueleto do Barril
 
 Explorando os Esgotos (Underground Caverns) você vai achar uma cachoeira. No topo dela, à esquerda, tem um botão interessante. Observe o que acontece e tente replicar em outro lugar, atraindo o macaco aos poucos.
 
 ## Sala Escura
 
-Nas Catacumbas, tem uma sala escura. Use Echo of Bat pra te ajudar. Quando enxergar um chão iluminado, pode voltar ao normal e seguir em frente pra pegar uma Armadura Quebradora.
+Nas Catacumbas, tem uma sala escura. Use Echo of Bat pra te ajudar. Quando enxergar um chão iluminado, pode voltar ao normal e seguir em frente pra pegar uma Armadura Quebradora de Espinhos.
 
 ## Silver Ring
 
-Agora que você tem a Armadura Quebradora, talvez tenha algo pra ela quebrar em um Lugar Santo 🙏
+Agora que você tem a Armadura Quebradora de Espinhos, talvez tenha espinhos pra ela quebrar em um Lugar Santo 🙏
 
 ## Holy Glasses
 
