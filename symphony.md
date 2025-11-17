@@ -1,26 +1,31 @@
-
-
 # Dicas
 
 ## ~~mapa~~
 
-~~Qualquer parte do jogo é alcançável... talvez só não agora 💀~~
+> [!TIP]
+> ~~Qualquer parte do jogo é alcançável... talvez só não agora 💀~~
 
-~~O mapa é seu amigo, enquanto tiver aberturinhas nos quadrados azuis 🟦, você tem pra onde ir.~~
+> [!TIP]
+> ~~O mapa é seu amigo, enquanto tiver aberturinhas nos quadrados azuis 🟦, você tem pra onde ir.~~
 
-~~Os quadradinhos vermelhos são save 🟥, aperte pra cima em baixo da "bola" pulsando pra salvar.~~
+> [!TIP]
+> ~~Os quadradinhos vermelhos são save 🟥, aperte pra cima em baixo da "bola" pulsando pra salvar.~~
 
-~~Você também pode comprar partes do mapa do castelo pra te ajudar (as salas que você ainda não visitou aparecem em quadrados cinzas).~~
+> [!TIP]
+> ~~Você também pode comprar partes do mapa do castelo pra te ajudar (as salas que você ainda não visitou aparecem em quadrados cinzas).~~
 
-~~Talvez você já perceba isso observando o mapa, mas nem todas as salas de save têm só 1 saída.~~
+> [!TIP]
+> ~~Talvez você já perceba isso observando o mapa, mas nem todas as salas de save têm só 1 saída.~~
 
 ## paredes secretas
 
-Existem paredes falsas espalhadas pelo castelo. Achou uma parede, chão ou teto suspeitos? Tente quebrar.
+> [!TIP]
+> Existem paredes falsas espalhadas pelo castelo. Achou uma parede, chão ou teto suspeitos? Tente quebrar.
 
 ## ~~corações~~
 
-~~Corações não são a sua vida, mas sim munição de armas secundárias, que vocề usa segurando pra cima e atacando.~~
+> [!TIP]
+> ~~Corações não são a sua vida, mas sim munição de armas secundárias, que vocề usa segurando pra cima e atacando.~~
 
 # Progressão
 
@@ -71,21 +76,21 @@ Existem paredes falsas espalhadas pelo castelo. Achou uma parede, chão ou teto 
 
 ## ~~Atrair: Macaco Esqueleto do Barril~~
 
-> [!CAUTION] burla insana
+> [!CAUTION]
 > Eu sei o que você fez.
 
 ~~Explorando os Esgotos (Underground Caverns) você vai achar uma cachoeira. No topo dela, à esquerda, tem um botão interessante. Observe o que acontece e tente replicar em outro lugar, atraindo o macaco aos poucos.~~
 
 ## ~~Explorar: Sala Escura~~
 
-> [!CAUTION] burla absurda
+> [!CAUTION]
 > Eu sei o que você fez.
 
 ~~Nas Catacumbas, tem uma sala escura. Use Echo of Bat pra te ajudar. Quando enxergar um chão iluminado, pode voltar ao normal e seguir em frente pra pegar uma Armadura Quebradora de Espinhos.~~
 
 ## ~~Pegar: Silver Ring~~
 
-> [!CAUTION] burla inacreditável
+> [!CAUTION]
 > Eu sei o que você fez.
 
 ~~Agora que você tem a Armadura Quebradora de Espinhos, talvez tenha espinhos pra ela quebrar em um Lugar Santo 🙏~~
