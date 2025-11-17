@@ -105,7 +105,9 @@ Quando te derem os dois Anéis 🤨, equipe eles e analise o que eles dizem.
 
 Se ainda quiser explorar mais o castelo, pode fazer isso.
 
-Se quiser continuar, procure aquelas escadas vermelhas do começo do jogo (agora quebradas), equipe os Holy Glasses 🤓, e derrote o inimigo 🟢 (mas cuidado pra não atacar um amigo sem querer).
+Se quiser continuar, procure na parte de cima do castelo aquelas escadas vermelhas do começo do jogo (agora quebradas), equipe os Holy Glasses 🤓, e derrote o inimigo 🟢 (mas cuidado pra não atacar um amigo sem querer).
+
+## Fiz isso, aconteceu um negócio doido. E agora?
 
 Agora é só coletar as relíquias (partes do corpo) do capeta em pessoa (ou melhor, vampiro 🧛‍♂️) e termine tudo no relojão.
 
