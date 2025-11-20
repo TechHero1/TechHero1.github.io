@@ -97,9 +97,16 @@
 
 ~~Se quiser continuar, procure na parte de cima do castelo aquelas escadas vermelhas do começo do jogo (agora quebradas), equipe os Holy Glasses 🤓, e derrote o inimigo 🟢 (mas cuidado pra não atacar um amigo sem querer).~~
 
-## Fiz isso, aconteceu um negócio doido. E agora?
+## Fiz isso e virou tudo de cabeça pra baixo! E agora?!
 
-Agora é só coletar as relíquias (partes do corpo) do capeta em pessoa (ou melhor, vampiro 🧛‍♂️) e termine tudo no relojão.
+```
+THANK YOU ALUCARD!
+
+BUT COUNT DRACULA IS IN
+ANOTHER CASTLE!
+```
+
+Agora é só coletar as 5 relíquias (partes do corpo) do capeta em pessoa (ou melhor, vampiro 🧛‍♂️) e termine tudo no relojão.
 
 ## Não entendeu? Precisa de visual? Não tô na live?
 
