@@ -320,6 +320,7 @@
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_streaming_filter('manga')">Mangá</a>
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_streaming_filter('novel')">Novel</a>
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_streaming_filter('jogo')">Jogo</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_streaming_filter('soseki')">Natsume Soseki</a>
                     </div>
                 </div>
             </div>
@@ -471,12 +472,12 @@
                 </div>
             </a>
 
-            <a class="streaming_item streaming_item_novel" href="https://booklive.jp/" target="_blank">
+            <a class="streaming_item streaming_item_manga streaming_item_novel" href="https://booklive.jp/" target="_blank">
                 <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
                     <div class="p-1 w-fit md:w-[100%]">
                         <b>Booklive</b>
                         <br>
-                        <p>Novel</p>
+                        <p>Mangá/Novel</p>
                         <br>
                         <p class="streaming_tags flex flex-col gap-2">
                             <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Primeiro volume, raramente 2 a 3 volumes, grátis temporariamente</span>
@@ -675,6 +676,132 @@
                             <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Itens grátis sem cartão de crédito</span>
                             <span class="bg-item-neg rounded-md shadow-md py-1 px-2 h-min w-fit">Precisa de login</span>
                             <span class="bg-item-neg rounded-md shadow-md py-1 px-2 h-min w-fit">Majoritariamente pago</span>
+                        </p>
+                        <br>
+                        <div class="streaming_notas flex flex-col gap-4 items-stretch">
+                            
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="streaming_item streaming_item_manga streaming_item_novel" href="https://honto.jp/" target="_blank">
+                <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
+                    <div class="p-1 w-fit md:w-[100%]">
+                        <b>Honto</b>
+                        <br>
+                        <p>Mangá/Novel</p>
+                        <br>
+                        <p class="streaming_tags flex flex-col gap-2">
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Primeiro volume, raramente 2 a 3 volumes, grátis temporariamente</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Preview</span>
+                            <span class="bg-item-neg rounded-md shadow-md py-1 px-2 h-min w-fit">Limitado a volumes</span>
+                            <span class="bg-item-neg rounded-md shadow-md py-1 px-2 h-min w-fit">Majoritariamente pago</span>
+                        </p>
+                        <br>
+                        <div class="streaming_notas flex flex-col gap-4 items-stretch">
+                            
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="streaming_item streaming_item_manga" href="https://championcross.jp/" target="_blank">
+                <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
+                    <div class="p-1 w-fit md:w-[100%]">
+                        <b>Champion Cross</b>
+                        <br>
+                        <p>Mangá</p>
+                        <br>
+                        <p class="streaming_tags flex flex-col gap-2">
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Lançamentos</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Primeiros capítulos grátis</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Antepenúltimo capítulo grátis (em lançamento)</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Capítulos extras grátis</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Vários capítulos grátis com login</span>
+                            <span class="bg-item-neg rounded-md shadow-md py-1 px-2 h-min w-fit">Acesso limitado por moedas</span>
+                        </p>
+                        <br>
+                        <div class="streaming_notas flex flex-col gap-4 items-stretch">
+                            <p>Capítulo comprado por moedas</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="streaming_item streaming_item_novel streaming_item_soseki" href="https://touda.tohoku.ac.jp/collection/en/database/library/collection/soseki" target="_blank">
+                <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
+                    <div class="p-1 w-fit md:w-[100%]">
+                        <b>Soseki Collection<br>Touhoku Daigaku Fuzoku Toshokan<br>(Biblioteca da Universidade de Tohoku)</b>
+                        <br>
+                        <p>Novel</p>
+                        <br>
+                        <p class="streaming_tags flex flex-col gap-2">
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Antiguidades</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Completamente grátis</span>
+                            <span class="bg-item-neg rounded-md shadow-md py-1 px-2 h-min w-fit">Metade das coisas não é japonês</span>
+                            <span class="bg-item-neg rounded-md shadow-md py-1 px-2 h-min w-fit">Só em fotos</span>
+                        </p>
+                        <br>
+                        <div class="streaming_notas flex flex-col gap-4 items-stretch">
+                            <a class="nota_link text-blue-500" href="https://www.library.tohoku.ac.jp/en/collections/soseki/index.html">Página inicial com mais informações sobre Natsume Soseki e sua coleção</a>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="streaming_item streaming_item_novel streaming_item_soseki" href="https://sosekipoetry.org/" target="_blank">
+                <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
+                    <div class="p-1 w-fit md:w-[100%]">
+                        <b>The Sōseki Poetry Project</b>
+                        <br>
+                        <p>Novel</p>
+                        <br>
+                        <p class="streaming_tags flex flex-col gap-2">
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Antiguidades</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Completamente grátis</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Além das traduções, textos originais em japonês disponíveis</span>
+                        </p>
+                        <br>
+                        <div class="streaming_notas flex flex-col gap-4 items-stretch">
+                            
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="streaming_item streaming_item_novel streaming_item_soseki" href="https://www.sosekiproject.org/" target="_blank">
+                <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
+                    <div class="p-1 w-fit md:w-[100%]">
+                        <b>Sōseki Project</b>
+                        <br>
+                        <p>Novel</p>
+                        <br>
+                        <p class="streaming_tags flex flex-col gap-2">
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Antiguidades</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Completamente grátis</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Focado em estudantes de japonês (ferramentas de aprendizagem)</span>
+                            <span class="bg-item-neg rounded-md shadow-md py-1 px-2 h-min w-fit">Coleção muito pequena</span>
+                        </p>
+                        <br>
+                        <div class="streaming_notas flex flex-col gap-4 items-stretch">
+                            
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="streaming_item streaming_item_novel streaming_item_soseki" href="https://www.kanabun.or.jp/" target="_blank">
+                <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
+                    <div class="p-1 w-fit md:w-[100%]">
+                        <b>Kanabun<br>Kanagawa Bungaku Shinkokai<br>(Museu da Literatura Moderna de Kanagawa)</b>
+                        <br>
+                        <p>Novel</p>
+                        <br>
+                        <p class="streaming_tags flex flex-col gap-2">
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Antiguidades</span>
+                            <span class="bg-item-pos rounded-md shadow-md py-1 px-2 h-min w-fit">Completamente grátis</span>
+                            <span class="bg-item-neg rounded-md shadow-md py-1 px-2 h-min w-fit">Só em fotos</span>
                         </p>
                         <br>
                         <div class="streaming_notas flex flex-col gap-4 items-stretch">
