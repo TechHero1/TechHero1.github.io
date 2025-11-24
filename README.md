@@ -5,3 +5,5 @@
 [Game Thumb Viewer](https://techhero1.github.io/game-thumb-viewer/)
 
 [Like Clicker](https://techhero1.github.io/likeclicker/)
+
+[JP List](https://techhero1.github.io/jp-list)
