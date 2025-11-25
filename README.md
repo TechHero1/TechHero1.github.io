@@ -2,8 +2,10 @@
 
 [Index de Informações Gerais de Blue Archive](https://techhero1.github.io/ba-index/)
 
-[Game Thumb Viewer](https://techhero1.github.io/game-thumb-viewer/)
+[JP List](https://techhero1.github.io/jp-list)
 
 [Like Clicker](https://techhero1.github.io/likeclicker/)
 
-[JP List](https://techhero1.github.io/jp-list)
+[Game Thumb Viewer](https://techhero1.github.io/game-thumb-viewer/)
+
+[Wplace Chunk Viewer](https://techhero1.github.io/wp-chunk)
