@@ -71,7 +71,7 @@ Antes de entrar como um betinha na sala do trono (aquela, depois das escadas, qu
 
 | Imagem | Nome | Tipo | Local |
 | :-: | :-: | :-: | :-: |
-| [Não tem] | Bat | Alma Azul | Recompensa de Boss |
+| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2Ff%2Ffd%2FAoS_Giant_Bat.png" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Giant Bat | Alma Azul | Recompensa de Boss |
 | <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F9%2F9f%2FSuccubusaos.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Succubus | Alma Amarela | The Arena<br><br>Top Floor |
 | <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F5%2F5e%2FAOS-Flamedemon.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Flame Demon | Alma Vermelha | Underground Cemetery<br><br>Forbidden Area |
 
