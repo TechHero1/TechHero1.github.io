@@ -1,0 +1,109 @@
+# 1. Dicas
+
+## 1.1 Mapa
+
+Qualquer parte do jogo é alcançável... talvez só não agora 💀
+
+O mapa é seu amigo, enquanto tiver aberturinhas nos quadrados azuis 🟦, você tem pra onde ir.
+
+Os quadradinhos vermelhos são save 🟥, aperte `↑` em baixo da "bola" pulsando pra salvar.
+
+Você também pode comprar partes do mapa do castelo pra te ajudar (as salas que você ainda não visitou aparecem em quadrados cinzas).
+
+## 1.2 Paredes secretas
+
+Existem paredes falsas espalhadas pelo castelo. Achou uma parede, chão ou teto suspeitos? Tente quebrar.
+
+## 1.3 Corações
+
+Corações não são a sua vida, mas sim munição de armas secundárias, que vocề usa apertando `↑ + Ataque`.
+
+# 2. Progressão
+
+## 2.1 Pegar: Jewel of Open
+
+Portas azuis precisam de uma certa magia que você pode comprar.
+
+## 2.2 Lembrar: Cock... ops, Clock Room
+
+Essa sala do relojão é importante, lembre dela e onde ela fica.
+
+## 2.3 Pegar: Leap Stone
+
+Lá em cima, quase no topo do castelo, tem uma pedra que vai te ajudar a chegar mais alto.
+
+## 2.4 Explorar: Olrox's Quarters
+
+Lembrou do relojão? Agora você pode ir naquela sala e relaxar alguns minutinhos.
+
+## 2.5 Pegar: Soul of Mist
+
+Alguém andou fumando no Coliseu (The Colosseum), e a fumaça é você.
+
+## 2.6 Pegar: Soul of Bat
+
+Agora que você tem a Leap Stone e consegue virar fumaça de cigarro, vá pra Biblioteca (Long Library) e explore onde antes você não podia.
+
+## 2.7 Pegar: Gravity Boots (opcional)
+
+Se o morcego for lento demais pra você, volte na sala do relojão e entre no buraco do meio, depois vá pra direita.
+
+Pra usar, aperte `↓ + ↑ + Pulo`. Se falhar, tente de novo imediatamente.
+(também funciona na diagonal, se você conseguir fazer)
+
+## 2.8 Pegar: Echo of Bat
+
+Em Olrox's Quarters, tinha um buraco no teto que agora você pode entrar. Morcego ou bota de gravidade, você escolhe.
+
+## 2.9 Explorar: Esgotos
+
+Caso você não tenha visto, ou não se lembre, em Marble Gallery tem uma daquelas portas azuis. Nela você vai abrir um pedacinho vermelho do chão e liberar os Esgotos (Underground Caverns).
+
+## 2.10 Pegar: Gold Ring
+
+Perto da entrada dos Esgotos (Underground Caverns), um morcego pode entrar em uma sala impossível de acessar a pé. Nela vai ter 2 salas de save, por que será 😜?
+
+## 2.11 Atrair: Macaco Esqueleto do Barril
+
+<!--![burla](https://files.catbox.moe/sampsc.png)-->
+
+Explorando os Esgotos (Underground Caverns) você vai achar uma cachoeira. No topo dela, à esquerda, tem um botão interessante. Observe o que acontece e tente replicar em outro lugar, atraindo o macaco aos poucos.
+
+## 2.12 Explorar: Sala Escura
+
+<!--![burla](https://files.catbox.moe/sampsc.png)-->
+
+Nas Catacumbas, tem uma sala escura. Use Echo of Bat pra te ajudar. Quando enxergar um chão iluminado, pode voltar ao normal e seguir em frente pra pegar uma Armadura Quebradora de Espinhos.
+
+## 2.13 Pegar: Silver Ring
+
+<!--![burla](https://files.catbox.moe/sampsc.png)-->
+
+Agora que você tem a Armadura Quebradora de Espinhos, talvez tenha espinhos pra ela quebrar em um Lugar Santo 🙏
+
+## 2.14 Pegar: Holy Glasses
+
+Quando te derem os dois Anéis 🤨, equipe eles e analise o que eles dizem.
+
+(obs: a tradução desse jogo é uma merda, torre = sala.)
+
+## 2.15 E agora?
+
+Se ainda quiser explorar mais o castelo, pode fazer isso.
+
+Se quiser continuar, procure na parte de cima do castelo aquelas escadas vermelhas do começo do jogo (agora quebradas), equipe os Holy Glasses 🤓, e derrote o inimigo 🟢 (mas cuidado pra não atacar um amigo sem querer).
+
+## 2.16 Fiz isso e virou tudo de cabeça pra baixo! E agora?!
+
+```
+THANK YOU ALUCARD!
+
+BUT COUNT DRACULA IS IN
+ANOTHER CASTLE!
+```
+
+Agora é só coletar as 5 relíquias (partes do corpo) do capeta em pessoa (ou melhor, vampiro 🧛‍♂️) e termine tudo no relojão.
+
+## 2.17 Não entendeu nadinha? Precisa ver no próprio jogo?
+
+[você pode usar esse guia super resumido, tá de boa também](https://youtu.be/7iASUjS9tz8)

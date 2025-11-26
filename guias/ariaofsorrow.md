@@ -1,6 +1,6 @@
 Dessa vez vai ser bem mais simples. Menos coisas, menos mistério.
 
-# Resuminho da história sem spoilers
+# 1. Sinopse
 
 É 2035, no Japão, quando várias pessoas se reúnem para observar o primeiro eclipse solar do século 21.
 
@@ -12,27 +12,11 @@ Acidentalmente, eles são transportados a um castelo estranho, onde encontram um
 
 Então, dá-se início a uma jornada para descobrir os mistérios por trás do castelo e do eclipse solar.
 
-# Informações básicas
+# 2. Informações básicas
 
 Num geral, explicações rápidas sobre o que tem de novo ou diferente nesse jogo, se comparado a Symphony of the Night.
-### Almas
 
-O poder especial do Soma Cruz, o personagem que você controla nesse jogo, é o de absorver almas de inimigos e usar elas como fonte de força.
-
-Cada inimigo tem a sua própria alma que você pode pegar e usar.
-
-Existem 4 tipos de almas:
-
-1. Almas Vermelhas: elas funcionam tipo as arminhas de coração. Cima + ataque pra usar. Gastam mana.
-2. Almas Azuis: elas mudam o que o botão R faz. Podem ser segurando R ou apertando R pra ativar. Gastam mana.
-3. Almas Amarelas: dão um boost de status. Não gastam mana.
-4. Almas Cinzas: os upgrades permanentes do jogo, similar às relíquias de Symphony.
-
-### Corações
-
-Já que não tem arminhas de coração nesse jogo, os corações servem pra recarregar a mana (mas ela também se carrega sozinha com o tempo).
-
-### Interface
+## 2.1 Interface
 
 Tá bem mais simples agora.
 
@@ -40,11 +24,28 @@ Tá bem mais simples agora.
 - Barra vermelha: vida atual, só que em relação ao máximo de vida
 - Barra verde: mana
 
-# Progressão
+## 2.2 Almas
+
+O poder especial do Soma é o de absorver almas de inimigos e usar elas como fonte de força.
+
+Cada inimigo tem a sua própria alma que você pode pegar e usar.
+
+Existem 4 tipos de almas:
+
+1. Almas Vermelhas: elas funcionam tipo as arminhas de coração. `↑ + Ataque` pra usar. Gastam mana.
+2. Almas Azuis: elas mudam o que o botão `R` faz. Podem ser segurando `R` ou apertando `R` pra ativar. Gastam mana.
+3. Almas Amarelas: dão um boost de status. Não gastam mana.
+4. Almas Cinzas: os upgrades permanentes do jogo, similar às relíquias de Symphony.
+
+## 2.3 Corações
+
+Já que não tem arminhas de coração nesse jogo, os corações servem pra recarregar a mana (mas ela também se carrega sozinha com o tempo).
+
+# 3. Progressão
 
 Sinceramente, é um jogo bem polido, então imagino que seja possível progredir com naturalidade. Mas tem algumas poucas dicas in-game que eu acho insuficientes.
 
-### "Quero passar uma cachoeira, mas não consigo"
+## 3.1 "Quero passar uma cachoeira, mas não consigo"
 
 Pra passar na cachoeira impenetrável 🤨, você precisa de duas coisas:
 - Alma Cinza - Undine
@@ -56,15 +57,15 @@ Pra passar na cachoeira impenetrável 🤨, você precisa de duas coisas:
 | <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F1%2F12%2FAria-manticore.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Manticore | Chapel<br><br>Floating Garden
 | <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F1%2F1c%2FAos_devil.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Devil | Floating Garden<br><br>Clock Tower |
 
-Equipe as almas, se afaste um pouco da cachoeira e faça o R de Rush.
+Equipe as almas, se afaste um pouco da cachoeira e faça o `R` de Rush.
 
-### "Quero a Crissaegrim"
+## 3.2 "Quero a Crissaegrim"
 
 Rapaz... não tem...
 
 Mas se quiser encontrar algo similar, vá até uma área dentro de um barco com peixes e fique batendo nas paredes igual maluco.
 
-### "Quero virar o moggador master"
+## 3.3 "Quero virar o Moggador Master"
 
 Antes de entrar como um betinha na sala do trono (aquela, depois das escadas, que o Richter enfrenta o Drácula no começo de Symphony), consiga e equipe as seguintes almas:
 
