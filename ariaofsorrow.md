@@ -52,9 +52,9 @@ Pra passar na cachoeira impenetrável 🤨, você precisa de duas coisas:
 
 | Imagem | Nome | Local |
 | :-: | :-: | :-: |
-| ![Imagem do inimigo, me avise se não aparecer](https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F6%2F61%2FCurly.gif) | Curly | Inner Quarters
-| ![Imagem do inimigo, me avise se não aparecer](https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F1%2F12%2FAria-manticore.gif) | Manticore | Chapel<br><br>Floating Garden
-| ![Imagem do inimigo, me avise se não aparecer](https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F1%2F1c%2FAos_devil.gif) | Devil | Floating Garden<br><br>Clock Tower |
+| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F6%2F61%2FCurly.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Curly | Inner Quarters
+| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F1%2F12%2FAria-manticore.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Manticore | Chapel<br><br>Floating Garden
+| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F1%2F1c%2FAos_devil.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Devil | Floating Garden<br><br>Clock Tower |
 
 Equipe as almas, se afaste um pouco da cachoeira e faça o R de Rush.
 
@@ -71,10 +71,11 @@ Antes de entrar como um betinha na sala do trono (aquela, depois das escadas, qu
 | Imagem | Nome | Tipo | Local |
 | :-: | :-: | :-: | :-: |
 | [Não tem] | Bat | Alma Azul | Recompensa de Boss |
-| ![Imagem do inimigo, me avise se não aparecer](https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F9%2F9f%2FSuccubusaos.gif) | Succubus | Alma Amarela | The Arena<br><br>Top Floor |
-| ![Imagem do inimigo, me avise se não aparecer](https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F5%2F5e%2FAOS-Flamedemon.gif) | Flame Demon | Alma Vermelha | Underground Cemetery<br><br>Forbidden Area |
+| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F9%2F9f%2FSuccubusaos.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Succubus | Alma Amarela | The Arena<br><br>Top Floor |
+| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F5%2F5e%2FAOS-Flamedemon.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Flame Demon | Alma Vermelha | Underground Cemetery<br><br>Forbidden Area |
 
 Agora que você virou Chad e conseguiu o *poder de dominar* a arte do Mewing, pode prosseguir no caminho do farm de aura.
 
-> ![Foto de você agora, me avise se não estiver aparecendo](https://files.catbox.moe/d5bh6b.png)
-> <center>Foto sua de agora</center>
+> Foto sua de agora
+> 
+> <img src="https://files.catbox.moe/d5bh6b.png" width="250" alt="Foto de você agora, me avise se não estiver aparecendo">
