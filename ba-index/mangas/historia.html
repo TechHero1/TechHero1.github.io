@@ -14,6 +14,30 @@
         font-family: 'AdwaitaSans-Regular';
         src: url('../../shared/fonts/adwaita-sans/AdwaitaSans-Regular.ttf') format('truetype');
       }
+
+      .button {
+        background-color: inherit;
+        color: inherit;
+        padding: calc(var(--spacing) * 2);
+        border: 1px solid var(--color-black);
+        border-radius: var(--spacing);
+        cursor: pointer;
+        transition: all;
+        transition-duration: 150ms;
+    }
+
+    .button:hover {
+        background-color: var(--color-gray-200);
+    }
+
+    .button-danger {
+        border-color: 1px solid var(--color-red);
+        color: var(--color-red);
+    }
+
+    .button-danger:hover {
+        background-color: var(--color-red-200);
+    }
     </style>
   </head>
   <body class="font-[AdwaitaSans-Regular] bg-gray-200" onload="procurarParam()">
@@ -47,6 +71,21 @@
       <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-center">
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
           <center><div class="mb-5"><b>Dados de <a class="text-blue-500" href="https://github.com/m19e/bluearchive-4panel" target="_blank">m19e/bluearchive-4panel</a></b></div></center>
+          <div class="p-2 w-[100%] flex flex-row-reverse gap-2">
+            <div class="student_filter_dropdown_area md:relative inline-block">
+                <button class="button" onclick="switch_student_filter_dropdown()"><i class="fa fa-filter"></i></button>
+                <div class="student_filter_dropdown absolute right-0 z-10 mt-2 w-[100%] md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
+                    <div role="none" class="filters py-1 max-h-[500px] overflow-y-auto">
+                        <div class="flex flex-row items-stretch">
+                          <a tabindex="-1" class="w-[100%] block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="switch_student('none')">Nada</a>
+                          <a tabindex="-1" class="w-[100%] block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="switch_student('all')">Tudo</a>
+                        </div>
+                        <!--<a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="switch_student('シロコ',this)">Shiroko</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="switch_student('シロコ')">Shiroko sem</a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-stretch text-center historia-conteudo">
 
           </div>
