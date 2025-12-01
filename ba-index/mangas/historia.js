@@ -43,10 +43,11 @@ async function procurarParam() {
 }
 
 function set_filter_default() {
-    let all_students = Object.keys(yonkoma.translations);
+    let all_students = get_all_students_name("ja");
     //console.log(all_students.length);
     //console.log(all_students);
-    let all_students_en = [];
+    let all_students_en = get_all_students_name("en",all_students);
+    /*
     for (let i = 0; i < all_students.length; i++) {
         //console.log(all_students[i]);
         students_selected.push(all_students[i]);
@@ -55,17 +56,34 @@ function set_filter_default() {
         if (yonkoma.translations[found] != undefined) all_students_en.push(yonkoma.translations[found].en);
         else all_students_en.push(all_students[i]);
     }
+    */
 
     create_student_filters(all_students,all_students_en);
 
     loadContent();
 }
 
+function get_all_students_name(lang,names) {
+    let result = [];
+    if (lang == "ja") result = Object.keys(yonkoma.translations);
+    else {
+        for (let i = 0; i < names.length; i++) {
+            students_selected.push(names[i]);
+
+            let found = names.find((item_found) => item_found === names[i]);
+            if (yonkoma.translations[found] != undefined) result.push(yonkoma.translations[found].en);
+            else result.push(names[i]);
+        }
+    }
+
+    return result;
+}
+
 function create_student_filters(students_ja,students_en) {
     //console.log(students_ja);
     //console.log(students_en);
     for (let i = 0; i < students_ja.length; i++) {
-        document.querySelector(".filters").innerHTML += `<a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="switch_student('${students_ja[i]}',this)">${students_en[i]}</a>
+        document.querySelector(".filters").innerHTML += `<a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" id="${students_ja[i]}" onclick="switch_student('${students_ja[i]}','${students_en[i]}-check')">${students_en[i]}<i class="float-right fa fa-check-square-o filter-check-icon ${students_en[i]}-check"></i></a>
         `
     }
 }
@@ -132,23 +150,40 @@ function loadContent() {
 
 var students_selected = [];
 
-function switch_student(student,element) {
+function switch_student(student,check_icon) {
     if (student == "none") {
         students_selected = [];
+
+        //let all_students = get_all_students_name("ja");
+        //let all_students_en = get_all_students_name("en",all_students);
+        document.querySelectorAll(".filter-check-icon").forEach(el => {
+            el.classList.add("fa-square-o");
+            el.classList.remove("fa-check-square-o");
+        });
         loadContent();
         return;
     }
     if (student == "all") {
         students_selected = [];
-        set_filter_default();
+        students_selected = get_all_students_name("ja");
+        
+        document.querySelectorAll(".filter-check-icon").forEach(el => {
+            el.classList.add("fa-check-square-o");
+            el.classList.remove("fa-square-o");
+        });
+        loadContent();
         return;
     }
     if (students_selected.includes(student)) {
         students_selected.splice(students_selected.indexOf(student), 1);
+        document.querySelector("."+check_icon).classList.add("fa-square-o");
+        document.querySelector("."+check_icon).classList.remove("fa-check-square-o");
         loadContent();
         return;
     }
     students_selected.push(student);
+    document.querySelector("."+check_icon).classList.add("fa-check-square-o");
+    document.querySelector("."+check_icon).classList.remove("fa-square-o");
     loadContent();
 }
 
