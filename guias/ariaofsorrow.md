@@ -39,7 +39,9 @@ Existem 4 tipos de almas:
 
 ## 2.3 Corações
 
-Já que não tem arminhas de coração nesse jogo, os corações servem pra recarregar os MP (mas ela também se carrega sozinha com o tempo).
+Já que não tem arminhas de coração nesse jogo, os corações servem pra recarregar os MP.
+
+Obs: MP também se recarregam com o tempo.
 
 ## 2.4 Portas azuis
 
@@ -51,7 +53,9 @@ Esse jogo tem mais personagens que você pode encontrar e conversar. Alguns dele
 
 ## 2.6 Sorte
 
-Por questões de <span style="color:red">matemática</span> sua stat de sorte (Luck/LCK) é completamente irrelevante nesse jogo.
+Por questões de <span style="color:red">matemática</span> sua stat de sorte (Luck/LCK) é completamente irrelevante nesse jogo. Ignore ela.
+
+Obs: alguns pouquíssimos itens dizem na descrição que dão efeitos especiais além do aumento de sorte. A parte de sorte continua irrelevante, mas o efeito especial funciona como esperado.
 
 # 3. Progressão
 
