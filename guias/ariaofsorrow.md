@@ -77,7 +77,7 @@ Equipe as almas, se afaste um pouco da cachoeira, ande pra frente e faça o `R` 
 
 ## 3.2 "Quero a armadura de curar"
 
-Não tem... PORÈM, tem algo muito melhor.
+Não tem... PORÉM, tem algo muito melhor.
 
 | Imagem | Nome | Tipo | Local |
 | :-: | :-: | :-: | :-: |
