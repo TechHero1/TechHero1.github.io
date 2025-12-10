@@ -22,7 +22,7 @@ Tá bem mais simples agora.
 
 - Número: vida atual
 - Barra vermelha: vida atual, só que em relação ao máximo de vida
-- Barra verde: mana
+- Barra verde: Pontos de Magia (MP)
 
 ## 2.2 Almas
 
@@ -32,14 +32,14 @@ Cada inimigo tem a sua própria alma que você pode pegar e usar.
 
 Existem 4 tipos de almas:
 
-1. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F0%2F09%2FRed_Soul.png" width="20"> Almas Vermelhas: elas funcionam parecido com as arminhas de coração. `↑ + Ataque` pra usar. Gastam mana.
-2. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F8%2F8c%2FBlue_Soul.png" width="20"> Almas Azuis: elas mudam o que o botão `R` faz. Podem ser segurando `R` ou apertando `R` pra ativar. Gastam mana.
-3. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F8%2F88%2FYellow_Soul.png" width="20"> Almas Amarelas: dão um boost de status. Não gastam mana.
+1. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F0%2F09%2FRed_Soul.png" width="20"> Almas Vermelhas: elas funcionam parecido com as arminhas de coração. `↑ + Ataque` pra usar. Gastam MP.
+2. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F8%2F8c%2FBlue_Soul.png" width="20"> Almas Azuis: elas mudam o que o botão `R` faz. Podem ser segurando `R` ou apertando `R` pra ativar. Gastam MP.
+3. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F8%2F88%2FYellow_Soul.png" width="20"> Almas Amarelas: dão um boost de status. Não gastam MP.
 4. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F1%2F14%2FSilver_Souls.png" width="20"> Almas Prateadas: os upgrades permanentes do jogo, similar às relíquias de Symphony.
 
 ## 2.3 Corações
 
-Já que não tem arminhas de coração nesse jogo, os corações servem pra recarregar a mana (mas ela também se carrega sozinha com o tempo).
+Já que não tem arminhas de coração nesse jogo, os corações servem pra recarregar os MP (mas ela também se carrega sozinha com o tempo).
 
 ## 2.4 Portas azuis
 
@@ -48,6 +48,10 @@ Não, você não vai precisar da Jewel of Open de novo. Essas aí são as portas
 ## 2.5 Personagens
 
 Esse jogo tem mais personagens que você pode encontrar e conversar. Alguns deles até ficam na entrada do castelo, então vá lá com frequência pra colocar os papos em dia e talvez até receber dicas.
+
+## 2.6 Sorte
+
+Por questões de <span style="color:red">matemática</span> sua stat de sorte (Luck/LCK) é completamente irrelevante nesse jogo.
 
 # 3. Progressão
 
