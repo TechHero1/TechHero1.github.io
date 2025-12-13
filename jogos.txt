@@ -1,8 +1,8 @@
 [playstation 1]
-item 1
-item 2
-item 3
+jogo 1
+jogo 2
+jogo 3
 
 [playstation 2]
-item 4
-item 5
+jogo 4
+jogo 5

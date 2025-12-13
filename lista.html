@@ -13,22 +13,13 @@
         }
         </style>
         <script>
-            var conteudo = [];
             async function get_texto() {
                 //pegar texto
-                let response = await fetch("jogos.txt");
-                let texto = await response.text();
-                console.log(response);
-                console.log(texto);
+                let resposta = await fetch("jogos.txt");
+                let texto = await resposta.text();
 
+                //colocar texto no site
                 document.querySelector(".jogos_texto").innerHTML += `<div class="">${texto.replaceAll(/\n/g, "<br>")}</div>`;
-
-                //conteudo = texto.split(/\r?\n/);
-                //console.log(conteudo);
-
-                //for (let i = 0; i < conteudo.length; i++) {
-                //    document.querySelector(".jogos_conteudo").innerHTML += `<div class="">${conteudo[i]}</div>`;
-                //}
             }
 
             get_texto();
@@ -43,15 +34,6 @@
                 </div>
             </div>
         </nav>
-
-        <!--<div class="mx-auto py-2 sm:px-6 lg:px-8">
-        <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
-            <div class="rounded-md p-2 sm:p-5 bg-white shadow-md jogos_conteudo">
-            
-            </div>
-            </div>
-        </div>-->
-
         <div class="mx-auto py-2 sm:px-6 lg:px-8">
         <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
             <div class="rounded-md p-2 sm:p-5 bg-white shadow-md jogos_texto">
