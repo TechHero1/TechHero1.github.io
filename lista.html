@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <meta property="og:title" content="Lista de Jogos">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Lista de Jogos</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <style>
+        @font-face {
+            font-family: 'AdwaitaSans-Regular';
+            src: url('shared/fonts/adwaita-sans/AdwaitaSans-Regular.ttf') format('truetype');
+        }
+        </style>
+        <script>
+            var conteudo = [];
+            async function get_texto() {
+                //pegar texto
+                let response = await fetch("jogos.txt");
+                let texto = await response.text();
+                console.log(response);
+                console.log(texto);
+
+                document.querySelector(".jogos_texto").innerHTML += `<div class="">${texto.replaceAll(/\n/g, "<br>")}</div>`;
+
+                //conteudo = texto.split(/\r?\n/);
+                //console.log(conteudo);
+
+                //for (let i = 0; i < conteudo.length; i++) {
+                //    document.querySelector(".jogos_conteudo").innerHTML += `<div class="">${conteudo[i]}</div>`;
+                //}
+            }
+
+            get_texto();
+        </script>
+    </head>
+
+    <body class="font-[AdwaitaSans-Regular] bg-gray-200">
+        <nav class="bg-gray-800 sticky top-0 w-[100%]">
+            <div class="inline-flex gap-4 w-[100%]">
+                <div class="mx-auto p-2 sm:px-6 lg:px-8 text-white text-[1.25rem] basis-9/10 sm:basis-19/20 flex flex-row items-center">
+                Lista de Jogos
+                </div>
+            </div>
+        </nav>
+
+        <!--<div class="mx-auto py-2 sm:px-6 lg:px-8">
+        <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
+            <div class="rounded-md p-2 sm:p-5 bg-white shadow-md jogos_conteudo">
+            
+            </div>
+            </div>
+        </div>-->
+
+        <div class="mx-auto py-2 sm:px-6 lg:px-8">
+        <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
+            <div class="rounded-md p-2 sm:p-5 bg-white shadow-md jogos_texto">
+            
+            </div>
+            </div>
+        </div>
+    </body>
+</html>
