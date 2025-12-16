@@ -102,6 +102,7 @@ function edit_item(id) {
     document.querySelector(".name_input").value = list.itens[id].dados.titulo;
     document.querySelector(".status_input").value = list.itens[id].dados.status;
     document.querySelector(".progresso_input").value = list.itens[id].dados.progresso;
+    document.querySelector(".final_input").src = list.itens[id].dados.final;
     document.querySelector(".volumes_input").value = list.itens[id].dados.volumes;
     document.querySelector(".horas_input").value = list.itens[id].dados.horas;
     document.querySelector(".minutos_input").value = list.itens[id].dados.minutos;
@@ -153,7 +154,8 @@ function save_item(){
         "img": document.querySelector(".img_input").value,
         "nota": document.querySelector(".nota_input").value,
         "autotime": document.querySelector(".autotime_input").checked,
-        "prog_min": document.querySelector(".prog_min_input").value
+        "prog_min": document.querySelector(".prog_min_input").value,
+        "final": document.querySelector(".final_input").value
       }
     };
     remote_open_tab('Visualizar');
@@ -176,7 +178,8 @@ function save_item(){
       "img": document.querySelector(".img_input").value,
       "nota": document.querySelector(".nota_input").value,
       "autotime": document.querySelector(".autotime_input").checked,
-      "prog_min": document.querySelector(".prog_min_input").value
+      "prog_min": document.querySelector(".prog_min_input").value,
+      "final": document.querySelector(".final_input").value
     }
   };
   remote_open_tab('Visualizar');
@@ -318,12 +321,22 @@ function load_list() {
     let volumes_string;
     let progresso_traço;
 
+    let final_progresso = list.itens[i].dados.final;
+    let final_string = "";
+    if (!list.itens[i].dados.hasOwnProperty("final")) final_progresso = 0;
+    if (list.itens[i].dados.hasOwnProperty("final") && final_progresso > 0) {
+      final_string = " de " + nf.format(final_progresso);
+    } else {
+      final_string = "";
+    }
+
     if (list.itens[i].tipo == "Novel" || list.itens[i].tipo == "Mangá") {
       //progresso_string = nf.format(list.itens[i].dados.progresso) + " capítulos";
-      if (list.itens[i].dados.progresso == 1) {
-        progresso_string = nf.format(list.itens[i].dados.progresso) + " capítulo";
-      } else {
-        progresso_string = nf.format(list.itens[i].dados.progresso) + " capítulos";
+      if ((list.itens[i].dados.progresso == 1 && list.itens[i].dados.final == 0) || list.itens[i].dados.final == 1) {
+        progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " capítulo";
+      }
+      else {
+        progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " capítulos";
       }
 
       if (list.itens[i].dados.volumes <= 1) {
@@ -336,10 +349,11 @@ function load_list() {
     }
     if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série" || list.itens[i].tipo == "Stage") {
       //progresso_string = nf.format(list.itens[i].dados.progresso) + " episódios";
-      if (list.itens[i].dados.progresso == 1) {
-        progresso_string = nf.format(list.itens[i].dados.progresso) + " episódio";
-      } else {
-        progresso_string = nf.format(list.itens[i].dados.progresso) + " episódios";
+      if ((list.itens[i].dados.progresso == 1 && list.itens[i].dados.final == 0) || list.itens[i].dados.final == 1) {
+        progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " episódio";
+      }
+      else {
+        progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " episódios";
       }
 
       volumes_string = "";
@@ -355,6 +369,13 @@ function load_list() {
       progresso_string = "";
       progresso_traço = "";
       volumes_string = "";
+    }
+
+    let progress_element = "";
+    if (list.itens[i].dados.progresso > 0 && list.itens[i].dados.final > 0) {
+      progress_element = `<progress class="rounded-md shadow-md border border-gray-200" id="progress_bar" value="${list.itens[i].dados.progresso}" max="${list.itens[i].dados.final}"></progress>`;
+    } else {
+      progress_element = "";
     }
 
     let moji_string;
@@ -452,6 +473,7 @@ function load_list() {
           <p class="flex flex-row gap-2 items-center">
             <span>${progresso_string}${progresso_traço}${volumes_string}</span>
           </p>
+          <p>${progress_element}</p>
           <p>${tempo_string}</p>
           <p>${moji_string}</p>
         </div>
