@@ -336,7 +336,7 @@ function load_list() {
 
     if (list.itens[i].tipo == "Novel" || list.itens[i].tipo == "Mangá") {
       //progresso_string = nf.format(list.itens[i].dados.progresso) + " capítulos";
-      if ((list.itens[i].dados.progresso == 1 && list.itens[i].dados.final == 0) || list.itens[i].dados.final == 1) {
+      if ((list.itens[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
         progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " capítulo";
       }
       else {
@@ -353,7 +353,7 @@ function load_list() {
     }
     if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série" || list.itens[i].tipo == "Stage") {
       //progresso_string = nf.format(list.itens[i].dados.progresso) + " episódios";
-      if ((list.itens[i].dados.progresso == 1 && list.itens[i].dados.final == 0) || list.itens[i].dados.final == 1) {
+      if ((list.itens[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
         progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " episódio";
       }
       else {
