@@ -85,6 +85,7 @@ function edit_item(id) {
     document.querySelector(".name_input").value = "";
     document.querySelector(".status_input").value = "Planejo";
     document.querySelector(".progresso_input").value = 0;
+    document.querySelector(".final_input").value = 0;
     document.querySelector(".volumes_input").value = 0;
     document.querySelector(".horas_input").value = 0;
     document.querySelector(".minutos_input").value = 0;
@@ -102,7 +103,6 @@ function edit_item(id) {
     document.querySelector(".name_input").value = list.itens[id].dados.titulo;
     document.querySelector(".status_input").value = list.itens[id].dados.status;
     document.querySelector(".progresso_input").value = list.itens[id].dados.progresso;
-    document.querySelector(".final_input").src = list.itens[id].dados.final;
     document.querySelector(".volumes_input").value = list.itens[id].dados.volumes;
     document.querySelector(".horas_input").value = list.itens[id].dados.horas;
     document.querySelector(".minutos_input").value = list.itens[id].dados.minutos;
@@ -124,6 +124,10 @@ function edit_item(id) {
     let prog_min = list.itens[id].dados.prog_min;
     if (!list.itens[id].dados.hasOwnProperty("prog_min")) prog_min = false;
     document.querySelector(".prog_min_input").value = prog_min;
+
+    let final = list.itens[id].dados.final;
+    if (!list.itens[id].dados.hasOwnProperty("final")) final = 0;
+    document.querySelector(".final_input").value = final;
     update_autotime();
   }
 
