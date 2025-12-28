@@ -5,8 +5,8 @@
 // @author       Far Eastern Magic Napping Society of Summer
 // @icon         https://files.catbox.moe/qcf3ju.png
 // @match        *://*.wplace.live/*
-// @updateURL    http://techhero1.github.io/wp-chunk/skin/FEMNSS_Marble_Skin_Skirk_Version.user.js
-// @downloadURL  http://techhero1.github.io/wp-chunk/skin/FEMNSS_Marble_Skin_Skirk_Version.user.js
+// @updateURL    https://techhero1.github.io/wp-chunk/skin/FEMNSS_Marble_Skin_Skirk_Version.user.js
+// @downloadURL  https://techhero1.github.io/wp-chunk/skin/FEMNSS_Marble_Skin_Skirk_Version.user.js
 // ==/UserScript==
 
 (function() {
