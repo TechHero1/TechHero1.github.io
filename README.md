@@ -6,6 +6,6 @@
 
 [Like Clicker](https://techhero1.github.io/likeclicker/)
 
-[Game Thumb Viewer](https://techhero1.github.io/game-thumb-viewer/)
+[Game Image Viewer](https://techhero1.github.io/game-img-viewer/)
 
 [Wplace Chunk Viewer](https://techhero1.github.io/wp-chunk)

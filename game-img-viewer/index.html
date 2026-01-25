@@ -2,10 +2,10 @@
 <html lang="pt">
   <head>
     <meta charset="utf-8">
-    <meta property="og:title" content="Game Thumbnail Viewer">
+    <meta property="og:title" content="Game Image Viewer">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="script.js"></script>
-    <title>Game Thumbnail Viewer</title>
+    <title>Game Image Viewer</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
       @font-face {
@@ -17,7 +17,7 @@
   <body onload="start()" class="font-[AdwaitaSans-Regular] bg-gray-200">
     <nav class="bg-gray-800">
       <div class="mx-auto py-2 px-2 sm:px-6 lg:px-8 text-white text-[1.25rem]">
-        Game Thumbnail Viewer
+        Game Image Viewer
       </div>
     </nav>
 
@@ -26,7 +26,19 @@
         <div class="rounded-md p-2 bg-white shadow-md flex justify-center">
           <img src="preview.jpg" class="img-preview object-contain">
         </div>
-        <div class="grid grid-cols-1 gap-4 p-2 flex items-stretch rounded-md bg-white shadow-md">
+        <div class="flex flex-col gap-2">
+          <div class="grid grid-cols-1 gap-4 p-2 flex items-stretch rounded-md bg-white shadow-md">
+          <div class="grid grid-cols-1 p-2 gap-2 flex items-center rounded-md">
+            <div>Method</div>
+            <div>
+              <select class="w-[100%] bg-white border p-2 rounded-md hover:bg-gray-100 focus:border-2 outline-0 transition duration-300" onchange="changeMethod(this.value)">
+                <option value="libretro">Libretro Thumbnails</option>
+                <option value="igdb">IGDB Covers</option>
+              </select>
+            </div>
+          </div>
+          </div>
+        <div class="grid grid-cols-1 gap-4 p-2 flex items-stretch rounded-md bg-white shadow-md libretro-form">
           <div class="grid grid-cols-1 p-2 gap-2 flex items-center rounded-md">
             <div>System</div>
             <div>
@@ -55,6 +67,22 @@
           <div class="grid p-2 gap-2 rounded-md">
             <button onclick="getImage()" class="p-2 bg-white border rounded-md place-self-center hover:bg-gray-100 focus:border-2 outline-0 transition duration-300">Get Image</button>
           </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 p-2 flex items-stretch rounded-md bg-white shadow-md igdb-form hidden">
+          <div class="grid grid-cols-1 p-2 gap-2 flex items-center rounded-md">
+            <div>Image ID</div>
+            <div>
+              <input class="w-[100%] bg-white border p-2 rounded-md hover:bg-gray-100 focus:border-2 outline-0 transition duration-300" id="imgid" type="text">
+              
+              </select>
+            </div>
+          </div>
+          <div></div>
+          <div class="grid p-2 gap-2 rounded-md">
+            <button onclick="getImage()" class="p-2 bg-white border rounded-md place-self-center hover:bg-gray-100 focus:border-2 outline-0 transition duration-300">Get Image</button>
+          </div>
+        </div>
         </div>
       </div>
     </div>

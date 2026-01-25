@@ -1,3 +1,5 @@
+var method = "libretro";
+
 var systems = [
     "Amstrad_-_CPC",
     "Amstrad_-_GX4000",
@@ -151,9 +153,40 @@ function start() {
 }
 
 function getImage() {
-    let system_val = document.querySelector("#system").value;
-    let type_val = document.querySelector("#type").value;
-    let game_name = document.querySelector("#name").value;
-    let game_replace = game_name.replaceAll(/&/g, "_");
-    document.querySelector(".img-preview").src = `https://raw.githubusercontent.com/libretro-thumbnails/${system_val}/refs/heads/master/${type_val}/${game_replace}.png`;
+    if (method == "libretro") {
+        let system_val = document.querySelector("#system").value;
+        let type_val = document.querySelector("#type").value;
+        let game_name = document.querySelector("#name").value;
+        let game_replace = game_name.replaceAll(/&/g, "_");
+        document.querySelector(".img-preview").src = `https://raw.githubusercontent.com/libretro-thumbnails/${system_val}/refs/heads/master/${type_val}/${game_replace}.png`;
+
+        document.querySelector(".img-preview").onerror = function() {
+            document.querySelector(".img-preview").src = `preview.jpg`;
+        }
+        return
+    }
+    if (method == "igdb") {
+        let image_id = document.querySelector("#imgid").value;
+        document.querySelector(".img-preview").src = `https://images.igdb.com/igdb/image/upload/t_1080p/${image_id}.png`;
+
+        document.querySelector(".img-preview").onerror = function() {
+            document.querySelector(".img-preview").src = `preview.jpg`;
+        }
+        return
+    }
+}
+
+function changeMethod(sel_method) {
+    method = sel_method;
+
+    if (sel_method == "libretro") {
+        document.querySelector(".libretro-form").classList.remove("hidden");
+        document.querySelector(".igdb-form").classList.add("hidden");
+        return
+    }
+    if (sel_method == "igdb") {
+        document.querySelector(".libretro-form").classList.add("hidden");
+        document.querySelector(".igdb-form").classList.remove("hidden");
+        return
+    }
 }
