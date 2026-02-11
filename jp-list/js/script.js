@@ -636,7 +636,7 @@ function change_streaming_filter(midia) {
   if (midia != "tudo") {
     for (i = 0; i < streaming_items.length; i++) {
       streaming_items[i].classList.add('hidden');
-      if ((exibir_eos && streaming_items[i].classList.contains("streaming_item_"+midia)) || (!exibir_eos && !streaming_items[i].classList.contains("streaming_item_eos") && streaming_items[i].classList.contains("streaming_item_"+midia))) {
+      if (streaming_items[i].classList.contains("streaming_item_"+midia)) {
           streaming_items[i].classList.remove('hidden');
       }
     }
@@ -679,29 +679,6 @@ function change_streaming_config(option) {
     }
   }
 }
-/*
-function update_streaming_config() {
-  let streaming_items;
-  streaming_items = document.getElementsByClassName("streaming_item");
-
-  //end of service
-    if (exibir_eos) {
-      for (i = 0; i < streaming_items.length; i++) {
-        if (streaming_items[i].classList.contains("streaming_item_eos")) {
-          streaming_items[i].classList.remove('hidden');
-          document.querySelector(".check_exibir_eos").classList.remove('hidden');
-        }
-      }
-    } else {
-      for (i = 0; i < streaming_items.length; i++) {
-        if (streaming_items[i].classList.contains("streaming_item_eos")) {
-          streaming_items[i].classList.add('hidden');
-          document.querySelector(".check_exibir_eos").classList.add('hidden');
-        }
-      }
-    }
-}
-*/
 
 function update_streaming_config() {
   if (exibir_eos) {
