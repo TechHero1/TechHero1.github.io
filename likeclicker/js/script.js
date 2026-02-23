@@ -760,3 +760,26 @@ window.setInterval(function(){
 window.setTimeout(function(){
 	loadGame();
 }, 30);
+
+//Experimental
+const experimental_code = [
+    "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a", "Enter"
+];
+let experimental_code_index = 0;
+
+function experimental_code_logic(event) {
+    const key_pressed = event.key;
+    const expected_key = experimental_code[experimental_code_index];
+
+    if (key_pressed === expected_key) {
+        experimental_code_index++;
+
+        if (experimental_code_index === experimental_code.length) {
+            window.location.href = "https://techhero1.github.io/likeclicker/experimental";
+        }
+    } else {
+        experimental_code_index = 0;
+    }
+}
+
+document.addEventListener("keydown", experimental_code_logic);

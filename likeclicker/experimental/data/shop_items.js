@@ -19,5 +19,18 @@ const shop_items = {
             description: "string_followers_double_desc",
             cost: 500
         }
+    },
+    fans: {
+        name_singular: "string_fan",
+        name_plural: "string_fans",
+        description: "string_fan_desc",
+        base_cost: 100,
+        base_lps: 2,
+        cost_mult: 1.1,
+        double: {
+            name: "string_fans_double",
+            description: "string_fans_double_desc",
+            cost: 1000
+        }
     }
 }

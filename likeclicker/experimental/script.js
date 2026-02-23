@@ -11,12 +11,21 @@ let game_data = {
     }
 };
 
+//list valid item ids to add
+function list_item_ids() {
+    for (let i = 0; i<Object.keys(shop_items).length; i++) {
+        document.querySelector(".ids_list").innerHTML += ` ${Object.keys(shop_items)[i]}`;
+    }
+}
+
 
 
 //game logic
 
 //function on page load
 function start() {
+    list_item_ids();
+
     //load language buttons
     for (let i = 0; i<Object.keys(lang_strings).length; i++) {
         document.querySelector(".lang_buttons_area").innerHTML += `
@@ -36,6 +45,9 @@ function set_game_lang(sel_lang) {
 function add_shop_item(item_name) {
     if (item_name != "" && item_name != "lpc") {
         let cur_item = shop_items[item_name];
+
+        game_data.shop_items[item_name] = {quantity: 0,double: 1};
+
         document.querySelector(".shop_items_area").innerHTML += `
             <div class="shop_item">
                 <span class="shop_item_name shop_${item_name}_name">${lang_strings[game_data.lang].strings_shop_items[item_name][cur_item.name_plural]}</span>
@@ -56,9 +68,14 @@ function add_shop_item(item_name) {
 function add_double_item(item_name) {
     if (item_name != "") {
         let cur_item = shop_items[item_name].double;
+        let cur_item_relative = shop_items[item_name];
+
+        let double_lps_string_replace = lang_strings[game_data.lang].double_lps_string.replace("{item_plural}",lang_strings[game_data.lang].strings_shop_items[item_name][cur_item_relative.name_plural])
         document.querySelector(".shop_items_area").innerHTML += `
             <div class="shop_item">
                 <span class="shop_double_name shop_${item_name}_double_name">${lang_strings[game_data.lang].strings_shop_items[item_name][cur_item.name]}</span>
+                <br>
+                <span class="shop_item_button shop_${item_name}_button">${double_lps_string_replace}</span>
                 <br>
                 <br>
                 <span class="shop_double_desc shop_${item_name}_double_desc">${lang_strings[game_data.lang].strings_shop_items[item_name][cur_item.description]}</span>
