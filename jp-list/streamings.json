@@ -649,7 +649,8 @@
             ],
             "desc": "<p>Capítulos alugáveis com pontos</p>",
             "ativo": true
-        },{
+        },
+        {
             "nome": "TakeComic",
             "midia": "Mangá",
             "classes": "streaming_item_manga",
@@ -677,6 +678,40 @@
                 }
             ],
             "desc": "<p>Capítulo comprado por moedas</p>",
+            "ativo": true
+        },
+        {
+            "nome": "Ichijin Plus",
+            "midia": "Mangá",
+            "classes": "streaming_item_manga",
+            "link": "https://ichicomi.com/",
+            "tags": [
+                {
+                    "tipo": "pos",
+                    "texto": "Lançamentos"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Primeiros capítulos grátis"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Capítulos recentes grátis"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Comic Yuri Hime"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Acesso limitado por pontos"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Grátis por tempo limitado"
+                }
+            ],
+            "desc": "<p>Capítulos comprados por pontos<br><br>Capítulos mais recentes podem ser acessados gratuitamente por um tempo limitado próximo à data de lançamento</p>",
             "ativo": true
         }
     ]
