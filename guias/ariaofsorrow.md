@@ -32,10 +32,10 @@ Cada inimigo tem a sua própria alma que você pode pegar e usar.
 
 Existem 4 tipos de almas:
 
-1. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F0%2F09%2FRed_Soul.png" width="20"> Almas Vermelhas: elas funcionam parecido com as arminhas de coração. `↑ + Ataque` pra usar. Gastam MP.
-2. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F8%2F8c%2FBlue_Soul.png" width="20"> Almas Azuis: elas mudam o que o botão `R` faz. Podem ser segurando `R` ou apertando `R` pra ativar. Gastam MP.
-3. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F8%2F88%2FYellow_Soul.png" width="20"> Almas Amarelas: dão um boost de status. Não gastam MP.
-4. <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F1%2F14%2FSilver_Souls.png" width="20"> Almas Prateadas: os upgrades permanentes do jogo, similar às relíquias de Symphony.
+1. <img src="assets/ariaofsorrow/Red_Soul.webp" width="20"> Almas Vermelhas: elas funcionam parecido com as arminhas de coração. `↑ + Ataque` pra usar. Gastam MP.
+2. <img src="assets/ariaofsorrow/Blue_Soul.webp" width="20"> Almas Azuis: elas mudam o que o botão `R` faz. Podem ser segurando `R` ou apertando `R` pra ativar. Gastam MP.
+3. <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="20"> Almas Amarelas: dão um boost de status. Não gastam MP.
+4. <img src="assets/ariaofsorrow/Silver_Souls.webp" width="20"> Almas Prateadas: os upgrades permanentes do jogo, similar às relíquias de Symphony.
 
 ## 2.3 Corações
 
@@ -53,7 +53,7 @@ Esse jogo tem mais personagens que você pode encontrar e conversar. Alguns dele
 
 ## 2.6 Sorte
 
-Por questões de <span style="color:red">matemática</span> sua stat de sorte (Luck/LCK) é completamente irrelevante nesse jogo. Ignore ela.
+Por questões de <a href="https://castlevania.fandom.com/wiki/In-Game_Formula#Item_drop_rate_2" style="color:red">matemática</a> sua stat de sorte (Luck/LCK) é completamente irrelevante nesse jogo. Ignore ela.
 
 Obs: alguns pouquíssimos itens dizem na descrição que dão efeitos especiais além do aumento de sorte. A parte de sorte continua irrelevante, mas o efeito especial funciona como esperado.
 
@@ -69,9 +69,9 @@ Pra passar na cachoeira impenetrável 🤨, você precisa de duas coisas:
 
 | Imagem | Nome | Local |
 | :-: | :-: | :-: |
-| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F6%2F61%2FCurly.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Curly | Inner Quarters
-| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F1%2F12%2FAria-manticore.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Manticore | Chapel<br><br>Floating Garden
-| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F1%2F1c%2FAos_devil.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Devil | Floating Garden<br><br>Clock Tower |
+| <img src="assets/ariaofsorrow/Curly.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Curly | Inner Quarters
+| <img src="assets/ariaofsorrow/Aria-manticore.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Manticore | Chapel<br><br>Floating Garden
+| <img src="assets/ariaofsorrow/Aos_devil.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Devil | Floating Garden<br><br>Clock Tower |
 
 Equipe as almas, se afaste um pouco da cachoeira, ande pra frente e faça o `R` de Rush (e continue segurando).
 
@@ -81,8 +81,8 @@ Não tem... PORÉM, tem algo muito melhor.
 
 | Imagem | Nome | Tipo | Local |
 | :-: | :-: | :-: | :-: |
-| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2Fa%2Fa7%2FGiantworm.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Giant Worm | <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F8%2F88%2FYellow_Soul.png" width="50" alt="Alma Amarela"> | Underground Reservoir<br><br>Forbidden Area |
-| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F5%2F5a%2FAos_aluraune.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Alura Une | <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F8%2F8c%2FBlue_Soul.png" width="50" alt="Alma Azul"> | Underground Cemetery<br><br>Forbidden Area |
+| <img src="assets/ariaofsorrow/Giantworm.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Giant Worm | <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="50" alt="Alma Amarela"> | Underground Reservoir<br><br>Forbidden Area |
+| <img src="assets/ariaofsorrow/Aos_aluraune.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Alura Une | <img src="assets/ariaofsorrow/Blue_Soul.webp" width="50" alt="Alma Azul"> | Underground Cemetery<br><br>Forbidden Area |
 
 ## 3.2 "Quero a Crissaegrim"
 
@@ -96,9 +96,9 @@ Antes de entrar como um betinha na sala do trono (aquela, depois das escadas, qu
 
 | Imagem | Nome | Tipo | Local |
 | :-: | :-: | :-: | :-: |
-| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2Ff%2Ffd%2FAoS_Giant_Bat.png" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Giant Bat | <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F8%2F8c%2FBlue_Soul.png" width="50" alt="Alma Azul"> | Recompensa de Boss |
-| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F9%2F9f%2FSuccubusaos.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Succubus | <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F8%2F88%2FYellow_Soul.png" width="50" alt="Alma Amarela"> | The Arena<br><br>Top Floor |
-| <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F5%2F5e%2FAOS-Flamedemon.gif" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Flame Demon | <img src="https://ph.kuuro.net/proxy?wikiname=castlevania&dest=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fcastlevania%2Fimages%2F0%2F09%2FRed_Soul.png" width="50" alt="Alma Vermelha"> | Underground Cemetery<br><br>Forbidden Area |
+| <img src="assets/ariaofsorrow/AoS_Giant_Bat.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Giant Bat | <img src="assets/ariaofsorrow/Blue_Soul.webp" width="50" alt="Alma Azul"> | Recompensa de Boss |
+| <img src="assets/ariaofsorrow/Succubusaos.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Succubus | <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="50" alt="Alma Amarela"> | The Arena<br><br>Top Floor |
+| <img src="assets/ariaofsorrow/AOS-Flamedemon.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Flame Demon | <img src="assets/ariaofsorrow/Red_Soul.webp" width="50" alt="Alma Vermelha"> | Underground Cemetery<br><br>Forbidden Area |
 
 Agora que você virou Chad e conseguiu o *poder de dominar* a arte do Mewing, pode prosseguir no caminho do farm de aura.
 
