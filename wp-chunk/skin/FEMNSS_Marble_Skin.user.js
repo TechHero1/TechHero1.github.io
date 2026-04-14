@@ -3,14 +3,14 @@
 // @version      2026-03-24
 // @description  Very Simple FEMNSS Skin for Blue Marble and variants
 // @author       Far Eastern Magic Napping Society of Summer
-// @icon         https://files.catbox.moe/qcf3ju.png
+// @icon         https://techhero1.github.io/wp-chunk/skin/icon.png
 // @match        *://*.wplace.live/*
 // @updateURL    https://techhero1.github.io/wp-chunk/skin/FEMNSS_Marble_Skin.user.js
 // @downloadURL  https://techhero1.github.io/wp-chunk/skin/FEMNSS_Marble_Skin.user.js
 // ==/UserScript==
 
 var femnss_name = "FEMNSS Marble";
-var femnss_icon = "https://files.catbox.moe/qcf3ju.png";
+var femnss_icon = "https://techhero1.github.io/wp-chunk/skin/icon.png";
 
 (function() {
     'use strict';
