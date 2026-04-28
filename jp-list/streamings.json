@@ -1033,6 +1033,36 @@
             ],
             "desc": "",
             "ativo": true
+        },
+        {
+            "nome": "COMIC FUZ",
+            "midia": "Mangá",
+            "classes": "streaming_item_manga",
+            "link": "https://comic-fuz.com/",
+            "tags": [
+                {
+                    "tipo": "pos",
+                    "texto": "Lançamentos"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Primeiro capítulos grátis"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Capítulos antes dos recentes grátis"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Acesso limitado por energia"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Acesso limitado por medalhas"
+                }
+            ],
+            "desc": "<p>Capítulo acessível por energia ou comprado por medalhas</p><p>Para ler capítulos não grátis intermediários, é necessário 1 energia para cada capítulo lido.<br>Cada conta tem acesso a 1 energia por dia, que se recupera automaticamente depois de 24 horas.<br><br>Capítulos recentes podem ser lidos com medalhas, sejam elas de prata ou de ouro.<br>Magazines e tankoubons só podem ser acessados por medalhas de ouro.<br><br>Medalhas de prata são obtidas através de eventos ou missões no aplicativo.<br>Medalhas de ouro são obtidas apenas por compras ou assinaturas.</p>",
+            "ativo": true
         }
     ]
 }
