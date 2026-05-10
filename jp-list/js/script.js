@@ -226,12 +226,12 @@ function cancel_item(){
   "Repetindo": '["Repetindo"]',
   "Concluído": '["Completo"]',
   "Pausado": '["Pausado"]',
-  "Dropado": '["Dropado"]'
+  "Abandonado": '["Abandonado"]'
 }*/
 
 var filters = {
   "Tudo_tipo": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage","Fanfic","Short Story","Ensaio"]',
-  "Tudo_status": '["Progredindo","Planejo","Repetindo","Completo","Pausado","Dropado"]',
+  "Tudo_status": '["Progredindo","Planejo","Repetindo","Completo","Pausado","Abandonado"]',
   "Mídia": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage"]',
   "Short Stories e Fanfics": '["Fanfic","Short Story","Ensaio"]',
   "Novel": '["Novel"]',
@@ -250,7 +250,7 @@ var filters = {
   "Repetindo": '["Repetindo"]',
   "Concluído": '["Completo"]',
   "Pausado": '["Pausado"]',
-  "Dropado": '["Dropado"]'
+  "Abandonado": '["Abandonado"]'
 }
 
 var list = {
@@ -310,6 +310,11 @@ function load_list() {
   if (list.apoio) {
     document.querySelector(".iichan_tab").classList.remove('hidden');
     document.querySelector(".iichan_nav").classList.remove('hidden');
+  }
+
+  //consertar cagada
+  for (i = 0; i < list.itens.length; i++) {
+    if (list.itens[i].dados.status == "Dropado") list.itens[i].dados.status = "Abandonado";
   }
 
   let filtered_list = [];
@@ -587,7 +592,7 @@ function update_filter_checks() {
   document.querySelector(".icon_status_repetindo").classList.add("hidden");
   document.querySelector(".icon_status_concluido").classList.add("hidden");
   document.querySelector(".icon_status_pausado").classList.add("hidden");
-  document.querySelector(".icon_status_dropado").classList.add("hidden");
+  document.querySelector(".icon_status_abandonado").classList.add("hidden");
 
   switch(cur_filter_status) {
     case "Tudo_status":
@@ -608,8 +613,8 @@ function update_filter_checks() {
     case "Pausado":
       document.querySelector(".icon_status_pausado").classList.remove("hidden");
       break;
-    case "Dropado":
-      document.querySelector(".icon_status_dropado").classList.remove("hidden");
+    case "Abandonado":
+      document.querySelector(".icon_status_abandonado").classList.remove("hidden");
       break;
   }
 }
@@ -859,7 +864,7 @@ function gerar_stats() {
 
   Plotly.newPlot(document.querySelector(".tipo_bar"), tipo_bar_data, tipo_bar_layout, tipo_bar_config);
 
-  let graph_status = ['Completo', 'Progredindo', 'Planejo', 'Dropado', 'Repetindo', 'Pausado'];
+  let graph_status = ['Completo', 'Progredindo', 'Planejo', 'Abandonado', 'Repetindo', 'Pausado'];
   let graph_status_values = [0, 0, 0, 0, 0, 0];
   let graph_status_colors = ['#4285f4','#00ff00','#cfe2f3', '#ff0000', '#11734b', '#ffe5a0'];
   let graph_status_lines = '#000000';
