@@ -33,8 +33,8 @@ Cada inimigo tem a sua própria alma que você pode pegar e usar.
 Existem 4 tipos de almas:
 
 1. <img src="assets/ariaofsorrow/Red_Soul.webp" width="20"> Almas Vermelhas: elas funcionam parecido com as arminhas de coração. `↑ + Ataque` pra usar. Gastam MP.
-2. <img src="assets/ariaofsorrow/Blue_Soul.webp" width="20"> Almas Azuis: elas mudam o que o botão `R` faz. Podem ser segurando `R` ou apertando `R` pra ativar. Gastam MP.
-3. <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="20"> Almas Amarelas: dão um boost de status. Não gastam MP.
+2. <img src="assets/ariaofsorrow/Blue_Soul.webp" width="20"> Almas Azuis: elas mudam o que o botão `R` faz. Podem ser apertando `R` uma vez ou segurando `R` pra ativar. Gastam MP.
+3. <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="20"> Almas Amarelas: dão um boost de status enquanto ativas. Não gastam MP.
 4. <img src="assets/ariaofsorrow/Silver_Souls.webp" width="20"> Almas Prateadas: os upgrades permanentes do jogo, parecido com as relíquias de Symphony.
 
 ## 2.3 Corações
