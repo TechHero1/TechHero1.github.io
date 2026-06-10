@@ -98,7 +98,7 @@ Mas se quiser encontrar algo parecido, vá até um BURACO dentro de um BARCO com
 
 ## 3.3 "Quero virar o Moggador Master"
 
-Antes de entrar como um betinha na sala do trono (aquela, depois das escadas, que o Richter enfrenta o Drácula no começo de Symphony), consiga e equipe as seguintes almas:
+Antes de entrar como um betinha na sala do trono ([aquela, depois das escadas, que o Richter enfrenta o Drácula no começo de Symphony](https://www.youtube.com/watch?v=7_RhQR3aQ_0)), consiga e equipe as seguintes almas:
 
 | Imagem | Nome | Tipo | Local |
 | :-: | :-: | :-: | :-: |
