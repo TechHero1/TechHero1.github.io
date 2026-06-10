@@ -102,9 +102,9 @@ Antes de entrar como um betinha na sala do trono (aquela, depois das escadas, qu
 
 | Imagem | Nome | Tipo | Local |
 | :-: | :-: | :-: | :-: |
+| <img src="assets/ariaofsorrow/AOS-Flamedemon.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Flame Demon | <img src="assets/ariaofsorrow/Red_Soul.webp" width="50" alt="Alma Vermelha"> | Underground Cemetery<br><br>Forbidden Area |
 | <img src="assets/ariaofsorrow/AoS_Giant_Bat.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Giant Bat | <img src="assets/ariaofsorrow/Blue_Soul.webp" width="50" alt="Alma Azul"> | Recompensa de Boss |
 | <img src="assets/ariaofsorrow/Succubusaos.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Succubus | <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="50" alt="Alma Amarela"> | The Arena<br><br>Top Floor |
-| <img src="assets/ariaofsorrow/AOS-Flamedemon.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Flame Demon | <img src="assets/ariaofsorrow/Red_Soul.webp" width="50" alt="Alma Vermelha"> | Underground Cemetery<br><br>Forbidden Area |
 
 Agora que você virou Chad e conseguiu o *poder de dominar* a arte do Mewing, pode prosseguir no caminho do farm de aura.
 
