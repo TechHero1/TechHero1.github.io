@@ -90,13 +90,13 @@ Mas tem algo muito melhor. (Note que são de tipos diferentes, então são efeit
 | <img src="assets/ariaofsorrow/Giantworm.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Giant Worm | <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="50" alt="Alma Amarela"> | Underground Reservoir<br><br>Forbidden Area |
 | <img src="assets/ariaofsorrow/Aos_aluraune.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Alura Une | <img src="assets/ariaofsorrow/Blue_Soul.webp" width="50" alt="Alma Azul"> | Underground Cemetery<br><br>Forbidden Area |
 
-## 3.2 "Quero a Crissaegrim"
+## 3.3 "Quero a Crissaegrim"
 
 Rapaz... não tem...
 
 Mas se quiser encontrar algo parecido, vá até um BURACO dentro de um BARCO com PEIXES e fique batendo nas paredes.
 
-## 3.3 "Quero virar o Moggador Master"
+## 3.4 "Quero virar o Moggador Master"
 
 Antes de entrar como um betinha na sala do trono ([aquela, depois das escadas, que o Richter enfrenta o Drácula no começo de Symphony](https://www.youtube.com/watch?v=7_RhQR3aQ_0)), consiga e equipe as seguintes almas:
 
