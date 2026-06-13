@@ -1089,6 +1089,36 @@
             ],
             "desc": "<p>Capítulo comprado por pontos<br><br>Com Premium ou Motto Premium, 100 pontos iniciais + 200 pontos mensais</p>",
             "ativo": true
+        },
+        {
+            "nome": "Kuragebunch",
+            "midia": "Mangá",
+            "classes": "streaming_item_manga",
+            "link": "https://kuragebunch.com/",
+            "tags": [
+                {
+                    "tipo": "pos",
+                    "texto": "Lançamentos"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Primeiros capítulos grátis"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Capítulos recentes grátis"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Acesso limitado por pontos"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Capítulo atual pago"
+                }
+            ],
+            "desc": "",
+            "ativo": true
         }
     ]
 }
