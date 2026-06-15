@@ -68,16 +68,16 @@ Sinceramente, é um jogo bem polido, então imagino que seja possível progredir
 ## 3.1 "Quero passar uma cachoeira, mas não consigo"
 
 Pra passar na cachoeira impenetrável 🤨, você precisa de duas coisas:
-- <img src="assets/ariaofsorrow/Silver_Souls.webp" width="20"> Alma Prateada - Undine
+- <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="20"> Alma Amarela - Undine
 - <img src="assets/ariaofsorrow/Blue_Soul.webp" width="20"> PELO MENOS UMA das Almas Azuis de Rush abaixo
 
 Equipe as almas, se afaste um pouco da cachoeira, ande pra frente e faça o `R` de Rush (e continue segurando).
 
 | Imagem | Nome | Local |
 | :-: | :-: | :-: |
-| <img src="assets/ariaofsorrow/Curly.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Curly | Inner Quarters
-| <img src="assets/ariaofsorrow/Aria-manticore.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Manticore | Chapel<br><br>Floating Garden
-| <img src="assets/ariaofsorrow/Aos_devil.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Devil | Floating Garden<br><br>Clock Tower |
+| <img src="assets/ariaofsorrow/Curly.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Curly | [Inner Quarters](https://static.wikia.nocookie.net/castlevania/images/5/5d/Inner_Quarters_Map.png)
+| <img src="assets/ariaofsorrow/Aria-manticore.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Manticore | [Chapel](https://static.wikia.nocookie.net/castlevania/images/b/bd/Chapel_Map.png)<br><br>[Floating Garden](https://static.wikia.nocookie.net/castlevania/images/5/5a/Floating_Garden_Map.png)
+| <img src="assets/ariaofsorrow/Aos_devil.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Devil | [Floating Garden](https://static.wikia.nocookie.net/castlevania/images/5/5a/Floating_Garden_Map.png)<br><br>[Clock Tower](https://static.wikia.nocookie.net/castlevania/images/b/bf/Clock_Tower_(AoS)_Map.png) |
 
 ## 3.2 "Quero a armadura de curar"
 
@@ -87,8 +87,8 @@ Mas tem algo muito melhor. (Note que são de tipos diferentes, então são efeit
 
 | Imagem | Nome | Tipo | Local |
 | :-: | :-: | :-: | :-: |
-| <img src="assets/ariaofsorrow/Giantworm.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Giant Worm | <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="50" alt="Alma Amarela"> | Underground Reservoir<br><br>Forbidden Area |
-| <img src="assets/ariaofsorrow/Aos_aluraune.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Alura Une | <img src="assets/ariaofsorrow/Blue_Soul.webp" width="50" alt="Alma Azul"> | Underground Cemetery<br><br>Forbidden Area |
+| <img src="assets/ariaofsorrow/Giantworm.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Giant Worm | <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="50" alt="Alma Amarela"> | [Underground Reservoir](https://static.wikia.nocookie.net/castlevania/images/2/2a/Underground_Reservoir_Map.png)<br><br>[Forbidden Area](https://static.wikia.nocookie.net/castlevania/images/d/d1/Forbidden_Area_Map.png) |
+| <img src="assets/ariaofsorrow/Aos_aluraune.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Alura Une | <img src="assets/ariaofsorrow/Blue_Soul.webp" width="50" alt="Alma Azul"> | [Underground Cemetery](https://static.wikia.nocookie.net/castlevania/images/2/27/Underground_Cemetery_Map.png)<br><br>[Forbidden Area](https://static.wikia.nocookie.net/castlevania/images/d/d1/Forbidden_Area_Map.png) |
 
 ## 3.3 "Quero a Crissaegrim"
 
@@ -102,9 +102,9 @@ Antes de entrar como um betinha na sala do trono ([aquela, depois das escadas, q
 
 | Imagem | Nome | Tipo | Local |
 | :-: | :-: | :-: | :-: |
-| <img src="assets/ariaofsorrow/AOS-Flamedemon.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Flame Demon | <img src="assets/ariaofsorrow/Red_Soul.webp" width="50" alt="Alma Vermelha"> | Underground Cemetery<br><br>Forbidden Area |
+| <img src="assets/ariaofsorrow/AOS-Flamedemon.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Flame Demon | <img src="assets/ariaofsorrow/Red_Soul.webp" width="50" alt="Alma Vermelha"> | [Underground Cemetery](https://static.wikia.nocookie.net/castlevania/images/2/27/Underground_Cemetery_Map.png)<br><br>[Forbidden Area](https://static.wikia.nocookie.net/castlevania/images/d/d1/Forbidden_Area_Map.png) |
 | <img src="assets/ariaofsorrow/AoS_Giant_Bat.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Giant Bat | <img src="assets/ariaofsorrow/Blue_Soul.webp" width="50" alt="Alma Azul"> | Recompensa de Boss |
-| <img src="assets/ariaofsorrow/Succubusaos.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Succubus | <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="50" alt="Alma Amarela"> | The Arena<br><br>Top Floor |
+| <img src="assets/ariaofsorrow/Succubusaos.webp" width="250" alt="Imagem do inimigo, me avise se não aparecer"> | Succubus | <img src="assets/ariaofsorrow/Yellow_Soul.webp" width="50" alt="Alma Amarela"> | [The Arena](https://static.wikia.nocookie.net/castlevania/images/b/ba/The_Arena_Map.png)<br><br>[Top Floor](https://static.wikia.nocookie.net/castlevania/images/c/c0/Top_Floor_Map.png) |
 
 Agora que você virou Chad e conseguiu o *poder de dominar* a arte do Mewing, pode prosseguir no caminho do farm de aura.
 

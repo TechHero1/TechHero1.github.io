@@ -9,3 +9,5 @@
 [Game Image Viewer](https://techhero1.github.io/game-img-viewer/)
 
 [Wplace Chunk Viewer](https://techhero1.github.io/wp-chunk)
+
+[Guias de Jogos](https://techhero1.github.io/guias)
