@@ -467,7 +467,8 @@ function load_list() {
       className: "nota_link text-blue-500",
       target: "_blank"
     });
-    anotacao = anotacao.replaceAll(/[\n]/g,"<br>");
+    //anotacao = anotacao.replaceAll(/[\n]/g,"<br>");
+    anotacao = style_text_with_tags(anotacao);
 
     document.querySelector(".content_list").innerHTML += `
     <div style="background-color:${bg_color}" class="flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200" id="${i}" onclick="edit_item(this.id)">
@@ -1186,4 +1187,170 @@ function update_autotime() {
     document.querySelector(".autotime_number").classList.add("hidden");
     document.querySelector(".normaltime_number").classList.remove("hidden");
   }
+}
+
+//GRADIENT TAG
+//const style_tag_gradient = /\[gradient:(.+):(.+):(.+)](.+)\[\/gradient]/g;
+//const style_tag_gradient = /\[gradient:(.+?):(.+?):(.+?)](.+?)\[\/gradient]/g;
+const style_tag_gradient = /\[gradient:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?)](?<real_text>.+?)\[\/gradient]/g;
+
+//GRADIENT TAG WITH %
+//const style_tag_gradient_percent = /\[gradient:(.+):(.+):(.+):(.+):(.+)](.+)\[\/gradient]/g;
+const style_tag_gradient_percent = /\[gradient_percent:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?):(?<first_color_percent>.+?):(?<second_color_percent>.+?)](?<real_text>.+?)\[\/gradient_percent]/g;
+
+//COLOR TAG
+//const style_tag_color = /\[color:(.+)](.+)\[\/color]/g;
+const style_tag_color = /\[color:(?<color>.+?)](?<real_text>.+?)\[\/color]/g;
+
+//BOLD TAG
+const style_tag_bold = /\[bold](?<real_text>.+?)\[\/bold]/g;
+
+//ITALIC TAG
+const style_tag_italic = /\[italic](?<real_text>.+?)\[\/italic]/g;
+
+//BG TAG
+const style_tag_bg = /\[bg:(?<color>.+?)](?<real_text>.+?)\[\/bg]/g;
+
+//BORDER TAG
+const style_tag_border = /\[border:(?<size>.+?):(?<color>.+?)](?<real_text>.+?)\[\/border]/g;
+
+//SHADOW TAG
+const style_tag_shadow = /\[shadow:(?<size>.+?):(?<color>.+?):(?<opacity>.+?)](?<real_text>.+?)\[\/shadow]/g;
+
+//BADGE TAG
+const style_tag_badge = /\[badge:(?<text_color>.+?):(?<bg_color>.+?)](?<real_text>.+?)\[\/badge]/g;
+
+//ESTILO TAG
+const style_tag_preset = /\[estilo:(?<nome>.+?)](?<real_text>.+?)\[\/estilo]/g;
+
+function style_text_with_tags(text) {
+  //NEWLINE TAG
+  text = text.replaceAll(/\\n/g,"<br>");
+  //text = text.replaceAll(/[\n]/g,"<br>");
+
+  //GRADIENT TAG
+  for (itag = 0; itag < (text.match(style_tag_gradient) || []).length; itag++) {
+    //console.log(text.match(style_tag_gradient));
+    let style_tag_gradient_match;
+
+    while ((style_tag_gradient_match = style_tag_gradient.exec(text)) !== null) {
+        //console.log(style_tag_gradient_match);
+
+        let dir;
+        //if (style_tag_gradient_match[1] == "vertical") dir = "b";
+        //if (style_tag_gradient_match[1] == "horizontal") dir = "r";
+        if (style_tag_gradient_match.groups.direction == "vertical") dir = "b";
+        if (style_tag_gradient_match.groups.direction == "horizontal") dir = "r";
+
+        //console.log(text.replaceAll(style_tag_gradient_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_match[2]}] to-[${style_tag_gradient_match[3]}] bg-clip-text text-transparent">${style_tag_gradient_match[4]}</span>`));
+        //text = text.replaceAll(style_tag_gradient_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_match[2]}] to-[${style_tag_gradient_match[3]}] bg-clip-text text-transparent">${style_tag_gradient_match[4]}</span>`);
+        text = text.replaceAll(style_tag_gradient_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_match.groups.first_color}] to-[${style_tag_gradient_match.groups.second_color}] bg-clip-text text-transparent">${style_tag_gradient_match.groups.real_text}</span>`);
+    }
+  }
+
+  //GRADIENT TAG WITH %
+  for (itag = 0; itag < (text.match(style_tag_gradient_percent) || []).length; itag++) {
+      let style_tag_gradient_percent_match;
+
+      while ((style_tag_gradient_percent_match = style_tag_gradient_percent.exec(text)) !== null) {
+
+          let dir;
+          //if (style_tag_gradient_percent_match[1] == "vertical") dir = "b";
+          //if (style_tag_gradient_percent_match[1] == "horizontal") dir = "r";
+          if (style_tag_gradient_percent_match.groups.direction == "vertical") dir = "b";
+          if (style_tag_gradient_percent_match.groups.direction == "horizontal") dir = "r";
+
+          //text = text.replaceAll(style_tag_gradient_percent_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_percent_match[2]}] from-[${style_tag_gradient_percent_match[4]}] to-[${style_tag_gradient_percent_match[3]}] to-[${style_tag_gradient_percent_match[5]}] bg-clip-text text-transparent">${style_tag_gradient_percent_match[6]}</span>`);
+          text = text.replaceAll(style_tag_gradient_percent_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_percent_match.groups.first_color}] from-[${style_tag_gradient_percent_match.groups.first_color_percent}] to-[${style_tag_gradient_percent_match.groups.second_color}] to-[${style_tag_gradient_percent_match.groups.second_color_percent}] bg-clip-text text-transparent">${style_tag_gradient_percent_match.groups.real_text}</span>`);
+      }
+  }
+
+  //SHADOW TAG
+  for (itag = 0; itag < (text.match(style_tag_shadow) || []).length; itag++) {
+    let style_tag_shadow_match;
+
+    while ((style_tag_shadow_match = style_tag_shadow.exec(text)) !== null) {
+
+        text = text.replaceAll(style_tag_shadow_match[0],`<span class="text-shadow-${style_tag_shadow_match.groups.size} text-shadow-[${style_tag_shadow_match.groups.color}]/${style_tag_shadow_match.groups.opacity}">${style_tag_shadow_match.groups.real_text}</span>`);
+    }
+  }
+
+  //COLOR TAG
+  for (itag = 0; itag < (text.match(style_tag_color) || []).length; itag++) {
+      let style_tag_color_match;
+
+      while ((style_tag_color_match = style_tag_color.exec(text)) !== null) {
+          //text = text.replaceAll(style_tag_color_match[0],`<span class="text-[${style_tag_color_match[1]}]">${style_tag_color_match[2]}</span>`);
+          text = text.replaceAll(style_tag_color_match[0],`<span class="text-[${style_tag_color_match.groups.color}]">${style_tag_color_match.groups.real_text}</span>`);
+      }
+  }
+
+  //BOLD TAG
+  for (itag = 0; itag < (text.match(style_tag_bold) || []).length; itag++) {
+      let style_tag_bold_match;
+
+      while ((style_tag_bold_match = style_tag_bold.exec(text)) !== null) {
+          text = text.replaceAll(style_tag_bold_match[0],`<b>${style_tag_bold_match.groups.real_text}</b>`);
+      }
+  }
+
+  //ITALIC TAG
+  for (itag = 0; itag < (text.match(style_tag_italic) || []).length; itag++) {
+      let style_tag_italic_match;
+
+      while ((style_tag_italic_match = style_tag_italic.exec(text)) !== null) {
+          text = text.replaceAll(style_tag_italic_match[0],`<i>${style_tag_italic_match.groups.real_text}</i>`);
+      }
+  }
+
+  //BG TAG
+  for (itag = 0; itag < (text.match(style_tag_bg) || []).length; itag++) {
+      let style_tag_bg_match;
+
+      while ((style_tag_bg_match = style_tag_bg.exec(text)) !== null) {
+          text = text.replaceAll(style_tag_bg_match[0],`<span class="bg-[${style_tag_bg_match.groups.color}]">${style_tag_bg_match.groups.real_text}</span>`);
+      }
+  }
+
+  //BORDER TAG
+  for (itag = 0; itag < (text.match(style_tag_border) || []).length; itag++) {
+      let style_tag_border_match;
+
+      while ((style_tag_border_match = style_tag_border.exec(text)) !== null) {
+          text = text.replaceAll(style_tag_border_match[0],`<span class="border-${style_tag_border_match.groups.size} border-[${style_tag_border_match.groups.color}]">${style_tag_border_match.groups.real_text}</span>`);
+      }
+  }
+
+  //BADGE TAG
+  for (itag = 0; itag < (text.match(style_tag_badge) || []).length; itag++) {
+      let style_tag_badge_match;
+
+      while ((style_tag_badge_match = style_tag_badge.exec(text)) !== null) {
+          text = text.replaceAll(style_tag_badge_match[0],`<span class="text-[${style_tag_badge_match.groups.text_color}] bg-[${style_tag_badge_match.groups.bg_color}] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_badge_match.groups.real_text}</span>`);
+      }
+  }
+
+  //ESTILO TAG
+  text = style_text_with_presets(text);
+
+  return text;
+}
+
+function style_text_with_presets(text) {
+
+  //PRESET LEGENDA
+  for (itag = 0; itag < (text.match(style_tag_preset) || []).length; itag++) {
+      let style_tag_preset_match;
+
+      while ((style_tag_preset_match = style_tag_preset.exec(text)) !== null) {
+        if (style_tag_preset_match.groups.nome == "legenda") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black text-white px-1">${style_tag_preset_match.groups.real_text}</span>`);
+        if (style_tag_preset_match.groups.nome == "amarelo_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "vermelho_umineko") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
+        if (style_tag_preset_match.groups.nome == "sombra") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-shadow-md text-shadow-black/20">${style_tag_preset_match.groups.real_text}</span>`);
+        if (style_tag_preset_match.groups.nome == "badge_pos") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#d4edbc] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
+        if (style_tag_preset_match.groups.nome == "badge_neg") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#ff8787] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
+      }
+  }
+
+  return text;
 }

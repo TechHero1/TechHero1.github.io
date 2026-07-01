@@ -225,6 +225,170 @@
             <label for="nota_textarea">Anotação</label>
             <textarea class="nota_input textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]" type="textarea" id="nota_textarea" name="nota_textarea" onchange=""></textarea>
         </div>
+        <div class="sm:p-3 flex flex-row gap-3 items-center">
+            <details>
+                <summary>Informações de customização</summary>
+                <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
+                    <table class="table-auto text-center">
+                        <thead>
+                            <tr>
+                                <th class="border-1 sm:p-2">Estilo</th>
+                                <th class="border-1 sm:p-2">Código</th>
+                                <th class="border-1 sm:p-2">Resultado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border-1 sm:p-2">Negrito</td>
+                                <td class="border-1 sm:p-2"><span class="text-[#013220]">[</span><span class="text-[#905]">bold</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">bold</span><span class="text-[#013220]">]</span></span></td>
+                                <td class="border-1 sm:p-2"><b>Texto</b></td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Itálico</td>
+                                <td class="border-1 sm:p-2"><span class="text-[#013220]">[</span><span class="text-[#905]">italic</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">italic</span><span class="text-[#013220]">]</span></span></td>
+                                <td class="border-1 sm:p-2"><i>Texto</i></td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Texto colorido</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">color</span><span class="text-[#013220]">:</span><span class="text-[#07a]">cor</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">color</span><span class="text-[#013220]">]</span></span>
+                                    <br><br>Exemplo:
+                                    <br><span class="text-[#013220]">[</span><span class="text-[#905]">color</span><span class="text-[#013220]">:</span><span class="text-[#FF0000]">#FF0000</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">color</span><span class="text-[#013220]">]</span></span>
+                                </td>
+                                <td class="border-1 sm:p-2"><span class="text-[#FF0000]">Texto</span></td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Fundo colorido</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">bg</span><span class="text-[#013220]">:</span><span class="text-[#07a]">cor</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">bg</span><span class="text-[#013220]">]</span></span>
+                                    <br><br>Exemplo:
+                                    <br><span class="text-[#013220]">[</span><span class="text-[#905]">bg</span><span class="text-[#013220]">:</span><span class="text-[#3CB371]">#3CB371</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">bg</span><span class="text-[#013220]">]</span></span>
+                                </td>
+                                <td class="border-1 sm:p-2"><span class="bg-[#3CB371]">Texto</span></td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Badge</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">badge</span><span class="text-[#013220]">:</span><span class="text-[#07a]">cor_texto</span><span class="text-[#013220]">:</span><span class="text-[#07a]">cor_fundo</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">badge</span><span class="text-[#013220]">]</span></span>
+                                    <br><br>Exemplo:
+                                    <br><span class="text-[#013220]">[</span><span class="text-[#905]">badge</span><span class="text-[#013220]">:</span><span class="text-[#4E380E]">#4E380E</span><span class="text-[#013220]">:</span><span class="text-[#00FFCF]">#00FFCF</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">badge</span><span class="text-[#013220]">]</span></span>
+                                </td>
+                                <td class="border-1 sm:p-2"><span class="bg-[#00FFCF] text-[#4E380E] rounded-md shadow-md py-1 px-2 h-min w-fit">Texto</span></td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Borda</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">border</span><span class="text-[#013220]">:</span><span class="text-[#07a]">tamanho</span><span class="text-[#013220]">:</span><span class="text-[#07a]">cor</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">border</span><span class="text-[#013220]">]</span></span>
+                                    <br><br>Exemplo:
+                                    <br><span class="text-[#013220]">[</span><span class="text-[#905]">border</span><span class="text-[#013220]">:</span><span class="text-[#07a]">1</span><span class="text-[#013220]">:</span><span class="text-[#0000FF]">#0000FF</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">border</span><span class="text-[#013220]">]</span></span>
+                                </td>
+                                <td class="border-1 sm:p-2"><span class="border-1 border-[#0000FF]">Texto</span></td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Sombra</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">shadow</span><span class="text-[#013220]">:</span><span class="text-[#07a]">tamanho</span><span class="text-[#013220]">:</span><span class="text-[#07a]">cor</span><span class="text-[#013220]">:</span><span class="text-[#07a]">opacidade</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">shadow</span><span class="text-[#013220]">]</span></span>
+                                    <br><br>Exemplo:
+                                    <br><span class="text-[#013220]">[</span><span class="text-[#905]">shadow</span><span class="text-[#013220]">:</span><span class="text-[#07a]">md</span><span class="text-[#013220]">:</span><span class="text-[#FE0BFF]">#FE0BFF</span><span class="text-[#013220]">:</span><span class="text-[#07a]">80</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">shadow</span><span class="text-[#013220]">]</span></span>
+                                    <br><br>Tamanhos: 2xs / xs / sm / md / lg
+                                    <br>Opacidade precisa ser: 0-100
+                                </td>
+                                <td class="border-1 sm:p-2"><span class="text-shadow-md text-shadow-[#FE0BFF]/80">Texto</span></td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Degradê</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">gradient</span><span class="text-[#013220]">:</span><span class="text-[#07a]">direção</span><span class="text-[#013220]">:</span><span class="text-[#07a]">primeira_cor</span><span class="text-[#013220]">:</span><span class="text-[#07a]">segunda_cor</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">gradient</span><span class="text-[#013220]">]</span></span>
+                                    <br><br>Exemplos:
+                                    <br><span class="text-[#013220]">[</span><span class="text-[#905]">gradient</span><span class="text-[#013220]">:</span><span class="text-[#07a]">vertical</span><span class="text-[#013220]">:</span><span class="text-[#FF0000]">#FF0000</span><span class="text-[#013220]">:</span><span class="text-[#0000FF]">#0000FF</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">gradient</span><span class="text-[#013220]">]</span></span>
+                                    <br><br><span class="text-[#013220]">[</span><span class="text-[#905]">gradient</span><span class="text-[#013220]">:</span><span class="text-[#07a]">horizontal</span><span class="text-[#013220]">:</span><span class="text-[#FF0000]">#FF0000</span><span class="text-[#013220]">:</span><span class="text-[#0000FF]">#0000FF</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">gradient</span><span class="text-[#013220]">]</span></span>
+                                </td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="bg-linear-to-b from-[#FF0000] to-[#0000FF] bg-clip-text text-transparent">Texto</span>
+                                    <br><br>
+                                    <span class="bg-linear-to-r from-[#FF0000] to-[#0000FF] bg-clip-text text-transparent">Texto</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Degradê com porcentagens</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">gradient_percent</span><span class="text-[#013220]">:</span><span class="text-[#07a]">direção</span><span class="text-[#013220]">:</span><span class="text-[#07a]">primeira_cor</span><span class="text-[#013220]">:</span><span class="text-[#07a]">segunda_cor</span><span class="text-[#013220]">:</span><span class="text-[#07a]">primeira_cor_porcentagem</span><span class="text-[#013220]">:</span><span class="text-[#07a]">segunda_cor_porcentagem</span><span class="text-[#013220]"></span>]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">gradient_percent</span><span class="text-[#013220]">]</span>
+                                    <br><br>Exemplos:
+                                    <br><span class="text-[#013220]">[</span><span class="text-[#905]">gradient_percent</span><span class="text-[#013220]">:</span><span class="text-[#07a]">horizontal</span><span class="text-[#013220]">:</span><span class="text-[#FF0000]">#FF0000</span><span class="text-[#013220]">:</span><span class="text-[#0000FF]">#0000FF</span><span class="text-[#013220]">:</span><span class="text-[#07a]">20%</span><span class="text-[#013220]">:</span><span class="text-[#07a]">40%</span><span class="text-[#013220]"></span>]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">gradient_percent</span><span class="text-[#013220]">]</span>
+                                    <br><br><span class="text-[#013220]">[</span><span class="text-[#905]">gradient_percent</span><span class="text-[#013220]">:</span><span class="text-[#07a]">horizontal</span><span class="text-[#013220]">:</span><span class="text-[#FF0000]">#FF0000</span><span class="text-[#013220]">:</span><span class="text-[#0000FF]">#0000FF</span><span class="text-[#013220]">:</span><span class="text-[#07a]">75%</span><span class="text-[#013220]">:</span><span class="text-[#07a]">10%</span><span class="text-[#013220]"></span>]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">gradient_percent</span><span class="text-[#013220]">]</span>
+                                    <br><br>(Também é possível usar duas porcentagens iguais para eliminar a suavidade na troca das cores)
+                                </td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="bg-linear-to-r from-[#FF0000] from-[20%] to-[#0000FF] to-[40%] bg-clip-text text-transparent">Texto</span>
+                                    <br><br>
+                                    <span class="bg-linear-to-r from-[#FF0000] from-[75%] to-[#0000FF] to-[10%] bg-clip-text text-transparent">Texto</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
+                    <table class="table-auto text-center">
+                        <thead>
+                            <tr>
+                                <th class="border-1 sm:p-2">Estilo predefinido</th>
+                                <th class="border-1 sm:p-2">Código</th>
+                                <th class="border-1 sm:p-2">Resultado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border-1 sm:p-2">Legenda de YouTube</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">:</span><span class="text-[#07a]">legenda</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">]</span></span>
+                                </td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="bg-black text-white px-1">Texto</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Sombreado</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">:</span><span class="text-[#07a]">sombra</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">]</span></span>
+                                </td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-shadow-md text-shadow-black/20">Texto</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Amarelo DELTARUNE</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">:</span><span class="text-[#07a]">amarelo_deltarune</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">]</span></span>
+                                </td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="bg-black"><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent">Texto</span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Vermelho Umineko</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">:</span><span class="text-[#07a]">vermelho_umineko</span><span class="text-[#013220]">]</span>Texto<span class="text-[#013220]">[/</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">]</span></span>
+                                </td>
+                                <td class="border-1 sm:p-2">
+                                    <b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent">Texto</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 sm:p-2">Badges</td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="text-[#013220]">[</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">:</span><span class="text-[#07a]">badge_pos</span><span class="text-[#013220]">]</span>Positivo<span class="text-[#013220]">[/</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">]</span></span>
+                                    <br><br><span class="text-[#013220]">[</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">:</span><span class="text-[#07a]">badge_neg</span><span class="text-[#013220]">]</span>Negativo<span class="text-[#013220]">[/</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">]</span></span>
+                                </td>
+                                <td class="border-1 sm:p-2">
+                                    <span class="bg-[#d4edbc] rounded-md shadow-md py-1 px-2 h-min w-fit">Positivo</span>
+                                    <br><br><span class="bg-[#ff8787] rounded-md shadow-md py-1 px-2 h-min w-fit">Negativo</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+        </div>
         </div>
         <div class="p-3 flex flex-row gap-3 items-center">
             <div class="flex flex-row gap-3 items-center w-[100%]">
