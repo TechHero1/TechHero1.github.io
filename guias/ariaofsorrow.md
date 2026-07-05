@@ -110,4 +110,4 @@ Agora que você virou Chad e conseguiu o *poder de dominar* a arte do Mewing, po
 
 > Foto sua de agora
 > 
-> <img src="https://files.catbox.moe/d5bh6b.png" width="250" alt="Foto de você agora, me avise se não estiver aparecendo">
+> <img src="assets/ariaofsorrow/moggador.png" width="250" alt="Foto de você agora, me avise se não estiver aparecendo">
