@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../script.js"></script>
+    <script src="minigames.js"></script>
     <style>
       @font-face {
         font-family: 'AdwaitaSans-Regular';
@@ -15,7 +16,7 @@
       }
     </style>
   </head>
-  <body class="font-[AdwaitaSans-Regular] bg-gray-200">
+  <body class="font-[AdwaitaSans-Regular] bg-gray-200" onload="load_minigames()">
     <nav class="bg-gray-800 sticky top-0 w-[100%]">
       <div class="inline-flex gap-4 w-[100%]">
         <div class="mx-auto p-2 sm:px-6 lg:px-8 text-white text-[1.25rem] basis-9/10 sm:basis-19/20 flex flex-row items-center">
@@ -50,163 +51,11 @@
             <div><a class="text-blue-500" href="evento?id=Basking_in_the_Brilliance_of_Their_Serenade"><center><img src="../assets/img/event/Event_Sunshine_Girls'_Serenade.png" class="w-[100%] aspect-auto"><br><div class="mb-2">Basking in the Brilliance of Their Serenade</div><ruby>陽ひらく彼女たちの小夜曲<rt>Sunshine Girls' Serenade</rt></ruby></center></a></div>
           </div>
         </div>
-
         
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
           <div class="mb-5 group/title cursor-pointer cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="minigames"><a name="minigames" class="block relative top-[-5rem]"></a><b>Minigames</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
-            <div class="flex flex-col gap-4">
-
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>ToSchool ~Everyday life with you by my side~</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://toschool.root.shiksha/">Arquivado 1 (rápido)</a>
-                  <a class="text-blue-500" href="https://chocobakpao.github.io/ToSchool-Web/">Arquivado 2 (lento)</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/toschool/">Arquivado 3 (Japonês)</a>
-                  <a class="text-blue-500" href="https://www.reddit.com/r/BlueArchive/s/f4Bscqldol">Arquivado localmente (Traduzido em inglês)</a>
-                  <a class="text-blue-500" href="https://pbin.nadeko.net/?8c76403bec117cc6#HbrzdtYxzshSQjCY9d3m2Gi2H95VNk4GQcx4KR5vX8n">Arquivado localmente (Japonês)</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>Climbing High! SRT-Style Bouldering</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://srt-minigame01.bluearchive.jp/">Oficial (inativo)</a>
-                  <a class="text-blue-500" href="https://zhaokugua.github.io/GettingOverItBlueArchiveWebVersion/">Arquivado 1 (Global)</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/minigame/">Arquivado 2 (Global)</a>
-                  <a class="text-blue-500" href="https://arona-archive.github.io/srt-minigame01/">Arquivado 1 (JP)</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/srt-minigame/">Arquivado 2 (JP)</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>Genryumon Affairs</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://bluearchive.nexon.com/events/2025/03/minigame?code=en">Oficial</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/genryumon-affairs/">Arquivado (Chinês)</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>LIVIN’ ON SWEETS</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://bluearchive.nexon.com/events/2024/10/minigame?fix_ip=1.1.1.1">Oficial</a>
-                  <a class="text-blue-500" href="https://pbin.nadeko.net/?7818f0b3eeee3ef7#EMF2obR3hEkPuoGPkM3rMPWA2YguvFfjUaF5qidAhbxX">Arquivado Internet Archive (Versão Antiga)</a>
-                  <a class="text-blue-500" href="https://pbin.nadeko.net/?496eee304f039734#8RUwsDM3sF8UWAo4Whtitr8JV1xbdTBBfKjpEraB2uTm">Arquivado Internet Archive (Versão Nova)</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/livin_on_sweets/">Arquivado Chinês (Versão Antiga)</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/livin_on_sweets_update/">Arquivado Chinês (Versão Nova)</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>Hyakkaryouran Summer Rush</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://bluearchive.nexon.com/events/2025/11/summerrush">Oficial</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/summerrush/">Arquivado 1</a>
-                  <a class="text-blue-500" href="https://pbin.nadeko.net/?163fecb454b888cf#FRXWKFh3BPWhi8Vt9hzukn71cEsAcSEuh2hyLUAJ2Pjy">Arquivado 2</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>Millennium Quest</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://bluearchive.jp/millennium_quest/">Oficial (inativo)</a>
-                  <a class="text-blue-500" href="https://millennium-quest.vercel.app/en">Arquivado 1 (traduzido em inglês)</a>
-                  <a class="text-blue-500" href="https://arona-archive.github.io/millennium_quest/">Arquivado 2</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/millennium_quest/">Arquivado 3</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>Running Fast! Kivotos-Style Training</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://bluearchive.jp/kourintaisai/game01/">Oficial JP (inativo)</a>
-                  <a class="text-blue-500" href="https://nxm-clw-cdn.dn.nexoncdn.co.kr/bluearchive/static/events/2024/03/training_ikw11l/en/index.html">Oficial EN (inativo)</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/kourintaisai/">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>Spike It! Kivotos Volleyball Tournament</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://bluearchive.nexon.com/events/2024/03/volleyball">Oficial</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/volleyball/">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>RABBIT☆RUN！～夏のエビ回収作戦～</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://rabbitrun.bluearchive.jp/">Oficial JP (inativo)</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>Millenium Logic ~Who Stole The Pudding~</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://bluearchive.jp/millennium_logic/">Oficial JP (inativo)</a>
-                  <a class="text-blue-500" href="https://chocobakpao.github.io/ToSchool-Web/logic/">Arquivado (Traduzido em inglês)</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/millennium_logic/">Arquivado (Japonês)</a>
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/millennium_logic_zh-cn/">Arquivado (Chinês)</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>セナの救急RTA</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://sena-rta.bluearchive-campaign.com/">Oficial</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>国服半周年活动 (Ano Novo Chinês 2024)</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/newyear2024/">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>胡萝卜行动野外特别篇 (SRT catando comida do lixo)</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/srtgame/?data=0">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>目指せ1億！覆面パズル団 (Outlaw Kivotos)</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/outlaw-kivotos/">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>芹香·夏日·柴关拉面摊 (Serika Ramen)</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/serikaramen/?data=0">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>基沃托斯晄轮大会 - 更远，更准，更强！ (Halo Festival 2024)</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/halofestival2024/?data=0">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>梦幻美味挑战！未花的蛋糕卷修行 (Mika Cakeroll)</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/mikacakeroll/?data=0">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>宴会上也要维护风纪！~日奈的热身运动~ (Aniversário Chinês 2025)</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/anniversary2025/?data=0">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>秋星曜野，桂月垂光 (Hoshino Minigame)</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/hoshino-minigame/">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>炫音节拍 (Rhythm Game 2026)</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/rhythmgame2026/">Arquivado</a>
-                </div>
-              </div>
-              <div class="flex flex-col gap-2 items-stretch">
-                <div>鼓乐鸣，钟鼎盛 (Beat Game 2026)</div>
-                <div class="flex flex-col">
-                  <a class="text-blue-500" href="https://azure.bluearchive.841973620.net/Beatgame2026/?data=0">Arquivado</a>
-                </div>
-              </div>
-
+            <div class="flex flex-col gap-8 items-start minigames-container">
+              
             </div>
         </div>
         </div>
