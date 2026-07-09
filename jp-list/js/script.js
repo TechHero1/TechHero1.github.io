@@ -1217,6 +1217,9 @@ const style_tag_border = /\[border:(?<size>.+?):(?<color>.+?)](?<real_text>.+?)\
 //SHADOW TAG
 const style_tag_shadow = /\[shadow:(?<size>.+?):(?<color>.+?):(?<opacity>.+?)](?<real_text>.+?)\[\/shadow]/g;
 
+//SOLID SHADOW TAG
+const style_tag_solid_shadow = /\[solidshadow:(?<horizontal>.+?):(?<vertical>.+?):(?<color>.+?)](?<real_text>.+?)\[\/solidshadow]/g;
+
 //BADGE TAG
 const style_tag_badge = /\[badge:(?<text_color>.+?):(?<bg_color>.+?)](?<real_text>.+?)\[\/badge]/g;
 
@@ -1272,6 +1275,16 @@ function style_text_with_tags(text) {
     while ((style_tag_shadow_match = style_tag_shadow.exec(text)) !== null) {
 
         text = text.replaceAll(style_tag_shadow_match[0],`<span class="text-shadow-${style_tag_shadow_match.groups.size} text-shadow-[${style_tag_shadow_match.groups.color}]/${style_tag_shadow_match.groups.opacity}">${style_tag_shadow_match.groups.real_text}</span>`);
+    }
+  }
+
+  //SOLID SHADOW TAG
+  for (itag = 0; itag < (text.match(style_tag_solid_shadow) || []).length; itag++) {
+    let style_tag_solid_shadow_match;
+
+    while ((style_tag_solid_shadow_match = style_tag_solid_shadow.exec(text)) !== null) {
+
+        text = text.replaceAll(style_tag_solid_shadow_match[0],`<span class="drop-shadow-[${style_tag_solid_shadow_match.groups.horizontal}_${style_tag_solid_shadow_match.groups.vertical}_${style_tag_solid_shadow_match.groups.color}]">${style_tag_solid_shadow_match.groups.real_text}</span>`);
     }
   }
 
@@ -1344,9 +1357,24 @@ function style_text_with_presets(text) {
 
       while ((style_tag_preset_match = style_tag_preset.exec(text)) !== null) {
         if (style_tag_preset_match.groups.nome == "legenda") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black text-white px-1">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "amarelo_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "vermelho_umineko") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
+        if (style_tag_preset_match.groups.nome == "amarelo_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "amarelo_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${style_tag_preset_match.groups.real_text}</span>`);
+        if (style_tag_preset_match.groups.nome == "amarelo_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #4c4c00 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff3c] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "vermelho_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "vermelho_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${style_tag_preset_match.groups.real_text}</span>`);
+        if (style_tag_preset_match.groups.nome == "vermelho_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #4c0000 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "azul_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "azul_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${style_tag_preset_match.groups.real_text}</span>`);
+        if (style_tag_preset_match.groups.nome == "azul_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #00004c 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "verde_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "verde_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${style_tag_preset_match.groups.real_text}</span>`);
+        if (style_tag_preset_match.groups.nome == "verde_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #004c00 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "vermelho_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#f50000] drop-shadow-[0.5px_0.5px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
+        if (style_tag_preset_match.groups.nome == "vermelho_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
+        if (style_tag_preset_match.groups.nome == "azul_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#5DECFF] drop-shadow-[0.5px_0.5px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
+        if (style_tag_preset_match.groups.nome == "azul_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#2295c3] from-[40%] to-[#76e7e9] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
         if (style_tag_preset_match.groups.nome == "sombra") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-shadow-md text-shadow-black/20">${style_tag_preset_match.groups.real_text}</span>`);
+        if (style_tag_preset_match.groups.nome == "sombra_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f71]">${style_tag_preset_match.groups.real_text}</span>`);
         if (style_tag_preset_match.groups.nome == "badge_pos") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#d4edbc] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
         if (style_tag_preset_match.groups.nome == "badge_neg") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#ff8787] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
       }
