@@ -132,6 +132,13 @@ var types = [
     "Named_Titles"
 ]
 
+var igdbformats = [
+    "png",
+    "jpg",
+    "webp",
+    "gif"
+]
+
 function start() {
     //create types
     let type_input = document.querySelector("#type");
@@ -148,6 +155,15 @@ function start() {
         let cur_sys_name = systems[i].replaceAll(/\_/g, " ");
         sys_input.innerHTML += `
             <option value="${systems[i]}">${cur_sys_name}</option>
+        `
+    }
+
+    //create igdb formats
+    let igdbformats_input = document.querySelector("#igdbformat");
+    for (var i = 0; i < igdbformats.length; i++) {
+        let cur_format_name = igdbformats[i].replaceAll(/\_/g, " ");
+        igdbformats_input.innerHTML += `
+            <option value="${igdbformats[i]}">${cur_format_name}</option>
         `
     }
 }
@@ -167,7 +183,10 @@ function getImage() {
     }
     if (method == "igdb") {
         let image_id = document.querySelector("#imgid").value;
-        document.querySelector(".img-preview").src = `https://images.igdb.com/igdb/image/upload/t_1080p/${image_id}.png`;
+        image_id = image_id.replaceAll("https://images.igdb.com/igdb/image/upload/t_cover_big/", "");
+        image_id = image_id.replaceAll(".webp", "");
+        let image_format = document.querySelector("#igdbformat").value;
+        document.querySelector(".img-preview").src = `https://images.igdb.com/igdb/image/upload/t_1080p/${image_id}.${image_format}`;
 
         document.querySelector(".img-preview").onerror = function() {
             document.querySelector(".img-preview").src = `preview.jpg`;
