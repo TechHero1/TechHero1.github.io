@@ -187,5 +187,15 @@
             "langDialogStringHen": "Hiper Inglês (Hyper English)",
             "langDialogStringHpt": "Hiper Português"
         }
-    ]
+    ],
+    "cool_toast": {
+        "text1": "Eu sou uma mensagem secreta legal!",
+        "text2": "Clique aqui para ganhar o jogo!",
+        "text3": "likes = Infinity; //Modo Fácil",
+        "text4": "quais as chances? 1% (talvez? não sei matemática...)",
+        "text5": "tgjg osvuxzktzk",
+        "text6": "/ideias.txt",
+        "text7": "Jogo (não) salvo",
+        "text8": "legal."
+    }
 }

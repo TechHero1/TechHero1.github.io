@@ -1,7 +1,7 @@
 var lang = "en";
 //var nf = new Intl.NumberFormat(lang, {style:'decimal'});
 var nf = new Intl.NumberFormat('fr-FR');
-var gameVersion = "2.1.0";
+var gameVersion = "2.1.1";
 
 //MISC
 var yesString;
@@ -124,6 +124,8 @@ var minigameSourceString1;
 var minigameSourceString2;
 var minigameSourceSky;
 var minigameSourceShip;
+
+var cool_toast = [];
 
 function updateLang(selLang) {
     lang = selLang;
@@ -477,6 +479,11 @@ function updateLang(selLang) {
         updateElementDisplay(document.querySelector(".lang-dialog-string-hen"),langDialogStringHen,false);
         langDialogStringHpt = data.lang[0].langDialogStringHpt;
         updateElementDisplay(document.querySelector(".lang-dialog-string-hpt"),langDialogStringHpt,false);
+
+        cool_toast = [];
+        for (i = 0; i < Object.keys(data.cool_toast).length; i++) {
+            cool_toast.push(data.cool_toast[Object.keys(data.cool_toast)[i]]);
+        }
     }
     );
 

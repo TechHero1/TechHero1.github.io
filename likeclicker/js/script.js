@@ -16,6 +16,8 @@ function likeClick() {
     likes += lpc;
 	updateElementDisplay(document.getElementById("likestxt"),nf.format(likes),false);
     updateElementDisplay(document.getElementById("LabelLikes"),nf.format(likes),false);
+
+    if (!value_clicked) testValue(cur_value);
 }
 
 //lps logic
@@ -783,3 +785,50 @@ function experimental_code_logic(event) {
 }
 
 document.addEventListener("keydown", experimental_code_logic);
+
+var cur_value = 0;
+var value_chances = 1000;
+var value_clicked = false;
+
+function genValue() {
+    cur_value = Math.floor(Math.random()*value_chances);
+}
+
+function testValue(value) {
+    value_clicked = true;
+
+    let text = document.getElementById("CoolBody");
+
+    if (value >= 10 && value < 20) {
+        text.innerHTML = cool_toast[0];
+        openToast("CoolToast");
+    }
+    else if (value >= 20 && value < 30) {
+        text.innerHTML = cool_toast[1];
+        openToast("CoolToast");
+    }
+    else if (value >= 30 && value < 40) {
+        text.innerHTML = cool_toast[2];
+        openToast("CoolToast");
+    }
+    else if (value >= 40 && value < 50) {
+        text.innerHTML = cool_toast[3];
+        openToast("CoolToast");
+    }
+    else if (value >= 50 && value < 60) {
+        text.innerHTML = cool_toast[4];
+        openToast("CoolToast");
+    }
+    else if (value >= 60 && value < 70) {
+        text.innerHTML = cool_toast[5];
+        openToast("CoolToast");
+    }
+    else if (value >= 80 && value < 90) {
+        text.innerHTML = cool_toast[6];
+        openToast("CoolToast");
+    }
+    else if (value >= 90 && value < 100) {
+        text.innerHTML = cool_toast[7];
+        openToast("CoolToast");
+    }
+}

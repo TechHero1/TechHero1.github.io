@@ -187,5 +187,15 @@
             "langDialogStringHen": "In English",
             "langDialogStringHpt": "Hyper Mostagul (Hyper Massal)"
         }
-    ]
+    ],
+    "cool_toast": {
+        "text1": "I'm a cool secret message!",
+        "text2": "Click here to win the game!",
+        "text3": "likes = Infinity; //Easy Mode",
+        "text4": "what are the chances? 1% (maybe? i dont know math...)",
+        "text5": "tuznotm osvuxzktz",
+        "text6": "/ideias.txt",
+        "text7": "Game (not) saved",
+        "text8": "cool."
+    }
 }
