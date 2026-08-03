@@ -57,9 +57,6 @@ function load_content() {
       let category_name = site_content.categorias[Object.keys(site_content.categorias)[cur_category]];
       let category_items = "";
 
-      //console.log(cur_category + " " + category_id + " " + category_name);
-      //console.log(cur_category_content);
-
       content_list.innerHTML += `
         <div class="text-xl category-title-${category_id}">
           ${site_content.categorias[category_id]}
@@ -68,7 +65,6 @@ function load_content() {
       `;
 
       for (var cur_item = 0; cur_item < cur_category_content.length; cur_item++) {
-        //console.log(cur_item);
         let item_plataforma = get_plataforma(cur_category_content[cur_item].url);
         let item_status = get_status(cur_category_content[cur_item].status);
 
@@ -102,8 +98,6 @@ function load_content() {
   for (var cur_user = 0; cur_user < Object.keys(site_content.usernames).length; cur_user++) {
     let cur_username = Object.keys(site_content.usernames)[cur_user];
     let cur_user_plat = site_content.usernames[cur_username];
-    //console.log(cur_username);
-    //console.log(cur_user_plat);
 
     document.querySelector(`.user_list`).innerHTML += `
       <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 transition-all duration-150 group hover:bg-gray-200">
@@ -121,7 +115,6 @@ function load_content() {
     let cur_user_plat_name = [];
     for (var cur_plat = 0; cur_plat < cur_user_plat.length; cur_plat++) {
       cur_user_plat_name.push(get_plataforma(cur_user_plat[cur_plat]));
-      //console.log(cur_user_plat_name);
       document.querySelector(`.item-${cur_username}_tags`).innerHTML += `
         <span class="bg-blue-200 rounded-md shadow-md py-1 px-2 h-min w-fit">${cur_user_plat_name[cur_plat]}</span>
       `;
