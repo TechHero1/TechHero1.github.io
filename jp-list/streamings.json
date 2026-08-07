@@ -1119,6 +1119,32 @@
             ],
             "desc": "",
             "ativo": true
+        },
+        {
+            "nome": "Yanmaga",
+            "midia": "Mangá",
+            "classes": "streaming_item_manga",
+            "link": "https://yanmaga.jp/",
+            "tags": [
+                {
+                    "tipo": "pos",
+                    "texto": "Lançamentos"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Primeiros capítulos grátis"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Penúltimo capítulo grátis (em lançamento)"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Acesso limitado por pontos"
+                }
+            ],
+            "desc": "<p>Capítulo alugado por pontos</p><p>Pontos são obtidos através de compra direta ou da assinatura mensal.<br>Pontos têm data de validade.<br>Acesso ao capítulo alugado dura 10 dias.</p>",
+            "ativo": true
         }
     ]
 }
