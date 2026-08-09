@@ -67,6 +67,15 @@ function load_content() {
       for (var cur_item = 0; cur_item < cur_category_content.length; cur_item++) {
         let item_plataforma = get_plataforma(cur_category_content[cur_item].url);
         let item_status = get_status(cur_category_content[cur_item].status);
+        let item_notas = "";
+        if (cur_category_content[cur_item].hasOwnProperty("notas")) {
+          item_notas = `
+            <br>
+            <p class="flex flex-col gap-2">
+              <span>${cur_category_content[cur_item].notas}</span>
+            </p>
+          `;
+        }
 
         let item_opacity = 100;
         if ((cur_category_content[cur_item].status == "inativo" || cur_category_content[cur_item].status == "deletado" || cur_category_content[cur_item].status == "eos")) item_opacity = 50;
@@ -83,6 +92,7 @@ function load_content() {
                       <p class="item_plataforma_tags flex flex-col gap-2">
                         <span class="bg-blue-200 rounded-md shadow-md py-1 px-2 h-min w-fit">${item_plataforma}</span>
                       </p>
+                      ${item_notas}
                   </div>
               </div>
             </a>
