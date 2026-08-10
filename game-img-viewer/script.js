@@ -1,4 +1,4 @@
-var method = "libretro";
+var method = "igdb";
 
 var systems = [
     "Amstrad_-_CPC",
@@ -133,13 +133,15 @@ var types = [
 ]
 
 var igdbformats = [
+    "webp",
     "png",
     "jpg",
-    "webp",
     "gif"
 ]
 
 function start() {
+    changeMethod("igdb");
+
     //create types
     let type_input = document.querySelector("#type");
     for (var i = 0; i < types.length; i++) {
@@ -198,14 +200,8 @@ function getImage() {
 function changeMethod(sel_method) {
     method = sel_method;
 
-    if (sel_method == "libretro") {
-        document.querySelector(".libretro-form").classList.remove("hidden");
-        document.querySelector(".igdb-form").classList.add("hidden");
-        return
-    }
-    if (sel_method == "igdb") {
-        document.querySelector(".libretro-form").classList.add("hidden");
-        document.querySelector(".igdb-form").classList.remove("hidden");
-        return
-    }
+    document.querySelector(".igdb-form").classList.add("hidden");
+    document.querySelector(".libretro-form").classList.add("hidden");
+
+    document.querySelector("."+method+"-form").classList.remove("hidden");
 }
