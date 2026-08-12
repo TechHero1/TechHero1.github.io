@@ -1381,3 +1381,18 @@ function style_text_with_presets(text) {
 
   return text;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const dropZone = document.querySelector('#Arquivo');
+
+  dropZone.addEventListener('dragover', (event) =>{
+    event.preventDefault();
+
+  });
+
+  dropZone.addEventListener('drop', (event) =>{
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    upload_list(files[0]);
+  });
+});

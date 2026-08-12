@@ -202,3 +202,18 @@ function update_string(id) {
     return;
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const dropZone = document.querySelector('#Arquivo');
+
+  dropZone.addEventListener('dragover', (event) =>{
+    event.preventDefault();
+
+  });
+
+  dropZone.addEventListener('drop', (event) =>{
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    upload_content(files[0]);
+  });
+});
