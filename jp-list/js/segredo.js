@@ -37,6 +37,7 @@ function upload_content(files) {
       load_content();
       document.querySelector(".info_tab").classList.remove("hidden");
       document.querySelector(".user_tab").classList.remove("hidden");
+      document.querySelector(".cemiterio_tab").classList.remove("hidden");
       remote_open_tab('Visualizar');
     }
 
@@ -47,59 +48,61 @@ function upload_content(files) {
 }
 
 function load_content() {
-    let content_list = document.querySelector(".content_list");
-    content_list.innerHTML = "";
+  document.title = site_content.title;
 
-   for (var cur_category = 0; cur_category < Object.keys(site_content.categorias).length; cur_category++) {
+  //PRINCIPAL
+  let content_list = document.querySelector(".content_list");
+  content_list.innerHTML = "";
+
+  //CEMITÉRIO
+  let cemiterio_list = document.querySelector(".cemiterio_list");
+  cemiterio_list.innerHTML = "";
+
+  for (var cur_category = 0; cur_category < Object.keys(site_content.categorias).length; cur_category++) {
     let category_id = Object.keys(site_content.categorias)[cur_category];
-    if (site_content.hasOwnProperty(category_id)) {
-      let cur_category_content = site_content[Object.keys(site_content.categorias)[cur_category]];
+
+    //PRINCIPAL
+    if (site_content.conteudo.hasOwnProperty(category_id)) {
+      let cur_category_content = site_content.conteudo[Object.keys(site_content.categorias)[cur_category]];
       let category_name = site_content.categorias[Object.keys(site_content.categorias)[cur_category]];
       let category_items = "";
 
-      content_list.innerHTML += `
-        <div class="text-xl category-title-${category_id}">
-          ${site_content.categorias[category_id]}
-        </div>
-        <div class="category-content-${category_id} p-2 grid grid-cols-1 gap-2"></div>
-      `;
+      content_list.innerHTML += create_category(category_id,"content");
 
       for (var cur_item = 0; cur_item < cur_category_content.length; cur_item++) {
         let item_plataforma = get_plataforma(cur_category_content[cur_item].url);
         let item_status = get_status(cur_category_content[cur_item].status);
         let item_notas = "";
+
         if (cur_category_content[cur_item].hasOwnProperty("notas")) {
-          item_notas = `
-            <br>
-            <p class="flex flex-col gap-2">
-              <span>${cur_category_content[cur_item].notas}</span>
-            </p>
-          `;
+          item_notas = create_notas(cur_category_content[cur_item].notas);
         }
 
-        let item_opacity = 100;
-        if ((cur_category_content[cur_item].status == "inativo" || cur_category_content[cur_item].status == "deletado" || cur_category_content[cur_item].status == "eos")) item_opacity = 50;
-
-        if ((cur_category_content[cur_item].status != "inativo" && cur_category_content[cur_item].status != "deletado" && cur_category_content[cur_item].status != "eos") || show_dead) {
-          document.querySelector(`.category-content-${category_id}`).innerHTML += `
-            <a class="content_item opacity-${item_opacity}" href="${cur_category_content[cur_item].url}" target="_blank">
-              <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
-                  <div class="p-1 w-[100%]">
-                      <b>${cur_category_content[cur_item].nome}</b>
-                      <br>
-                      <p class="item_status">${item_status}</p>
-                      <br>
-                      <p class="item_plataforma_tags flex flex-col gap-2">
-                        <span class="bg-blue-200 rounded-md shadow-md py-1 px-2 h-min w-fit">${item_plataforma}</span>
-                      </p>
-                      ${item_notas}
-                  </div>
-              </div>
-            </a>
-          `;
-        }
+        create_item(`.category-content-${category_id}`,cur_category_content[cur_item].url,cur_category_content[cur_item].nome,item_status,item_plataforma,item_notas);
       }
     }
+
+    //CEMITÉRIO
+    if (site_content.cemiterio.hasOwnProperty(category_id)) {
+      let cur_category_content = site_content.cemiterio[Object.keys(site_content.categorias)[cur_category]];
+      let category_name = site_content.categorias[Object.keys(site_content.categorias)[cur_category]];
+      let category_items = "";
+
+      cemiterio_list.innerHTML += create_category(category_id,"cemiterio");
+
+      for (var cur_item = 0; cur_item < cur_category_content.length; cur_item++) {
+        let item_plataforma = get_plataforma(cur_category_content[cur_item].url);
+        let item_status = get_status(cur_category_content[cur_item].status);
+        let item_notas = "";
+
+        if (cur_category_content[cur_item].hasOwnProperty("notas")) {
+          item_notas = create_notas(cur_category_content[cur_item].notas);
+        }
+
+        create_item(`.category-cemiterio-${category_id}`,cur_category_content[cur_item].url,cur_category_content[cur_item].nome,item_status,item_plataforma,item_notas);
+      }
+    }
+
   }
 
   let user_list = document.querySelector(".user_list");
@@ -130,8 +133,6 @@ function load_content() {
       `;
     }
   }
-
-  document.querySelector(".update_string").innerHTML = `Última atualização: ${site_content.update}`;
 }
 
 function get_plataforma(url) {
@@ -158,42 +159,46 @@ function get_status(id) {
   }
 }
 
-var show_dead = false;
-
-function switch_content_config() {
-  if (document.querySelector(".content_config_dropdown").classList.contains('hidden')) {
-    document.querySelector(".content_config_dropdown").classList.remove('hidden');
-    return
-  }
-  document.querySelector(".content_config_dropdown").classList.add('hidden');
+function create_item(category_id,url,nome,status,plataforma,notas) {
+  document.querySelector(category_id).innerHTML += `
+    <a class="content_item" href="${url}" target="_blank">
+      <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
+          <div class="p-1 w-[100%]">
+              <b>${nome}</b>
+              <br>
+              <p class="item_status">${status}</p>
+              <br>
+              <p class="item_plataforma_tags flex flex-col gap-2">
+                <span class="bg-blue-200 rounded-md shadow-md py-1 px-2 h-min w-fit">${plataforma}</span>
+              </p>
+              ${notas}
+          </div>
+      </div>
+    </a>
+  `;
 }
 
-window.addEventListener('click', function(e){   
-  if (!document.querySelector('.content_config_dropdown_area').contains(e.target)){
-    document.querySelector(".content_config_dropdown").classList.add('hidden');
-  }
-});
-
-function change_content_config(option) {
-  if (option == "eos") {
-    if (show_dead) {
-      show_dead = false;
-      update_content_config();
-      load_content();
-      return
-    } else {
-      show_dead = true;
-      update_content_config();
-      load_content();
-      return
-    }
-  }
+function create_category(id,type) {
+  return `<div class="text-xl category-title-${id}">
+      ${site_content.categorias[id]}
+    </div>
+    <div class="category-${type}-${id} p-2 grid grid-cols-1 gap-2"></div>`;
 }
 
-function update_content_config() {
-  if (show_dead) {
-    document.querySelector(".check_exibir_eos").classList.remove('hidden');
-  } else {
-    document.querySelector(".check_exibir_eos").classList.add('hidden');
+function create_notas(string) {
+  return `<br>
+    <p class="flex flex-col gap-2">
+      <span>${string}</span>
+    </p>`;
+}
+
+function update_string(id) {
+  if (id == "update") {
+    document.querySelector(".update_string").innerHTML = `Última atualização: ${site_content.update}`;
+    return;
+  }
+  if (id == "cemiterio") {
+    document.querySelector(".cemiterio_string").innerHTML = `${site_content.tumulos[Math.floor(Math.random() * site_content.tumulos.length)]}`;
+    return;
   }
 }
