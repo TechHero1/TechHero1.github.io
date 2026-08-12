@@ -34,13 +34,13 @@ function switch_view() {
     content_list.classList.remove("grid-list-view");
     list.list_mode = "grid";
     //console.log(list.list_mode);
-    button.innerHTML = `<i class="fa fa-th"></i>`;
+    button.innerHTML = `<i class="fa-solid fa-table-cells-large"></i>`;
     return
   }
   content_list.classList.add("grid-list-view");
   list.list_mode = "list";
   //console.log(list.list_mode);
-  button.innerHTML = `<i class="fa fa-list"></i>`;
+  button.innerHTML = `<i class="fa-solid fa-bars"></i>`;
 }
 
 function switch_apoio() {
@@ -81,12 +81,13 @@ function edit_item(id) {
   remote_open_tab('Editar');
 
   if (id == "new") {
-    document.querySelector(".edit_title").innerHTML = "Adicionar um novo item";
+    document.querySelector(".edit_title").innerHTML = "<i class='fa-solid fa-plus'></i> Adicionar um novo item";
     document.querySelector(".name_input").value = "";
     document.querySelector(".status_input").value = "Planejo";
     document.querySelector(".progresso_input").value = 0;
     document.querySelector(".final_input").value = 0;
     document.querySelector(".volumes_input").value = 0;
+    document.querySelector(".repeticoes_input").value = 0;
     document.querySelector(".horas_input").value = 0;
     document.querySelector(".minutos_input").value = 0;
     document.querySelector(".moji_input").value = 0;
@@ -98,12 +99,13 @@ function edit_item(id) {
     document.querySelector(".prog_min_input").value = 0;
     update_autotime();
   } else {
-    document.querySelector(".edit_title").innerHTML = "Editar item \""+list.itens[id].dados.titulo+"\"";
+    document.querySelector(".edit_title").innerHTML = "<i class='fa-solid fa-pencil'></i> Editar item \""+list.itens[id].dados.titulo+"\"";
     document.querySelector(".tipo_input").value = list.itens[id].tipo;
     document.querySelector(".name_input").value = list.itens[id].dados.titulo;
     document.querySelector(".status_input").value = list.itens[id].dados.status;
     document.querySelector(".progresso_input").value = list.itens[id].dados.progresso;
     document.querySelector(".volumes_input").value = list.itens[id].dados.volumes;
+    document.querySelector(".repeticoes_input").value = list.itens[id].dados.repeticoes;
     document.querySelector(".horas_input").value = list.itens[id].dados.horas;
     document.querySelector(".minutos_input").value = list.itens[id].dados.minutos;
     document.querySelector(".moji_input").value = list.itens[id].dados.moji;
@@ -155,6 +157,7 @@ function save_item(){
         "horas": document.querySelector(".horas_input").value,
         "minutos": document.querySelector(".minutos_input").value,
         "volumes": document.querySelector(".volumes_input").value,
+        "repeticoes": document.querySelector(".repeticoes_input").value,
         "img": document.querySelector(".img_input").value,
         "nota": document.querySelector(".nota_input").value,
         "autotime": document.querySelector(".autotime_input").checked,
@@ -179,6 +182,7 @@ function save_item(){
       "horas": document.querySelector(".horas_input").value,
       "minutos": document.querySelector(".minutos_input").value,
       "volumes": document.querySelector(".volumes_input").value,
+      "repeticoes": document.querySelector(".repeticoes_input").value,
       "img": document.querySelector(".img_input").value,
       "nota": document.querySelector(".nota_input").value,
       "autotime": document.querySelector(".autotime_input").checked,
@@ -205,29 +209,6 @@ function cancel_item(){
   remote_open_tab('Visualizar');
   window.scrollTo(scroll_y, last_item_pos);
 }
-
-/*var filters = {
-  "Tudo": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage","Fanfic","Short Story","Ensaio"]',
-  "Mídia": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage"]',
-  "Short Stories e Fanfics": '["Fanfic","Short Story","Ensaio"]',
-  "Novel": '["Novel"]',
-  "Anime": '["Anime"]',
-  "Mangá": '["Mangá"]',
-  "Jogo": '["Jogo"]',
-  "Filme": '["Filme"]',
-  "Áudio": '["Áudio"]',
-  "Dorama/Série": '["Dorama/Série"]',
-  "Stage": '["Stage"]',
-  "Fanfic": '["Fanfic"]',
-  "Short Story": '["Short Story"]',
-  "Ensaio": '["Ensaio"]',
-  "Planejamento": '["Planejo"]',
-  "Pendente": '["Progredindo"]',
-  "Repetindo": '["Repetindo"]',
-  "Concluído": '["Completo"]',
-  "Pausado": '["Pausado"]',
-  "Abandonado": '["Abandonado"]'
-}*/
 
 var filters = {
   "Tudo_tipo": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage","Fanfic","Short Story","Ensaio"]',
@@ -328,6 +309,7 @@ function load_list() {
     if (filtered_list.includes(i)) {
     let progresso_string;
     let volumes_string;
+    let repeticoes_string = "";
     let progresso_traço;
 
     let final_progresso = list.itens[i].dados.final;
@@ -337,6 +319,10 @@ function load_list() {
       final_string = " de " + nf.format(final_progresso);
     } else {
       final_string = "";
+    }
+
+    if (list.itens[i].dados.repeticoes > 0 && list.itens[i].dados.repeticoes != "0" && list.itens[i].dados.repeticoes != "" && list.itens[i].dados.repeticoes != null) {
+      repeticoes_string = " - <i class='fa-solid fa-rotate-right'></i> " + nf.format(list.itens[i].dados.repeticoes);
     }
 
     if (list.itens[i].tipo == "Novel" || list.itens[i].tipo == "Mangá") {
@@ -476,10 +462,10 @@ function load_list() {
         <img src="${list.itens[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
         <div class="w-[100%]">
           <b>${list.itens[i].dados.titulo}</b>
-          <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa fa-pencil"></i></button>
+          <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa-solid fa-pencil"></i></button>
           <br><br>
           <p>${list.itens[i].tipo}</p>
-          <p>${list.itens[i].dados.status}</p>
+          <p>${list.itens[i].dados.status}${repeticoes_string}</p>
           <p class="flex flex-row gap-2 items-center">
             <span>${progresso_string}${progresso_traço}${volumes_string}</span>
           </p>
@@ -1223,6 +1209,9 @@ const style_tag_solid_shadow = /\[solidshadow:(?<horizontal>.+?):(?<vertical>.+?
 //BADGE TAG
 const style_tag_badge = /\[badge:(?<text_color>.+?):(?<bg_color>.+?)](?<real_text>.+?)\[\/badge]/g;
 
+//ICON TAG
+const style_tag_icon = /\[icon:(?<id>.+?):(?<style>.+?)]/g;
+
 //ESTILO TAG
 const style_tag_preset = /\[estilo:(?<nome>.+?)](?<real_text>.+?)\[\/estilo]/g;
 
@@ -1343,6 +1332,15 @@ function style_text_with_tags(text) {
       }
   }
 
+  //ICON TAG
+  for (itag = 0; itag < (text.match(style_tag_icon) || []).length; itag++) {
+      let style_tag_icon_match;
+
+      while ((style_tag_icon_match = style_tag_icon.exec(text)) !== null) {
+          text = text.replaceAll(style_tag_icon_match[0],`<i class="fa-${style_tag_icon_match.groups.style} fa-${style_tag_icon_match.groups.id}"></i>`);
+      }
+  }
+
   //ESTILO TAG
   text = style_text_with_presets(text);
 
@@ -1351,24 +1349,15 @@ function style_text_with_tags(text) {
 
 function style_text_with_presets(text) {
 
-  //PRESET LEGENDA
   for (itag = 0; itag < (text.match(style_tag_preset) || []).length; itag++) {
       let style_tag_preset_match;
 
       while ((style_tag_preset_match = style_tag_preset.exec(text)) !== null) {
         if (style_tag_preset_match.groups.nome == "legenda") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black text-white px-1">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "amarelo_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
         if (style_tag_preset_match.groups.nome == "amarelo_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "amarelo_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #4c4c00 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff3c] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "vermelho_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
         if (style_tag_preset_match.groups.nome == "vermelho_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "vermelho_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #4c0000 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "azul_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
         if (style_tag_preset_match.groups.nome == "azul_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "azul_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #00004c 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "verde_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
         if (style_tag_preset_match.groups.nome == "verde_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "verde_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #004c00 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
         if (style_tag_preset_match.groups.nome == "vermelho_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#f50000] drop-shadow-[0.5px_0.5px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
         if (style_tag_preset_match.groups.nome == "vermelho_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
         if (style_tag_preset_match.groups.nome == "azul_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#5DECFF] drop-shadow-[0.5px_0.5px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
@@ -1377,6 +1366,16 @@ function style_text_with_presets(text) {
         if (style_tag_preset_match.groups.nome == "sombra_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f71]">${style_tag_preset_match.groups.real_text}</span>`);
         if (style_tag_preset_match.groups.nome == "badge_pos") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#d4edbc] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
         if (style_tag_preset_match.groups.nome == "badge_neg") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#ff8787] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
+
+        //old
+        if (style_tag_preset_match.groups.nome == "amarelo_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "amarelo_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #4c4c00 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff3c] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "vermelho_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "vermelho_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #4c0000 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "azul_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "azul_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #00004c 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "verde_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+        if (style_tag_preset_match.groups.nome == "verde_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #004c00 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
       }
   }
 

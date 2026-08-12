@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Index de Informações Gerais de Blue Archive</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="../shared/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="../shared/fontawesome/css/brands.min.css" rel="stylesheet" />
+    <link href="../shared/fontawesome/css/solid.min.css" rel="stylesheet" />
+    <link href="../shared/fontawesome/css/regular.min.css" rel="stylesheet" />
     <script src="script.js"></script>
     <style>
       @font-face {
@@ -23,12 +26,12 @@
         </div>
         <div class="block bars-icon float-right p-2 flex items-center text-white text-[1.25rem] basis-1/10 sm:basis-1/20" onclick="changeNavbar(true)">
           <button class="cursor-pointer py-[0.3rem] px-[0.8rem] rounded-md hover:bg-gray-600">
-            <div class="m-auto"><i class="fa fa-bars"></i></div>
+            <div class="m-auto"><i class="fa-solid fa-bars"></i></div>
           </button>
         </div>
         <div class="hidden close-icon float-right p-2 flex items-center text-white text-[1.25rem] basis-1/10 sm:basis-1/20" onclick="changeNavbar(false)">
           <button class="cursor-pointer py-[0.3rem] px-[0.8rem] rounded-md hover:bg-gray-600">
-            <div class="m-auto"><i class="fa fa-close"></i></div>
+            <div class="m-auto"><i class="fa-solid fa-close"></i></div>
           </button>
         </div>
       </div>
@@ -45,7 +48,7 @@
     <div class="mx-auto py-2 sm:px-6 lg:px-8">
       <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="social"><a name="social" class="block relative top-[-5rem]"></a><b>Redes sociais oficiais</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="social"><a name="social" class="block relative top-[-5rem]"></a><b>Redes sociais oficiais</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
           <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
             <div><a class="text-blue-500" href="https://x.com/Blue_ArchiveJP">Twitter - @Blue_ArchiveJP</a></div>
             <div><a class="text-blue-500" href="https://x.com/EN_BlueArchive">Twitter - @EN_BlueArchive</a></div>
@@ -53,7 +56,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="story"><a name="story" class="block relative top-[-5rem]"></a><b>História</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="story"><a name="story" class="block relative top-[-5rem]"></a><b>História</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
           <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
             <div><a class="text-blue-500" href="https://ladr.lorearchive.org/en/home">Lore Archive's Dialogue Reader (LADR)</a></div>
             <div><a class="text-blue-500" href="https://ba.svdex.moe/">Blue Archive Resource Viewer</a> (Memorial Lobby e CGs)</div>
@@ -61,7 +64,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="wikis"><a name="wikis" class="block relative top-[-5rem]"></a><b>Wikis</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="wikis"><a name="wikis" class="block relative top-[-5rem]"></a><b>Wikis</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
           <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
             <div><a class="text-blue-500" href="https://bluearchive.wiki/wiki/Main_Page">Blue Archive Wiki</a></div>
             <div>Blue Archive Wiki Fandom<br><a class="text-blue-500" href="https://breezewiki.com/bluearchive/wiki/Blue_Archive_Wiki">(opção boa)</a> - <a class="text-blue-500" href="https://bluearchive.fandom.com/wiki/Blue_Archive_Wiki">(opção ruim)</a></div>
@@ -73,7 +76,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="banners_personagens"><a name="banners_personagens" class="block relative top-[-5rem]"></a><b>Banners e personagens</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="banners_personagens"><a name="banners_personagens" class="block relative top-[-5rem]"></a><b>Banners e personagens</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
           <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
             <div><a class="text-blue-500" href="https://bluearchive.wiki/wiki/Banner_List">Lista de banners</a> (JP)</div>
             <div><a class="text-blue-500" href="https://bluearchive.wiki/wiki/Banner_List_(Global)">Lista de banners</a> (Global)</div>
@@ -85,7 +88,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="seasons"><a name="seasons" class="block relative top-[-5rem]"></a><b>Raids e outros modos de jogo</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="seasons"><a name="seasons" class="block relative top-[-5rem]"></a><b>Raids e outros modos de jogo</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
           <div class="grid grid-cols-2 gap-4 flex items-stretch">
             <div>JP</div>
             <div>Global</div>
@@ -105,7 +108,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="guias"><a name="guias" class="block relative top-[-5rem]"></a><b>Guias gerais</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="guias"><a name="guias" class="block relative top-[-5rem]"></a><b>Guias gerais</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
           <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
             <div><a class="text-blue-500" href="https://docs.google.com/spreadsheets/d/1-lBJa3h4mXHkmuSKohoHe60WVVg1eRG9bA73jHqHzwA/edit?gid=1940133283#gid=1940133283">Bricc Archive Student Skill Level Guide</a></div>
             <div><a class="text-blue-500" href="https://docs.google.com/document/d/1bvYGwIh-9o-2JQ4Q2MQXtsL0peiCPrRuw0l3HQmTrZ0/edit">Guia geral de estratégias de raid</a></div>
@@ -120,7 +123,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="mais_links"><a name="mais_links" class="block relative top-[-5rem]"></a><b>Mais links principais</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="mais_links"><a name="mais_links" class="block relative top-[-5rem]"></a><b>Mais links principais</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
           <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
             <div><a class="text-blue-500" href="https://eriduops.com/">EriduOps</a> (bonds, materiais e chibis)</div>
             <div><a class="text-blue-500" href="https://justin163.com/planner/">Resource Planner</a> (planejamento de recursos)</div>
@@ -132,7 +135,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-            <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="jp_termos"><a name="jp_termos" class="block relative top-[-5rem]"></a><b>Termos em japonês para pesquisa</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+            <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="jp_termos"><a name="jp_termos" class="block relative top-[-5rem]"></a><b>Termos em japonês para pesquisa</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
             <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-start md:justify-items-center gap-4 flex items-stretch">
               <div>
                 <table class="border-1 table-auto">
@@ -302,7 +305,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-            <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="quant_report"><a name="quant_report" class="block relative top-[-5rem]"></a><b>Quantidade de Activity Reports para maximizar uma personagem</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+            <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="quant_report"><a name="quant_report" class="block relative top-[-5rem]"></a><b>Quantidade de Activity Reports para maximizar uma personagem</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
             <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
               <div>
                 <table class="border-1 table-auto">
@@ -336,7 +339,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="quant_eleph"><a name="quant_eleph" class="block relative top-[-5rem]"></a><b>Quantidade de Elephs para maximizar uma personagem</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="quant_eleph"><a name="quant_eleph" class="block relative top-[-5rem]"></a><b>Quantidade de Elephs para maximizar uma personagem</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
           <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
             <div>
               <table class="border-1 table-auto">
@@ -400,7 +403,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="affection"><a name="affection" class="block relative top-[-5rem]"></a><b>Utilidades para personagens específicas</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="affection"><a name="affection" class="block relative top-[-5rem]"></a><b>Utilidades para personagens específicas</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
           <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
             <div><a class="text-blue-500" href="https://bluearchive.wiki/wiki/Affection">Lista de afeição</a> (presentes)</div>
             <div><a class="text-blue-500" href="https://bluearchive.wiki/wiki/Cafe/Furniture">Lista de mobílias e interações</a></div>
@@ -409,7 +412,7 @@
         </div>
 
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="bond"><a name="bond" class="block relative top-[-5rem]"></a><b>Guia de Bond</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="bond"><a name="bond" class="block relative top-[-5rem]"></a><b>Guia de Bond</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
           <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
             <div>
               <table class="border-1 table-auto">

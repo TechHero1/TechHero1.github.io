@@ -80,10 +80,9 @@ function get_all_students_name(lang,names) {
 }
 
 function create_student_filters(students_ja,students_en) {
-    //console.log(students_ja);
-    //console.log(students_en);
     for (let i = 0; i < students_ja.length; i++) {
-        document.querySelector(".filters").innerHTML += `<a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" id="${students_ja[i]}" onclick="switch_student('${students_ja[i]}','${students_en[i]}-check')">${students_en[i]}<i class="float-right fa fa-check-square-o filter-check-icon ${students_en[i]}-check"></i></a>
+        document.querySelector(".filters").innerHTML += `
+            <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" id="${students_ja[i]}" onclick="switch_student('${students_ja[i]}','${students_en[i]}-check')">${students_en[i]}<i class="float-right fa-regular fa-check-square filter-check-icon ${students_en[i]}-check"></i></a>
         `
     }
 }
@@ -124,7 +123,7 @@ function loadContent() {
             else cur_student_en = cur_student_ja;
             //else console.log("ainda não existe em ingles\n"+cur_student_ja);
 
-            chapter_students += `<span class="bg-white border border-gray-200 rounded-md shadow-md py-1 px-2 h-min w-fit break-keep text-base/9" onclick="switch_student('${cur_student_ja}')">${cur_student_en}</span>
+            chapter_students += `<span class="bg-white border border-gray-300 rounded-md shadow-md py-1 px-2 h-min w-fit break-keep text-base/9" onclick="switch_student('${cur_student_ja}')">${cur_student_en}</span>
             `
         }
 
@@ -157,8 +156,8 @@ function switch_student(student,check_icon) {
         //let all_students = get_all_students_name("ja");
         //let all_students_en = get_all_students_name("en",all_students);
         document.querySelectorAll(".filter-check-icon").forEach(el => {
-            el.classList.add("fa-square-o");
-            el.classList.remove("fa-check-square-o");
+            el.classList.add("fa-square");
+            el.classList.remove("fa-check-square");
         });
         loadContent();
         return;
@@ -168,22 +167,22 @@ function switch_student(student,check_icon) {
         students_selected = get_all_students_name("ja");
         
         document.querySelectorAll(".filter-check-icon").forEach(el => {
-            el.classList.add("fa-check-square-o");
-            el.classList.remove("fa-square-o");
+            el.classList.add("fa-check-square");
+            el.classList.remove("fa-square");
         });
         loadContent();
         return;
     }
     if (students_selected.includes(student)) {
         students_selected.splice(students_selected.indexOf(student), 1);
-        document.querySelector("."+check_icon).classList.add("fa-square-o");
-        document.querySelector("."+check_icon).classList.remove("fa-check-square-o");
+        document.querySelector("."+check_icon).classList.add("fa-square");
+        document.querySelector("."+check_icon).classList.remove("fa-check-square");
         loadContent();
         return;
     }
     students_selected.push(student);
-    document.querySelector("."+check_icon).classList.add("fa-check-square-o");
-    document.querySelector("."+check_icon).classList.remove("fa-square-o");
+    document.querySelector("."+check_icon).classList.add("fa-check-square");
+    document.querySelector("."+check_icon).classList.remove("fa-square");
     loadContent();
 }
 

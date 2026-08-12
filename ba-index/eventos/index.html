@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Index de Informações Gerais de Blue Archive</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="../../shared/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="../../shared/fontawesome/css/brands.min.css" rel="stylesheet" />
+    <link href="../../shared/fontawesome/css/solid.min.css" rel="stylesheet" />
+    <link href="../../shared/fontawesome/css/regular.min.css" rel="stylesheet" />
     <script src="../script.js"></script>
     <script src="minigames.js"></script>
     <style>
@@ -24,12 +27,12 @@
         </div>
         <div class="block bars-icon float-right p-2 flex items-center text-white text-[1.25rem] basis-1/10 sm:basis-1/20" onclick="changeNavbar(true)">
           <button class="cursor-pointer py-[0.3rem] px-[0.8rem] rounded-md hover:bg-gray-600">
-            <div class="m-auto"><i class="fa fa-bars"></i></div>
+            <div class="m-auto"><i class="fa-solid fa-bars"></i></div>
           </button>
         </div>
         <div class="hidden close-icon float-right p-2 flex items-center text-white text-[1.25rem] basis-1/10 sm:basis-1/20" onclick="changeNavbar(false)">
           <button class="cursor-pointer py-[0.3rem] px-[0.8rem] rounded-md hover:bg-gray-600">
-            <div class="m-auto"><i class="fa fa-close"></i></div>
+            <div class="m-auto"><i class="fa-solid fa-close"></i></div>
           </button>
         </div>
       </div>
@@ -53,7 +56,7 @@
         </div>
         
         <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
-          <div class="mb-5 group/title cursor-pointer cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="minigames"><a name="minigames" class="block relative top-[-5rem]"></a><b>Minigames</b><i class="fa fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
+          <div class="mb-5 group/title cursor-pointer cursor-pointer" onclick="copyText(this.getAttribute('data-anchor'))" data-anchor="minigames"><a name="minigames" class="block relative top-[-5rem]"></a><b>Minigames</b><i class="fa-solid fa-link ml-3 opacity-100 sm:opacity-0 group-hover/title:opacity-100 tranisition ease duration-300"></i></div>
             <div class="flex flex-col gap-8 items-start minigames-container">
               
             </div>

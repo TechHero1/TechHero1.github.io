@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Celular</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="../shared/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="../shared/fontawesome/css/brands.min.css" rel="stylesheet" />
+    <link href="../shared/fontawesome/css/solid.min.css" rel="stylesheet" />
+    <link href="../shared/fontawesome/css/regular.min.css" rel="stylesheet" />
     <script src="script.js"></script>
     <style>
       @font-face {
@@ -35,19 +38,19 @@
         <div class="bg-gray-800 w-[100vw] sm:w-[412px] fixed text-white basis-1/20">
           <div class="grid grid-cols-2 gap-4 flex items-stretch">
             <span class="clock text-left p-1">00:00</span>
-            <span class="text-right p-1">100% <i class="fa fa-battery-full"></i></span>
+            <span class="text-right p-1">100% <i class="fa-solid fa-battery-full"></i></span>
           </div>
         </div>
         <div class="tab tab-home grid grid-cols-4 gap-4 flex pt-18 pb-58 px-4 w-[100vw] sm:w-[412px] basis-18/20">
-          <div class="p-2 cursor-pointer flex flex-col items-center" onclick="changeTab('browser');changeUrl('')"><i class="fa fa-globe fa-3x"></i>Navegador</div>
-          <div class="p-2 cursor-pointer flex flex-col items-center" onclick="changeTab('browser');changeUrl('techhero1.github.io/celular/')"><i class="fa fa-mobile fa-3x"></i>Celular</div>
-          <div class="p-2 cursor-pointer flex flex-col items-center" onclick="changeTab('wallpaper');"><i class="fa fa-globe fa-3x"></i>Papel de Parede</div>
+          <div class="p-2 cursor-pointer flex flex-col items-center" onclick="changeTab('browser');changeUrl('')"><i class="fa-solid fa-earth-americas fa-3x"></i>Navegador</div>
+          <div class="p-2 cursor-pointer flex flex-col items-center" onclick="changeTab('browser');changeUrl('techhero1.github.io/celular/')"><i class="fa-solid fa-mobile fa-3x"></i>Celular</div>
+          <div class="p-2 cursor-pointer flex flex-col items-center" onclick="changeTab('wallpaper');"><i class="fa-solid fa-earth-americas fa-3x"></i>Papel de Parede</div>
         </div>
         <div class="tab tab-browser hidden py-8 w-[100vw] sm:w-[412px] h-[100%] flex-col basis-20/20">
           <div class="p-2 w-[100vw] sm:w-[412px] basis-1/20">
             <div class="flex flex-row bg-white border-1">
               <input class="p-2 cursor-pointer w-[100%] basis-9/10" name="url-input" type="text">
-              <button class="p-2 cursor-pointer w-[100%] basis-1/10" onclick="changeUrl(document.getElementsByName('url-input')[0].value)"><i class="fa fa-search"></i></button>
+              <button class="p-2 cursor-pointer w-[100%] basis-1/10" onclick="changeUrl(document.getElementsByName('url-input')[0].value)"><i class="fa-solid fa-search"></i></button>
             </div>
           </div>
           <iframe class="browser-iframe h-[100%] w-[100vw] sm:w-[412px] basis-19/20" src=""></iframe>
@@ -61,9 +64,9 @@
         </div>
         <div class="bg-gray-800 w-[100vw] sm:w-[412px] fixed bottom-0 text-white basis-1/20">
           <div class="grid grid-cols-3 gap-4 flex items-stretch">
-            <span class="p-1 cursor-pointer" onclick="changeTab('home')"><i class="fa fa-chevron-left"></i></span> <!--não to la com toda essa vontade de fazer um historico de verdade, então...-->
-            <span class="p-1 cursor-pointer" onclick="changeTab('home')"><i class="fa fa-home"></i></span>
-            <span class="p-1 cursor-pointer"><i class="fa fa-bars"></i></span>
+            <span class="p-1 cursor-pointer" onclick="changeTab('home')"><i class="fa-solid fa-chevron-left"></i></span> <!--não to la com toda essa vontade de fazer um historico de verdade, então...-->
+            <span class="p-1 cursor-pointer" onclick="changeTab('home')"><i class="fa-regular fa-home"></i></span>
+            <span class="p-1 cursor-pointer"><i class="fa-solid fa-bars"></i></span>
           </div>
         </div>
       </div>
