@@ -46,12 +46,14 @@ function switch_view() {
 function switch_apoio() {
   if (!list.apoio) {
     list.apoio = true;
+    hook = true;
     //console.log(list.apoio);
     document.querySelector(".iichan_tab").classList.remove('hidden');
     document.querySelector(".iichan_nav").classList.remove('hidden');
     return
   }
   list.apoio = false;
+  hook = true;
   //console.log(list.apoio);
   document.querySelector(".iichan_tab").classList.add('hidden');
   document.querySelector(".iichan_nav").classList.add('hidden');
@@ -60,11 +62,13 @@ function switch_apoio() {
 function switch_cores() {
   if (!list.cores) {
     list.cores = true;
+    hook = true;
     //console.log(list.cores);
     load_list();
     return
   }
   list.cores = false;
+  hook = true;
   //console.log(list.cores);
   load_list();
 }
@@ -74,6 +78,7 @@ var scroll_y = window.scrollY;
 var last_item_pos;
 
 function edit_item(id) {
+  hook = true;
   last_item_pos = window.scrollY;
   window.scrollTo(scroll_y, 0);
   cur_editing_id = id;
@@ -259,6 +264,7 @@ function upload_list(files) {
       listname = files.name.replaceAll(/.json/g,"");
       document.querySelector(".file_name_input").value = listname;
       remote_open_tab('Visualizar');
+      hook = true;
     }
 
     reader.readAsText(files);
@@ -274,6 +280,7 @@ function download_list() {
   listname = document.querySelector(".file_name_input").value;
   dlAnchorElem.setAttribute("download", listname+".json");
   dlAnchorElem.click();
+  hook = false;
 }
 
 function load_list() {
@@ -504,6 +511,7 @@ function change_filter(filter_tipo,filter_status) {
   load_list();
   //document.querySelector(".filter_dropdown").classList.add('hidden');
   list.last_filter = [cur_filter_tipo,cur_filter_status];
+  hook = true;
   //console.log([cur_filter_tipo,cur_filter_status]);
   update_filter_checks();
 }
