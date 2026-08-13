@@ -1220,6 +1220,9 @@ const style_tag_badge = /\[badge:(?<text_color>.+?):(?<bg_color>.+?)](?<real_tex
 //ICON TAG
 const style_tag_icon = /\[icon:(?<id>.+?):(?<style>.+?)]/g;
 
+//PROGRESS TAG
+const style_tag_progress = /\[bar:(?<value>.+?):(?<max>.+?)]/g;
+
 //ESTILO TAG
 const style_tag_preset = /\[estilo:(?<nome>.+?)](?<real_text>.+?)\[\/estilo]/g;
 
@@ -1346,6 +1349,15 @@ function style_text_with_tags(text) {
 
       while ((style_tag_icon_match = style_tag_icon.exec(text)) !== null) {
           text = text.replaceAll(style_tag_icon_match[0],`<i class="fa-${style_tag_icon_match.groups.style} fa-${style_tag_icon_match.groups.id}"></i>`);
+      }
+  }
+
+  //PROGRESS TAG
+  for (itag = 0; itag < (text.match(style_tag_progress) || []).length; itag++) {
+      let style_tag_progress_match;
+
+      while ((style_tag_progress_match = style_tag_progress.exec(text)) !== null) {
+          text = text.replaceAll(style_tag_progress_match[0],`<progress class="rounded-md shadow-md border border-gray-400" value="${style_tag_progress_match.groups.value}" max="${style_tag_progress_match.groups.max}"></progress>`);
       }
   }
 
