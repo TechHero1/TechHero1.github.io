@@ -179,10 +179,17 @@ function create_item(category_id,url,nome,status,plataforma,notas) {
 }
 
 function create_category(id,type) {
+  /*
   return `<div class="text-xl category-title-${id}">
       ${site_content.categorias[id]}
     </div>
     <div class="category-${type}-${id} p-2 grid grid-cols-1 gap-2"></div>`;
+  */
+  return `<details><summary>
+    <span class="text-xl select-none category-title-${id}">
+      ${site_content.categorias[id]}
+    </span></summary>
+    <div class="category-${type}-${id} p-2 grid grid-cols-1 gap-2"></div></details>`;
 }
 
 function create_notas(string) {
