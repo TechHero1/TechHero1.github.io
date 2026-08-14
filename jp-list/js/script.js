@@ -33,13 +33,11 @@ function switch_view() {
   if (content_list.classList.contains("grid-list-view")) {
     content_list.classList.remove("grid-list-view");
     list.list_mode = "grid";
-    //console.log(list.list_mode);
     button.innerHTML = `<i class="fa-solid fa-table-cells-large"></i>`;
     return
   }
   content_list.classList.add("grid-list-view");
   list.list_mode = "list";
-  //console.log(list.list_mode);
   button.innerHTML = `<i class="fa-solid fa-bars"></i>`;
 }
 
@@ -47,14 +45,12 @@ function switch_apoio() {
   if (!list.apoio) {
     list.apoio = true;
     hook = true;
-    //console.log(list.apoio);
     document.querySelector(".iichan_tab").classList.remove('hidden');
     document.querySelector(".iichan_nav").classList.remove('hidden');
     return
   }
   list.apoio = false;
   hook = true;
-  //console.log(list.apoio);
   document.querySelector(".iichan_tab").classList.add('hidden');
   document.querySelector(".iichan_nav").classList.add('hidden');
 }
@@ -63,13 +59,11 @@ function switch_cores() {
   if (!list.cores) {
     list.cores = true;
     hook = true;
-    //console.log(list.cores);
     load_list();
     return
   }
   list.cores = false;
   hook = true;
-  //console.log(list.cores);
   load_list();
 }
 
@@ -82,7 +76,6 @@ function edit_item(id) {
   last_item_pos = window.scrollY;
   window.scrollTo(scroll_y, 0);
   cur_editing_id = id;
-  //console.log(list.itens);
   remote_open_tab('Editar');
 
   if (id == "new") {
@@ -172,7 +165,6 @@ function save_item(){
     };
     remote_open_tab('Visualizar');
     load_list();
-    //console.log(list);
     window.scrollTo(scroll_y, last_item_pos);
     return
   }
@@ -208,11 +200,15 @@ function delete_item(){
   remote_open_tab('Visualizar');
   load_list();
   window.scrollTo(scroll_y, last_item_pos);
+
+  if (list.itens == "") hook = false;
 }
 
 function cancel_item(){
   remote_open_tab('Visualizar');
   window.scrollTo(scroll_y, last_item_pos);
+
+  if (list.itens == "") hook = false;
 }
 
 var filters = {
@@ -258,7 +254,6 @@ function upload_list(files) {
       let formatted = JSON.stringify(result, null, 2);
       list = JSON.parse(formatted);
       if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo_tipo','Tudo_status'];
-      //console.log(list.last_filter);
       change_filter(list.last_filter[0],list.last_filter[1]);
       load_list();
       listname = files.name.replaceAll(/.json/g,"");
@@ -375,7 +370,7 @@ function load_list() {
 
     let progress_element = "";
     if (list.itens[i].dados.progresso > 0 && list.itens[i].dados.final > 0) {
-      progress_element = `<progress class="rounded-md shadow-md border border-gray-200" id="progress_bar" value="${list.itens[i].dados.progresso}" max="${list.itens[i].dados.final}"></progress>`;
+      progress_element = `<progress class="rounded-md shadow-md border border-gray-400" id="progress_bar" value="${list.itens[i].dados.progresso}" max="${list.itens[i].dados.final}"></progress>`;
     } else {
       progress_element = "";
     }
@@ -461,7 +456,7 @@ function load_list() {
       target: "_blank"
     });
     //anotacao = anotacao.replaceAll(/[\n]/g,"<br>");
-    anotacao = style_text_with_tags(anotacao);
+    anotacao = style_text_with_tags(anotacao,list.itens[i].dados);
 
     document.querySelector(".content_list").innerHTML += `
     <div style="background-color:${bg_color}" class="flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200" id="${i}" onclick="edit_item(this.id)">
@@ -481,7 +476,7 @@ function load_list() {
           <p>${moji_string}</p>
         </div>
       </div>
-      <p class="nota_div p-1">${anotacao}</p>
+      <div class="nota_div p-1">${anotacao}</div>
     </div>
     `
   }
@@ -509,10 +504,8 @@ function change_filter(filter_tipo,filter_status) {
   if (filter_tipo != "") cur_filter_tipo = filter_tipo;
   if (filter_status != "") cur_filter_status = filter_status;
   load_list();
-  //document.querySelector(".filter_dropdown").classList.add('hidden');
   list.last_filter = [cur_filter_tipo,cur_filter_status];
   hook = true;
-  //console.log([cur_filter_tipo,cur_filter_status]);
   update_filter_checks();
 }
 
@@ -692,7 +685,7 @@ var streaming_items_data = [];
 
 async function fetch_streaming_items() {
   if (streaming_items_data == "") {
-    let file_object = await fetch("streamings.json");
+    let file_object = await fetch("data/streamings.json");
     let json_data = await file_object.json();
 
     streaming_items_data = json_data;
@@ -1165,7 +1158,6 @@ function gerar_stats() {
     graph_total_vol += Number(list.itens[item_id].dados.volumes);
   }
 
-  //document.querySelector(".time_counter").innerHTML = `${graph_total_horas}:${graph_total_minutos}`;
   document.querySelector(".time_counter").innerHTML = `${String(graph_total_horas).padStart(2, '0')}:${String(graph_total_minutos).padStart(2, '0')}`;
   document.querySelector(".ep_counter").innerHTML = nf.format(graph_total_ep);
   document.querySelector(".cap_counter").innerHTML = nf.format(graph_total_cap);
@@ -1184,16 +1176,12 @@ function update_autotime() {
 }
 
 //GRADIENT TAG
-//const style_tag_gradient = /\[gradient:(.+):(.+):(.+)](.+)\[\/gradient]/g;
-//const style_tag_gradient = /\[gradient:(.+?):(.+?):(.+?)](.+?)\[\/gradient]/g;
 const style_tag_gradient = /\[gradient:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?)](?<real_text>.+?)\[\/gradient]/g;
 
 //GRADIENT TAG WITH %
-//const style_tag_gradient_percent = /\[gradient:(.+):(.+):(.+):(.+):(.+)](.+)\[\/gradient]/g;
-const style_tag_gradient_percent = /\[gradient_percent:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?):(?<first_color_percent>.+?):(?<second_color_percent>.+?)](?<real_text>.+?)\[\/gradient_percent]/g;
+const style_tag_gradient_percent = /\[gradient_percent:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?):(?<first_color_focus>.+?):(?<second_color_focus>.+?)](?<real_text>.+?)\[\/gradient_percent]/g;
 
 //COLOR TAG
-//const style_tag_color = /\[color:(.+)](.+)\[\/color]/g;
 const style_tag_color = /\[color:(?<color>.+?)](?<real_text>.+?)\[\/color]/g;
 
 //BOLD TAG
@@ -1223,49 +1211,65 @@ const style_tag_icon = /\[icon:(?<id>.+?):(?<style>.+?)]/g;
 //PROGRESS TAG
 const style_tag_progress = /\[bar:(?<value>.+?):(?<max>.+?)]/g;
 
+//MARK TAG
+const style_tag_marktxt = /\[mark:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
+
+//MARK PERCENT TAG
+const style_tag_marktxt_percent = /\[mark_p:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
+
+//PROGRESS MARK TAG
+const style_tag_mark = /\[bar_mark:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
+
 //ESTILO TAG
 const style_tag_preset = /\[estilo:(?<nome>.+?)](?<real_text>.+?)\[\/estilo]/g;
 
-function style_text_with_tags(text) {
+function style_text_with_tags(text,item_data) {
+  //VALORES
+  text = text.replaceAll(/\$progresso/g,item_data.progresso);
+  text = text.replaceAll(/\$final/g,item_data.final);
+  text = text.replaceAll(/\$moji/g,item_data.moji);
+  text = text.replaceAll(/\$volumes/g,item_data.volumes);
+  text = text.replaceAll(/\$h/g,item_data.horas);
+  text = text.replaceAll(/\$H/g,String(item_data.horas).padStart(2, '0'));
+  text = text.replaceAll(/\$m/g,item_data.minutos);
+  text = text.replaceAll(/\$M/g,String(item_data.minutos).padStart(2, '0'));
+  text = text.replaceAll(/\$prog_min/g,item_data.prog_min);
+  text = text.replaceAll(/\$tempo/g,String(Math.trunc((item_data.progresso*item_data.prog_min)/60)).padStart(2, '0')+":"+String((item_data.progresso*item_data.prog_min)%60).padStart(2, '0'));
+  text = text.replaceAll(/\$tempo_h/g,Math.trunc((item_data.progresso*item_data.prog_min)/60));
+  text = text.replaceAll(/\$tempo_H/g,String(Math.trunc((item_data.progresso*item_data.prog_min)/60)).padStart(2, '0'));
+  text = text.replaceAll(/\$tempo_m/g,Math.trunc((item_data.progresso*item_data.prog_min)%60));
+  text = text.replaceAll(/\$tempo_M/g,String(Math.trunc((item_data.progresso*item_data.prog_min)%60)).padStart(2, '0'));
+
   //NEWLINE TAG
   text = text.replaceAll(/\\n/g,"<br>");
-  //text = text.replaceAll(/[\n]/g,"<br>");
+
+  //LINE TAG
+  text = text.replaceAll(/\\l/g,"<hr>");
 
   //GRADIENT TAG
   for (itag = 0; itag < (text.match(style_tag_gradient) || []).length; itag++) {
-    //console.log(text.match(style_tag_gradient));
     let style_tag_gradient_match;
 
     while ((style_tag_gradient_match = style_tag_gradient.exec(text)) !== null) {
-        //console.log(style_tag_gradient_match);
+      let dir;
+      if (style_tag_gradient_match.groups.direction == "vertical") dir = "b";
+      if (style_tag_gradient_match.groups.direction == "horizontal") dir = "r";
 
-        let dir;
-        //if (style_tag_gradient_match[1] == "vertical") dir = "b";
-        //if (style_tag_gradient_match[1] == "horizontal") dir = "r";
-        if (style_tag_gradient_match.groups.direction == "vertical") dir = "b";
-        if (style_tag_gradient_match.groups.direction == "horizontal") dir = "r";
-
-        //console.log(text.replaceAll(style_tag_gradient_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_match[2]}] to-[${style_tag_gradient_match[3]}] bg-clip-text text-transparent">${style_tag_gradient_match[4]}</span>`));
-        //text = text.replaceAll(style_tag_gradient_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_match[2]}] to-[${style_tag_gradient_match[3]}] bg-clip-text text-transparent">${style_tag_gradient_match[4]}</span>`);
-        text = text.replaceAll(style_tag_gradient_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_match.groups.first_color}] to-[${style_tag_gradient_match.groups.second_color}] bg-clip-text text-transparent">${style_tag_gradient_match.groups.real_text}</span>`);
+      text = text.replaceAll(style_tag_gradient_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_match.groups.first_color}] to-[${style_tag_gradient_match.groups.second_color}] bg-clip-text text-transparent">${style_tag_gradient_match.groups.real_text}</span>`);
     }
   }
 
   //GRADIENT TAG WITH %
   for (itag = 0; itag < (text.match(style_tag_gradient_percent) || []).length; itag++) {
-      let style_tag_gradient_percent_match;
+    let style_tag_gradient_percent_match;
 
-      while ((style_tag_gradient_percent_match = style_tag_gradient_percent.exec(text)) !== null) {
+    while ((style_tag_gradient_percent_match = style_tag_gradient_percent.exec(text)) !== null) {
+      let dir;
+      if (style_tag_gradient_percent_match.groups.direction == "vertical") dir = "b";
+      if (style_tag_gradient_percent_match.groups.direction == "horizontal") dir = "r";
 
-          let dir;
-          //if (style_tag_gradient_percent_match[1] == "vertical") dir = "b";
-          //if (style_tag_gradient_percent_match[1] == "horizontal") dir = "r";
-          if (style_tag_gradient_percent_match.groups.direction == "vertical") dir = "b";
-          if (style_tag_gradient_percent_match.groups.direction == "horizontal") dir = "r";
-
-          //text = text.replaceAll(style_tag_gradient_percent_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_percent_match[2]}] from-[${style_tag_gradient_percent_match[4]}] to-[${style_tag_gradient_percent_match[3]}] to-[${style_tag_gradient_percent_match[5]}] bg-clip-text text-transparent">${style_tag_gradient_percent_match[6]}</span>`);
-          text = text.replaceAll(style_tag_gradient_percent_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_percent_match.groups.first_color}] from-[${style_tag_gradient_percent_match.groups.first_color_percent}] to-[${style_tag_gradient_percent_match.groups.second_color}] to-[${style_tag_gradient_percent_match.groups.second_color_percent}] bg-clip-text text-transparent">${style_tag_gradient_percent_match.groups.real_text}</span>`);
-      }
+      text = text.replaceAll(style_tag_gradient_percent_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_percent_match.groups.first_color}] from-[${style_tag_gradient_percent_match.groups.first_color_focus}] to-[${style_tag_gradient_percent_match.groups.second_color}] to-[${style_tag_gradient_percent_match.groups.second_color_focus}] bg-clip-text text-transparent">${style_tag_gradient_percent_match.groups.real_text}</span>`);
+    }
   }
 
   //SHADOW TAG
@@ -1273,8 +1277,7 @@ function style_text_with_tags(text) {
     let style_tag_shadow_match;
 
     while ((style_tag_shadow_match = style_tag_shadow.exec(text)) !== null) {
-
-        text = text.replaceAll(style_tag_shadow_match[0],`<span class="text-shadow-${style_tag_shadow_match.groups.size} text-shadow-[${style_tag_shadow_match.groups.color}]/${style_tag_shadow_match.groups.opacity}">${style_tag_shadow_match.groups.real_text}</span>`);
+      text = text.replaceAll(style_tag_shadow_match[0],`<span class="text-shadow-${style_tag_shadow_match.groups.size} text-shadow-[${style_tag_shadow_match.groups.color}]/${style_tag_shadow_match.groups.opacity}">${style_tag_shadow_match.groups.real_text}</span>`);
     }
   }
 
@@ -1283,82 +1286,115 @@ function style_text_with_tags(text) {
     let style_tag_solid_shadow_match;
 
     while ((style_tag_solid_shadow_match = style_tag_solid_shadow.exec(text)) !== null) {
-
-        text = text.replaceAll(style_tag_solid_shadow_match[0],`<span class="drop-shadow-[${style_tag_solid_shadow_match.groups.horizontal}_${style_tag_solid_shadow_match.groups.vertical}_${style_tag_solid_shadow_match.groups.color}]">${style_tag_solid_shadow_match.groups.real_text}</span>`);
+      text = text.replaceAll(style_tag_solid_shadow_match[0],`<span class="drop-shadow-[${style_tag_solid_shadow_match.groups.horizontal}_${style_tag_solid_shadow_match.groups.vertical}_${style_tag_solid_shadow_match.groups.color}]">${style_tag_solid_shadow_match.groups.real_text}</span>`);
     }
   }
 
   //COLOR TAG
   for (itag = 0; itag < (text.match(style_tag_color) || []).length; itag++) {
-      let style_tag_color_match;
+    let style_tag_color_match;
 
-      while ((style_tag_color_match = style_tag_color.exec(text)) !== null) {
-          //text = text.replaceAll(style_tag_color_match[0],`<span class="text-[${style_tag_color_match[1]}]">${style_tag_color_match[2]}</span>`);
-          text = text.replaceAll(style_tag_color_match[0],`<span class="text-[${style_tag_color_match.groups.color}]">${style_tag_color_match.groups.real_text}</span>`);
-      }
+    while ((style_tag_color_match = style_tag_color.exec(text)) !== null) {
+      text = text.replaceAll(style_tag_color_match[0],`<span class="text-[${style_tag_color_match.groups.color}]">${style_tag_color_match.groups.real_text}</span>`);
+    }
   }
 
   //BOLD TAG
   for (itag = 0; itag < (text.match(style_tag_bold) || []).length; itag++) {
-      let style_tag_bold_match;
+    let style_tag_bold_match;
 
-      while ((style_tag_bold_match = style_tag_bold.exec(text)) !== null) {
-          text = text.replaceAll(style_tag_bold_match[0],`<b>${style_tag_bold_match.groups.real_text}</b>`);
-      }
+    while ((style_tag_bold_match = style_tag_bold.exec(text)) !== null) {
+      text = text.replaceAll(style_tag_bold_match[0],`<b>${style_tag_bold_match.groups.real_text}</b>`);
+    }
   }
 
   //ITALIC TAG
   for (itag = 0; itag < (text.match(style_tag_italic) || []).length; itag++) {
-      let style_tag_italic_match;
+    let style_tag_italic_match;
 
-      while ((style_tag_italic_match = style_tag_italic.exec(text)) !== null) {
-          text = text.replaceAll(style_tag_italic_match[0],`<i>${style_tag_italic_match.groups.real_text}</i>`);
-      }
+    while ((style_tag_italic_match = style_tag_italic.exec(text)) !== null) {
+      text = text.replaceAll(style_tag_italic_match[0],`<i>${style_tag_italic_match.groups.real_text}</i>`);
+    }
   }
 
   //BG TAG
   for (itag = 0; itag < (text.match(style_tag_bg) || []).length; itag++) {
-      let style_tag_bg_match;
+    let style_tag_bg_match;
 
-      while ((style_tag_bg_match = style_tag_bg.exec(text)) !== null) {
-          text = text.replaceAll(style_tag_bg_match[0],`<span class="bg-[${style_tag_bg_match.groups.color}]">${style_tag_bg_match.groups.real_text}</span>`);
-      }
+    while ((style_tag_bg_match = style_tag_bg.exec(text)) !== null) {
+      text = text.replaceAll(style_tag_bg_match[0],`<span class="bg-[${style_tag_bg_match.groups.color}]">${style_tag_bg_match.groups.real_text}</span>`);
+    }
   }
 
   //BORDER TAG
   for (itag = 0; itag < (text.match(style_tag_border) || []).length; itag++) {
-      let style_tag_border_match;
+    let style_tag_border_match;
 
-      while ((style_tag_border_match = style_tag_border.exec(text)) !== null) {
-          text = text.replaceAll(style_tag_border_match[0],`<span class="border-${style_tag_border_match.groups.size} border-[${style_tag_border_match.groups.color}]">${style_tag_border_match.groups.real_text}</span>`);
-      }
+    while ((style_tag_border_match = style_tag_border.exec(text)) !== null) {
+      text = text.replaceAll(style_tag_border_match[0],`<span class="border-${style_tag_border_match.groups.size} border-[${style_tag_border_match.groups.color}]">${style_tag_border_match.groups.real_text}</span>`);
+    }
   }
 
   //BADGE TAG
   for (itag = 0; itag < (text.match(style_tag_badge) || []).length; itag++) {
-      let style_tag_badge_match;
+    let style_tag_badge_match;
 
-      while ((style_tag_badge_match = style_tag_badge.exec(text)) !== null) {
-          text = text.replaceAll(style_tag_badge_match[0],`<span class="text-[${style_tag_badge_match.groups.text_color}] bg-[${style_tag_badge_match.groups.bg_color}] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_badge_match.groups.real_text}</span>`);
-      }
+    while ((style_tag_badge_match = style_tag_badge.exec(text)) !== null) {
+      text = text.replaceAll(style_tag_badge_match[0],`<span class="text-[${style_tag_badge_match.groups.text_color}] bg-[${style_tag_badge_match.groups.bg_color}] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_badge_match.groups.real_text}</span>`);
+    }
   }
 
   //ICON TAG
   for (itag = 0; itag < (text.match(style_tag_icon) || []).length; itag++) {
-      let style_tag_icon_match;
+    let style_tag_icon_match;
 
-      while ((style_tag_icon_match = style_tag_icon.exec(text)) !== null) {
-          text = text.replaceAll(style_tag_icon_match[0],`<i class="fa-${style_tag_icon_match.groups.style} fa-${style_tag_icon_match.groups.id}"></i>`);
-      }
+    while ((style_tag_icon_match = style_tag_icon.exec(text)) !== null) {
+      text = text.replaceAll(style_tag_icon_match[0],`<i class="fa-${style_tag_icon_match.groups.style} fa-${style_tag_icon_match.groups.id}"></i>`);
+    }
   }
 
   //PROGRESS TAG
   for (itag = 0; itag < (text.match(style_tag_progress) || []).length; itag++) {
-      let style_tag_progress_match;
+    let style_tag_progress_match;
 
-      while ((style_tag_progress_match = style_tag_progress.exec(text)) !== null) {
-          text = text.replaceAll(style_tag_progress_match[0],`<progress class="rounded-md shadow-md border border-gray-400" value="${style_tag_progress_match.groups.value}" max="${style_tag_progress_match.groups.max}"></progress>`);
-      }
+    while ((style_tag_progress_match = style_tag_progress.exec(text)) !== null) {
+      text = text.replaceAll(style_tag_progress_match[0],`<progress class="rounded-md shadow-md border border-gray-400" value="${style_tag_progress_match.groups.value}" max="${style_tag_progress_match.groups.max}"></progress>`);
+    }
+  }
+
+  //MARK TAG
+  for (itag = 0; itag < (text.match(style_tag_marktxt) || []).length; itag++) {
+    let style_tag_marktxt_match;
+
+    while ((style_tag_marktxt_match = style_tag_marktxt.exec(text)) !== null) {
+      let value = Number(style_tag_marktxt_match.groups.value) - Number(style_tag_marktxt_match.groups.start);
+      let max = Number(style_tag_marktxt_match.groups.end) - Number(style_tag_marktxt_match.groups.start);
+      text = text.replaceAll(style_tag_marktxt_match[0],`<span>${value}/${max}</span>`);
+    }
+  }
+
+  //MARK PERCENT TAG
+  for (itag = 0; itag < (text.match(style_tag_marktxt_percent) || []).length; itag++) {
+    let style_tag_marktxt_percent_match;
+
+    while ((style_tag_marktxt_percent_match = style_tag_marktxt_percent.exec(text)) !== null) {
+      let value = Number(style_tag_marktxt_percent_match.groups.value) - Number(style_tag_marktxt_percent_match.groups.start);
+      let max = Number(style_tag_marktxt_percent_match.groups.end) - Number(style_tag_marktxt_percent_match.groups.start);
+      let result = (100 * value) / max;
+      let result_show = Math.trunc(result);
+      text = text.replaceAll(style_tag_marktxt_percent_match[0],`<span>${result_show}%</span>`);
+    }
+  }
+
+  //PROGRESS MARK TAG
+  for (itag = 0; itag < (text.match(style_tag_mark) || []).length; itag++) {
+    let style_tag_mark_match;
+
+    while ((style_tag_mark_match = style_tag_mark.exec(text)) !== null) {
+      let value = Number(style_tag_mark_match.groups.value) - Number(style_tag_mark_match.groups.start);
+      let max = Number(style_tag_mark_match.groups.end) - Number(style_tag_mark_match.groups.start);
+      text = text.replaceAll(style_tag_mark_match[0],`<progress class="rounded-md shadow-md border border-gray-400" value="${value}" max="${max}"></progress>`);
+    }
   }
 
   //ESTILO TAG
@@ -1370,36 +1406,214 @@ function style_text_with_tags(text) {
 function style_text_with_presets(text) {
 
   for (itag = 0; itag < (text.match(style_tag_preset) || []).length; itag++) {
-      let style_tag_preset_match;
+    let style_tag_preset_match;
 
-      while ((style_tag_preset_match = style_tag_preset.exec(text)) !== null) {
-        if (style_tag_preset_match.groups.nome == "legenda") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black text-white px-1">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "amarelo_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "vermelho_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "azul_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "verde_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "vermelho_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#f50000] drop-shadow-[0.5px_0.5px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "vermelho_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
-        if (style_tag_preset_match.groups.nome == "azul_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#5DECFF] drop-shadow-[0.5px_0.5px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "azul_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#2295c3] from-[40%] to-[#76e7e9] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
-        if (style_tag_preset_match.groups.nome == "sombra") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-shadow-md text-shadow-black/20">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "sombra_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f71]">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "badge_pos") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#d4edbc] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
-        if (style_tag_preset_match.groups.nome == "badge_neg") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#ff8787] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
+    while ((style_tag_preset_match = style_tag_preset.exec(text)) !== null) {
+      if (style_tag_preset_match.groups.nome == "legenda") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black text-white px-1">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "amarelo_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "vermelho_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "azul_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "verde_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "vermelho_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#f50000] drop-shadow-[0.5px_0.5px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "vermelho_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
+      if (style_tag_preset_match.groups.nome == "azul_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#5DECFF] drop-shadow-[0.5px_0.5px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "azul_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#2295c3] from-[40%] to-[#76e7e9] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
+      if (style_tag_preset_match.groups.nome == "sombra") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-shadow-md text-shadow-black/20">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "sombra_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f71]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "badge_pos") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#d4edbc] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "badge_neg") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#ff8787] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "rainbow_h") text = text.replaceAll(style_tag_preset_match[0],`<span style="background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "rainbow_v") text = text.replaceAll(style_tag_preset_match[0],`<span style="background-image: linear-gradient(to bottom, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span>`);
 
-        //old
-        if (style_tag_preset_match.groups.nome == "amarelo_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "amarelo_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #4c4c00 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff3c] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "vermelho_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "vermelho_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #4c0000 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "azul_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "azul_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #00004c 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "verde_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
-        if (style_tag_preset_match.groups.nome == "verde_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #004c00 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
-      }
+      //old
+      if (style_tag_preset_match.groups.nome == "amarelo_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+      if (style_tag_preset_match.groups.nome == "amarelo_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #4c4c00 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff3c] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+      if (style_tag_preset_match.groups.nome == "vermelho_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+      if (style_tag_preset_match.groups.nome == "vermelho_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #4c0000 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+      if (style_tag_preset_match.groups.nome == "azul_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+      if (style_tag_preset_match.groups.nome == "azul_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #00004c 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+      if (style_tag_preset_match.groups.nome == "verde_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
+      if (style_tag_preset_match.groups.nome == "verde_deltarune_unused") text = text.replaceAll(style_tag_preset_match[0],`<span class="relative"><span style="text-shadow: #004c00 1px 1px;" class="text-transparent z-0 relative">${style_tag_preset_match.groups.real_text}</span><span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent z-2 absolute left-0">${style_tag_preset_match.groups.real_text}</span></span>`);
+    }
   }
 
   return text;
+}
+
+var custom_info_data = [];
+
+async function fetch_custom_info() {
+  if (custom_info_data == "") {
+    let file_object = await fetch("data/estilos.json");
+    let json_data = await file_object.json();
+
+    custom_info_data = json_data;
+  }
+
+  create_custom_info();
+}
+
+function create_custom_info() {
+  document.querySelector(".custom_info").innerHTML = "";
+
+  document.querySelector(".custom_info").innerHTML += `
+    <details>
+      <summary>Informações de customização</summary>
+      <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
+        <table class="table-auto text-center">
+          <thead>
+            <tr>
+              <th class="border-1 sm:p-2">Função</th>
+              <th class="border-1 sm:p-2">Caractere especial</th>
+              <th class="border-1 sm:p-2">Resultado</th>
+            </tr>
+          </thead>
+          <tbody class="caracteres_table">
+          </tbody>
+        </table>
+      </div>
+      <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
+        <table class="table-auto text-center">
+          <thead>
+            <tr>
+              <th class="border-1 sm:p-2">Estilo</th>
+              <th class="border-1 sm:p-2">Código</th>
+              <th class="border-1 sm:p-2">Resultado</th>
+            </tr>
+          </thead>
+          <tbody class="comandos_table">
+          </tbody>
+        </table>
+      </div>
+      <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
+        <table class="table-auto text-center">
+          <thead>
+            <tr>
+              <th class="border-1 sm:p-2">Estilo predefinido</th>
+              <th class="border-1 sm:p-2">Código</th>
+              <th class="border-1 sm:p-2">Resultado</th>
+            </tr>
+          </thead>
+          <tbody class="estilos_table">
+          </tbody>
+        </table>
+      </div>
+    </details>
+  `;
+
+  //CRIAR CARACTERES
+  for (var cur_caractere = 0; cur_caractere < custom_info_data.caracteres.length; cur_caractere++) {
+    document.querySelector(".caracteres_table").innerHTML += `
+      <tr>
+        <td class="border-1 sm:p-2">${custom_info_data.caracteres[cur_caractere].funcao}</td>
+        <td class="border-1 sm:p-2">${custom_info_data.caracteres[cur_caractere].comando}</td>
+        <td class="border-1 sm:p-2">${custom_info_data.caracteres[cur_caractere].render}</td>
+      </tr>
+    `;
+  }
+
+  //CRIAR COMANDOS
+  for (var cur_comando = 0; cur_comando < custom_info_data.comandos.length; cur_comando++) {
+    let cur_comando_data = custom_info_data.comandos[cur_comando];
+
+    let render_modelo = cur_comando_data.modelo[0].render.replaceAll("$texto",cur_comando_data.modelo[0].texto);
+
+    document.querySelector(".comandos_table").innerHTML += `
+      <tr>
+        <td class="border-1 sm:p-2">${cur_comando_data.nome}</td>
+        <td class="border-1 sm:p-2 comando-code-${cur_comando}"></td>
+        <td class="border-1 sm:p-2 comando-render-${cur_comando}">${render_modelo}</td>
+      </tr>
+    `;
+
+    //CRIAR COMANDO (MODELO)
+    let modelo_code = "";
+    let modelo_params = "";
+    if (cur_comando_data.modelo[0].parametros.length > 0) {
+      //MODELO COM PARAMETROS
+      for (var param = 0; param < cur_comando_data.modelo[0].parametros.length; param++) {
+        modelo_params += `<span class="text-[#013220]">:</span><span class="text-[#07a]">${cur_comando_data.modelo[0].parametros[param].nome}</span>`;
+
+        if (cur_comando_data.modelo[0].texto == "") modelo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span>${modelo_params}<span class="text-[#013220]">]</span>`;
+        else modelo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span>${modelo_params}<span class="text-[#013220]">]</span>${cur_comando_data.modelo[0].texto}<span class="text-[#013220]">[/</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
+      }
+    } else {
+      //MODELO SEM PARAMETROS
+      if (cur_comando_data.modelo[0].texto == "") modelo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
+      else modelo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>${cur_comando_data.modelo[0].texto}<span class="text-[#013220]">[/</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
+    }
+    document.querySelector(".comando-code-"+cur_comando).innerHTML = modelo_code;
+
+    //CRIAR CADA EXEMPLO (SE TIVER)
+    if (cur_comando_data.hasOwnProperty("exemplo")) {
+      for (var cur_exemplo = 0; cur_exemplo < cur_comando_data.exemplo.length; cur_exemplo++) {
+        let cur_exemplo_data = cur_comando_data.exemplo[cur_exemplo];
+
+        let exemplo_label = "<br><br>Exemplo:<br>";
+        if (cur_comando_data.exemplo.length > 1) exemplo_label = "<br><br>Exemplos:<br>";
+        if (cur_exemplo == 0) document.querySelector(".comando-code-"+cur_comando).innerHTML += exemplo_label;
+
+        let render_exemplo = cur_exemplo_data.render.replaceAll("$texto",cur_exemplo_data.texto);
+
+        //CRIAR COMANDO (EXEMPLOS)
+        let exemplo_code = "";
+        let exemplo_params = "";
+        let break_string = "";
+        if (cur_comando_data.exemplo[cur_exemplo].parametros.length > 0) {
+          //EXEMPLO COM PARAMETROS
+          for (var param = 0; param < cur_comando_data.exemplo[cur_exemplo].parametros.length; param++) {
+            let param_color = "#07a";
+            if (cur_comando_data.exemplo[cur_exemplo].parametros[param].nome.includes("#")) param_color = cur_comando_data.exemplo[cur_exemplo].parametros[param].nome;
+
+            exemplo_params += `<span class="text-[#013220]">:</span><span class="text-[${param_color}]">${cur_comando_data.exemplo[cur_exemplo].parametros[param].nome}</span>`;
+            if (cur_comando_data.exemplo[cur_exemplo].texto == "") exemplo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span>${exemplo_params}<span class="text-[#013220]">]</span>`;
+            else exemplo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span>${exemplo_params}<span class="text-[#013220]">]</span>${cur_comando_data.exemplo[cur_exemplo].texto}<span class="text-[#013220]">[/</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
+            
+            if (param > 0) break_string = "<br>";
+            if (cur_comando_data.exemplo[cur_exemplo].break) break_string = "<br><br>";
+          }
+        } else {
+          //EXEMPLO SEM PARAMETROS
+          if (cur_comando_data.exemplo[cur_exemplo].texto == "") exemplo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
+          else exemplo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>${cur_comando_data.exemplo[cur_exemplo].texto}<span class="text-[#013220]">[/</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
+        }
+        document.querySelector(".comando-code-"+cur_comando).innerHTML += exemplo_code+break_string;
+        document.querySelector(".comando-render-"+cur_comando).innerHTML += render_exemplo+break_string;
+      }
+    }
+    //CRIA NOTAS SE TIVER
+    if (cur_comando_data.hasOwnProperty("notas")) {
+      document.querySelector(".comando-code-"+cur_comando).innerHTML += "<br>"+cur_comando_data.notas;
+    }
+  }
+
+  //CRIAR ESTILOS
+  for (var cur_estilo = 0; cur_estilo < custom_info_data.estilos.length; cur_estilo++) {
+    let cur_estilo_data = custom_info_data.estilos[cur_estilo];
+
+    document.querySelector(".estilos_table").innerHTML += `
+      <tr>
+        <td class="border-1 sm:p-2">${cur_estilo_data.nome}</td>
+        <td class="border-1 sm:p-2 estilo-code-${cur_estilo}"></td>
+        <td class="border-1 sm:p-2 estilo-render-${cur_estilo}"></td>
+      </tr>
+    `;
+
+    //PEGAR CADA EXEMPLO
+    for (var cur_exemplo = 0; cur_exemplo < cur_estilo_data.exemplo.length; cur_exemplo++) {
+      let cur_exemplo_data = cur_estilo_data.exemplo[cur_exemplo];
+      let render = cur_exemplo_data.render.replaceAll("$texto",cur_exemplo_data.texto);
+      let linebreak = "";
+      if (cur_exemplo > 0) linebreak = "<br><br>";
+
+      document.querySelector(".estilo-code-"+cur_estilo).innerHTML += `
+        ${linebreak}
+        <span class="text-[#013220]">[</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">:</span><span class="text-[#07a]">${cur_exemplo_data.id}</span><span class="text-[#013220]">]</span>${cur_exemplo_data.texto}<span class="text-[#013220]">[/</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">]</span></span>
+      `;
+
+      document.querySelector(".estilo-render-"+cur_estilo).innerHTML += linebreak+render;
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
