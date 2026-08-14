@@ -96,6 +96,7 @@ function edit_item(id) {
     document.querySelector(".autotime_input").checked = false;
     document.querySelector(".prog_min_input").value = 0;
     update_autotime();
+    update_preview_nota();
   } else {
     document.querySelector(".edit_title").innerHTML = "<i class='fa-solid fa-pencil'></i> Editar item \""+list.itens[id].dados.titulo+"\"";
     document.querySelector(".tipo_input").value = list.itens[id].tipo;
@@ -129,6 +130,7 @@ function edit_item(id) {
     if (!list.itens[id].dados.hasOwnProperty("final")) final = 0;
     document.querySelector(".final_input").value = final;
     update_autotime();
+    update_preview_nota();
   }
 
   if (document.querySelector('.nota_link') != null) {
@@ -328,7 +330,6 @@ function load_list() {
     }
 
     if (list.itens[i].tipo == "Novel" || list.itens[i].tipo == "Mangá") {
-      //progresso_string = nf.format(list.itens[i].dados.progresso) + " capítulos";
       if ((list.itens[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
         progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " capítulo";
       }
@@ -345,7 +346,6 @@ function load_list() {
       }
     }
     if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série" || list.itens[i].tipo == "Stage") {
-      //progresso_string = nf.format(list.itens[i].dados.progresso) + " episódios";
       if ((list.itens[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
         progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " episódio";
       }
@@ -455,7 +455,6 @@ function load_list() {
       className: "nota_link text-blue-500",
       target: "_blank"
     });
-    //anotacao = anotacao.replaceAll(/[\n]/g,"<br>");
     anotacao = style_text_with_tags(anotacao,list.itens[i].dados);
 
     document.querySelector(".content_list").innerHTML += `
@@ -486,6 +485,38 @@ function load_list() {
 function update_preview_image() {
   document.querySelector(".img_preview").src = document.querySelector(".img_input").value;
   document.querySelector(".img_preview").classList.remove('hidden');
+}
+
+var cur_preview_item = "";
+
+function get_preview_item() {
+  cur_preview_item = {
+    "tipo":document.querySelector(".tipo_input").value,
+    "dados": {
+      "titulo": document.querySelector(".name_input").value,
+      "status": document.querySelector(".status_input").value,
+      "progresso": document.querySelector(".progresso_input").value,
+      "moji": document.querySelector(".moji_input").value,
+      "horas": document.querySelector(".horas_input").value,
+      "minutos": document.querySelector(".minutos_input").value,
+      "volumes": document.querySelector(".volumes_input").value,
+      "repeticoes": document.querySelector(".repeticoes_input").value,
+      "img": document.querySelector(".img_input").value,
+      "nota": document.querySelector(".nota_input").value,
+      "autotime": document.querySelector(".autotime_input").checked,
+      "prog_min": document.querySelector(".prog_min_input").value,
+      "final": document.querySelector(".final_input").value
+    }
+  };
+}
+
+function update_preview_nota() {
+  get_preview_item();
+
+  let nota_input = document.querySelector(".nota_input").value;
+  document.querySelector(".nota_input_preview").innerHTML = style_text_with_tags(nota_input,cur_preview_item.dados);
+  if (nota_input.includes("\\") || nota_input.includes("[") || nota_input.includes("$")) document.querySelector(".nota_preview_container").classList.remove('hidden');
+  else document.querySelector(".nota_preview_container").classList.add('hidden');
 }
 
 //filtros da lista
@@ -1229,6 +1260,7 @@ function style_text_with_tags(text,item_data) {
   text = text.replaceAll(/\$final/g,item_data.final);
   text = text.replaceAll(/\$moji/g,item_data.moji);
   text = text.replaceAll(/\$volumes/g,item_data.volumes);
+  text = text.replaceAll(/\$repeticoes/g,item_data.repeticoes);
   text = text.replaceAll(/\$h/g,item_data.horas);
   text = text.replaceAll(/\$H/g,String(item_data.horas).padStart(2, '0'));
   text = text.replaceAll(/\$m/g,item_data.minutos);

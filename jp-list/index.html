@@ -178,22 +178,22 @@
         <div class="p-3 flex flex-col md:flex-row gap-3 items-center">
             <div class="flex flex-row gap-3 items-center">
                 <label for="progress">Progresso</label>
-                <input class="progresso_input textinput" type="number" id="progress" name="progress" value="0">
+                <input class="progresso_input textinput" type="number" id="progress" name="progress" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
             <div class="flex flex-row gap-3 items-center">
                 <label for="final">Final</label>
-                <input class="final_input textinput" type="number" id="final" name="final" value="0">
+                <input class="final_input textinput" type="number" id="final" name="final" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
         </div>
 
         <div class="p-3 flex flex-col md:flex-row gap-3 items-center">
             <div class="flex flex-row gap-3 items-center">
                 <label for="volumes">Volumes</label>
-                <input class="volumes_input textinput" type="number" id="volumes" name="volumes" value="0">
+                <input class="volumes_input textinput" type="number" id="volumes" name="volumes" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
             <div class="flex flex-row gap-3 items-center">
                 <label for="repeticoes">Repetições</label>
-                <input class="repeticoes_input textinput" type="number" id="repeticoes" name="repeticoes" value="0">
+                <input class="repeticoes_input textinput" type="number" id="repeticoes" name="repeticoes" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
         </div>
 
@@ -209,18 +209,18 @@
         <div class="p-3 flex flex-col md:flex-row gap-3 items-center autotime_number">
             <div class="flex flex-row gap-3 items-center">
                 <label for="prog_min">Minutos por progresso</label>
-                <input class="prog_min_input textinput" type="number" id="prog_min" name="prog_min" value="0">
+                <input class="prog_min_input textinput" type="number" id="prog_min" name="prog_min" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
         </div>
 
         <div class="p-3 flex flex-col md:flex-row gap-3 items-center normaltime_number">
             <div class="flex flex-row gap-3 items-center">
                 <label for="hours">Horas</label>
-                <input class="horas_input textinput" type="number" id="hours" name="hours" value="0">
+                <input class="horas_input textinput" type="number" id="hours" name="hours" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
             <div class="flex flex-row gap-3 items-center">
                 <label for="minutes">Minutos</label>
-                <input class="minutos_input textinput" type="number" id="minutes" name="minutes" value="0">
+                <input class="minutos_input textinput" type="number" id="minutes" name="minutes" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
         </div>
 
@@ -228,7 +228,7 @@
 
         <div class="p-3 flex flex-row gap-3 items-center">
             <label for="moji">Caracteres (Moji)</label>
-            <input class="moji_input textinput" type="number" id="moji" name="moji" value="0">
+            <input class="moji_input textinput" type="number" id="moji" name="moji" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
         </div>
         <hr class="border-gray-200">
         <div class="p-3 flex flex-col md:flex-row gap-3 items-center">
@@ -241,7 +241,11 @@
         <hr class="border-gray-200">
         <div class="p-3 flex flex-row gap-3 items-center">
             <label for="nota_textarea">Anotações</label>
-            <textarea class="nota_input textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]" type="textarea" id="nota_textarea" name="nota_textarea" onchange=""></textarea>
+            <textarea class="nota_input textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]" type="textarea" id="nota_textarea" name="nota_textarea" onfocus="update_preview_nota()" oninput="update_preview_nota()"></textarea>
+        </div>
+        <div class="p-3 flex flex-row gap-3 items-center hidden nota_preview_container">
+            <label for="nota_textarea_preview" class="opacity-0 pointer-events-none">Anotações</label>
+            <div class="nota_input_preview textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]"></div>
         </div>
         <div class="sm:p-3 flex flex-row gap-3 items-center custom_info">
             
