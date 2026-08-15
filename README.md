@@ -1,7 +1,3 @@
-# Jogos
-
-[Like Clicker](https://techhero1.github.io/likeclicker)
-
 # Informações
 
 [Higurashi PT-BR Downloads](https://techhero1.github.io/higurashi-pt-br-downloads)
@@ -12,6 +8,8 @@
 
 # Ferramentas
 
+[JP List](https://techhero1.github.io/jp-list)
+
 [Game Image Viewer](https://techhero1.github.io/game-img-viewer)
 
 [Wplace Chunk Viewer](https://techhero1.github.io/wp-chunk)
@@ -20,4 +18,6 @@
 
 [Kick Log Viewer](https://techhero1.github.io/kick-log-viewer)
 
-[JP List](https://techhero1.github.io/jp-list)
+# Jogos
+
+[Like Clicker](https://techhero1.github.io/likeclicker)
