@@ -1648,6 +1648,146 @@ function create_custom_info() {
   }
 }
 
+//CUSTOMIZAÇÃO - LAYOUT
+function switch_custom_dropdown(dropdown_id) {
+  if (document.querySelector(".custom_dropdown_"+dropdown_id).classList.contains('hidden')) {
+    document.querySelector(".custom_dropdown_"+dropdown_id).classList.remove('hidden');
+    document.querySelector(".custom_dropdown_icon_"+dropdown_id).classList.remove('fa-angle-down');
+    document.querySelector(".custom_dropdown_icon_"+dropdown_id).classList.add('fa-angle-up');
+    nota_can_add_excecao = true;
+    return
+  }
+  document.querySelector(".custom_dropdown_"+dropdown_id).classList.add('hidden');
+  document.querySelector(".custom_dropdown_icon_"+dropdown_id).classList.add('fa-angle-down');
+  document.querySelector(".custom_dropdown_icon_"+dropdown_id).classList.remove('fa-angle-up');
+}
+
+window.addEventListener('click', function(e){
+  if (!document.querySelector(".custom_dropdown_button_gradient").contains(e.target)){
+    document.querySelector(".custom_dropdown_gradient").classList.add('hidden');
+    document.querySelector(".custom_dropdown_icon_gradient").classList.add('fa-angle-down');
+    document.querySelector(".custom_dropdown_icon_gradient").classList.remove('fa-angle-up');
+  }
+  if (!document.querySelector(".custom_dropdown_button_shadow").contains(e.target)){
+    document.querySelector(".custom_dropdown_shadow").classList.add('hidden');
+    document.querySelector(".custom_dropdown_icon_shadow").classList.add('fa-angle-down');
+    document.querySelector(".custom_dropdown_icon_shadow").classList.remove('fa-angle-up');
+  }
+  if (!document.querySelector(".custom_dropdown_button_mark").contains(e.target)){
+    document.querySelector(".custom_dropdown_mark").classList.add('hidden');
+    document.querySelector(".custom_dropdown_icon_mark").classList.add('fa-angle-down');
+    document.querySelector(".custom_dropdown_icon_mark").classList.remove('fa-angle-up');
+  }
+  if (!document.querySelector(".custom_dropdown_button_progress").contains(e.target)){
+    document.querySelector(".custom_dropdown_progress").classList.add('hidden');
+    document.querySelector(".custom_dropdown_icon_progress").classList.add('fa-angle-down');
+    document.querySelector(".custom_dropdown_icon_progress").classList.remove('fa-angle-up');
+  }
+  if (!document.querySelector(".custom_dropdown_button_styles").contains(e.target)){
+    document.querySelector(".custom_dropdown_styles").classList.add('hidden');
+    document.querySelector(".custom_dropdown_icon_styles").classList.add('fa-angle-down');
+    document.querySelector(".custom_dropdown_icon_styles").classList.remove('fa-angle-up');
+  }
+  if (!document.querySelector(".custom_dropdown_button_values").contains(e.target)){
+    document.querySelector(".custom_dropdown_values").classList.add('hidden');
+    document.querySelector(".custom_dropdown_icon_values").classList.add('fa-angle-down');
+    document.querySelector(".custom_dropdown_icon_values").classList.remove('fa-angle-up');
+  }
+});
+
+//CUSTOMIZAÇÃO - FUNCIONALIDADE
+var nota_can_add = false;
+var nota_can_add_excecao = false;
+var nota_pos_start = 0;
+var nota_pos_end = 0;
+
+function select_field (element,status) {
+  if (status) nota_can_add = status;
+  else setTimeout(function () {nota_can_add = status}, 1000);
+}
+
+function set_selection(start,end) {
+  nota_pos_start = start;
+  nota_pos_end = end;
+}
+
+function force_selection(element,start,end) {
+  element.selectionStart = start;
+  element.selectionEnd = end;
+  set_selection(start,end);
+}
+
+var nota_tags = {
+  //comandos
+  "bold": "[bold]$text[/bold]",
+  "italic": "[italic]$text[/italic]",
+  "hr": "\\l",
+  "newline": "\\n",
+  "color": "[color:#000000]$text[/color]",
+  "bg": "[bg:#FFFFFF]$text[/bg]",
+  "border": "[border:1:#000000]$text[/border]",
+  "gradient": "[gradient:horizontal:#FF0000:#0000FF]$text[/gradient]",
+  "gradient_percent": "[gradient_percent:horizontal:#FF0000:#0000FF:0%:100%]$text[/gradient_percent]",
+  "shadow": "[shadow:md:#000000:80]$text[/shadow]",
+  "solidshadow": "[solidshadow:1px:1px:#FF0000]$text[/solidshadow]",
+  "badge": "[badge:#000000:#00FFCF]$text[/badge]",
+  "icon": "[icon:face-smile:regular]",
+  "mark": "[mark:0:0:10]",
+  "mark_p": "[mark_p:0:0:10]",
+  "bar": "[bar:0:100]",
+  "bar_mark": "[bar_mark:0:0:10]",
+  //presets
+  "legenda": "[estilo:legenda]$text[/estilo]",
+  "sombreado": "[estilo:sombra]$text[/estilo]",
+  "sombra_deltarune": "[estilo:sombra_deltarune]$text[/estilo]",
+  "amarelo_deltarune": "[estilo:amarelo_deltarune]$text[/estilo]",
+  "vermelho_deltarune": "[estilo:vermelho_deltarune]$text[/estilo]",
+  "azul_deltarune": "[estilo:azul_deltarune]$text[/estilo]",
+  "verde_deltarune": "[estilo:verde_deltarune]$text[/estilo]",
+  "vermelho_umineko": "[estilo:vermelho_umineko]$text[/estilo]",
+  "vermelho_umineko_ps3": "[estilo:vermelho_umineko_ps3]$text[/estilo]",
+  "azul_umineko": "[estilo:azul_umineko]$text[/estilo]",
+  "azul_umineko_ps3": "[estilo:azul_umineko_ps3]$text[/estilo]",
+  "badge_pos": "[estilo:badge_pos]$text[/estilo]",
+  "badge_neg": "[estilo:badge_neg]$text[/estilo]",
+  "rainbow_h": "[estilo:rainbow_h]$text[/estilo]",
+  "rainbow_v": "[estilo:rainbow_v]$text[/estilo]",
+  //variáveis
+  "value_progresso": "$progresso",
+  "value_final": "$final",
+  "value_volumes": "$volumes",
+  "value_moji": "$moji",
+  "value_repeticoes": "$repeticoes",
+  "value_h": "$h",
+  "value_H": "$H",
+  "value_m": "$m",
+  "value_M": "$M",
+  "value_prog_min": "$prog_min",
+  "value_tempo": "$tempo",
+  "value_tempo_h": "$tempo_h",
+  "value_tempo_H": "$tempo_H",
+  "value_tempo_m": "$tempo_m",
+  "value_tempo_M": "$tempo_M"
+};
+
+function nota_add_style(tag,dropdown=false) {
+  let element = document.querySelector(".nota_input");
+
+  if (nota_can_add || (dropdown && nota_can_add_excecao)) {
+    let replace_text = nota_tags[tag].replaceAll("$text",element.value.substring(nota_pos_start, nota_pos_end));
+    if (nota_pos_start == nota_pos_end) replace_text = nota_tags[tag].replaceAll("$text","texto");
+
+    element.value = element.value.slice(0, nota_pos_start) + replace_text + element.value.slice(nota_pos_end);
+  } else element.value += nota_tags[tag].replaceAll("$text","texto");
+  nota_can_add = false;
+  if (tag=="newline") {
+    force_selection(element,nota_pos_start+2,nota_pos_start+2);
+    nota_can_add = true;
+  }
+  if (nota_can_add_excecao) set_selection(element.textLength,element.textLength);
+  nota_can_add_excecao = false;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const dropZone = document.querySelector('#Arquivo');
 

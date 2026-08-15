@@ -13,7 +13,7 @@
         {
             "funcao": "Valores",
             "comando": "$progresso<br>$final<br>$volumes<br>$moji<br>$repeticoes<br><br>$h<br>$H<br>$m<br>$M<br><br>$prog_min<br>$tempo<br><br>$tempo_h<br>$tempo_H<br>$tempo_m<br>$tempo_M",
-            "render": "Progresso<br>Final<br>Volumes<br>Caracteres (moji)<br>Repetições<br><br>Horas (0)<br>Horas (00)<br>Minutos (0)<br>Minutos (00)<br><br>Minutos por progresso<br>Tempo automático (HH:MM)<br><br>Horas automáticas (0)<br>Horas automáticas (00)<br>Minutos automáticos (0)<br>Minutos automáticos (00)"
+            "render": "Progresso<br>Final<br>Volumes<br>Caracteres (moji)<br>Repetições<br><br>Horas (H)<br>Horas (HH)<br>Minutos (M)<br>Minutos (MM)<br><br>Minutos por progresso<br>Tempo automático (HH:MM)<br><br>Horas automáticas (H)<br>Horas automáticas (HH)<br>Minutos automáticos (M)<br>Minutos automáticos (MM)"
         }
     ],
     "comandos": [
@@ -164,7 +164,7 @@
             ]
         },
         {
-            "nome": "Sombra",
+            "nome": "Sombra Suave",
             "comando": "shadow",
             "modelo": [
                 {
@@ -503,7 +503,7 @@
             "notas": "Ícones podem ter os estilos: <i>regular</i>, <i>solid</i> ou <i>brands</i><br><br>Compatível com qualquer ícone gratuito da<br><a href='https://fontawesome.com/search?ic=free-collection' target='_blank' class='text-blue-500'>Font Awesome v7</a>"
         },
         {
-            "nome": "Marco (simples)",
+            "nome": "Marco exato",
             "comando": "mark",
             "modelo": [
                 {
@@ -542,7 +542,7 @@
             ]
         },
         {
-            "nome": "Marco (porcentagem)",
+            "nome": "Marco em porcentagem",
             "comando": "mark_p",
             "modelo": [
                 {
@@ -581,7 +581,7 @@
             ]
         },
         {
-            "nome": "Barras de progresso (valor fixo)",
+            "nome": "Barras de progresso (simples)",
             "comando": "bar",
             "modelo": [
                 {
