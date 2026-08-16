@@ -48,6 +48,7 @@ function upload_content(files) {
 }
 
 function load_content() {
+  if (site_content.options.debug) debug();
   document.title = site_content.title;
 
   //PRINCIPAL
@@ -165,13 +166,7 @@ function load_content() {
       </div>
     `;
 
-    let cur_user_plat_name = [];
-    for (var cur_plat = 0; cur_plat < cur_user_plat.length; cur_plat++) {
-      cur_user_plat_name.push(get_plataforma(cur_user_plat[cur_plat]));
-      document.querySelector(`.item-${cur_username}_tags`).innerHTML += `
-        <span class="bg-blue-200 rounded-md shadow-md py-1 px-2 h-min w-fit">${cur_user_plat_name[cur_plat]}</span>
-      `;
-    }
+    for (var cur_plat = 0; cur_plat < cur_user_plat.length; cur_plat++) document.querySelector(`.item-${cur_username}_tags`).innerHTML += get_plataforma(cur_user_plat[cur_plat]);
   }
 }
 
@@ -179,10 +174,12 @@ function get_plataforma(url) {
   for (var i = 0; i < Object.keys(site_content.plataformas).length; i++) {
 
     let cur_plataforma_id = Object.keys(site_content.plataformas)[i];
-    let cur_plataforma_nome = site_content.plataformas[Object.keys(site_content.plataformas)[i]];
+    let cur_plataforma_nome = site_content.plataformas[cur_plataforma_id].nome;
+    let cur_plataforma_cor = site_content.plataformas[cur_plataforma_id].cor;
 
     if (url.includes(cur_plataforma_id)) {
-      return cur_plataforma_nome;
+      if (site_content.options.plataforma_color) return `<span class="${cur_plataforma_cor} rounded-md shadow-md py-1 px-2 h-min w-fit">${cur_plataforma_nome}</span>`;
+      else return `<span class="bg-blue-200 rounded-md shadow-md py-1 px-2 h-min w-fit">${cur_plataforma_nome}</span>`;
     }
   }
 }
@@ -199,8 +196,8 @@ function get_status(id) {
   }
 }
 
-function create_item(category_id,url,nome,status,plataforma,notas) {
-  document.querySelector(category_id).innerHTML += `
+function create_item(category_class,url,nome,status,plataforma,notas) {
+  document.querySelector(category_class).innerHTML += `
     <a class="content_item w-full" href="${url}" target="_blank">
       <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
           <div class="p-1 w-[100%]">
@@ -208,9 +205,7 @@ function create_item(category_id,url,nome,status,plataforma,notas) {
               <br>
               <p class="item_status">${status}</p>
               <br>
-              <p class="item_plataforma_tags flex flex-col gap-2">
-                <span class="bg-blue-200 rounded-md shadow-md py-1 px-2 h-min w-fit">${plataforma}</span>
-              </p>
+              <p class="item_plataforma_tags flex flex-col gap-2">${plataforma}</p>
               ${notas}
           </div>
       </div>
@@ -219,7 +214,10 @@ function create_item(category_id,url,nome,status,plataforma,notas) {
 }
 
 function create_category(id,type) {
-  return `<details><summary>
+  let open = "";
+  if (site_content.categorias_open.includes(id) && type != "cemiterio") open = "open";
+
+  return `<details ${open}><summary>
     <span class="text-xl select-none category-title-${id}">
       ${site_content.categorias[id]}
     </span></summary>
@@ -241,6 +239,27 @@ function update_string(id) {
   if (id == "cemiterio") {
     document.querySelector(".cemiterio_string").innerHTML = `${site_content.tumulos[Math.floor(Math.random() * site_content.tumulos.length)]}`;
     return;
+  }
+}
+
+var debugged = false;
+
+function debug() {
+  if (!debugged && site_content.hasOwnProperty("update")) {
+    document.body.innerHTML += `<div id="Debug" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">`;
+    document.querySelector(".tab").innerHTML += `<button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Debug')" id="Debug_tab"><i class="fa-solid fa-gear"></i></button>`;
+    document.querySelector("#Debug").innerHTML = `<div class="flex flex-row gap-2 plataformas_all"></div>`;
+    for (var i = 0; i < (Object.keys(site_content.plataformas)).length; i++) {
+      document.querySelector(".plataformas_all").innerHTML += get_plataforma(Object.keys(site_content.plataformas)[i]);
+    }
+    for (var i = 0; i < (Object.keys(site_content)).length; i++) {
+      document.querySelector("#Debug").innerHTML += `
+        <br><p>
+        <b>${Object.keys(site_content)[i]}</b>
+        <span>${JSON.stringify(site_content[Object.keys(site_content)[i]])}</span>
+        </p>`;
+    }
+    debugged = true;
   }
 }
 
