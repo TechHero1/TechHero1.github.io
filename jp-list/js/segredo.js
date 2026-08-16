@@ -70,15 +70,35 @@ function load_content() {
       content_list.innerHTML += create_category(category_id,"content");
 
       for (var cur_item = 0; cur_item < cur_category_content.length; cur_item++) {
-        let item_plataforma = get_plataforma(cur_category_content[cur_item].url);
-        let item_status = get_status(cur_category_content[cur_item].status);
-        let item_notas = "";
+        if(cur_category_content[cur_item].hasOwnProperty("conjunto")) {
+          document.querySelector(".category-content-"+category_id).innerHTML += `
+            <div class="conjunto-content-${category_id}-${cur_item} content_item flex flex-row items-stretch">
+            </div>
+          `;
 
-        if (cur_category_content[cur_item].hasOwnProperty("notas")) {
-          item_notas = create_notas(cur_category_content[cur_item].notas);
+          for (var cur_conjunto_item = 0; cur_conjunto_item < cur_category_content[cur_item].items.length; cur_conjunto_item++) {
+            let item_plataforma = get_plataforma(cur_category_content[cur_item].items[cur_conjunto_item].url);
+            let item_status = get_status(cur_category_content[cur_item].items[cur_conjunto_item].status);
+            let item_notas = "";
+
+            if (cur_category_content[cur_item].items[cur_conjunto_item].hasOwnProperty("notas")) {
+              item_notas = create_notas(cur_category_content[cur_item].items[cur_conjunto_item].notas);
+            }
+
+            create_item(`.conjunto-content-${category_id}-${cur_item}`,cur_category_content[cur_item].items[cur_conjunto_item].url,cur_category_content[cur_item].items[cur_conjunto_item].nome,item_status,item_plataforma,item_notas);
+          }
         }
+        else {
+          let item_plataforma = get_plataforma(cur_category_content[cur_item].url);
+          let item_status = get_status(cur_category_content[cur_item].status);
+          let item_notas = "";
 
-        create_item(`.category-content-${category_id}`,cur_category_content[cur_item].url,cur_category_content[cur_item].nome,item_status,item_plataforma,item_notas);
+          if (cur_category_content[cur_item].hasOwnProperty("notas")) {
+            item_notas = create_notas(cur_category_content[cur_item].notas);
+          }
+
+          create_item(`.category-content-${category_id}`,cur_category_content[cur_item].url,cur_category_content[cur_item].nome,item_status,item_plataforma,item_notas);
+        }
       }
     }
 
@@ -91,15 +111,35 @@ function load_content() {
       cemiterio_list.innerHTML += create_category(category_id,"cemiterio");
 
       for (var cur_item = 0; cur_item < cur_category_content.length; cur_item++) {
-        let item_plataforma = get_plataforma(cur_category_content[cur_item].url);
-        let item_status = get_status(cur_category_content[cur_item].status);
-        let item_notas = "";
+        if(cur_category_content[cur_item].hasOwnProperty("conjunto")) {
+          document.querySelector(".category-cemiterio-"+category_id).innerHTML += `
+            <div class="conjunto-cemiterio-${category_id}-${cur_item} content_item flex flex-row items-stretch">
+            </div>
+          `;
 
-        if (cur_category_content[cur_item].hasOwnProperty("notas")) {
-          item_notas = create_notas(cur_category_content[cur_item].notas);
+          for (var cur_conjunto_item = 0; cur_conjunto_item < cur_category_content[cur_item].items.length; cur_conjunto_item++) {
+            let item_plataforma = get_plataforma(cur_category_content[cur_item].items[cur_conjunto_item].url);
+            let item_status = get_status(cur_category_content[cur_item].items[cur_conjunto_item].status);
+            let item_notas = "";
+
+            if (cur_category_content[cur_item].hasOwnProperty("notas")) {
+              item_notas = create_notas(cur_category_content[cur_item].items[cur_conjunto_item].notas);
+            }
+
+            create_item(`.conjunto-cemiterio-${category_id}-${cur_item}`,cur_category_content[cur_item].items[cur_conjunto_item].url,cur_category_content[cur_item].items[cur_conjunto_item].nome,item_status,item_plataforma,item_notas);
+          }
         }
+        else {
+          let item_plataforma = get_plataforma(cur_category_content[cur_item].url);
+          let item_status = get_status(cur_category_content[cur_item].status);
+          let item_notas = "";
 
-        create_item(`.category-cemiterio-${category_id}`,cur_category_content[cur_item].url,cur_category_content[cur_item].nome,item_status,item_plataforma,item_notas);
+          if (cur_category_content[cur_item].hasOwnProperty("notas")) {
+            item_notas = create_notas(cur_category_content[cur_item].notas);
+          }
+
+          create_item(`.category-cemiterio-${category_id}`,cur_category_content[cur_item].url,cur_category_content[cur_item].nome,item_status,item_plataforma,item_notas);
+        }
       }
     }
 
@@ -161,7 +201,7 @@ function get_status(id) {
 
 function create_item(category_id,url,nome,status,plataforma,notas) {
   document.querySelector(category_id).innerHTML += `
-    <a class="content_item" href="${url}" target="_blank">
+    <a class="content_item w-full" href="${url}" target="_blank">
       <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
           <div class="p-1 w-[100%]">
               <b>${nome}</b>
@@ -179,12 +219,6 @@ function create_item(category_id,url,nome,status,plataforma,notas) {
 }
 
 function create_category(id,type) {
-  /*
-  return `<div class="text-xl category-title-${id}">
-      ${site_content.categorias[id]}
-    </div>
-    <div class="category-${type}-${id} p-2 grid grid-cols-1 gap-2"></div>`;
-  */
   return `<details><summary>
     <span class="text-xl select-none category-title-${id}">
       ${site_content.categorias[id]}
