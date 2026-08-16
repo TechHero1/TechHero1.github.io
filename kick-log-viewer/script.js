@@ -18,7 +18,7 @@ function upload_json(files) {
   }
 }
 
-const emote_tag = /\[emote:(.*):(.*)\]/g;
+const emote_tag = /\[emote:(?<id>.+?):(?<name>.+?)\]/g;
 
 function load_list() {
     let content_list = document.querySelector(".content_list");
@@ -35,7 +35,7 @@ function load_list() {
             let emote_match;
 
             while ((emote_match = emote_tag.exec(current_msg.content)) !== null) {
-                current_msg.content = current_msg.content.replaceAll(emote_match[0],`<img src="https://files.kick.com/emotes/${emote_match[1]}/fullsize" title="${emote_match[2]}" height="28px" width="28px">`);
+                current_msg.content = current_msg.content.replaceAll(emote_match[0],`<img class="inline" src="https://files.kick.com/emotes/${emote_match.groups.id}/fullsize" title="${emote_match.groups.name}" height="28px" width="28px">`);
             }
         }
        
@@ -59,4 +59,21 @@ function load_list() {
             </div>
         `
     }
+    document.querySelector(".download_btn").classList.remove("hidden");
+}
+
+function convert() {
+    let chat = `<!DOCTYPE html>
+
+<!--generated with https://techhero1.github.io/kick-log-viewer/-->
+
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<div class="chat flex flex-col gap-1">${document.querySelector(".content_list").innerHTML}</div>`;
+
+    var dataStr = "data:text/html;charset=utf-8," + encodeURIComponent(chat);
+    document.body.innerHTML += '<a class="download_link hidden"></a>';
+    var dlAnchorElem = document.querySelector('.download_link');
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", document.querySelector(".file_name").innerHTML+".html");
+    dlAnchorElem.click();
 }

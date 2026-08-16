@@ -66,8 +66,12 @@
           <input class="hidden" type="file" id="jsonfile" name="jsonfile" accept="application/json" onchange="upload_json(this.files[0])">
           <br>
           <p class="file_name"></p>
+          <div class="download_btn hidden">
+            <br>
+            <button class="button" onclick="convert()">Download as HTML</button>
+          </div>
         </div>
-        <div class="content_list p-2 flex flex-col gap-4 p-2 items-center rounded-md bg-white shadow-md">
+        <div class="content_list p-2 flex flex-col gap-4 items-center rounded-md bg-white shadow-md">
 
         </div>
     </div>
