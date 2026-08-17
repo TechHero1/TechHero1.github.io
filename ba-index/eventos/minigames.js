@@ -309,6 +309,26 @@ var minigames = {
           url: "https://azure.bluearchive.841973620.net/Beatgame2026/?data=0"
         }
       ]
+    },
+    {
+      name: "全速前进！铁轨巡游大作战",
+      event: "Highlander Railroad Runaway Incident 〜 And Then The Train Was Gone 〜",
+      links: [
+        {
+          label: "Arquivado",
+          url: "https://azure.bluearchive.841973620.net/RailOps2026/?data=0"
+        }
+      ]
+    },
+    {
+      name: "测测你的MOTI",
+      event: "Quiz",
+      links: [
+        {
+          label: "Arquivado",
+          url: "https://azure.bluearchive.841973620.net/bacn3rdannivh5moti/"
+        }
+      ]
     }
   ]
 }
