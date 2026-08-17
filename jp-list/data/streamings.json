@@ -3,7 +3,7 @@
         {
             "nome": "Magcomi",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://magcomi.com/",
             "tags": [
                 {
@@ -29,7 +29,7 @@
         {
             "nome": "Shonen Magazine Pocket (Magapoke)",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://pocket.shonenmagazine.com/",
             "tags": [
                 {
@@ -59,7 +59,7 @@
         {
             "nome": "Manga Oukoku (K-Manga)",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://comic.k-manga.jp/",
             "tags": [
                 {
@@ -85,7 +85,7 @@
         {
             "nome": "Cmoa",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://www.cmoa.jp/",
             "tags": [
                 {
@@ -111,7 +111,7 @@
         {
             "nome": "Getsumagakichi",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://getsumagakichi.com/",
             "tags": [
                 {
@@ -145,7 +145,7 @@
         {
             "nome": "Mecha Comic",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://mechacomic.jp/",
             "tags": [
                 {
@@ -175,7 +175,7 @@
         {
             "nome": "Booklive",
             "midia": "Mangá/Novel",
-            "classes": "streaming_item_manga streaming_item_novel",
+            "classes": "streaming_item_manga streaming_item_novel streaming_item_novpn",
             "link": "https://booklive.jp/",
             "tags": [
                 {
@@ -201,7 +201,7 @@
         {
             "nome": "Sukima",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://www.sukima.me/",
             "tags": [
                 {
@@ -235,7 +235,7 @@
         {
             "nome": "Comic Border",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://comicborder.com/",
             "tags": [
                 {
@@ -257,7 +257,7 @@
         {
             "nome": "Kadokawa",
             "midia": "Novel",
-            "classes": "streaming_item_novel",
+            "classes": "streaming_item_novel streaming_item_novpn",
             "link": "https://www.kadokawa.co.jp/",
             "tags": [
                 {
@@ -375,7 +375,7 @@
         {
             "nome": "Aozora Bunko",
             "midia": "Novel",
-            "classes": "streaming_item_novel",
+            "classes": "streaming_item_novel streaming_item_novpn",
             "link": "https://www.aozora.gr.jp/",
             "tags": [
                 {
@@ -401,7 +401,7 @@
         {
             "nome": "DLsite",
             "midia": "Jogo",
-            "classes": "streaming_item_jogo",
+            "classes": "streaming_item_jogo streaming_item_novpn",
             "link": "https://www.dlsite.com/soft/",
             "tags": [
                 {
@@ -423,7 +423,7 @@
         {
             "nome": "Honto",
             "midia": "Mangá/Novel",
-            "classes": "streaming_item_manga streaming_item_novel",
+            "classes": "streaming_item_manga streaming_item_novel streaming_item_novpn",
             "link": "https://honto.jp/",
             "tags": [
                 {
@@ -449,7 +449,7 @@
         {
             "nome": "Champion Cross",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://championcross.jp/",
             "tags": [
                 {
@@ -483,7 +483,7 @@
         {
             "nome": "Soseki Collection<br>Touhoku Daigaku Fuzoku Toshokan<br>(Biblioteca da Universidade de Tohoku)",
             "midia": "Novel",
-            "classes": "streaming_item_novel streaming_item_soseki",
+            "classes": "streaming_item_novel streaming_item_soseki streaming_item_novpn",
             "link": "https://touda.tohoku.ac.jp/collection/en/database/library/collection/soseki",
             "tags": [
                 {
@@ -509,7 +509,7 @@
         {
             "nome": "The Sōseki Poetry Project",
             "midia": "Novel",
-            "classes": "streaming_item_novel streaming_item_soseki",
+            "classes": "streaming_item_novel streaming_item_soseki streaming_item_novpn",
             "link": "https://sosekipoetry.org/",
             "tags": [
                 {
@@ -531,7 +531,7 @@
         {
             "nome": "Sōseki Project",
             "midia": "Novel",
-            "classes": "streaming_item_novel streaming_item_soseki",
+            "classes": "streaming_item_novel streaming_item_soseki streaming_item_novpn",
             "link": "https://www.sosekiproject.org/",
             "tags": [
                 {
@@ -557,7 +557,7 @@
         {
             "nome": "Kanabun<br>Kanagawa Bungaku Shinkokai<br>(Museu da Literatura Moderna de Kanagawa)",
             "midia": "Novel",
-            "classes": "streaming_item_novel streaming_item_soseki",
+            "classes": "streaming_item_novel streaming_item_soseki streaming_item_novpn",
             "link": "https://www.kanabun.or.jp/",
             "tags": [
                 {
@@ -579,7 +579,7 @@
         {
             "nome": "Reader Store",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://ebookstore.sony.jp/free/",
             "tags": [
                 {
@@ -605,7 +605,7 @@
         {
             "nome": "Shosetsu wo Yomou!",
             "midia": "Web Novel",
-            "classes": "streaming_item_webnovel",
+            "classes": "streaming_item_webnovel streaming_item_novpn",
             "link": "https://yomou.syosetu.com/",
             "tags": [
                 {
@@ -619,7 +619,7 @@
         {
             "nome": "Alphapolis",
             "midia": "Web Novel/Novel/Mangá",
-            "classes": "streaming_item_webnovel streaming_item_novel streaming_item_manga",
+            "classes": "streaming_item_webnovel streaming_item_novel streaming_item_manga streaming_item_novpn",
             "link": "https://www.alphapolis.co.jp/",
             "tags": [
                 {
@@ -653,7 +653,7 @@
         {
             "nome": "TakeComic",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://takecomic.jp/",
             "tags": [
                 {
@@ -683,7 +683,7 @@
         {
             "nome": "Ichijin Plus",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://ichicomi.com/",
             "tags": [
                 {
@@ -717,7 +717,7 @@
         {
             "nome": "Sunday Webry",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://www.sunday-webry.com/",
             "tags": [
                 {
@@ -747,7 +747,7 @@
         {
             "nome": "GUNDAM CHANNEL INTL",
             "midia": "Anime",
-            "classes": "streaming_item_anime streaming_item_youtube",
+            "classes": "streaming_item_anime streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@GundamInfo/",
             "tags": [
                 {
@@ -765,7 +765,7 @@
         {
             "nome": "プリキュア公式YouTubeチャンネル<br>(Precure Canal Oficial no YouTube)",
             "midia": "Anime",
-            "classes": "streaming_item_anime streaming_item_youtube",
+            "classes": "streaming_item_anime streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@precure/",
             "tags": [
                 {
@@ -787,7 +787,7 @@
         {
             "nome": "hololive ホロライブ - VTuber Group",
             "midia": "Anime/Música",
-            "classes": "streaming_item_anime streaming_item_music streaming_item_youtube",
+            "classes": "streaming_item_anime streaming_item_music streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@hololive/",
             "tags": [
                 {
@@ -809,7 +809,7 @@
         {
             "nome": "(Love Live! series)ラブライブ！シリーズ公式チャンネル",
             "midia": "Anime/Música/Rádio",
-            "classes": "streaming_item_anime streaming_item_music streaming_item_radio streaming_item_youtube",
+            "classes": "streaming_item_anime streaming_item_music streaming_item_radio streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@lovelive_series/",
             "tags": [
                 {
@@ -831,7 +831,7 @@
         {
             "nome": "アニプレックス チャンネル<br>(Aniplex Channel)",
             "midia": "Anime/Rádio",
-            "classes": "streaming_item_anime streaming_item_radio streaming_item_youtube",
+            "classes": "streaming_item_anime streaming_item_radio streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@aniplex/",
             "tags": [
                 {
@@ -857,7 +857,7 @@
         {
             "nome": "It's Anime powered by REMOW",
             "midia": "Anime",
-            "classes": "streaming_item_anime streaming_item_youtube",
+            "classes": "streaming_item_anime streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@ItsAnimeJP/",
             "tags": [
                 {
@@ -883,7 +883,7 @@
         {
             "nome": "TRIGGER CHANNEL",
             "midia": "Anime",
-            "classes": "streaming_item_anime streaming_item_youtube",
+            "classes": "streaming_item_anime streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@studiotrigger/",
             "tags": [
                 {
@@ -897,7 +897,7 @@
         {
             "nome": "STUDIO4C",
             "midia": "Anime",
-            "classes": "streaming_item_anime streaming_item_youtube",
+            "classes": "streaming_item_anime streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@portstudio4c/",
             "tags": [
                 {
@@ -915,7 +915,7 @@
         {
             "nome": "アーティスウィッチ チャンネル【Artiswitch channel】",
             "midia": "Anime/Música",
-            "classes": "streaming_item_anime streaming_item_music streaming_item_youtube",
+            "classes": "streaming_item_anime streaming_item_music streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@artiswitch/",
             "tags": [
                 {
@@ -929,7 +929,7 @@
         {
             "nome": "Bandai Namco Filmworks Channel",
             "midia": "Anime",
-            "classes": "streaming_item_anime streaming_item_youtube",
+            "classes": "streaming_item_anime streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@bandainamcofilmworks/",
             "tags": [
                 {
@@ -947,7 +947,7 @@
         {
             "nome": "AMG公式チャンネル<br>(AMG Canal Oficial)",
             "midia": "Dorama",
-            "classes": "streaming_item_dorama streaming_item_youtube",
+            "classes": "streaming_item_dorama streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@amg_entertainment/",
             "tags": [
                 {
@@ -965,7 +965,7 @@
         {
             "nome": "孤独のグルメ / Solitary Gourmet - TV TOKYO",
             "midia": "Dorama",
-            "classes": "streaming_item_dorama streaming_item_youtube",
+            "classes": "streaming_item_dorama streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@kodokunogourmet-tvtokyo/",
             "tags": [
                 {
@@ -983,7 +983,7 @@
         {
             "nome": "TOEI TOKUSATSU WORLD OFFICIAL",
             "midia": "Tokusatsu",
-            "classes": "streaming_item_tokusatsu streaming_item_youtube",
+            "classes": "streaming_item_tokusatsu streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@toeitokusatsuworldofficial2399/",
             "tags": [
                 {
@@ -1001,7 +1001,7 @@
         {
             "nome": "ウルトラマン公式 ULTRAMAN OFFICIAL by TSUBURAYA PROD.",
             "midia": "Tokusatsu",
-            "classes": "streaming_item_tokusatsu streaming_item_youtube",
+            "classes": "streaming_item_tokusatsu streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@ultraman_official/",
             "tags": [
                 {
@@ -1019,7 +1019,7 @@
         {
             "nome": "テレ東公式 ドラマチャンネル<br>(TV Tokyo Drama Channel)",
             "midia": "Dorama",
-            "classes": "streaming_item_dorama streaming_item_youtube",
+            "classes": "streaming_item_dorama streaming_item_youtube streaming_item_novpn",
             "link": "https://www.youtube.com/@tvtokyodrama/",
             "tags": [
                 {
@@ -1037,7 +1037,7 @@
         {
             "nome": "COMIC FUZ",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://comic-fuz.com/",
             "tags": [
                 {
@@ -1067,7 +1067,7 @@
         {
             "nome": "Comic Days",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://comic-days.com/",
             "tags": [
                 {
@@ -1093,7 +1093,7 @@
         {
             "nome": "Kuragebunch",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://kuragebunch.com/",
             "tags": [
                 {
@@ -1123,7 +1123,7 @@
         {
             "nome": "Yanmaga",
             "midia": "Mangá",
-            "classes": "streaming_item_manga",
+            "classes": "streaming_item_manga streaming_item_novpn",
             "link": "https://yanmaga.jp/",
             "tags": [
                 {
@@ -1144,6 +1144,50 @@
                 }
             ],
             "desc": "<p>Capítulo alugado por pontos</p><p>Pontos são obtidos através de compra direta ou da assinatura mensal.<br>Pontos têm data de validade.<br>Acesso ao capítulo alugado dura 10 dias.</p>",
+            "ativo": true
+        },
+        {
+            "nome": "Anime Times Official",
+            "midia": "Anime",
+            "classes": "streaming_item_anime streaming_item_youtube",
+            "link": "https://youtube.com/@animetimes-ch/",
+            "tags": [
+                {
+                    "tipo": "pos",
+                    "texto": "Animes disponíveis gratuitamente"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Disponibilidade limitada por tempo"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Precisa de VPN"
+                }
+            ],
+            "desc": "",
+            "ativo": true
+        },
+        {
+            "nome": "infinite channel",
+            "midia": "Anime",
+            "classes": "streaming_item_anime streaming_item_youtube",
+            "link": "https://www.youtube.com/@infiniteanime/",
+            "tags": [
+                {
+                    "tipo": "pos",
+                    "texto": "Animes disponíveis gratuitamente"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Disponibilidade limitada por tempo"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Precisa de VPN"
+                }
+            ],
+            "desc": "",
             "ativo": true
         }
     ]

@@ -669,6 +669,8 @@ function change_streaming_filter(midia) {
       streaming_items[i].classList.remove('hidden');
     }
   }
+
+  switch_streaming_filter();
 }
 
 //configs de streaming
