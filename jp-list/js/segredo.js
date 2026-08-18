@@ -1,3 +1,7 @@
+Array.prototype.sample = function(){
+  return this[Math.floor(Math.random()*this.length)];
+}
+
 function remote_open_tab(tab_name) {
     var tablinks;
     tablinks = document.getElementsByClassName("tablinks");
@@ -237,7 +241,7 @@ function update_string(id) {
     return;
   }
   if (id == "cemiterio") {
-    document.querySelector(".cemiterio_string").innerHTML = `${site_content.tumulos[Math.floor(Math.random() * site_content.tumulos.length)]}`;
+    document.querySelector(".cemiterio_string").innerHTML = `${site_content.tumulos.sample()}`;
     return;
   }
 }
