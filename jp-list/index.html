@@ -387,7 +387,6 @@
     <div id="Visualizar" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
         <div class="p-2 w-[100%] flex flex-row-reverse gap-2">
             <button class="button" onclick="edit_item('new')"><i class="fa-solid fa-plus"></i></button>
-            <button class="button switch_view_btn" onclick="switch_view()"><i class="fa-solid fa-table-cells-large"></i></button>
             <div class="filter_dropdown_area md:relative inline-block">
                 <button class="button" onclick="switch_filter()"><i class="fa-solid fa-filter"></i></button>
                 <div class="filter_dropdown absolute right-0 z-10 mt-2 w-[100%] max-h-[400px] overflow-y-auto md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
@@ -435,7 +434,8 @@
 
                 </div>
             </div>
-            <button class="button" onclick="switch_cores()">Cores</button>
+            <button class="button switch_view_btn" onclick="switch_view()"><i class="fa-solid fa-table-cells-large"></i></button>
+            <button class="button cores_btn opacity-100" onclick="switch_cores()"><i class="fa-solid fa-paint-roller"></i></button>
             <button class="button" onclick="switch_apoio()">Apoio</button>
         </div>
         <div class="content_list p-2 grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-2">

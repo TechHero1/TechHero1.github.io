@@ -59,11 +59,15 @@ function switch_cores() {
   if (!list.cores) {
     list.cores = true;
     hook = true;
+    document.querySelector(".cores_btn").classList.remove('opacity-30');
+    document.querySelector(".cores_btn").classList.add('opacity-100');
     load_list();
     return
   }
   list.cores = false;
   hook = true;
+  document.querySelector(".cores_btn").classList.remove('opacity-100');
+  document.querySelector(".cores_btn").classList.add('opacity-30');
   load_list();
 }
 
@@ -295,6 +299,11 @@ function load_list() {
   if (list.apoio) {
     document.querySelector(".iichan_tab").classList.remove('hidden');
     document.querySelector(".iichan_nav").classList.remove('hidden');
+  }
+
+  if (!list.cores) {
+    document.querySelector(".cores_btn").classList.remove('opacity-100');
+    document.querySelector(".cores_btn").classList.add('opacity-30');
   }
 
   //consertar cagada
