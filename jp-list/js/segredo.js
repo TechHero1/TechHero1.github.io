@@ -77,7 +77,7 @@ function load_content() {
       for (var cur_item = 0; cur_item < cur_category_content.length; cur_item++) {
         if(cur_category_content[cur_item].hasOwnProperty("conjunto")) {
           document.querySelector(".category-content-"+category_id).innerHTML += `
-            <div class="conjunto-content-${category_id}-${cur_item} content_item flex flex-row items-stretch">
+            <div class="conjunto-content-${category_id}-${cur_item} content_item flex flex-row items-stretch overflow-x-auto">
             </div>
           `;
 
@@ -85,24 +85,34 @@ function load_content() {
             let item_plataforma = get_plataforma(cur_category_content[cur_item].items[cur_conjunto_item].url);
             let item_status = get_status(cur_category_content[cur_item].items[cur_conjunto_item].status);
             let item_notas = "";
+            let img_data = "";
 
             if (cur_category_content[cur_item].items[cur_conjunto_item].hasOwnProperty("notas")) {
               item_notas = create_notas(cur_category_content[cur_item].items[cur_conjunto_item].notas);
             }
 
-            create_item(`.conjunto-content-${category_id}-${cur_item}`,cur_category_content[cur_item].items[cur_conjunto_item].url,cur_category_content[cur_item].items[cur_conjunto_item].nome,item_status,item_plataforma,item_notas);
+            if (cur_category_content[cur_item].items[cur_conjunto_item].hasOwnProperty("img") && site_content.options.img) {
+              img_data = create_img(site_content.img[cur_category_content[cur_item].items[cur_conjunto_item].img]);
+            }
+
+            create_item(`.conjunto-content-${category_id}-${cur_item}`,cur_category_content[cur_item].items[cur_conjunto_item].url,cur_category_content[cur_item].items[cur_conjunto_item].nome,item_status,item_plataforma,item_notas,img_data,true);
           }
         }
         else {
           let item_plataforma = get_plataforma(cur_category_content[cur_item].url);
           let item_status = get_status(cur_category_content[cur_item].status);
           let item_notas = "";
+          let img_data = "";
 
           if (cur_category_content[cur_item].hasOwnProperty("notas")) {
             item_notas = create_notas(cur_category_content[cur_item].notas);
           }
 
-          create_item(`.category-content-${category_id}`,cur_category_content[cur_item].url,cur_category_content[cur_item].nome,item_status,item_plataforma,item_notas);
+          if (cur_category_content[cur_item].hasOwnProperty("img") && site_content.options.img) {
+            img_data = create_img(site_content.img[cur_category_content[cur_item].img]);
+          }
+
+          create_item(`.category-content-${category_id}`,cur_category_content[cur_item].url,cur_category_content[cur_item].nome,item_status,item_plataforma,item_notas,img_data);
         }
       }
     }
@@ -118,7 +128,7 @@ function load_content() {
       for (var cur_item = 0; cur_item < cur_category_content.length; cur_item++) {
         if(cur_category_content[cur_item].hasOwnProperty("conjunto")) {
           document.querySelector(".category-cemiterio-"+category_id).innerHTML += `
-            <div class="conjunto-cemiterio-${category_id}-${cur_item} content_item flex flex-row items-stretch">
+            <div class="conjunto-cemiterio-${category_id}-${cur_item} content_item flex flex-row items-stretch overflow-x-auto">
             </div>
           `;
 
@@ -126,24 +136,34 @@ function load_content() {
             let item_plataforma = get_plataforma(cur_category_content[cur_item].items[cur_conjunto_item].url);
             let item_status = get_status(cur_category_content[cur_item].items[cur_conjunto_item].status);
             let item_notas = "";
+            let img_data = "";
 
-            if (cur_category_content[cur_item].hasOwnProperty("notas")) {
+            if (cur_category_content[cur_item].items[cur_conjunto_item].hasOwnProperty("notas")) {
               item_notas = create_notas(cur_category_content[cur_item].items[cur_conjunto_item].notas);
             }
 
-            create_item(`.conjunto-cemiterio-${category_id}-${cur_item}`,cur_category_content[cur_item].items[cur_conjunto_item].url,cur_category_content[cur_item].items[cur_conjunto_item].nome,item_status,item_plataforma,item_notas);
+            if (cur_category_content[cur_item].items[cur_conjunto_item].hasOwnProperty("img") && site_content.options.img) {
+              img_data = create_img(site_content.img[cur_category_content[cur_item].items[cur_conjunto_item].img]);
+            }
+
+            create_item(`.conjunto-cemiterio-${category_id}-${cur_item}`,cur_category_content[cur_item].items[cur_conjunto_item].url,cur_category_content[cur_item].items[cur_conjunto_item].nome,item_status,item_plataforma,item_notas,img_data,true);
           }
         }
         else {
           let item_plataforma = get_plataforma(cur_category_content[cur_item].url);
           let item_status = get_status(cur_category_content[cur_item].status);
           let item_notas = "";
+          let img_data = "";
 
           if (cur_category_content[cur_item].hasOwnProperty("notas")) {
             item_notas = create_notas(cur_category_content[cur_item].notas);
           }
 
-          create_item(`.category-cemiterio-${category_id}`,cur_category_content[cur_item].url,cur_category_content[cur_item].nome,item_status,item_plataforma,item_notas);
+          if (cur_category_content[cur_item].hasOwnProperty("img") && site_content.options.img) {
+            img_data = create_img(site_content.img[cur_category_content[cur_item].img]);
+          }
+
+          create_item(`.category-cemiterio-${category_id}`,cur_category_content[cur_item].url,cur_category_content[cur_item].nome,item_status,item_plataforma,item_notas,img_data);
         }
       }
     }
@@ -200,13 +220,17 @@ function get_status(id) {
   }
 }
 
-function create_item(category_class,url,nome,status,plataforma,notas) {
+function create_item(category_class,url,nome,status,plataforma,notas,img="",conjunto=false) {
+  let flex_direction = "flex-row";
+  if (conjunto) flex_direction = "flex-col xl:flex-row";
   document.querySelector(category_class).innerHTML += `
     <a class="content_item w-full" href="${url}" target="_blank">
       <div class="p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group hover:bg-gray-200">
           <div class="p-1 w-[100%]">
-              <b>${nome}</b>
-              <br>
+              <div class="flex ${flex_direction} gap-2 items-center w-fit">
+                ${img}
+                <b>${nome}</b>
+              </div>
               <p class="item_status">${status}</p>
               <br>
               <p class="item_plataforma_tags flex flex-col gap-2">${plataforma}</p>
@@ -233,6 +257,10 @@ function create_notas(string) {
     <p class="flex flex-col gap-2">
       <span>${string}</span>
     </p>`;
+}
+
+function create_img(string,conjunto=false) {
+  return `<img src="${string}" class="w-[50px] h-[50px] rounded-full">`;
 }
 
 function update_string(id) {
