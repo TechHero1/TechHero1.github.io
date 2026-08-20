@@ -85,7 +85,6 @@ function edit_item(id) {
   if (id == "new") {
     document.querySelector(".edit_title").innerHTML = "<i class='fa-solid fa-plus'></i> Adicionar um novo item";
     document.querySelector(".name_input").value = "";
-    //document.querySelector(".status_input").value = "Planejo";
     document.querySelector(".progresso_input").value = 0;
     document.querySelector(".final_input").value = 0;
     document.querySelector(".volumes_input").value = 0;
@@ -806,18 +805,25 @@ function create_streaming_tags(array) {
 
 //stats
 function gerar_stats() {
-  let graph_types = ['Anime', 'Novel', 'Mangá', 'Jogo', 'Filme', 'Áudio', 'Dorama/Série', 'Stage', 'Fanfic', 'Short Story', 'Ensaio'];
-  let graph_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  let graph_types_colors = ['#bfe1f6','#e6cff2','#d4edbc', '#ffcfc9', '#c6dbe1', '#ffc8aa', '#fe3967', '#efe80e', '#a8a8a8', '#ce5add', '#ffffff'];
+  let base_types = ['Anime', 'Novel', 'Mangá', 'Jogo', 'Filme', 'Áudio', 'Dorama/Série', 'Stage', 'Fanfic', 'Short Story', 'Ensaio'];
+  let base_types_colors = ['#bfe1f6','#e6cff2','#d4edbc', '#ffcfc9', '#c6dbe1', '#ffc8aa', '#fe3967', '#efe80e', '#a8a8a8', '#ce5add', '#ffffff'];
+  let graph_types = [];
+  let graph_types_values = [];
+  let graph_types_colors = [];
   let graph_types_lines = '#000000';
 
-  for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
-    //console.log(tipo_id+" "+graph_types[tipo_id]);
+  for (let tipo_id = 0; tipo_id < base_types.length; tipo_id++) {
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
-      //console.log(list.itens[item_id].tipo);
-      if (list.itens[item_id].tipo == graph_types[tipo_id]) {
-        graph_types_values[tipo_id]++;
-        //console.log(graph_types_values);
+      if (list.itens[item_id].tipo == base_types[tipo_id]) {
+        if (!graph_types.includes(base_types[tipo_id])) {
+          //primeira aparição = cria
+          graph_types.push(base_types[tipo_id]);
+          graph_types_colors.push(base_types_colors[tipo_id]);
+          graph_types_values.push(1);
+        } else {
+          //próximas aparições = adiciona
+          graph_types_values[graph_types.indexOf(graph_types[tipo_id])]++;
+        }
       }
     }
   }
@@ -857,9 +863,9 @@ function gerar_stats() {
   let tipo_pie_config = {
     responsive: true,
     toImageButtonOptions: {
-      format: 'png', // one of png, svg, jpeg, webp
+      format: 'png',
       filename: 'tipo_pie_chart',
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+      scale: 1
     },
     displayModeBar: true,
     modeBarButtonsToRemove: ['select', 'lasso'],
@@ -904,9 +910,9 @@ function gerar_stats() {
   let tipo_bar_config = {
     responsive: true,
     toImageButtonOptions: {
-      format: 'png', // one of png, svg, jpeg, webp
+      format: 'png',
       filename: 'tipo_bar_chart',
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+      scale: 1
     },
     displayModeBar: true,
     modeBarButtonsToRemove: ['select', 'lasso'],
@@ -915,18 +921,25 @@ function gerar_stats() {
 
   Plotly.newPlot(document.querySelector(".tipo_bar"), tipo_bar_data, tipo_bar_layout, tipo_bar_config);
 
-  let graph_status = ['Completo', 'Progredindo', 'Planejo', 'Abandonado', 'Repetindo', 'Pausado'];
-  let graph_status_values = [0, 0, 0, 0, 0, 0];
-  let graph_status_colors = ['#4285f4','#00ff00','#cfe2f3', '#ff0000', '#11734b', '#ffe5a0'];
+  let base_status = ['Completo', 'Progredindo', 'Planejo', 'Abandonado', 'Repetindo', 'Pausado'];
+  let base_status_colors = ['#4285f4','#00ff00','#cfe2f3', '#ff0000', '#11734b', '#ffe5a0'];
+  let graph_status = [];
+  let graph_status_values = [];
+  let graph_status_colors = [];
   let graph_status_lines = '#000000';
 
-  for (let status_id = 0; status_id < graph_status.length; status_id++) {
-    //console.log(status_id+" "+graph_status[status_id]);
+  for (let status_id = 0; status_id < base_status.length; status_id++) {
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
-      //console.log(list.itens[item_id].tipo);
-      if (list.itens[item_id].dados.status == graph_status[status_id]) {
-        graph_status_values[status_id]++;
-        //console.log(graph_status_values);
+      if (list.itens[item_id].dados.status == base_status[status_id]) {
+        if (!graph_status.includes(base_status[status_id])) {
+          //primeira aparição = cria
+          graph_status.push(base_status[status_id]);
+          graph_status_colors.push(base_status_colors[status_id]);
+          graph_status_values.push(1);
+        } else {
+          //próximas aparições = adiciona
+          graph_status_values[graph_status.indexOf(graph_status[status_id])]++;
+        }
       }
     }
   }
@@ -966,9 +979,9 @@ function gerar_stats() {
   let status_pie_config = {
     responsive: true,
     toImageButtonOptions: {
-      format: 'png', // one of png, svg, jpeg, webp
+      format: 'png',
       filename: 'status_pie_chart',
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+      scale: 1
     },
     displayModeBar: true,
     modeBarButtonsToRemove: ['select', 'lasso'],
@@ -1014,9 +1027,9 @@ function gerar_stats() {
   let status_bar_config = {
     responsive: true,
     toImageButtonOptions: {
-      format: 'png', // one of png, svg, jpeg, webp
+      format: 'png',
       filename: 'status_bar_chart',
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+      scale: 1
     },
     displayModeBar: true,
     modeBarButtonsToRemove: ['select', 'lasso'],
@@ -1030,22 +1043,15 @@ function gerar_stats() {
   let graph_total_cap = 0;
 
   for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
-    //console.log(tipo_id+" "+graph_types[tipo_id]);
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
-      //console.log(list.itens[item_id].tipo);
       if (list.itens[item_id].tipo == graph_types[tipo_id]) {
         graph_prog_types_values[tipo_id] += Number(list.itens[item_id].dados.progresso);
-        //console.log(graph_prog_types_values);
-        //console.log(Number(list.itens[item_id].dados.progresso));
+
         if (list.itens[item_id].tipo == 'Anime' || list.itens[item_id].tipo == 'Filme' || list.itens[item_id].tipo == 'Áudio' || list.itens[item_id].tipo == 'Dorama/Série' || list.itens[item_id].tipo == 'Stage') {
           graph_total_ep += Number(list.itens[item_id].dados.progresso);
-          //console.log("ep: "+list.itens[item_id].dados.progresso);
-          //console.log("total ep: "+graph_total_ep);
         }
         if (list.itens[item_id].tipo == 'Novel' || list.itens[item_id].tipo == 'Mangá' || list.itens[item_id].tipo == 'Jogo' || list.itens[item_id].tipo == 'Fanfic' || list.itens[item_id].tipo == 'Short Story' || list.itens[item_id].tipo == 'Ensaio') {
           graph_total_cap += Number(list.itens[item_id].dados.progresso);
-          //console.log("cap: "+list.itens[item_id].dados.progresso);
-          //console.log("total cap: "+graph_total_cap);
         }
       }
     }
@@ -1087,9 +1093,9 @@ function gerar_stats() {
   let prog_tipo_bar_config = {
     responsive: true,
     toImageButtonOptions: {
-      format: 'png', // one of png, svg, jpeg, webp
+      format: 'png',
       filename: 'prog_tipo_bar_chart',
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+      scale: 1
     },
     displayModeBar: true,
     modeBarButtonsToRemove: ['select', 'lasso'],
@@ -1101,20 +1107,13 @@ function gerar_stats() {
   let graph_horas_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
-    //console.log(tipo_id+" "+graph_types[tipo_id]);
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
-      //console.log(list.itens[item_id].tipo);
       if (list.itens[item_id].tipo == graph_types[tipo_id]) {
-        //graph_horas_types_values[tipo_id] += Number(list.itens[item_id].dados.horas);
-
         if (!list.itens[item_id].dados.autotime) {
           graph_horas_types_values[tipo_id] += Number(list.itens[item_id].dados.horas);
         } else {
           graph_horas_types_values[tipo_id] += Math.trunc((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)/60);
         }
-        //console.log(graph_horas_types_values);
-        //console.log(Number(list.itens[item_id].dados.horas));
-        //console.log(Math.trunc((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)/60));
       }
     }
   }
@@ -1122,20 +1121,13 @@ function gerar_stats() {
   let graph_minutos_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
-    //console.log(tipo_id+" "+graph_types[tipo_id]);
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
-      //console.log(list.itens[item_id].tipo);
       if (list.itens[item_id].tipo == graph_types[tipo_id]) {
-        //graph_minutos_types_values[tipo_id] += Number(list.itens[item_id].dados.minutos);
-
         if (!list.itens[item_id].dados.autotime) {
           graph_minutos_types_values[tipo_id] += Number(list.itens[item_id].dados.minutos);
         } else {
           graph_minutos_types_values[tipo_id] += Number((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)%60);
         }
-        //console.log(graph_minutos_types_values);
-        //console.log(Number(list.itens[item_id].dados.minutos));
-        //console.log(Number((list.itens[item_id].dados.progresso*list.itens[item_id].dados.prog_min)%60));
       }
     }
   }
@@ -1143,25 +1135,15 @@ function gerar_stats() {
   let graph_total_horas = 0;
   let graph_total_minutos = 0;
 
-  //console.log(graph_horas_types_values);
-  //console.log(graph_minutos_types_values);
   for (let tipo_id = 0; tipo_id < graph_minutos_types_values.length; tipo_id++) {
-    //console.log("horas "+graph_horas_types_values[tipo_id]);
-    //console.log("minutos "+graph_minutos_types_values[tipo_id]);
-    //console.log("minutos em horas "+Math.trunc(Number(graph_minutos_types_values[tipo_id])/60));
     graph_horas_types_values[tipo_id] += Math.trunc(Number(graph_minutos_types_values[tipo_id])/60);
-    //console.log("horas somadas "+graph_horas_types_values[tipo_id]);
-    //console.log(graph_horas_types_values[tipo_id]);
     graph_total_horas += graph_horas_types_values[tipo_id];
+
     graph_total_minutos += Math.trunc(Number(graph_minutos_types_values[tipo_id])%60);
-    //console.log(graph_minutos_types_values[tipo_id]);
-    //console.log(graph_total_horas+":"+graph_total_minutos);
   }
-  //console.log(graph_horas_types_values);
 
   graph_total_horas += Math.trunc(graph_total_minutos/60);
   graph_total_minutos = Math.trunc(graph_total_minutos%60);
-  //console.log(graph_total_horas+":"+graph_total_minutos);
 
   //horas por formato
 
@@ -1199,9 +1181,9 @@ function gerar_stats() {
   let horas_tipo_bar_config = {
     responsive: true,
     toImageButtonOptions: {
-      format: 'png', // one of png, svg, jpeg, webp
+      format: 'png',
       filename: 'horas_tipo_bar_chart',
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+      scale: 1
     },
     displayModeBar: true,
     modeBarButtonsToRemove: ['select', 'lasso'],
@@ -1214,10 +1196,7 @@ function gerar_stats() {
   let graph_total_vol = 0;
 
   for (let item_id = 0; item_id < list.itens.length; item_id++) {
-    //console.log("antes: "+graph_total_moji);
     graph_total_moji += Number(list.itens[item_id].dados.moji);
-    //console.log("moji: "+list.itens[item_id].dados.moji);
-    //console.log("depois: "+graph_total_moji);
     graph_total_vol += Number(list.itens[item_id].dados.volumes);
   }
 
