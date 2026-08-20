@@ -27,8 +27,8 @@
     </script>
 </head>
 <body class="font-[AdwaitaSans-Regular] bg-gray-200" onload="remote_open_tab('Arquivo')">
-    <nav class="bg-gray-800 sticky top-0 w-[100%] text-white flex flex-col sm:flex-row items-center z-10">
-        <div class="tab w-[100%] sm:w-[50%]">
+    <nav class="bg-gray-800 sticky top-0 w-full text-white flex flex-col sm:flex-row items-center z-10">
+        <div class="tab w-full sm:w-[50%]">
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Arquivo')" id="Arquivo_tab"><i class="fa-solid fa-file-pen"></i></button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Visualizar');fetch_custom_info()" id="Visualizar_tab"><i class="fa-solid fa-database"></i></button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Estatísticas');gerar_stats()" id="Estatísticas_tab"><i class="fa-solid fa-chart-simple"></i></button>
@@ -36,7 +36,7 @@
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Streaming');fetch_streaming_items();update_streaming_config()" id="Streaming_tab"><i class="fa-solid fa-book"></i></button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150 iichan_tab hidden" onclick="open_tab(event, 'Apoio')" id="Apoio_tab"><i class="fa-regular fa-heart"></i></button>
         </div>
-        <div class="iichan_nav pr-3 flex flex-row-reverse items-center gap-2 w-[100%] sm:w-[50%] hidden">
+        <div class="iichan_nav pr-3 flex flex-row-reverse items-center gap-2 w-full sm:w-[50%] hidden">
             <img class="aspect-[21/9] h-[50px]" src="iichan_face.png">
             <div class="flex flex-row gap-1 items-center">
                 <div class="p-3 w-min text-red-400 font-bold">LIVE</div>
@@ -54,9 +54,9 @@
             <input class="hidden" type="file" id="jsonfile" name="jsonfile" accept="application/json" onchange="upload_list(this.files[0])">
         </div>
         <div>
-            <div class="pb-3 flex flex-col gap-3 w-[100%]">
+            <div class="pb-3 flex flex-col gap-3 w-full">
                 <label for="file_name">Nome do arquivo</label>
-                <input class="file_name_input textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]" type="text" id="file_name" name="file_name">
+                <input class="file_name_input textinput w-full sm:w-[clamp(300px,70%,1000px)]" type="text" id="file_name" name="file_name">
             </div>
             <button class="button" onclick="download_list()"><i class="fa-solid fa-download"></i> Baixar lista</button>
             <a class="hidden download_link"></a>
@@ -127,71 +127,75 @@
         </center>
         <div class="p-2 grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
             <!--<img class="p-2" src="https://media.tenor.com/XnGK5CaQTt4AAAAd/ah-eto-bleh-anime.gif">-->
-            <div class="tipo_pie p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
-            <div class="tipo_bar p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
-            <div class="status_pie p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
-            <div class="status_bar p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
-            <div class="prog_tipo_bar p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
-            <div class="horas_tipo_bar p-2 w-[100%] 2xl:w-[800px] h-[500px]"></div>
+            <div class="tipo_pie p-2 w-full 2xl:w-[800px] h-[500px]"></div>
+            <div class="tipo_bar p-2 w-full 2xl:w-[800px] h-[500px]"></div>
+            <div class="status_pie p-2 w-full 2xl:w-[800px] h-[500px]"></div>
+            <div class="status_bar p-2 w-full 2xl:w-[800px] h-[500px]"></div>
+            <div class="prog_tipo_bar p-2 w-full 2xl:w-[800px] h-[500px]"></div>
+            <div class="horas_tipo_bar p-2 w-full 2xl:w-[800px] h-[500px]"></div>
         </div>
     </div>
 
     <div id="Editar" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
         <div class="edit_title p-2 text-lg font-bold"><i class="fa-solid fa-pencil"></i> Editar informações</div>
         <div class="p-1 rounded-md m-2 sm:p-5 bg-white shadow-md border border-gray-200">
-        <div class="p-3 flex flex-row gap-3 items-center">
-            <label for="item_type">Tipo</label>
-            <select class="tipo_input button" name="item_type" id="item_type">
-                <option value="Novel">Novel</option>
-                <option value="Anime">Anime</option>
-                <option value="Mangá">Mangá</option>
-                <option value="Jogo">Jogo</option>
-                <option value="Filme">Filme</option>
-                <option value="Áudio">Áudio</option>
-                <option value="Dorama/Série">Dorama/Série</option>
-                <option value="Stage">Stage</option>
-                <option value="Fanfic">Fanfic</option>
-                <option value="Short Story">Short Story</option>
-                <option value="Ensaio">Ensaio</option>
-            </select>
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 w-full md:w-[clamp(300px,70%,1000px)]">
+            <div class="flex flex-col gap-3 w-full">
+                <label for="title">Título</label>
+                <input class="name_input textinput h-[42px]" type="text" id="title" name="title">
+            </div>
         </div>
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 items-stretch w-full md:w-[clamp(300px,70%,1000px)]">
+            <div class="flex flex-col gap-3 w-full">
+                <label for="item_type">Tipo</label>
+                <select class="tipo_input button h-[42px]" name="item_type" id="item_type">
+                    <option value="Novel">Novel</option>
+                    <option value="Anime">Anime</option>
+                    <option value="Mangá">Mangá</option>
+                    <option value="Jogo">Jogo</option>
+                    <option value="Filme">Filme</option>
+                    <option value="Áudio">Áudio</option>
+                    <option value="Dorama/Série">Dorama/Série</option>
+                    <option value="Stage">Stage</option>
+                    <option value="Fanfic">Fanfic</option>
+                    <option value="Short Story">Short Story</option>
+                    <option value="Ensaio">Ensaio</option>
+                </select>
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+                <label for="status">Status</label>
+                <select class="status_input button h-[42px]" name="status" id="status">
+                    <option value="Completo">Completo</option>
+                    <option value="Progredindo">Progredindo</option>
+                    <option value="Planejo" selected>Planejo</option>
+                    <option value="Abandonado">Abandonado</option>
+                    <option value="Repetindo">Repetindo</option>
+                    <option value="Pausado">Pausado</option>
+                </select>
+            </div>
+        </div>
+
         <hr class="border-gray-200">
-        <div class="p-3 flex flex-row gap-3 items-center">
-            <label for="title">Título</label>
-            <input class="name_input textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]" type="text" id="title" name="title">
-        </div>
-        
-        <div class="p-3 flex flex-row gap-3 items-center">
-            <label for="status">Status</label>
-            <select class="status_input button" name="status" id="status">
-                <option value="Completo">Completo</option>
-                <option value="Progredindo">Progredindo</option>
-                <option value="Planejo" selected>Planejo</option>
-                <option value="Abandonado">Abandonado</option>
-                <option value="Repetindo">Repetindo</option>
-                <option value="Pausado">Pausado</option>
-            </select>
-        </div>
 
-        <hr class="md:hidden border-gray-200">
-
-        <div class="p-3 flex flex-col md:flex-row gap-3 items-center">
-            <div class="flex flex-row gap-3 items-center">
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 items-stretch w-full md:w-[clamp(300px,70%,1000px)]">
+            <div class="flex flex-col gap-3 w-full">
                 <label for="progress">Progresso</label>
                 <input class="progresso_input textinput" type="number" id="progress" name="progress" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
-            <div class="flex flex-row gap-3 items-center">
+            <div class="flex flex-col gap-3 w-full">
                 <label for="final">Final</label>
                 <input class="final_input textinput" type="number" id="final" name="final" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
         </div>
-
-        <div class="p-3 flex flex-col md:flex-row gap-3 items-center">
-            <div class="flex flex-row gap-3 items-center">
+        
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 items-stretch w-full md:w-[clamp(300px,70%,1000px)]">
+            <div class="flex flex-col gap-3 w-full">
                 <label for="volumes">Volumes</label>
                 <input class="volumes_input textinput" type="number" id="volumes" name="volumes" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
-            <div class="flex flex-row gap-3 items-center">
+            <div class="flex flex-col gap-3 w-full">
                 <label for="repeticoes">Repetições</label>
                 <input class="repeticoes_input textinput" type="number" id="repeticoes" name="repeticoes" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
@@ -199,26 +203,26 @@
 
         <hr class="border-gray-200">
 
-        <div class="p-3 flex flex-col md:flex-row gap-3 items-center">
-            <div class="flex flex-row gap-3 items-center">
-                <label for="autotime">Tempo automático</label>
-                <input class="autotime_input textinput" type="checkbox" id="autotime" name="autotime" onclick="update_autotime()">
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 items-stretch w-full md:w-[clamp(300px,70%,1000px)]">
+            <div class="w-full">
+                <label for="autotime" class="cursor-pointer select-none">Tempo automático</label>
+                <input class="autotime_input textinput cursor-pointer select-none" type="checkbox" id="autotime" name="autotime" onclick="update_autotime()">
             </div>
         </div>
 
-        <div class="p-3 flex flex-col md:flex-row gap-3 items-center autotime_number">
-            <div class="flex flex-row gap-3 items-center">
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 items-stretch w-full md:w-[clamp(300px,70%,1000px)] autotime_number">
+            <div class="flex flex-col gap-3 w-full">
                 <label for="prog_min">Minutos por progresso</label>
                 <input class="prog_min_input textinput" type="number" id="prog_min" name="prog_min" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
         </div>
 
-        <div class="p-3 flex flex-col md:flex-row gap-3 items-center normaltime_number">
-            <div class="flex flex-row gap-3 items-center">
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 items-stretch w-full md:w-[clamp(300px,70%,1000px)] normaltime_number">
+            <div class="flex flex-col gap-3 w-full">
                 <label for="hours">Horas</label>
                 <input class="horas_input textinput" type="number" id="hours" name="hours" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
-            <div class="flex flex-row gap-3 items-center">
+            <div class="flex flex-col gap-3 w-full">
                 <label for="minutes">Minutos</label>
                 <input class="minutos_input textinput" type="number" id="minutes" name="minutes" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
             </div>
@@ -226,35 +230,48 @@
 
         <hr class="border-gray-200">
 
-        <div class="p-3 flex flex-row gap-3 items-center">
-            <label for="moji">Caracteres (Moji)</label>
-            <input class="moji_input textinput" type="number" id="moji" name="moji" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 w-full md:w-[clamp(300px,70%,1000px)]">
+            <div class="flex flex-col gap-3 w-full">
+                <label for="moji">Caracteres (Moji)</label>
+                <input class="moji_input textinput" type="number" id="moji" name="moji" value="0" onfocus="update_preview_nota()" oninput="update_preview_nota()">
+            </div>
         </div>
+
         <hr class="border-gray-200">
-        <div class="p-3 flex flex-col md:flex-row gap-3 items-center">
-            <div class="p-3 flex flex-row gap-3 items-center w-full">
-                <label for="img_url">URL da Imagem</label>
-                <input class="img_input textinput w-full sm:w-[clamp(300px,70%,1000px)]" type="text" id="img_url" name="img_url" onchange="update_preview_image()">
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 w-full md:w-[clamp(300px,70%,1000px)]">
+            <div class="flex flex-col gap-3 w-full">
+                <label for="img_url">Link da imagem de capa</label>
+                <div class="flex flex-row gap-3 items-center w-full">
+                    <input class="img_input textinput w-full" type="text" id="img_url" name="img_url" onchange="update_preview_image()">
+                    <button class="button" onclick="clear_image()"><i class="fa-solid fa-delete-left"></i></button>
+                    <label class="button" for="coverfile"><i class="fa-solid fa-upload"></i></label>
+                    <input class="hidden" type="file" id="coverfile" name="coverfile" accept="image/*" onchange="upload_image(this.files[0])">
+                </div>
             </div>
             <img src="" class="img_preview h-[225px] aspect-[1/1.33] object-contain hidden">
         </div>
+
         <hr class="border-gray-200">
-        <div class="p-3 flex flex-row gap-3 items-center">
-            <label for="nota_textarea">Anotações</label>
-            <textarea class="nota_input textinput w-full sm:w-[clamp(300px,70%,1000px)]" type="textarea" id="nota_textarea" name="nota_textarea" onfocus="select_field(this, true);update_preview_nota()" onblur="select_field(this,false)" onclick="set_selection(this.selectionStart,this.selectionEnd)" onselect="set_selection(this.selectionStart,this.selectionEnd)" oninput="set_selection(this.selectionStart,this.selectionEnd);update_preview_nota()"></textarea>
-            <script>
-                document.querySelector(".nota_input").addEventListener("keypress", function(event) {
-                    if (event.key === "Enter") {
-                        event.preventDefault();
-                        nota_add_style("newline");
-                        update_preview_nota();
-                    }
-                });
-            </script>
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 w-full md:w-[clamp(300px,70%,1000px)]">
+            <div class="flex flex-col gap-3 w-full">
+                <label for="nota_textarea">Anotações</label>
+                <textarea class="nota_input textinput w-full" type="textarea" id="nota_textarea" name="nota_textarea" onfocus="select_field(this, true);update_preview_nota()" onblur="select_field(this,false)" onclick="set_selection(this.selectionStart,this.selectionEnd)" onselect="set_selection(this.selectionStart,this.selectionEnd)" oninput="set_selection(this.selectionStart,this.selectionEnd);update_preview_nota()"></textarea>
+                <script>
+                    document.querySelector(".nota_input").addEventListener("keypress", function(event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault();
+                            nota_add_style("newline");
+                            update_preview_nota();
+                        }
+                    });
+                </script>
+            </div>
         </div>
-        <div class="p-3 flex flex-row gap-3 items-center nota_styles_thing">
-            <label for="nota_textarea_preview" class="opacity-0 pointer-events-none hidden sm:block">Anotações</label>
-            <div class="nota_styles_container w-full sm:w-[clamp(300px,70%,1000px)]">
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 w-full md:w-[clamp(300px,70%,1000px)] nota_styles_thing">
+            <div class="nota_styles_container flex flex-col gap-3 w-full">
                 <div class="line w-full">
                     <center>
                         <button title="Negrito" class="button" onclick="nota_add_style('bold');select_field(this,false);update_preview_nota()"><i class="fa-solid fa-bold"></i></button>
@@ -365,16 +382,22 @@
                 </div>
             </div>
         </div>
-        <div class="p-3 flex flex-row gap-3 items-center hidden nota_preview_container">
-            <label for="nota_textarea_preview" class="opacity-0 pointer-events-none">Anotações</label>
-            <div class="nota_input_preview textinput w-[100%] sm:w-[clamp(300px,70%,1000px)]"></div>
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 w-full md:w-[clamp(300px,70%,1000px)] nota_preview_container hidden">
+            <div class="flex flex-col gap-3 w-full">
+                <div class="nota_input_preview textinput w-full"></div>
+            </div>
         </div>
-        <div class="sm:p-3 flex flex-row gap-3 items-center custom_info">
-            
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 w-full md:w-[clamp(300px,70%,1000px)]">
+            <div class="flex flex-col gap-3 w-full">
+                <div class="custom_info w-full"></div>
+            </div>
         </div>
+
         </div>
         <div class="p-3 flex flex-row gap-3 items-center">
-            <div class="flex flex-row gap-3 items-center w-[100%]">
+            <div class="flex flex-row gap-3 items-center w-full">
                 <button class="button w-max" onclick="save_item()"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
                 <button class="button w-max" onclick="cancel_item()"><i class="fa-regular fa-circle-xmark"></i> Cancelar</button>
             </div>
@@ -385,11 +408,11 @@
     </div>
 
     <div id="Visualizar" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
-        <div class="p-2 w-[100%] flex flex-row-reverse gap-2">
+        <div class="p-2 w-full flex flex-row-reverse gap-2">
             <button class="button" onclick="edit_item('new')"><i class="fa-solid fa-plus"></i></button>
             <div class="filter_dropdown_area md:relative inline-block">
                 <button class="button" onclick="switch_filter()"><i class="fa-solid fa-filter"></i></button>
-                <div class="filter_dropdown absolute right-0 z-10 mt-2 w-[100%] max-h-[400px] overflow-y-auto md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
+                <div class="filter_dropdown absolute right-0 z-10 mt-2 w-full max-h-[400px] overflow-y-auto md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
                     <div role="none" class="custom_filters py-1">
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Tudo_tipo','Tudo_status')">Tudo</a>
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Mídia','Tudo_status')">Mídia</a>
@@ -397,7 +420,7 @@
                     </div>
                     
                     <div class="flex flex-row items-stretch">
-                        <div class="tipo_all divide-y divide-gray-300 w-[100%] border-r-1 border-gray-300">
+                        <div class="tipo_all divide-y divide-gray-300 w-full border-r-1 border-gray-300">
                             <div role="none" class="all_filters py-1">
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Tudo_tipo','')"><span class="icon_tipo_tudo"><i class="fa-solid fa-check"></i> </span>Todos os formatos</a>
                             </div>
@@ -417,7 +440,7 @@
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Ensaio','')"><span class="icon_tipo_ensaio hidden"><i class="fa-solid fa-check"></i> </span>Ensaio</a>
                             </div>
                         </div>
-                        <div class="status_all divide-y divide-gray-300 w-[100%]">
+                        <div class="status_all divide-y divide-gray-300 w-full">
                             <div role="none" class="all_filters py-1">
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('','Tudo_status')"><span class="icon_status_tudo"><i class="fa-solid fa-check"></i> </span>Todos os status</a>
                             </div>
@@ -444,10 +467,10 @@
     </div>
 
     <div id="Streaming" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
-        <div class="p-2 w-[100%] flex flex-row-reverse gap-2">
+        <div class="p-2 w-full flex flex-row-reverse gap-2">
             <div class="streaming_filter_dropdown_area md:relative inline-block">
                 <button class="button" onclick="switch_streaming_filter()"><i class="fa-solid fa-filter"></i></button>
-                <div class="streaming_filter_dropdown absolute right-0 z-10 mt-2 w-[100%] max-h-[400px] overflow-y-auto md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
+                <div class="streaming_filter_dropdown absolute right-0 z-10 mt-2 w-full max-h-[400px] overflow-y-auto md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
                     <div role="none" class="filters py-1">
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_streaming_filter('tudo')">Tudo</a>
                     </div>
@@ -471,7 +494,7 @@
             </div>
             <div class="streaming_config_dropdown_area md:relative inline-block">
                 <button class="button" onclick="switch_streaming_config()"><i class="fa-solid fa-gear"></i></button>
-                <div class="streaming_config_dropdown absolute right-0 z-10 mt-2 w-[100%] md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
+                <div class="streaming_config_dropdown absolute right-0 z-10 mt-2 w-full md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
                     <div role="none" class="config_filters py-1">
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_streaming_config('eos')"><span class="check_exibir_eos hidden"><i class="fa-solid fa-check"></i> </span>Exibir sites fora do ar</a>
                     </div>

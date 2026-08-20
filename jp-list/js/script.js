@@ -85,7 +85,7 @@ function edit_item(id) {
   if (id == "new") {
     document.querySelector(".edit_title").innerHTML = "<i class='fa-solid fa-plus'></i> Adicionar um novo item";
     document.querySelector(".name_input").value = "";
-    document.querySelector(".status_input").value = "Planejo";
+    //document.querySelector(".status_input").value = "Planejo";
     document.querySelector(".progresso_input").value = 0;
     document.querySelector(".final_input").value = 0;
     document.querySelector(".volumes_input").value = 0;
@@ -489,6 +489,27 @@ function load_list() {
     `
   }
   }
+}
+
+function upload_image(files) {
+  try {
+    let reader = new FileReader();
+
+    reader.onload = function(e) {
+      let result = e.target.result;
+      document.querySelector(".img_input").value = result;
+      update_preview_image();
+    }
+
+    reader.readAsDataURL(files);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function clear_image() {
+  document.querySelector(".img_input").value = "";
+  document.querySelector(".img_preview").classList.add('hidden');
 }
 
 function update_preview_image() {
