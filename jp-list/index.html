@@ -398,12 +398,17 @@
 
         <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 w-full md:w-[clamp(300px,70%,1000px)]">
             <div class="flex flex-col gap-3 w-full">
-                <details><summary class="cursor-pointer">
+                <details class="values_details"><summary class="cursor-pointer">
                     <span>Valores personalizados</span>
                     <p class="text-gray-600">Um valor por linha, no formato mencionado nas informações abaixo.</p>
                 </summary>
                     <textarea rows="8" class="values_input textinput w-full mt-2" type="textarea" id="values_textarea" name="values_textarea" oninput="update_item_values(this.value)"></textarea>
                 </details>
+                <script>
+                    document.querySelector(".values_details").addEventListener("toggle", function() {
+                        list.values_open = document.querySelector(".values_details").open;
+                    })
+                </script>
             </div>
         </div>
 

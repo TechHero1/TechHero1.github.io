@@ -254,6 +254,7 @@ var list = {
     "list_mode": "grid",
     "cores": true,
     "apoio": false,
+    "values_open": false,
     "last_filter": ['Tudo_tipo','Tudo_status']
 };
 
@@ -313,6 +314,9 @@ function load_list() {
     document.querySelector(".cores_btn").classList.remove('opacity-100');
     document.querySelector(".cores_btn").classList.add('opacity-30');
   }
+
+  if (!list.hasOwnProperty("values_open") || !list.values_open) list.values_open = false;
+  document.querySelector(".values_details").open = list.values_open;
 
   //consertar cagada
   for (i = 0; i < list.itens.length; i++) {
