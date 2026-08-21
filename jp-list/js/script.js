@@ -98,8 +98,10 @@ function edit_item(id) {
     document.querySelector(".nota_input").value = "";
     document.querySelector(".autotime_input").checked = false;
     document.querySelector(".prog_min_input").value = 0;
+    document.querySelector(".values_input").value = "";
     update_autotime();
     update_preview_nota();
+    update_item_values("");
   } else {
     document.querySelector(".edit_title").innerHTML = "<i class='fa-solid fa-pencil'></i> Editar item \""+list.itens[id].dados.titulo+"\"";
     document.querySelector(".tipo_input").value = list.itens[id].tipo;
@@ -122,6 +124,10 @@ function edit_item(id) {
     if (!list.itens[id].dados.hasOwnProperty("nota")) anotacao = "";
     document.querySelector(".nota_input").value = anotacao;
 
+    let custom_values = list.itens[id].dados.custom_values;
+    if (!list.itens[id].dados.hasOwnProperty("custom_values")) custom_values = "";
+    document.querySelector(".values_input").value = custom_values;
+
     let autotime = list.itens[id].dados.autotime;
     if (!list.itens[id].dados.hasOwnProperty("autotime")) autotime = false;
     document.querySelector(".autotime_input").checked = autotime;
@@ -134,6 +140,7 @@ function edit_item(id) {
     document.querySelector(".final_input").value = final;
     update_autotime();
     update_preview_nota();
+    update_item_values(custom_values);
   }
 
   if (document.querySelector('.nota_link') != null) {
@@ -165,7 +172,8 @@ function save_item(){
         "nota": document.querySelector(".nota_input").value,
         "autotime": document.querySelector(".autotime_input").checked,
         "prog_min": document.querySelector(".prog_min_input").value,
-        "final": document.querySelector(".final_input").value
+        "final": document.querySelector(".final_input").value,
+        "custom_values": document.querySelector(".values_input").value
       }
     };
     remote_open_tab('Visualizar');
@@ -189,7 +197,8 @@ function save_item(){
       "nota": document.querySelector(".nota_input").value,
       "autotime": document.querySelector(".autotime_input").checked,
       "prog_min": document.querySelector(".prog_min_input").value,
-      "final": document.querySelector(".final_input").value
+      "final": document.querySelector(".final_input").value,
+      "custom_values": document.querySelector(".values_input").value
     }
   };
   remote_open_tab('Visualizar');
@@ -1283,6 +1292,15 @@ function style_text_with_tags(text,item_data) {
   text = text.replaceAll(/\$tempo_m/g,Math.trunc((item_data.progresso*item_data.prog_min)%60));
   text = text.replaceAll(/\$tempo_M/g,String(Math.trunc((item_data.progresso*item_data.prog_min)%60)).padStart(2, '0'));
 
+  if(item_data.hasOwnProperty("custom_values")) update_item_values(item_data.custom_values);
+
+  if (item_custom_values != "") {
+    for (var i = 0; i < Object.keys(item_custom_values).length; i++) {
+      let regex = new RegExp(String.raw`\$${Object.keys(item_custom_values)[i]}`, "g");
+      text = text.replaceAll(regex,item_custom_values[Object.keys(item_custom_values)[i]]);
+    }
+  }
+
   //NEWLINE TAG
   text = text.replaceAll(/\\n/g,"<br>");
 
@@ -1465,8 +1483,8 @@ function style_text_with_presets(text) {
       if (style_tag_preset_match.groups.nome == "sombra_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f71]">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "badge_pos") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#d4edbc] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "badge_neg") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#ff8787] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "rainbow_h") text = text.replaceAll(style_tag_preset_match[0],`<span style="background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "rainbow_v") text = text.replaceAll(style_tag_preset_match[0],`<span style="background-image: linear-gradient(to bottom, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "rainbow_h") text = text.replaceAll(style_tag_preset_match[0],`<b style="background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
+      if (style_tag_preset_match.groups.nome == "rainbow_v") text = text.replaceAll(style_tag_preset_match[0],`<b style="background-image: linear-gradient(to bottom, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
 
       //old
       if (style_tag_preset_match.groups.nome == "amarelo_deltarune_old") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black"><span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</span></span>`);
@@ -1501,7 +1519,7 @@ function create_custom_info() {
 
   document.querySelector(".custom_info").innerHTML += `
     <details>
-      <summary>Informações de customização</summary>
+      <summary class="cursor-pointer">Informações sobre a estilização das anotações</summary>
       <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
         <table class="table-auto text-center">
           <thead>
@@ -1797,6 +1815,24 @@ function nota_add_style(tag,dropdown=false) {
   }
   if (nota_can_add_excecao) set_selection(element.textLength,element.textLength);
   nota_can_add_excecao = false;
+}
+
+var item_custom_values = {};
+const values_regex = /^(?<nome>.+?)=(?<valor>.+?)$/g;
+
+function update_item_values(text) {
+  item_custom_values = {};
+  let text_lines = text.split("\n");
+  for (var i = 0; i < text_lines.length; i++) {
+    for (itag = 0; itag < (text_lines[i].match(values_regex) || []).length; itag++) {
+      let values_regex_match;
+
+      while ((values_regex_match = values_regex.exec(text_lines[i])) !== null) {
+        item_custom_values[values_regex_match.groups.nome] = values_regex_match.groups.valor;
+        update_preview_nota();
+      }
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

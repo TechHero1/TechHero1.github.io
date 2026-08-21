@@ -11,9 +11,14 @@
             "render": "Linha 1<hr>Linha 2"
         },
         {
-            "funcao": "Valores",
+            "funcao": "Valores padrões",
             "comando": "$progresso<br>$final<br>$volumes<br>$moji<br>$repeticoes<br><br>$h<br>$H<br>$m<br>$M<br><br>$prog_min<br>$tempo<br><br>$tempo_h<br>$tempo_H<br>$tempo_m<br>$tempo_M",
             "render": "Progresso<br>Final<br>Volumes<br>Caracteres (moji)<br>Repetições<br><br>Horas (H)<br>Horas (HH)<br>Minutos (M)<br>Minutos (MM)<br><br>Minutos por progresso<br>Tempo automático (HH:MM)<br><br>Horas automáticas (H)<br>Horas automáticas (HH)<br>Minutos automáticos (M)<br>Minutos automáticos (MM)"
+        },
+        {
+            "funcao": "Valores personalizados",
+            "comando": "Dê um nome a qualquer texto e o reutilize facilmente.<br><br><b>No campo de \"Valores personalizados\":</b><br>nome=valor<br><br><b>No campo de \"Anotações\":</b><br>$nome<br><br>Escreva um valor por linha.",
+            "render": "<b>No campo de \"Valores personalizados\":</b><br>valor1=Este é o primeiro valor<br><br><b>No campo de \"Anotações\":</b><br>O texto final será: $valor1.<br><br><b>Depois de salvar:</b><br>O texto final será: Este é o primeiro valor."
         }
     ],
     "comandos": [
@@ -788,12 +793,12 @@
                 {
                 "id": "rainbow_h",
                 "texto": "Horizontal",
-                "render": "<span style='background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)' class='bg-clip-text text-transparent'>$texto</span>"
+                "render": "<b style='background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)' class='bg-clip-text text-transparent'>$texto</b>"
                 },
                 {
                 "id": "rainbow_v",
                 "texto": "Vertical",
-                "render": "<span style='background-image: linear-gradient(to bottom, red,orange,yellow,green,blue,indigo,violet)' class='bg-clip-text text-transparent'>$texto</span>"
+                "render": "<b style='background-image: linear-gradient(to bottom, red,orange,yellow,green,blue,indigo,violet)' class='bg-clip-text text-transparent'>$texto</b>"
                 }
             ]
         }
