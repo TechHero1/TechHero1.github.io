@@ -1597,15 +1597,15 @@ function create_custom_info() {
     if (cur_comando_data.modelo[0].parametros.length > 0) {
       //MODELO COM PARAMETROS
       for (var param = 0; param < cur_comando_data.modelo[0].parametros.length; param++) {
-        modelo_params += `<span class="text-[#013220]">:</span><span class="text-[#07a]">${cur_comando_data.modelo[0].parametros[param].nome}</span>`;
+        modelo_params += `<code class="text-[#013220]">:</code><code class="text-[#07a]">${cur_comando_data.modelo[0].parametros[param].nome}</code>`;
 
-        if (cur_comando_data.modelo[0].texto == "") modelo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span>${modelo_params}<span class="text-[#013220]">]</span>`;
-        else modelo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span>${modelo_params}<span class="text-[#013220]">]</span>${cur_comando_data.modelo[0].texto}<span class="text-[#013220]">[/</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
+        if (cur_comando_data.modelo[0].texto == "") modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${modelo_params}<code class="text-[#013220]">]</code>`;
+        else modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${modelo_params}<code class="text-[#013220]">]</code><code>${cur_comando_data.modelo[0].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
       }
     } else {
       //MODELO SEM PARAMETROS
-      if (cur_comando_data.modelo[0].texto == "") modelo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
-      else modelo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>${cur_comando_data.modelo[0].texto}<span class="text-[#013220]">[/</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
+      if (cur_comando_data.modelo[0].texto == "") modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
+      else modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code><code>${cur_comando_data.modelo[0].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
     }
     document.querySelector(".comando-code-"+cur_comando).innerHTML = modelo_code;
 
@@ -1630,17 +1630,17 @@ function create_custom_info() {
             let param_color = "#07a";
             if (cur_comando_data.exemplo[cur_exemplo].parametros[param].nome.includes("#")) param_color = cur_comando_data.exemplo[cur_exemplo].parametros[param].nome;
 
-            exemplo_params += `<span class="text-[#013220]">:</span><span class="text-[${param_color}]">${cur_comando_data.exemplo[cur_exemplo].parametros[param].nome}</span>`;
-            if (cur_comando_data.exemplo[cur_exemplo].texto == "") exemplo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span>${exemplo_params}<span class="text-[#013220]">]</span>`;
-            else exemplo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span>${exemplo_params}<span class="text-[#013220]">]</span>${cur_comando_data.exemplo[cur_exemplo].texto}<span class="text-[#013220]">[/</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
+            exemplo_params += `<code class="text-[#013220]">:</code><code class="text-[${param_color}]">${cur_comando_data.exemplo[cur_exemplo].parametros[param].nome}</code>`;
+            if (cur_comando_data.exemplo[cur_exemplo].texto == "") exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${exemplo_params}<code class="text-[#013220]">]</code>`;
+            else exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${exemplo_params}<code class="text-[#013220]">]</code><code>${cur_comando_data.exemplo[cur_exemplo].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
             
             if (param > 0) break_string = "<br>";
             if (cur_comando_data.exemplo[cur_exemplo].break) break_string = "<br><br>";
           }
         } else {
           //EXEMPLO SEM PARAMETROS
-          if (cur_comando_data.exemplo[cur_exemplo].texto == "") exemplo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
-          else exemplo_code = `<span class="text-[#013220]">[</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>${cur_comando_data.exemplo[cur_exemplo].texto}<span class="text-[#013220]">[/</span><span class="text-[#905]">${cur_comando_data.comando}</span><span class="text-[#013220]">]</span>`;
+          if (cur_comando_data.exemplo[cur_exemplo].texto == "") exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
+          else exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code><code>${cur_comando_data.exemplo[cur_exemplo].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
         }
         document.querySelector(".comando-code-"+cur_comando).innerHTML += exemplo_code+break_string;
         document.querySelector(".comando-render-"+cur_comando).innerHTML += render_exemplo+break_string;
@@ -1673,7 +1673,7 @@ function create_custom_info() {
 
       document.querySelector(".estilo-code-"+cur_estilo).innerHTML += `
         ${linebreak}
-        <span class="text-[#013220]">[</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">:</span><span class="text-[#07a]">${cur_exemplo_data.id}</span><span class="text-[#013220]">]</span>${cur_exemplo_data.texto}<span class="text-[#013220]">[/</span><span class="text-[#905]">estilo</span><span class="text-[#013220]">]</span></span>
+        <code class="text-[#013220]">[</code><code class="text-[#905]">estilo</code><code class="text-[#013220]">:</code><code class="text-[#07a]">${cur_exemplo_data.id}</code><code class="text-[#013220]">]</code><code>${cur_exemplo_data.texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">estilo</code><code class="text-[#013220]">]</code></code>
       `;
 
       document.querySelector(".estilo-render-"+cur_estilo).innerHTML += linebreak+render;
