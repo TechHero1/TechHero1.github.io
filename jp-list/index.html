@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>JP List</title>
+    <script type="text/javascript" src="assets/yomitan/japanese-kana-romaji-dicts.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript" src="js/linkify.min.js"></script>
     <script type="text/javascript" src="js/linkify-string.min.js"></script>
@@ -37,10 +38,10 @@
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150 iichan_tab hidden" onclick="open_tab(event, 'Apoio')" id="Apoio_tab"><i class="fa-regular fa-heart"></i></button>
         </div>
         <div class="iichan_nav pr-3 flex flex-row-reverse items-center gap-2 w-full sm:w-[50%] hidden">
-            <img class="aspect-[21/9] h-[50px]" src="iichan_face.png">
+            <img class="aspect-[21/9] h-[50px]" src="assets/img/iichan_face.png">
             <div class="flex flex-row gap-1 items-center">
                 <div class="p-3 w-min text-red-400 font-bold">LIVE</div>
-                <img class="aspect-square h-[50px]" src="iichan_face.png">
+                <img class="aspect-square h-[50px]" src="assets/img/iichan_face.png">
                 <div class="p-3 w-min text-red-400 font-bold">REACTION:</div>
             </div>
         </div>
@@ -67,7 +68,7 @@
     <div id="Apoio" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
         <div class="p-2 flex flex-col gap-2 items-center">
             <span class="p-2">iichan de apoio</span>
-            <img src="iichan.png">
+            <img src="assets/img/iichan.png">
         </div>
     </div>
 
@@ -281,14 +282,31 @@
                     <center>
                         <button title="Negrito" class="button" onclick="nota_add_style('bold');select_field(this,false);update_preview_nota()"><i class="fa-solid fa-bold"></i></button>
                         <button title="Itálico" class="button" onclick="nota_add_style('italic');select_field(this,false);update_preview_nota()"><i class="fa-solid fa-italic"></i></button>
-                        <button title="Linha divisória" class="button" onclick="nota_add_style('hr');select_field(this,false);update_preview_nota()">—</button>
+                        <button title="Linha divisória" class="button w-[38px] h-[42px]" onclick="nota_add_style('hr');select_field(this,false);update_preview_nota()">—</button>
+
+                        <button title="Japonês" class="button custom_dropdown_button_kana" onclick="switch_custom_dropdown('kana')"><img class="w-[18px] h-auto mt-[-4px] inline-block" src="assets/yomitan/hiragana-a.svg"> <i class="custom_dropdown_icon_kana fa-solid fa-angle-down"></i></button>
+                        <div class="custom_dropdown_kana absolute z-10 max-h-[100px] sm:max-h-[150px] overflow-y-auto w-[90vw] sm:w-112 lg:w-112 lg:translate-x-1/2 origin-top divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
+                            <div role="none" class="py-1">
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('furigana',true);select_field(this,false);update_preview_nota()">Furigana</a>
+                            </div>
+                            <div role="none" class="py-1">
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('hira',true);select_field(this,false);update_preview_nota()">Hiragana (あ)</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('kata',true);select_field(this,false);update_preview_nota()">Katakana (ア)</a>
+                            </div>
+                            <div role="none" class="py-1">
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('halfkana',true);select_field(this,false);update_preview_nota()">Katakana (ア -> ｱ)</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('fullkana',true);select_field(this,false);update_preview_nota()">Katakana (ｱ -> ア)</a>
+                            </div>
+                        </div>
+
                         <span class="p-1 hidden sm:inline"></span>
                         <p class="py-1 block sm:hidden"></p>
+
                         <button title="Cor do texto" class="button" onclick="nota_add_style('color');select_field(this,false);update_preview_nota()"><i class="fa-solid fa-palette"></i></button>
                         <button title="Cor do fundo" class="button" onclick="nota_add_style('bg');select_field(this,false);update_preview_nota()"><i class="fa-solid fa-paint-roller"></i></button>
                         <button title="Borda" class="button" onclick="nota_add_style('border');select_field(this,false);update_preview_nota()"><i class="fa-solid fa-border-top-left"></i></button>
                         
-                        <button title="Degradê" class="button custom_dropdown_button_gradient" onclick="switch_custom_dropdown('gradient')">Degradê <i class="custom_dropdown_icon_gradient fa-solid fa-angle-down"></i></button>
+                        <button title="Degradê" class="button custom_dropdown_button_gradient" onclick="switch_custom_dropdown('gradient')"><i class="fa-solid fa-circle-half-stroke"></i> <i class="custom_dropdown_icon_gradient fa-solid fa-angle-down"></i></button>
                         <div class="custom_dropdown_gradient absolute z-10 max-h-[100px] sm:max-h-[150px] overflow-y-auto w-[90vw] sm:w-112 lg:w-112 lg:translate-x-1/2 origin-top divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
                             <div role="none" class="py-1">
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('gradient',true);select_field(this,false);update_preview_nota()">Degradê Simples</a>
@@ -296,7 +314,7 @@
                             </div>
                         </div>
 
-                        <button title="Sombra" class="button custom_dropdown_button_shadow" onclick="switch_custom_dropdown('shadow')">Sombra <i class="custom_dropdown_icon_shadow fa-solid fa-angle-down"></i></button>
+                        <button title="Sombra" class="button custom_dropdown_button_shadow" onclick="switch_custom_dropdown('shadow')"><i class="fa-solid fa-umbrella-beach"></i> <i class="custom_dropdown_icon_shadow fa-solid fa-angle-down"></i></button>
                         <div class="custom_dropdown_shadow absolute z-10 max-h-[100px] sm:max-h-[150px] overflow-y-auto w-[90vw] sm:w-112 lg:w-112 lg:translate-x-1/2 origin-top divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
                             <div role="none" class="py-1">
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('shadow',true);select_field(this,false);update_preview_nota()">Sombra Suave</a>
@@ -306,6 +324,7 @@
 
                         <span class="p-1 hidden sm:inline"></span>
                         <p class="py-1 block sm:hidden"></p>
+
                         <button title="Badge" class="button" onclick="nota_add_style('badge');select_field(this,false);update_preview_nota()"><i class="fa-solid fa-tag"></i></button>
                         <button title="Ícones" class="button" onclick="nota_add_style('icon');select_field(this,false);update_preview_nota()"><i class="fa-solid fa-icons"></i></button>
 
@@ -363,10 +382,25 @@
                             </div>
                             <div role="none" class="py-1">
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('sombra_deltarune',true);select_field(this,false);update_preview_nota()">Sombra DELTARUNE</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('sombra_deltarune_cor',true);select_field(this,false);update_preview_nota()">Sombra DELTARUNE (fonte padrão)</a>
+                            </div>
+                            <div role="none" class="py-1">
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('amarelo_deltarune',true);select_field(this,false);update_preview_nota()">Amarelo DELTARUNE</a>
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('vermelho_deltarune',true);select_field(this,false);update_preview_nota()">Vermelho DELTARUNE</a>
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('azul_deltarune',true);select_field(this,false);update_preview_nota()">Azul DELTARUNE</a>
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('verde_deltarune',true);select_field(this,false);update_preview_nota()">Verde DELTARUNE</a>
+                            </div>
+                            <div role="none" class="py-1">
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('amarelo_deltarune_cor',true);select_field(this,false);update_preview_nota()">Amarelo DELTARUNE (fonte padrão)</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('vermelho_deltarune_cor',true);select_field(this,false);update_preview_nota()">Vermelho DELTARUNE (fonte padrão)</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('azul_deltarune_cor',true);select_field(this,false);update_preview_nota()">Azul DELTARUNE (fonte padrão)</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('verde_deltarune_cor',true);select_field(this,false);update_preview_nota()">Verde DELTARUNE (fonte padrão)</a>
+                            </div>
+                            <div role="none" class="py-1">
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('profecia',true);select_field(this,false);update_preview_nota()">Profecia</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('profecia_cor',true);select_field(this,false);update_preview_nota()">Profecia (fonte padrão)</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('profecia_simples',true);select_field(this,false);update_preview_nota()">Profecia (simples)</a>
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('profecia_cor_simples',true);select_field(this,false);update_preview_nota()">Profecia (fonte padrão/simples)</a>
                             </div>
                             <div role="none" class="py-1">
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="nota_add_style('vermelho_umineko',true);select_field(this,false);update_preview_nota()">Vermelho Umineko (PC)</a>
@@ -415,9 +449,7 @@
         <hr class="border-gray-300">
 
         <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 w-full md:w-[clamp(300px,70%,1000px)]">
-            <div class="flex flex-col gap-3 w-full">
-                <div class="custom_info w-full"></div>
-            </div>
+            <div class="flex flex-col gap-3 w-full custom_info"></div>
         </div>
 
         </div>

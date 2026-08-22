@@ -173,7 +173,8 @@ function save_item(){
         "autotime": document.querySelector(".autotime_input").checked,
         "prog_min": document.querySelector(".prog_min_input").value,
         "final": document.querySelector(".final_input").value,
-        "custom_values": document.querySelector(".values_input").value
+        "custom_values": document.querySelector(".values_input").value,
+        "last_edited": Date.now()
       }
     };
     remote_open_tab('Visualizar');
@@ -198,7 +199,8 @@ function save_item(){
       "autotime": document.querySelector(".autotime_input").checked,
       "prog_min": document.querySelector(".prog_min_input").value,
       "final": document.querySelector(".final_input").value,
-      "custom_values": document.querySelector(".values_input").value
+      "custom_values": document.querySelector(".values_input").value,
+      "last_edited": Date.now()
     }
   };
   remote_open_tab('Visualizar');
@@ -336,6 +338,11 @@ function load_list() {
     let volumes_string;
     let repeticoes_string = "";
     let progresso_traço;
+
+    //if (list.itens[i].dados.hasOwnProperty("last_edited")) console.log(list.itens[i].dados.last_edited);
+    //if (list.itens[i].dados.hasOwnProperty("last_edited")) console.log(new Date(list.itens[i].dados.last_edited));
+    //if (list.itens[i].dados.hasOwnProperty("last_edited")) console.log(`${String(new Date(list.itens[i].dados.last_edited).getDate()).padStart(2, '0')}/${String((new Date(list.itens[i].dados.last_edited).getMonth())+1).padStart(2, '0')}/${new Date(list.itens[i].dados.last_edited).getFullYear()} ${String(new Date(list.itens[i].dados.last_edited).getHours()).padStart(2, '0')}:${String(new Date(list.itens[i].dados.last_edited).getMinutes()).padStart(2, '0')}`);
+    //if (list.itens[i].dados.hasOwnProperty("last_edited")) console.log(new Date(list.itens[i].dados.last_edited).toLocaleString());
 
     let final_progresso = list.itens[i].dados.final;
     let final_string = "";
@@ -1230,6 +1237,46 @@ function update_autotime() {
   }
 }
 
+//yomitan function
+function convertToHiragana(text) {
+  let newText = text.toLowerCase();
+  for (const [romaji, kana] of Object.entries(ROMAJI_TO_HIRAGANA)) {
+      newText = newText.replaceAll(romaji, kana);
+  }
+  newText = fillSokuonGaps(newText);
+  return newText;
+}
+
+function convertToKatakana(text) {
+  let newText = text.toLowerCase();
+  for (const [romaji, kana] of Object.entries(ROMAJI_TO_KATAKANA)) {
+      newText = newText.replaceAll(romaji, kana);
+  }
+  newText = fillSokuonGaps(newText);
+  return newText;
+}
+
+//yomitan function
+function fillSokuonGaps(text) {
+    return text.replaceAll(/っ[a-z](?=っ)/g, 'っっ').replaceAll(/ッ[A-Z](?=ッ)/g, 'ッッ');
+}
+
+function kanaFullToHalf(text) {
+  let newText = text.toLowerCase();
+  for (const [full, half] of Object.entries(KATAKANA_FULLWIDTH_TO_HALFWIDTH)) {
+      newText = newText.replaceAll(full, half);
+  }
+  return newText;
+}
+
+function kanaHalfToFull(text) {
+  let newText = text.toLowerCase();
+  for (const [full, half] of Object.entries(KATAKANA_FULLWIDTH_TO_HALFWIDTH)) {
+      newText = newText.replaceAll(half, full);
+  }
+  return newText;
+}
+
 //GRADIENT TAG
 const style_tag_gradient = /\[gradient:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?)](?<real_text>.+?)\[\/gradient]/g;
 
@@ -1259,6 +1306,21 @@ const style_tag_solid_shadow = /\[solidshadow:(?<horizontal>.+?):(?<vertical>.+?
 
 //BADGE TAG
 const style_tag_badge = /\[badge:(?<text_color>.+?):(?<bg_color>.+?)](?<real_text>.+?)\[\/badge]/g;
+
+//HIRAGANA TAG
+const style_tag_hiragana = /\[hira](?<real_text>.+?)\[\/hira]/g;
+
+//KATAKANA TAG
+const style_tag_katakana = /\[kata](?<real_text>.+?)\[\/kata]/g;
+
+//KATAKANA TAG
+const style_tag_halfkana = /\[halfkana](?<real_text>.+?)\[\/halfkana]/g;
+
+//KATAKANA TAG
+const style_tag_fullkana = /\[fullkana](?<real_text>.+?)\[\/fullkana]/g;
+
+//FURIGANA TAG
+const style_tag_furigana = /\[furigana:(?<furigana>.+?)](?<real_text>.+?)\[\/furigana]/g;
 
 //ICON TAG
 const style_tag_icon = /\[icon:(?<id>.+?):(?<style>.+?)]/g;
@@ -1409,6 +1471,55 @@ function style_text_with_tags(text,item_data) {
     }
   }
 
+  //HIRAGANA TAG
+  for (itag = 0; itag <= (text.match(style_tag_hiragana) || []).length; itag++) {
+    let style_tag_hiragana_match;
+
+    while ((style_tag_hiragana_match = style_tag_hiragana.exec(text)) !== null) {
+      let converted_text = convertToHiragana(style_tag_hiragana_match.groups.real_text);
+      text = text.replaceAll(style_tag_hiragana_match[0],`<span>${converted_text}</span>`);
+    }
+  }
+
+  //KATAKANA TAG
+  for (itag = 0; itag <= (text.match(style_tag_katakana) || []).length; itag++) {
+    let style_tag_katakana_match;
+
+    while ((style_tag_katakana_match = style_tag_katakana.exec(text)) !== null) {
+      let converted_text = convertToKatakana(style_tag_katakana_match.groups.real_text);
+      text = text.replaceAll(style_tag_katakana_match[0],`<span>${converted_text}</span>`);
+    }
+  }
+
+  //HALFKANA TAG
+  for (itag = 0; itag <= (text.match(style_tag_halfkana) || []).length; itag++) {
+    let style_tag_halfkana_match;
+
+    while ((style_tag_halfkana_match = style_tag_halfkana.exec(text)) !== null) {
+      let converted_text = kanaFullToHalf(style_tag_halfkana_match.groups.real_text);
+      text = text.replaceAll(style_tag_halfkana_match[0],`<span>${converted_text}</span>`);
+    }
+  }
+
+  //FULLKANA TAG
+  for (itag = 0; itag <= (text.match(style_tag_fullkana) || []).length; itag++) {
+    let style_tag_fullkana_match;
+
+    while ((style_tag_fullkana_match = style_tag_fullkana.exec(text)) !== null) {
+      let converted_text = kanaHalfToFull(style_tag_fullkana_match.groups.real_text);
+      text = text.replaceAll(style_tag_fullkana_match[0],`<span>${converted_text}</span>`);
+    }
+  }
+
+  //FURIGANA TAG
+  for (itag = 0; itag < (text.match(style_tag_furigana) || []).length; itag++) {
+    let style_tag_furigana_match;
+
+    while ((style_tag_furigana_match = style_tag_furigana.exec(text)) !== null) {
+      text = text.replaceAll(style_tag_furigana_match[0],`<ruby>${style_tag_furigana_match.groups.real_text}<rt>${style_tag_furigana_match.groups.furigana}</rt></ruby>`);
+    }
+  }
+
   //ICON TAG
   for (itag = 0; itag < (text.match(style_tag_icon) || []).length; itag++) {
     let style_tag_icon_match;
@@ -1475,16 +1586,25 @@ function style_text_with_presets(text) {
 
     while ((style_tag_preset_match = style_tag_preset.exec(text)) !== null) {
       if (style_tag_preset_match.groups.nome == "legenda") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black text-white px-1">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "amarelo_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "vermelho_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "azul_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "verde_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "amarelo_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "vermelho_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "azul_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "verde_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "amarelo_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "vermelho_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "azul_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "verde_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "vermelho_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#f50000] drop-shadow-[0.5px_0.5px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "vermelho_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
       if (style_tag_preset_match.groups.nome == "azul_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#5DECFF] drop-shadow-[0.5px_0.5px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "azul_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#2295c3] from-[40%] to-[#76e7e9] to-[95%] bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
       if (style_tag_preset_match.groups.nome == "sombra") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-shadow-md text-shadow-black/20">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "sombra_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f71]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "sombra_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] text-white drop-shadow-[0.7px_0.7px_#0f0f71]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "sombra_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f71]">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "profecia") text = text.replaceAll(style_tag_preset_match[0],`<div class="text-center" style="animation: floating 3s ease-in-out alternate infinite;"><span class="font-(family-name:--ProphecyType) text-[1.85rem] bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${style_tag_preset_match.groups.real_text}</span></div>`);
+      if (style_tag_preset_match.groups.nome == "profecia_cor") text = text.replaceAll(style_tag_preset_match[0],`<div class="text-center" style="animation: floating 3s ease-in-out alternate infinite;"><span class="bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${style_tag_preset_match.groups.real_text}</span></div>`);
+      if (style_tag_preset_match.groups.nome == "profecia_simples") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--ProphecyType) text-[1.85rem] bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${style_tag_preset_match.groups.real_text}</span>`);
+      if (style_tag_preset_match.groups.nome == "profecia_cor_simples") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "badge_pos") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#d4edbc] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "badge_neg") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#ff8787] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "rainbow_h") text = text.replaceAll(style_tag_preset_match[0],`<b style="background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
@@ -1522,14 +1642,15 @@ function create_custom_info() {
   document.querySelector(".custom_info").innerHTML = "";
 
   document.querySelector(".custom_info").innerHTML += `
+    <div>Informações sobre a estilização das anotações</div>
     <details>
-      <summary class="cursor-pointer">Informações sobre a estilização das anotações</summary>
+      <summary class="cursor-pointer">Caracteres e valores especiais</summary>
       <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
         <table class="table-auto text-center">
           <thead>
             <tr>
               <th class="border-1 sm:p-2">Função</th>
-              <th class="border-1 sm:p-2">Caractere especial</th>
+              <th class="border-1 sm:p-2">Código</th>
               <th class="border-1 sm:p-2">Resultado</th>
             </tr>
           </thead>
@@ -1537,6 +1658,9 @@ function create_custom_info() {
           </tbody>
         </table>
       </div>
+    </details>
+    <details>
+      <summary class="cursor-pointer">Tags de estilo</summary>
       <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
         <table class="table-auto text-center">
           <thead>
@@ -1550,6 +1674,9 @@ function create_custom_info() {
           </tbody>
         </table>
       </div>
+    </details>
+    <details>
+      <summary class="cursor-pointer">Estilos predefinidos</summary>
       <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
         <table class="table-auto text-center">
           <thead>
@@ -1641,6 +1768,9 @@ function create_custom_info() {
           //EXEMPLO SEM PARAMETROS
           if (cur_comando_data.exemplo[cur_exemplo].texto == "") exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
           else exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code><code>${cur_comando_data.exemplo[cur_exemplo].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
+
+          if (param > 0) break_string = "<br>";
+          if (cur_comando_data.exemplo[cur_exemplo].break) break_string = "<br><br>";
         }
         document.querySelector(".comando-code-"+cur_comando).innerHTML += exemplo_code+break_string;
         document.querySelector(".comando-render-"+cur_comando).innerHTML += render_exemplo+break_string;
@@ -1726,6 +1856,11 @@ window.addEventListener('click', function(e){
     document.querySelector(".custom_dropdown_icon_values").classList.add('fa-angle-down');
     document.querySelector(".custom_dropdown_icon_values").classList.remove('fa-angle-up');
   }
+  if (!document.querySelector(".custom_dropdown_button_kana").contains(e.target)){
+    document.querySelector(".custom_dropdown_kana").classList.add('hidden');
+    document.querySelector(".custom_dropdown_icon_kana").classList.add('fa-angle-down');
+    document.querySelector(".custom_dropdown_icon_kana").classList.remove('fa-angle-up');
+  }
 });
 
 //CUSTOMIZAÇÃO - FUNCIONALIDADE
@@ -1764,6 +1899,11 @@ var nota_tags = {
   "shadow": "[shadow:md:#000000:80]$text[/shadow]",
   "solidshadow": "[solidshadow:1px:1px:#FF0000]$text[/solidshadow]",
   "badge": "[badge:#000000:#00FFCF]$text[/badge]",
+  "furigana": "[furigana:escreva_aqui]$text[/furigana]",
+  "hira": "[hira]$text[/hira]",
+  "kata": "[kata]$text[/kata]",
+  "halfkana": "[halfkana]$text[/halfkana]",
+  "fullkana": "[fullkana]$text[/fullkana]",
   "icon": "[icon:face-smile:regular]",
   "mark": "[mark:0:0:10]",
   "mark_p": "[mark_p:0:0:10]",
@@ -1773,10 +1913,19 @@ var nota_tags = {
   "legenda": "[estilo:legenda]$text[/estilo]",
   "sombreado": "[estilo:sombra]$text[/estilo]",
   "sombra_deltarune": "[estilo:sombra_deltarune]$text[/estilo]",
+  "sombra_deltarune_cor": "[estilo:sombra_deltarune_cor]$text[/estilo]",
+  "profecia": "[estilo:profecia]$text[/estilo]",
+  "profecia_cor": "[estilo:profecia_cor]$text[/estilo]",
+  "profecia_simples": "[estilo:profecia_simples]$text[/estilo]",
+  "profecia_cor_simples": "[estilo:profecia_cor_simples]$text[/estilo]",
   "amarelo_deltarune": "[estilo:amarelo_deltarune]$text[/estilo]",
   "vermelho_deltarune": "[estilo:vermelho_deltarune]$text[/estilo]",
   "azul_deltarune": "[estilo:azul_deltarune]$text[/estilo]",
   "verde_deltarune": "[estilo:verde_deltarune]$text[/estilo]",
+  "amarelo_deltarune_cor": "[estilo:amarelo_deltarune_cor]$text[/estilo]",
+  "vermelho_deltarune_cor": "[estilo:vermelho_deltarune_cor]$text[/estilo]",
+  "azul_deltarune_cor": "[estilo:azul_deltarune_cor]$text[/estilo]",
+  "verde_deltarune_cor": "[estilo:verde_deltarune_cor]$text[/estilo]",
   "vermelho_umineko": "[estilo:vermelho_umineko]$text[/estilo]",
   "vermelho_umineko_ps3": "[estilo:vermelho_umineko_ps3]$text[/estilo]",
   "azul_umineko": "[estilo:azul_umineko]$text[/estilo]",

@@ -1,11 +1,25 @@
 @font-face {
     font-family: 'AdwaitaSans-Regular';
     src: url('../../shared/fonts/adwaita-sans/AdwaitaSans-Regular.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'AdwaitaMono-Bold';
     src: url('../../shared/fonts/adwaita-mono/AdwaitaMono-Bold.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '8bitoperator-JVE-Mono';
+    src: url('../assets/fonts/8bitoperator-JVE-Mono.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ProphecyType';
+    src: url('../assets/fonts/PROPHECYTYPE.ttf') format('truetype');
+    font-display: swap;
 }
 
 :root {
@@ -27,6 +41,27 @@
     --color-ensaio: #ffffff;
 
     --spacing: 0.25rem;
+
+    --8bitoperator: '8bitoperator-JVE-Mono';
+    --ProphecyType: 'ProphecyType';
+}
+
+@keyframes scroll-background {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 512px 512px;
+    }
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(10px);
+    }
 }
 
 .bg-item-pos {

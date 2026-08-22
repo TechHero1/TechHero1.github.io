@@ -669,6 +669,157 @@
                     "break": false
                 }
             ]
+        },
+        {
+            "nome": "Furigana",
+            "comando": "furigana",
+            "modelo": [
+                {
+                    "texto": "Texto",
+                    "parametros": [
+                        {
+                            "nome": "pronúncia"
+                        }
+                    ],
+                    "render": ""
+                }
+            ],
+            "exemplo": [
+                {
+                    "texto": "零",
+                    "parametros": [
+                        {
+                            "nome": "ゼロ"
+                        }
+                    ],
+                    "render": "<ruby>$texto<rt>ゼロ</rt></ruby>",
+                    "break": false
+                }
+            ]
+        },
+        {
+            "nome": "Hiragana",
+            "comando": "hira",
+            "modelo": [
+                {
+                    "texto": "Texto",
+                    "parametros": [
+                        
+                    ],
+                    "render": ""
+                }
+            ],
+            "exemplo": [
+                {
+                    "texto": "ohayou",
+                    "parametros": [
+                        
+                    ],
+                    "render": "<span>おはよう</span>",
+                    "break": true
+                },
+                {
+                    "texto": "kon'nichiha",
+                    "parametros": [
+                        
+                    ],
+                    "render": "<span>こんにちは</span>",
+                    "break": false
+                }
+            ]
+        },
+        {
+            "nome": "Katakana",
+            "comando": "kata",
+            "modelo": [
+                {
+                    "texto": "Texto",
+                    "parametros": [
+                        
+                    ],
+                    "render": ""
+                }
+            ],
+            "exemplo": [
+                {
+                    "texto": "ohayou",
+                    "parametros": [
+                        
+                    ],
+                    "render": "<span>オハヨウ</span>",
+                    "break": true
+                },
+                {
+                    "texto": "kon'nichiha",
+                    "parametros": [
+                        
+                    ],
+                    "render": "<span>コンニチハ</span>",
+                    "break": false
+                }
+            ]
+        },
+        {
+            "nome": "Katakana (largura normal para meia largura)",
+            "comando": "halfkana",
+            "modelo": [
+                {
+                    "texto": "Texto",
+                    "parametros": [
+                        
+                    ],
+                    "render": ""
+                }
+            ],
+            "exemplo": [
+                {
+                    "texto": "オハヨウ",
+                    "parametros": [
+                        
+                    ],
+                    "render": "<span>ｵﾊﾖｳ</span>",
+                    "break": true
+                },
+                {
+                    "texto": "コンニチハ",
+                    "parametros": [
+                        
+                    ],
+                    "render": "<span>ｺンﾆﾁﾊ</span>",
+                    "break": false
+                }
+            ]
+        },
+        {
+            "nome": "Katakana (meia largura para largura normal)",
+            "comando": "fullkana",
+            "modelo": [
+                {
+                    "texto": "Texto",
+                    "parametros": [
+                        
+                    ],
+                    "render": ""
+                }
+            ],
+            "exemplo": [
+                {
+                    "texto": "ｵﾊﾖｳ",
+                    "parametros": [
+                        
+                    ],
+                    "render": "<span>オハヨウ</span>",
+                    "break": true
+                },
+                {
+                    "texto": "ｺンﾆﾁﾊ",
+                    "parametros": [
+                        
+                    ],
+                    "render": "<span>コンニチハ</span>",
+                    "break": false
+                }
+            ]
         }
     ],
     "estilos": [
@@ -698,6 +849,11 @@
                 {
                 "id": "sombra_deltarune",
                 "texto": "Texto",
+                "render": "<span class='font-(family-name:--8bitoperator) text-[1.2rem] text-white drop-shadow-[0.7px_0.7px_#0f0f71]'>$texto</span>"
+                },
+                {
+                "id": "sombra_deltarune_cor",
+                "texto": "Texto",
                 "render": "<span class='text-white drop-shadow-[0.7px_0.7px_#0f0f71]'>$texto</span>"
                 }
             ]
@@ -707,6 +863,11 @@
             "exemplo": [
                 {
                 "id": "amarelo_deltarune",
+                "texto": "Texto",
+                "render": "<span class='font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]'>$texto</span>"
+                },
+                {
+                "id": "amarelo_deltarune_cor",
                 "texto": "Texto",
                 "render": "<span class='bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]'>$texto</span>"
                 }
@@ -718,6 +879,11 @@
                 {
                 "id": "vermelho_deltarune",
                 "texto": "Texto",
+                "render": "<span class='font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]'>$texto</span>"
+                },
+                {
+                "id": "vermelho_deltarune_cor",
+                "texto": "Texto",
                 "render": "<span class='bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff3c3c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]'>$texto</span>"
                 }
             ]
@@ -728,6 +894,11 @@
                 {
                 "id": "azul_deltarune",
                 "texto": "Texto",
+                "render": "<span class='font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]'>$texto</span>"
+                },
+                {
+                "id": "azul_deltarune_cor",
+                "texto": "Texto",
                 "render": "<span class='bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#3c3cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]'>$texto</span>"
                 }
             ]
@@ -737,6 +908,11 @@
             "exemplo": [
                 {
                 "id": "verde_deltarune",
+                "texto": "Texto",
+                "render": "<span class='font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]'>$texto</span>"
+                },
+                {
+                "id": "verde_deltarune_cor",
                 "texto": "Texto",
                 "render": "<span class='bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0eff0e] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]'>$texto</span>"
                 }
@@ -769,6 +945,31 @@
                 "id": "azul_umineko_ps3",
                 "texto": "Azul (PS3)",
                 "render": "<b class='bg-linear-to-b from-[#2295c3] from-[40%] to-[#76e7e9] to-[95%] bg-clip-text text-transparent'>$texto</b>"
+                }
+            ]
+        },
+        {
+            "nome": "A Profecia",
+            "exemplo": [
+                {
+                "id": "profecia",
+                "texto": "Profecia",
+                "render": "<div class='text-center' style='animation: floating 3s ease-in-out alternate infinite;'><span class='font-(family-name:--ProphecyType) text-[1.85rem] bg-clip-text text-transparent bg-[url(\"assets/img/IMAGE_DEPTH.png\")] bg-size-[256px 256px] bg-repeat' style='animation: scroll-background 30s linear infinite;'>$texto</span></div>"
+                },
+                {
+                "id": "profecia_cor",
+                "texto": "Sem fonte",
+                "render": "<div class='text-center' style='animation: floating 3s ease-in-out alternate infinite;'><span class='bg-clip-text text-transparent bg-[url(\"assets/img/IMAGE_DEPTH.png\")] bg-size-[256px 256px] bg-repeat' style='animation: scroll-background 30s linear infinite;'>$texto</span></div>"
+                },
+                {
+                "id": "profecia_simples",
+                "texto": "Sem animacao",
+                "render": "<span class='font-(family-name:--ProphecyType) text-[1.85rem] bg-clip-text text-transparent bg-[url(\"assets/img/IMAGE_DEPTH.png\")] bg-size-[256px 256px] bg-repeat' style='animation: scroll-background 30s linear infinite;'>$texto</span>"
+                },
+                {
+                "id": "profecia_cor_simples",
+                "texto": "Sem fonte/sem animação",
+                "render": "<span class='bg-clip-text text-transparent bg-[url(\"assets/img/IMAGE_DEPTH.png\")] bg-size-[256px 256px] bg-repeat' style='animation: scroll-background 30s linear infinite;'>$texto</span>"
                 }
             ]
         },
