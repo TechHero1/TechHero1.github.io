@@ -1281,7 +1281,7 @@ function kanaHalfToFull(text) {
 const style_tag_gradient = /\[gradient:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?)](?<real_text>.+?)\[\/gradient]/g;
 
 //GRADIENT TAG WITH %
-const style_tag_gradient_percent = /\[gradient_percent:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?):(?<first_color_focus>.+?):(?<second_color_focus>.+?)](?<real_text>.+?)\[\/gradient_percent]/g;
+const style_tag_gradpercent = /\[gradpercent:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?):(?<first_color_focus>.+?):(?<second_color_focus>.+?)](?<real_text>.+?)\[\/gradpercent]/g;
 
 //COLOR TAG
 const style_tag_color = /\[color:(?<color>.+?)](?<real_text>.+?)\[\/color]/g;
@@ -1387,15 +1387,15 @@ function style_text_with_tags(text,item_data) {
   }
 
   //GRADIENT TAG WITH %
-  for (itag = 0; itag < (text.match(style_tag_gradient_percent) || []).length; itag++) {
-    let style_tag_gradient_percent_match;
+  for (itag = 0; itag < (text.match(style_tag_gradpercent) || []).length; itag++) {
+    let style_tag_gradpercent_match;
 
-    while ((style_tag_gradient_percent_match = style_tag_gradient_percent.exec(text)) !== null) {
+    while ((style_tag_gradpercent_match = style_tag_gradpercent.exec(text)) !== null) {
       let dir;
-      if (style_tag_gradient_percent_match.groups.direction == "vertical") dir = "b";
-      if (style_tag_gradient_percent_match.groups.direction == "horizontal") dir = "r";
+      if (style_tag_gradpercent_match.groups.direction == "vertical") dir = "b";
+      if (style_tag_gradpercent_match.groups.direction == "horizontal") dir = "r";
 
-      text = text.replaceAll(style_tag_gradient_percent_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_percent_match.groups.first_color}] from-[${style_tag_gradient_percent_match.groups.first_color_focus}] to-[${style_tag_gradient_percent_match.groups.second_color}] to-[${style_tag_gradient_percent_match.groups.second_color_focus}] bg-clip-text text-transparent">${style_tag_gradient_percent_match.groups.real_text}</span>`);
+      text = text.replaceAll(style_tag_gradpercent_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradpercent_match.groups.first_color}] from-[${style_tag_gradpercent_match.groups.first_color_focus}] to-[${style_tag_gradpercent_match.groups.second_color}] to-[${style_tag_gradpercent_match.groups.second_color_focus}] bg-clip-text text-transparent">${style_tag_gradpercent_match.groups.real_text}</span>`);
     }
   }
 
@@ -1644,63 +1644,40 @@ function create_custom_info() {
   document.querySelector(".custom_info").innerHTML += `
     <div>Informações sobre a estilização das anotações</div>
     <details>
-      <summary class="cursor-pointer">Caracteres e valores especiais</summary>
-      <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
-        <table class="table-auto text-center">
-          <thead>
-            <tr>
-              <th class="border-1 sm:p-2">Função</th>
-              <th class="border-1 sm:p-2">Código</th>
-              <th class="border-1 sm:p-2">Resultado</th>
-            </tr>
-          </thead>
-          <tbody class="caracteres_table">
-          </tbody>
-        </table>
-      </div>
+      <summary class="cursor-pointer button w-fit">Caracteres e valores especiais</summary>
+      <div class="caracteres_container rounded-md shadow-md border border-gray-300 flex flex-col sm:px-2 py-5 gap-5 w-[90vw]"></div>
     </details>
     <details>
-      <summary class="cursor-pointer">Tags de estilo</summary>
-      <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
-        <table class="table-auto text-center">
-          <thead>
-            <tr>
-              <th class="border-1 sm:p-2">Estilo</th>
-              <th class="border-1 sm:p-2">Código</th>
-              <th class="border-1 sm:p-2">Resultado</th>
-            </tr>
-          </thead>
-          <tbody class="comandos_table">
-          </tbody>
-        </table>
-      </div>
+      <summary class="cursor-pointer button w-fit">Tags de estilo</summary>
+      <div class="comandos_container rounded-md shadow-md border border-gray-300 flex flex-col sm:px-2 py-5 gap-5 w-[90vw]"></div>
     </details>
     <details>
-      <summary class="cursor-pointer">Estilos predefinidos</summary>
-      <div class="p-1 sm:p-3 flex flex-col gap-3 w-[90vw] overflow-x-auto">
-        <table class="table-auto text-center">
-          <thead>
-            <tr>
-              <th class="border-1 sm:p-2">Estilo predefinido</th>
-              <th class="border-1 sm:p-2">Código</th>
-              <th class="border-1 sm:p-2">Resultado</th>
-            </tr>
-          </thead>
-          <tbody class="estilos_table">
-          </tbody>
-        </table>
-      </div>
+      <summary class="cursor-pointer button w-fit">Estilos predefinidos</summary>
+      <div class="estilos_container rounded-md shadow-md border border-gray-300 flex flex-col sm:px-2 py-5 gap-5 w-[90vw]"></div>
     </details>
   `;
 
   //CRIAR CARACTERES
   for (var cur_caractere = 0; cur_caractere < custom_info_data.caracteres.length; cur_caractere++) {
-    document.querySelector(".caracteres_table").innerHTML += `
-      <tr>
-        <td class="border-1 sm:p-2">${custom_info_data.caracteres[cur_caractere].funcao}</td>
-        <td class="border-1 sm:p-2">${custom_info_data.caracteres[cur_caractere].comando}</td>
-        <td class="border-1 sm:p-2">${custom_info_data.caracteres[cur_caractere].render}</td>
-      </tr>
+    if (cur_caractere > 0) document.querySelector(".caracteres_container").innerHTML += "<hr class='w-full border-gray-300'>";
+    document.querySelector(".caracteres_container").innerHTML += `
+      <div class="p-1 sm:p-3 flex flex-col gap-3 w-full overflow-x-auto">
+        <p>${custom_info_data.caracteres[cur_caractere].funcao}</p>
+        <table class="table-auto text-center">
+          <thead>
+            <tr>
+              <th class="border-1 sm:p-2">Código</th>
+              <th class="border-1 sm:p-2">Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border-1 sm:p-2">${custom_info_data.caracteres[cur_caractere].comando}</td>
+              <td class="border-1 sm:p-2">${custom_info_data.caracteres[cur_caractere].render}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     `;
   }
 
@@ -1710,12 +1687,25 @@ function create_custom_info() {
 
     let render_modelo = cur_comando_data.modelo[0].render.replaceAll("$texto",cur_comando_data.modelo[0].texto);
 
-    document.querySelector(".comandos_table").innerHTML += `
-      <tr>
-        <td class="border-1 sm:p-2">${cur_comando_data.nome}</td>
-        <td class="border-1 sm:p-2 comando-code-${cur_comando}"></td>
-        <td class="border-1 sm:p-2 comando-render-${cur_comando}">${render_modelo}</td>
-      </tr>
+    if (cur_comando > 0) document.querySelector(".comandos_container").innerHTML += "<hr class='w-full border-gray-300'>";
+    document.querySelector(".comandos_container").innerHTML += `
+      <div class="p-1 sm:p-3 flex flex-col gap-3 w-full overflow-x-auto">
+        <p>${cur_comando_data.nome}</p>
+        <table class="table-auto text-center">
+          <thead>
+            <tr>
+              <th class="border-1 sm:p-2">Código</th>
+              <th class="border-1 sm:p-2">Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border-1 sm:p-2 comando-code-${cur_comando}"></td>
+              <td class="border-1 sm:p-2 comando-render-${cur_comando}">${render_modelo}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     `;
 
     //CRIAR COMANDO (MODELO)
@@ -1786,12 +1776,25 @@ function create_custom_info() {
   for (var cur_estilo = 0; cur_estilo < custom_info_data.estilos.length; cur_estilo++) {
     let cur_estilo_data = custom_info_data.estilos[cur_estilo];
 
-    document.querySelector(".estilos_table").innerHTML += `
-      <tr>
-        <td class="border-1 sm:p-2">${cur_estilo_data.nome}</td>
-        <td class="border-1 sm:p-2 estilo-code-${cur_estilo}"></td>
-        <td class="border-1 sm:p-2 estilo-render-${cur_estilo}"></td>
-      </tr>
+    //if (cur_estilo > 0) document.querySelector(".estilos_container").innerHTML += "<hr class='w-full border-gray-300'>";
+    document.querySelector(".estilos_container").innerHTML += `
+      <div class="p-1 sm:p-3 flex flex-col gap-3 w-full overflow-x-auto">
+        <p>${cur_estilo_data.nome}</p>
+        <table class="table-auto text-center">
+          <thead>
+            <tr>
+              <th class="border-1 sm:p-2">Código</th>
+              <th class="border-1 sm:p-2">Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border-1 sm:p-2 estilo-code-${cur_estilo}"></td>
+              <td class="border-1 sm:p-2 estilo-render-${cur_estilo}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     `;
 
     //PEGAR CADA EXEMPLO
@@ -1895,7 +1898,7 @@ var nota_tags = {
   "bg": "[bg:#FFFFFF]$text[/bg]",
   "border": "[border:1:#000000]$text[/border]",
   "gradient": "[gradient:horizontal:#FF0000:#0000FF]$text[/gradient]",
-  "gradient_percent": "[gradient_percent:horizontal:#FF0000:#0000FF:0%:100%]$text[/gradient_percent]",
+  "gradpercent": "[gradpercent:horizontal:#FF0000:#0000FF:0%:100%]$text[/gradpercent]",
   "shadow": "[shadow:md:#000000:80]$text[/shadow]",
   "solidshadow": "[solidshadow:1px:1px:#FF0000]$text[/solidshadow]",
   "badge": "[badge:#000000:#00FFCF]$text[/badge]",

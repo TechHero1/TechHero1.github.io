@@ -305,7 +305,7 @@
         },
         {
             "nome": "Degradê ajustável",
-            "comando": "gradient_percent",
+            "comando": "gradpercent",
             "modelo": [
                 {
                     "texto": "Texto",
