@@ -22,7 +22,10 @@ const lang_strings = {
                 string_fans_double_desc: "Study your analytics and make informed decisions about what types of content are worth continuing to produce, increasing overall quality. As a result, your existing fans will be even more likely to like your content."
             }
         },
-        double_lps_string: "2x Likes per Second (LpS) from {item_plural}"
+        double_lps_string: "2x Likes per Second (LpS) from {item_plural}",
+        test: "You have {0} {p:like:likes}.",
+        creative: "Please be more creative.",
+        words: "Your favorite words are: {0} and {1}."
     },
     pt: {
         strings_shop_items: {
@@ -46,7 +49,10 @@ const lang_strings = {
                 string_fans_double_desc: "Estudar as analytics da sua rede social e decidir com mais conhecimento quais tipos de conteúdo valem a pena continuar sendo produzidos, aumentando a qualidade no geral. Como resultado, os fãs que você já tem se sentirão ainda mais cativados a te dar likes."
             }
         },
-        double_lps_string: "2x Likes por Segundo (LpS) de {item_plural}"
+        double_lps_string: "2x Likes por Segundo (LpS) de {item_plural}",
+        test: "Você tem {0} {p:like:likes}.",
+        creative: "Por favor, seja mais criativo.",
+        words: "Suas palavras favoritas são: {0} e {1}."
     },
     hyperen: {
         strings_shop_items: {
@@ -70,7 +76,10 @@ const lang_strings = {
                 string_fans_double_desc: "Read the analysis, enter the types of topics that must continue to produce and improve the improvement of quality. Therefore, customers can now be subject."
             }
         },
-        double_lps_string: "2 requests per second {item_plural} (LPS)."
+        double_lps_string: "2 requests per second {item_plural} (LPS).",
+        test: "You have {0} {p:like:likes}.",
+        creative: "Please be more creative.",
+        words: "Your favorite words are: {0} and {1}."
     },
     hyperpt: {
         strings_shop_items: {
@@ -94,6 +103,9 @@ const lang_strings = {
                 string_fans_double_desc: "Consulte o exame da versão do seu relacionamento e escolha o tipo de coisa a pensar e permitir. Consequentemente, os assinantes se sentem interessados ​​em escolher."
             }
         },
-        double_lps_string: "Uso recomendado: 2k/s (LpS) {item_plural}."
+        double_lps_string: "Uso recomendado: 2k/s (LpS) {item_plural}.",
+        test: "Você tem {0} {p:like:likes}.",
+        creative: "Por favor, seja mais criativo.",
+        words: "Suas palavras favoritas são: {0} e {1}."
     }
 }

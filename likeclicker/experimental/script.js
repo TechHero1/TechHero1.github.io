@@ -106,3 +106,105 @@ function calc_lps() {
     let lps = 1;
     return lps
 }
+
+// Source - https://stackoverflow.com/a/6491621
+// Posted by Alnitak, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-08-23, License - CC BY-SA 3.0
+
+Object.byString = function(o, s) {
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+    var a = s.split('.');
+    for (var i = 0, n = a.length; i < n; ++i) {
+        var k = a[i];
+        if (k in o) {
+            o = o[k];
+        } else {
+            return;
+        }
+    }
+    return o;
+}
+
+const variable_tag = /\{(?<variable_id>[0-9]+?)\}/g
+const number_tag = /\{p:(?<singular>.+?):(?<plural>.+?)\}/g
+
+//get string from data by language
+function get_string(path="",number="",variables=[]) {
+    let string = Object.byString(lang_strings[game_data.lang], path);
+
+    if (number != "") {
+		if (number == "singular") {
+            for (itag = 0; itag <= (string.match(number_tag) || []).length; itag++) {
+                let number_tag_match;
+
+                while ((number_tag_match = number_tag.exec(string)) !== null) {
+                    string = string.replaceAll(number_tag_match[0],number_tag_match.groups.singular);
+                }
+            }
+		} else {
+			for (itag = 0; itag <= (string.match(number_tag) || []).length; itag++) {
+                let number_tag_match;
+
+                while ((number_tag_match = number_tag.exec(string)) !== null) {
+                    string = string.replaceAll(number_tag_match[0],number_tag_match.groups.plural);
+                }
+            }
+		}
+	}
+
+    if (variables != "") {
+        for (itag = 0; itag <= (string.match(variable_tag) || []).length; itag++) {
+            let variable_tag_match;
+
+            while ((variable_tag_match = variable_tag.exec(string)) !== null) {
+                string = string.replaceAll(variable_tag_match[0],variables[variable_tag_match.groups.variable_id]);
+            }
+        }
+	}
+
+    return string;
+}
+
+//toasts system
+var toasts_memory = [];
+
+function create_new_toast(string,time) {
+let cur_id = try_toast_id();
+	document.querySelector(".toasts_container").innerHTML += `
+	<div class="toast-${cur_id}" style="display: flex; flex-direction: row; gap: 5px; align-items: stretch; padding: 5px; background-color: #fff898; border: 1px solid black; border-radius: 5px;">
+	${string}
+	<div class="close" style="cursor: pointer; user-select: none" onclick="destroy_toast(${cur_id})">X</div>
+	</div>
+	`;
+	
+	toasts_memory[cur_id] = time;
+}
+
+function try_toast_id() {
+	for (var i = 0; i < toasts_memory.length; i++) {
+		if (toasts_memory[i] == "") return i;
+	}
+	if (i >= toasts_memory.length) return toasts_memory.length;
+}
+
+function destroy_toast(id) {
+	toasts_memory[id] = "";
+	document.querySelector(".toast-"+id).remove();
+}
+
+var mouse_hovering_on_toasts = false;
+
+window.setInterval(function(){
+    if (!toasts_memory.join("").replace(/\s/gi,'').length==0 && !mouse_hovering_on_toasts) {
+        for (var i = 0; i < toasts_memory.length; i++) {
+            if (toasts_memory[i] != "") {
+                if (toasts_memory[i] > 0) toasts_memory[i]--;
+                if (toasts_memory[i] <= 0) {
+                    toasts_memory[i] = "";
+                    destroy_toast(i);
+                }
+            }
+        }
+    }
+}, 100);

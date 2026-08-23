@@ -27,7 +27,20 @@
             <span class="ids_list">valid ids: </span>
             <br>
             <br>
+            <span>number for string</span>
+            <input id="string_number" type="number">
+            <br>
+            <button onclick="let number = document.querySelector('#string_number').value;if(number > 1){create_new_toast(get_string('test','plural',[number]),30)}else{create_new_toast(get_string('test','singular',[number]),30)}">test string</button><br>
+            <br>
+            <span>your favorite words</span>
+            <input id="string_word1" type="text">
+            <input id="string_word2" type="text">
+            <br>
+            <button onclick="let word1 = document.querySelector('#string_word1').value;let word2 = document.querySelector('#string_word2').value;if(word1 == '' || word2 == '' || word1 == word2){create_new_toast(get_string('creative','',[]),30)}else{create_new_toast(get_string('words','',[word1,word2]),30)}">test string</button>
+            <br>
+            <br>
             <div class="shop_items_area"></div>
         </div>
     </center>
+    <div class="toasts_container" style="position: absolute; right: 0; bottom: 0;" onmouseover="mouse_hovering_on_toasts = true" onmouseout="mouse_hovering_on_toasts = false"></div>
 </body>
