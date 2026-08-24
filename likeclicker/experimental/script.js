@@ -50,15 +50,15 @@ function add_shop_item(item_name) {
 
         document.querySelector(".shop_items_area").innerHTML += `
             <div class="shop_item">
-                <span class="shop_item_name shop_${item_name}_name">${lang_strings[game_data.lang].strings_shop_items[item_name][cur_item.name_plural]}</span>
+                <span class="shop_item_name shop_${item_name}_name">${get_string(`strings_shop_items.${item_name}.${cur_item.name_plural}`)}</span>
                 <br>
-                <span class="shop_item_button shop_${item_name}_button">+1 ${lang_strings[game_data.lang].strings_shop_items[item_name][cur_item.name_singular]}</span>
+                <span class="shop_item_button shop_${item_name}_button">+1 ${get_string(`strings_shop_items.${item_name}.${cur_item.name_singular}`)}</span>
                 <br>
                 <br>
                 <span class="shop_item_quantity shop_${item_name}_quantity">${game_data.shop_items[item_name].quantity}</span>
                 <br>
                 <br>
-                <span class="shop_item_desc shop_${item_name}_desc">${lang_strings[game_data.lang].strings_shop_items[item_name][cur_item.description]}</span>
+                <span class="shop_item_desc shop_${item_name}_desc">${get_string(`strings_shop_items.${item_name}.${cur_item.description}`)}</span>
             </div><br>
         `
     }
@@ -70,15 +70,15 @@ function add_double_item(item_name) {
         let cur_item = shop_items[item_name].double;
         let cur_item_relative = shop_items[item_name];
 
-        let double_lps_string_replace = lang_strings[game_data.lang].double_lps_string.replace("{item_plural}",lang_strings[game_data.lang].strings_shop_items[item_name][cur_item_relative.name_plural])
+        let double_lps_string_replace = lang_strings[game_data.lang].double_lps_string.replace("{item_plural}",get_string(`strings_shop_items.${item_name}.${cur_item_relative.name_plural}`));
         document.querySelector(".shop_items_area").innerHTML += `
             <div class="shop_item">
-                <span class="shop_double_name shop_${item_name}_double_name">${lang_strings[game_data.lang].strings_shop_items[item_name][cur_item.name]}</span>
+                <span class="shop_double_name shop_${item_name}_double_name">${get_string(`strings_shop_items.${item_name}.${cur_item.name}`)}</span>
                 <br>
                 <span class="shop_item_button shop_${item_name}_button">${double_lps_string_replace}</span>
                 <br>
                 <br>
-                <span class="shop_double_desc shop_${item_name}_double_desc">${lang_strings[game_data.lang].strings_shop_items[item_name][cur_item.description]}</span>
+                <span class="shop_double_desc shop_${item_name}_double_desc">${get_string(`strings_shop_items.${item_name}.${cur_item.description}`)}</span>
             </div><br>
         `
     }
@@ -89,13 +89,13 @@ function add_lpc_item() {
     let cur_item = shop_items.lpc;
     document.querySelector(".shop_items_area").innerHTML += `
         <div class="shop_item">
-            <span class="shop_item_name shop_lpc_name">${lang_strings[game_data.lang].strings_shop_items.lpc[cur_item.name]}</span>
+            <span class="shop_item_name shop_lpc_name">${get_string(`strings_shop_items.lpc.${cur_item.name}`)}</span>
             <br>
             <br>
-            <span class="shop_item_quantity shop_lpc_quantity">${lang_strings[game_data.lang].strings_shop_items.lpc[cur_item.level]+game_data.lpc}</span>
+            <span class="shop_item_quantity shop_lpc_quantity">${get_string(`strings_shop_items.lpc.${cur_item.level}`)}${game_data.lpc}</span>
             <br>
             <br>
-            <span class="shop_item_desc shop_lpc_desc">${lang_strings[game_data.lang].strings_shop_items.lpc[cur_item.description]}</span>
+            <span class="shop_item_desc shop_lpc_desc">${get_string(`strings_shop_items.lpc.${cur_item.description}`)}</span>
         </div><br>
     `
 }

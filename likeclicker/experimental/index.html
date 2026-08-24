@@ -30,7 +30,7 @@
             <span>number for string</span>
             <input id="string_number" type="number">
             <br>
-            <button onclick="let number = document.querySelector('#string_number').value;if(number > 1){create_new_toast(get_string('test','plural',[number]),30)}else{create_new_toast(get_string('test','singular',[number]),30)}">test string</button><br>
+            <button onclick="let number = document.querySelector('#string_number').value;if(number != ''){if(number > 1){create_new_toast(get_string('test','plural',[number]),30)}else{create_new_toast(get_string('test','singular',[number]),30)}}">test string</button><br>
             <br>
             <span>your favorite words</span>
             <input id="string_word1" type="text">
