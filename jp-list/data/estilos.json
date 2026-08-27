@@ -919,36 +919,6 @@
             ]
         },
         {
-            "nome": "Vermelho Umineko",
-            "exemplo": [
-                {
-                "id": "vermelho_umineko",
-                "texto": "Vermelho",
-                "render": "<span class='text-[#f50000] drop-shadow-[0.5px_0.5px_#000000]'>$texto</span>"
-                },
-                {
-                "id": "vermelho_umineko_ps3",
-                "texto": "Vermelho (PS3)",
-                "render": "<b class='bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent'>$texto</b>"
-                }
-            ]
-        },
-        {
-            "nome": "Azul Umineko",
-            "exemplo": [
-                {
-                "id": "azul_umineko",
-                "texto": "Azul",
-                "render": "<span class='text-[#5DECFF] drop-shadow-[0.5px_0.5px_#000000]'>$texto</span>"
-                },
-                {
-                "id": "azul_umineko_ps3",
-                "texto": "Azul (PS3)",
-                "render": "<b class='bg-linear-to-b from-[#2295c3] from-[40%] to-[#76e7e9] to-[95%] bg-clip-text text-transparent'>$texto</b>"
-                }
-            ]
-        },
-        {
             "nome": "A Profecia",
             "exemplo": [
                 {
@@ -970,6 +940,76 @@
                 "id": "profecia_cor_simples",
                 "texto": "Sem fonte/sem animação",
                 "render": "<span class='bg-clip-text text-transparent bg-[url(\"assets/img/IMAGE_DEPTH.png\")] bg-size-[256px 256px] bg-repeat' style='animation: scroll-background 30s linear infinite;'>$texto</span>"
+                }
+            ]
+        },
+        {
+            "nome": "Vermelho Umineko",
+            "exemplo": [
+                {
+                "id": "vermelho_umineko",
+                "texto": "Vermelho",
+                "render": "<span class='text-[#f50000] drop-shadow-[1px_1px_#000000]'>$texto</span>"
+                },
+                {
+                "id": "vermelho_umineko_ps3",
+                "texto": "Vermelho (PS3)",
+                "render": "<b class='bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
+                }
+            ]
+        },
+        {
+            "nome": "Azul Umineko",
+            "exemplo": [
+                {
+                "id": "azul_umineko",
+                "texto": "Azul",
+                "render": "<span class='text-[#5DECFF] drop-shadow-[1px_1px_#000000]'>$texto</span>"
+                },
+                {
+                "id": "azul_umineko_ps3",
+                "texto": "Azul (PS3)",
+                "render": "<b class='bg-linear-to-b from-[#1d97c9] from-[40%] to-[#7ff1f3] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
+                }
+            ]
+        },
+        {
+            "nome": "Roxo Umineko",
+            "exemplo": [
+                {
+                "id": "roxo_umineko",
+                "texto": "Roxo",
+                "render": "<span class='text-[#CC99FF] drop-shadow-[1px_1px_#000000]'>$texto</span>"
+                },
+                {
+                "id": "roxo_umineko_ps3",
+                "texto": "Roxo (PS3)",
+                "render": "<b class='bg-linear-to-b from-[#6b5dab] from-[40%] to-[#e7d0f1] to-[80%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
+                }
+            ]
+        },
+        {
+            "nome": "Dourado Umineko",
+            "exemplo": [
+                {
+                "id": "dourado_umineko",
+                "texto": "Dourado",
+                "render": "<span class='text-[#DAA520] drop-shadow-[1px_1px_#000000]'>$texto</span>"
+                },
+                {
+                "id": "dourado_umineko_ps3",
+                "texto": "Dourado (PS3)",
+                "render": "<b class='bg-linear-to-b from-[#d19214] from-[40%] to-[#f8df59] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
+                }
+            ]
+        },
+        {
+            "nome": "Verde Umineko",
+            "exemplo": [
+                {
+                "id": "verde_umineko_ps3",
+                "texto": "Verde",
+                "render": "<b class='bg-linear-to-b from-[#78cf79] from-[40%] to-[#ddffef] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
                 }
             ]
         },
