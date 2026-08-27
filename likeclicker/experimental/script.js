@@ -29,7 +29,7 @@ function start() {
     //load language buttons
     for (let i = 0; i<Object.keys(lang_strings).length; i++) {
         document.querySelector(".lang_buttons_area").innerHTML += `
-            <button onclick="set_game_lang('${Object.keys(lang_strings)[i]}')">${Object.keys(lang_strings)[i]}</button>
+            <button class="button" onclick="set_game_lang('${Object.keys(lang_strings)[i]}')">${Object.keys(lang_strings)[i]}</button>
         `
     }
     //load game function
@@ -49,7 +49,7 @@ function add_shop_item(item_name) {
         game_data.shop_items[item_name] = {quantity: 0,double: 1};
 
         document.querySelector(".shop_items_area").innerHTML += `
-            <div class="shop_item">
+            <div class="shop_item p-1 rounded-md sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200">
                 <span class="shop_item_name shop_${item_name}_name">${get_string(`strings_shop_items.${item_name}.${cur_item.name_plural}`)}</span>
                 <br>
                 <span class="shop_item_button shop_${item_name}_button">+1 ${get_string(`strings_shop_items.${item_name}.${cur_item.name_singular}`)}</span>
@@ -59,7 +59,7 @@ function add_shop_item(item_name) {
                 <br>
                 <br>
                 <span class="shop_item_desc shop_${item_name}_desc">${get_string(`strings_shop_items.${item_name}.${cur_item.description}`)}</span>
-            </div><br>
+            </div>
         `
     }
 }
@@ -72,14 +72,14 @@ function add_double_item(item_name) {
 
         let double_lps_string_replace = lang_strings[game_data.lang].double_lps_string.replace("{item_plural}",get_string(`strings_shop_items.${item_name}.${cur_item_relative.name_plural}`));
         document.querySelector(".shop_items_area").innerHTML += `
-            <div class="shop_item">
+            <div class="shop_item p-1 rounded-md sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200">
                 <span class="shop_double_name shop_${item_name}_double_name">${get_string(`strings_shop_items.${item_name}.${cur_item.name}`)}</span>
                 <br>
                 <span class="shop_item_button shop_${item_name}_button">${double_lps_string_replace}</span>
                 <br>
                 <br>
                 <span class="shop_double_desc shop_${item_name}_double_desc">${get_string(`strings_shop_items.${item_name}.${cur_item.description}`)}</span>
-            </div><br>
+            </div>
         `
     }
 }
@@ -88,7 +88,7 @@ function add_double_item(item_name) {
 function add_lpc_item() {
     let cur_item = shop_items.lpc;
     document.querySelector(".shop_items_area").innerHTML += `
-        <div class="shop_item">
+        <div class="shop_item p-1 rounded-md sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200">
             <span class="shop_item_name shop_lpc_name">${get_string(`strings_shop_items.lpc.${cur_item.name}`)}</span>
             <br>
             <br>
@@ -96,7 +96,7 @@ function add_lpc_item() {
             <br>
             <br>
             <span class="shop_item_desc shop_lpc_desc">${get_string(`strings_shop_items.lpc.${cur_item.description}`)}</span>
-        </div><br>
+        </div>
     `
 }
 
@@ -172,9 +172,9 @@ var toasts_memory = [];
 function create_new_toast(string,time) {
 let cur_id = try_toast_id();
 	document.querySelector(".toasts_container").innerHTML += `
-	<div class="toast-${cur_id}" style="display: flex; flex-direction: row; gap: 5px; align-items: stretch; padding: 5px; background-color: #fff898; border: 1px solid black; border-radius: 5px;">
-	${string}
-	<div class="close" style="cursor: pointer; user-select: none" onclick="destroy_toast(${cur_id})">X</div>
+	<div class="toast-${cur_id} flex flex-row gap-5 items-center p-2 bg-[#fff898] border-1 border-black rounded-sm relative right-0 bottom-0 pointer-events-auto">
+	<div class="w-full">${string}</div>
+	<div class="close cursor-pointer select-none px-2" onclick="destroy_toast(${cur_id})">X</div>
 	</div>
 	`;
 	

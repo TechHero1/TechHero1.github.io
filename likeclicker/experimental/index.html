@@ -7,40 +7,64 @@
     <script type="text/javascript" src="data/strings.js"></script>
     <script type="text/javascript" src="script.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" media="all" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body onload="start()">
-    <center>
-        <h2>Like Clicker Experiment</h2>
-        <div>
-            <span>set lang</span>
-            <div class="lang_buttons_area"></div>
+<body class="font-[AdwaitaSans-Regular] bg-gray-200" onload="start()">
+    <nav class="bg-gray-800">
+      <div class="mx-auto py-2 px-2 sm:px-6 lg:px-8 text-white text-[1.25rem]">
+        Like Clicker Experiment
+      </div>
+    </nav>
+
+    <div class="mx-auto py-2 px-2 sm:px-6 lg:px-8">
+        <div class="flex flex-col gap-4 items-stretch">
+            <div class="rounded-md bg-white p-2 shadow-md flex justify-center items-stretch text-center">
+                <div class="flex flex-col gap-3 w-full">
+                    <span>set lang</span>
+                    <div class="lang_buttons_area"></div>
+                </div>
+            </div>
+            <div class="rounded-md bg-white p-2 shadow-md flex justify-center items-stretch text-center">
+                <div class="flex flex-col gap-3 w-full">
+                    <span>item id</span>
+                    <div><input class="textinput" id="item_name" type="text"></div>
+                    <div>
+                        <button class="button" onclick="add_shop_item(document.querySelector('#item_name').value)">add</button>
+                        <button class="button" onclick="add_double_item(document.querySelector('#item_name').value)">add double</button>
+                        <button class="button" onclick="add_lpc_item()">add lpc</button>
+                    </div>
+                    <span class="ids_list">valid ids: </span>
+                </div>
+            </div>
+            <div class="rounded-md bg-white p-2 shadow-md flex justify-center items-stretch text-center">
+                <div class="flex flex-col gap-3 w-full">
+                    <span>number for string</span>
+                    <div>
+                        <input class="textinput" id="string_number" type="number">
+                        <button class="button" onclick="let number = document.querySelector('#string_number').value;if(number != ''){if(number > 1){create_new_toast(get_string('test','plural',[number]),30)}else{create_new_toast(get_string('test','singular',[number]),30)}}">test string</button>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-md bg-white p-2 shadow-md flex justify-center items-stretch text-center">
+                <div class="flex flex-col gap-3 w-full">
+                    <span>your favorite words</span>
+                    <div>
+                        <input class="textinput" id="string_word1" type="text">
+                        <input class="textinput" id="string_word2" type="text">
+                    </div>
+                    <div>
+                        <button class="button" onclick="let word1 = document.querySelector('#string_word1').value;let word2 = document.querySelector('#string_word2').value;if(word1 == '' || word2 == '' || word1 == word2){create_new_toast(get_string('creative','',[]),30)}else{create_new_toast(get_string('words','',[word1,word2]),30)}">test string</button>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-md bg-white p-2 shadow-md flex justify-center items-stretch text-center">
+                <div class="flex flex-col gap-3 w-full">
+                    <div class="shop_items_area flex flex-col gap-4"></div>
+                </div>
+            </div>
         </div>
-        <br>
-        <div>
-            <span>item id</span>
-            <input id="item_name" type="text">
-            <br>
-            <button onclick="add_shop_item(document.querySelector('#item_name').value)">add</button>
-            <button onclick="add_double_item(document.querySelector('#item_name').value)">add double</button>
-            <button onclick="add_lpc_item()">add lpc</button>
-            <br>
-            <span class="ids_list">valid ids: </span>
-            <br>
-            <br>
-            <span>number for string</span>
-            <input id="string_number" type="number">
-            <br>
-            <button onclick="let number = document.querySelector('#string_number').value;if(number != ''){if(number > 1){create_new_toast(get_string('test','plural',[number]),30)}else{create_new_toast(get_string('test','singular',[number]),30)}}">test string</button><br>
-            <br>
-            <span>your favorite words</span>
-            <input id="string_word1" type="text">
-            <input id="string_word2" type="text">
-            <br>
-            <button onclick="let word1 = document.querySelector('#string_word1').value;let word2 = document.querySelector('#string_word2').value;if(word1 == '' || word2 == '' || word1 == word2){create_new_toast(get_string('creative','',[]),30)}else{create_new_toast(get_string('words','',[word1,word2]),30)}">test string</button>
-            <br>
-            <br>
-            <div class="shop_items_area"></div>
-        </div>
-    </center>
-    <div class="toasts_container" style="position: absolute; right: 0; bottom: 0;" onmouseover="mouse_hovering_on_toasts = true" onmouseout="mouse_hovering_on_toasts = false"></div>
+    </div>
+    <div class="sticky right-0 bottom-0 pointer-events-none w-full">
+        <div class="toasts_container absolute right-0 bottom-0 flex flex-col items-stretch" onmouseover="mouse_hovering_on_toasts = true" onmouseout="mouse_hovering_on_toasts = false"></div>
+    </div>
 </body>
