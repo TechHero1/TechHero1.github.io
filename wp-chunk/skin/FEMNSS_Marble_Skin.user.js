@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         FEMNSS Marble Skin (2.0)
-// @version      2026-08-29
+// @version      2026-08-30
 // @description  Very Simple FEMNSS Skin for Blue Marble and variants
 // @author       Far Eastern Magic Napping Society of Summer
 // @icon         https://techhero1.github.io/wp-chunk/skin/icon.png
 // @match        *://*.wplace.live/*
+// @run-at       document-idle
 // @updateURL    https://techhero1.github.io/wp-chunk/skin/FEMNSS_Marble_Skin.user.js
 // @downloadURL  https://techhero1.github.io/wp-chunk/skin/FEMNSS_Marble_Skin.user.js
 // ==/UserScript==
