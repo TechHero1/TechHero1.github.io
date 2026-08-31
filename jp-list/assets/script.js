@@ -251,6 +251,31 @@ var filters = {
   "Abandonado": '["Abandonado"]'
 }
 
+var site_colors = {
+  "default": "#ffffff",
+  "types": {
+    "novel": "#e6cff2",
+    "anime": "#bfe1f6",
+    "manga": "#d4edbc",
+    "jogo": "#ffcfc9",
+    "filme": "#c6dbe1",
+    "audio": "#ffc8aa",
+    "dorama": "#fe3967",
+    "stage": "#efe80e",
+    "fanfic": "#a8a8a8",
+    "shortstory": "#ce5add",
+    "ensaio": "#ffffff"
+  },
+  "status": {
+    "completo": "#4285f4",
+    "progredindo": "#00ff00",
+    "planejo": "#cfe2f3",
+    "abandonado": "#ff0000",
+    "repetindo": "#11734b",
+    "pausado": "#ffe5a0"
+  }
+}
+
 var list = {
     "itens": [],
     "list_mode": "grid",
@@ -432,44 +457,44 @@ function load_list() {
       }
     }
 
-    let bg_color = "#ffffff";
+    let bg_color = site_colors.default;
     if (list.cores) {
       switch(list.itens[i].tipo) {
         default:
-          bg_color = "#ffffff";
+          bg_color = site_colors.default;
           break;
         case "Novel":
-          bg_color = "#e6cff2";
+          bg_color = site_colors.types.novel;
           break;
         case "Anime":
-          bg_color = "#bfe1f6";
+          bg_color = site_colors.types.anime;
           break;
         case "Mangá":
-          bg_color = "#d4edbc";
+          bg_color = site_colors.types.manga;
           break;
         case "Jogo":
-          bg_color = "#ffcfc9";
+          bg_color = site_colors.types.jogo;
           break;
         case "Filme":
-          bg_color = "#c6dbe1";
+          bg_color = site_colors.types.filme;
           break;
         case "Áudio":
-          bg_color = "#ffc8aa";
+          bg_color = site_colors.types.audio;
           break;
         case "Dorama/Série":
-          bg_color = "#fe3967";
+          bg_color = site_colors.types.dorama;
           break;
         case "Stage":
-          bg_color = "#efe80e";
+          bg_color = site_colors.types.stage;
           break;
         case "Fanfic":
-          bg_color = "#a8a8a8";
+          bg_color = site_colors.types.fanfic;
           break;
         case "Short Story":
-          bg_color = "#ce5add";
+          bg_color = site_colors.types.shortstory;
           break;
         case "Ensaio":
-          bg_color = "#ffffff";
+          bg_color = site_colors.types.ensaio;
           break;
       }
     }
@@ -486,7 +511,7 @@ function load_list() {
     anotacao = style_text_with_tags(anotacao,list.itens[i].dados);
 
     document.querySelector(".content_list").innerHTML += `
-    <div style="background-color:${bg_color}" class="flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:bg-gray-200" id="${i}" onclick="edit_item(this.id)">
+    <div class="bg-[${bg_color}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:border-gray-400" id="${i}" onclick="edit_item(this.id)">
       <div class="p-1 flex flex-row gap-2">
         <img src="${list.itens[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
         <div class="w-[100%]">
@@ -564,7 +589,7 @@ function update_preview_nota() {
 
   let nota_input = document.querySelector(".nota_input").value;
   document.querySelector(".nota_input_preview").innerHTML = style_text_with_tags(nota_input,cur_preview_item.dados);
-  if (nota_input.includes("\\") || nota_input.includes("[") || nota_input.includes("$")) document.querySelector(".nota_preview_container").classList.remove('hidden');
+  if (nota_input.includes("\\") || nota_input.includes("[") || nota_input.includes("$") || nota_input.includes("{")) document.querySelector(".nota_preview_container").classList.remove('hidden');
   else document.querySelector(".nota_preview_container").classList.add('hidden');
 }
 
@@ -826,23 +851,30 @@ function create_streaming_tags(array) {
 //stats
 function gerar_stats() {
   let base_types = ['Anime', 'Novel', 'Mangá', 'Jogo', 'Filme', 'Áudio', 'Dorama/Série', 'Stage', 'Fanfic', 'Short Story', 'Ensaio'];
-  let base_types_colors = ['#bfe1f6','#e6cff2','#d4edbc', '#ffcfc9', '#c6dbe1', '#ffc8aa', '#fe3967', '#efe80e', '#a8a8a8', '#ce5add', '#ffffff'];
+  let base_types_colors = [site_colors.types.anime, site_colors.types.novel, site_colors.types.manga, site_colors.types.jogo, site_colors.types.filme, site_colors.types.audio, site_colors.types.dorama, site_colors.types.stage, site_colors.types.fanfic, site_colors.types.shortstory, site_colors.types.ensaio];
   let graph_types = [];
   let graph_types_values = [];
   let graph_types_colors = [];
   let graph_types_lines = '#000000';
+  let last_items = 0;
+  let cur_valid_id = 0;
 
   for (let tipo_id = 0; tipo_id < base_types.length; tipo_id++) {
+
+    if (last_items > 0) cur_valid_id++;
+    last_items = 0;
+
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
       if (list.itens[item_id].tipo == base_types[tipo_id]) {
         if (!graph_types.includes(base_types[tipo_id])) {
           //primeira aparição = cria
+          last_items++;
           graph_types.push(base_types[tipo_id]);
           graph_types_colors.push(base_types_colors[tipo_id]);
           graph_types_values.push(1);
         } else {
           //próximas aparições = adiciona
-          graph_types_values[graph_types.indexOf(graph_types[tipo_id])]++;
+          graph_types_values[graph_types.indexOf(graph_types[cur_valid_id])]++;
         }
       }
     }
@@ -862,7 +894,8 @@ function gerar_stats() {
         width: 1.5
       }
     },
-    type: 'pie'
+    type: 'pie',
+    automargin: true
   }];
 
   let tipo_pie_layout = {
@@ -897,8 +930,8 @@ function gerar_stats() {
   //tipo bar
 
   let tipo_bar_data = [{
-    y: graph_types_values,
-    x: graph_types,
+    x: graph_types_values,
+    y: graph_types,
     marker: {
       color: graph_types_colors,
       line: {
@@ -907,9 +940,10 @@ function gerar_stats() {
       }
     },
     type: 'bar',
+    orientation: 'h',
     text: graph_types_values.map(String),
     textposition: 'auto',
-    hoverinfo: 'x+y'
+    hoverinfo: 'y+x'
   }];
 
   let tipo_bar_layout = {
@@ -942,23 +976,31 @@ function gerar_stats() {
   Plotly.newPlot(document.querySelector(".tipo_bar"), tipo_bar_data, tipo_bar_layout, tipo_bar_config);
 
   let base_status = ['Completo', 'Progredindo', 'Planejo', 'Abandonado', 'Repetindo', 'Pausado'];
-  let base_status_colors = ['#4285f4','#00ff00','#cfe2f3', '#ff0000', '#11734b', '#ffe5a0'];
+  let base_status_colors = [site_colors.status.completo, site_colors.status.progredindo, site_colors.status.planejo, site_colors.status.abandonado, site_colors.status.repetindo, site_colors.status.pausado];
   let graph_status = [];
   let graph_status_values = [];
   let graph_status_colors = [];
   let graph_status_lines = '#000000';
+  let last_status_items = 0;
+  let cur_valid_status_id = 0;
 
+  //aqui a mudança
   for (let status_id = 0; status_id < base_status.length; status_id++) {
+
+    if (last_status_items > 0) cur_valid_status_id++;
+    last_status_items = 0;
+
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
       if (list.itens[item_id].dados.status == base_status[status_id]) {
         if (!graph_status.includes(base_status[status_id])) {
           //primeira aparição = cria
+          last_status_items++;
           graph_status.push(base_status[status_id]);
           graph_status_colors.push(base_status_colors[status_id]);
           graph_status_values.push(1);
         } else {
           //próximas aparições = adiciona
-          graph_status_values[graph_status.indexOf(graph_status[status_id])]++;
+          graph_status_values[graph_status.indexOf(graph_status[cur_valid_status_id])]++;
         }
       }
     }
@@ -978,7 +1020,8 @@ function gerar_stats() {
         width: 1.5
       }
     },
-    type: 'pie'
+    type: 'pie',
+    automargin: true
   }];
 
   let status_pie_layout = {
@@ -1013,8 +1056,8 @@ function gerar_stats() {
   //status bar
 
   let status_bar_data = [{
-    y: graph_status_values,
-    x: graph_status,
+    x: graph_status_values,
+    y: graph_status,
     marker: {
       color: graph_status_colors,
       line: {
@@ -1023,10 +1066,10 @@ function gerar_stats() {
       }
     },
     type: 'bar',
+    orientation: 'h',
     text: graph_status_values.map(String),
     textposition: 'auto',
-    hoverinfo: 'x+y'
-
+    hoverinfo: 'y+x'
   }];
 
   let status_bar_layout = {
@@ -1058,6 +1101,8 @@ function gerar_stats() {
 
   Plotly.newPlot(document.querySelector(".status_bar"), status_bar_data, status_bar_layout, status_bar_config);
 
+  //progresso por formato - calculo
+
   let graph_prog_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let graph_total_ep = 0;
   let graph_total_cap = 0;
@@ -1077,11 +1122,11 @@ function gerar_stats() {
     }
   }
 
-  //progresso por formato
+  //progresso por formato - grafico
 
   let prog_tipo_bar_data = [{
-    y: graph_prog_types_values,
-    x: graph_types,
+    x: graph_prog_types_values,
+    y: graph_types,
     marker: {
       color: graph_types_colors,
       line: {
@@ -1090,9 +1135,10 @@ function gerar_stats() {
       }
     },
     type: 'bar',
+    orientation: 'h',
     text: graph_prog_types_values.map(String),
     textposition: 'auto',
-    hoverinfo: 'x+y'
+    hoverinfo: 'y+x'
   }];
 
   let prog_tipo_bar_layout = {
@@ -1123,6 +1169,68 @@ function gerar_stats() {
   };
 
   Plotly.newPlot(document.querySelector(".prog_tipo_bar"), prog_tipo_bar_data, prog_tipo_bar_layout, prog_tipo_bar_config);
+
+  //moji por formato - calculo
+
+  let graph_moji_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
+    for (let item_id = 0; item_id < list.itens.length; item_id++) {
+      if (list.itens[item_id].tipo == graph_types[tipo_id]) {
+        graph_moji_types_values[tipo_id] += Number(list.itens[item_id].dados.moji);
+      }
+    }
+  }
+
+  //moji por formato - grafico
+
+  let moji_tipo_bar_data = [{
+    x: graph_moji_types_values,
+    y: graph_types,
+    marker: {
+      color: graph_types_colors,
+      line: {
+        color: graph_types_lines,
+        width: 1.5
+      }
+    },
+    type: 'bar',
+    orientation: 'h',
+    text: graph_moji_types_values.map(String),
+    textposition: 'auto',
+    hoverinfo: 'y+x'
+  }];
+
+  let moji_tipo_bar_layout = {
+    title: {
+      text: 'Caracteres por formato'
+    },
+    font:{
+      family: 'Arial, sans-serif'
+    },
+    yaxis: {
+      fixedrange: true
+    },
+    xaxis: {
+      fixedrange: true
+    }
+  };
+
+  let moji_tipo_bar_config = {
+    responsive: true,
+    toImageButtonOptions: {
+      format: 'png',
+      filename: 'moji_tipo_bar_chart',
+      scale: 1
+    },
+    displayModeBar: true,
+    modeBarButtonsToRemove: ['select', 'lasso'],
+    displaylogo: false
+  };
+
+  Plotly.newPlot(document.querySelector(".moji_tipo_bar"), moji_tipo_bar_data, moji_tipo_bar_layout, moji_tipo_bar_config);
+
+  //horas por formato - calculo
 
   let graph_horas_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -1165,11 +1273,11 @@ function gerar_stats() {
   graph_total_horas += Math.trunc(graph_total_minutos/60);
   graph_total_minutos = Math.trunc(graph_total_minutos%60);
 
-  //horas por formato
+  //horas por formato - grafico
 
   let horas_tipo_bar_data = [{
-    y: graph_horas_types_values,
-    x: graph_types,
+    x: graph_horas_types_values,
+    y: graph_types,
     marker: {
       color: graph_types_colors,
       line: {
@@ -1178,9 +1286,10 @@ function gerar_stats() {
       }
     },
     type: 'bar',
+    orientation: 'h',
     text: graph_horas_types_values.map(String),
     textposition: 'auto',
-    hoverinfo: 'x+y'
+    hoverinfo: 'y+x'
   }];
 
   let horas_tipo_bar_layout = {
@@ -1341,6 +1450,17 @@ const style_tag_mark = /\[bar_mark:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
 const style_tag_preset = /\[estilo:(?<nome>.+?)](?<real_text>.+?)\[\/estilo]/g;
 
 function style_text_with_tags(text,item_data) {
+  //SECRET TAGS
+  text = text.replaceAll(/\{chap_prog_moji}/g,"[bold]$atual [icon:solid:arrow-right] $proximo[/bold]<br>[bar_mark:$comeco:$moji:$fim]<br>[mark:$comeco:$moji:$fim] ([mark_p:$comeco:$moji:$fim])");
+  text = text.replaceAll(/\{chap_prog_page}/g,"[bold]$atual [icon:solid:arrow-right] $proximo[/bold]<br>[bar_mark:$comeco:$pages:$fim]<br>[mark:$comeco:$pages:$fim] ([mark_p:$comeco:$pages:$fim])");
+  text = text.replaceAll(/\{mashutan}/g,"<img src='assets/img/mashutan.png' class='w-[59px] h-[68px] inline'>");
+  text = text.replaceAll(/\{mashutan_med}/g,"<img src='assets/img/mashutan.png' class='w-[131px] h-[151px] inline'>");
+  text = text.replaceAll(/\{mashutan_big}/g,"<img src='assets/img/mashutan.png' class='w-[227px] h-[262px] inline'>");
+  text = text.replaceAll(/\{mashutanzilla}/g,"<img src='assets/img/mashutan.png' class='max-w-[revert] w-[717px] h-[830px] inline'>");
+  text = text.replaceAll(/\{iichan}/g,"<img src='assets/img/iichan.png' class='w-full'>");
+  text = text.replaceAll(/\{iichan_face}/g,"<img src='assets/img/iichan_face.png' class='w-[96px] h-[103px] inline'>");
+  text = text.replaceAll(/\{eto_bleh}/g,"<img src='https://media.tenor.com/XnGK5CaQTt4AAAAd/ah-eto-bleh-anime.gif' class='w-full'>");
+
   //VALORES
   text = text.replaceAll(/\$progresso/g,item_data.progresso);
   text = text.replaceAll(/\$final/g,item_data.final);
@@ -1797,11 +1917,12 @@ function create_custom_info() {
       let cur_exemplo_data = cur_estilo_data.exemplo[cur_exemplo];
       let render = cur_exemplo_data.render.replaceAll("$texto",cur_exemplo_data.texto);
       let linebreak = "";
+      let command_name = "estilo";
       if (cur_exemplo > 0) linebreak = "<br><br>";
 
       document.querySelector(".estilo-code-"+cur_estilo).innerHTML += `
         ${linebreak}
-        <code class="text-[#013220]">[</code><code class="text-[#905]">estilo</code><code class="text-[#013220]">:</code><code class="text-[#07a]">${cur_exemplo_data.id}</code><code class="text-[#013220]">]</code><code>${cur_exemplo_data.texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">estilo</code><code class="text-[#013220]">]</code></code>
+        <code class="text-[#013220]">[</code><code class="text-[#905]">${command_name}</code><code class="text-[#013220]">:</code><code class="text-[#07a]">${cur_exemplo_data.id}</code><code class="text-[#013220]">]</code><code>${cur_exemplo_data.texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${command_name}</code><code class="text-[#013220]">]</code></code>
       `;
 
       document.querySelector(".estilo-render-"+cur_estilo).innerHTML += linebreak+render;

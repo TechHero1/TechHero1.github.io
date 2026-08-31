@@ -953,7 +953,7 @@
                 },
                 {
                 "id": "vermelho_umineko_ps3",
-                "texto": "Vermelho (PS3)",
+                "texto": "Vermelho (Mod)",
                 "render": "<b class='bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
                 }
             ]
@@ -968,7 +968,7 @@
                 },
                 {
                 "id": "azul_umineko_ps3",
-                "texto": "Azul (PS3)",
+                "texto": "Azul (Mod)",
                 "render": "<b class='bg-linear-to-b from-[#1d97c9] from-[40%] to-[#7ff1f3] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
                 }
             ]
@@ -983,7 +983,7 @@
                 },
                 {
                 "id": "roxo_umineko_ps3",
-                "texto": "Roxo (PS3)",
+                "texto": "Roxo (Mod)",
                 "render": "<b class='bg-linear-to-b from-[#6b5dab] from-[40%] to-[#e7d0f1] to-[80%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
                 }
             ]
@@ -998,7 +998,7 @@
                 },
                 {
                 "id": "dourado_umineko_ps3",
-                "texto": "Dourado (PS3)",
+                "texto": "Dourado (Mod)",
                 "render": "<b class='bg-linear-to-b from-[#d19214] from-[40%] to-[#f8df59] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
                 }
             ]

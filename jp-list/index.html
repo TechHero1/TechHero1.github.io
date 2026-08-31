@@ -5,16 +5,16 @@
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>JP List</title>
     <script type="text/javascript" src="assets/yomitan/japanese-kana-romaji-dicts.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
-    <script type="text/javascript" src="js/linkify.min.js"></script>
-    <script type="text/javascript" src="js/linkify-string.min.js"></script>
-    <script type="text/javascript" src="js/plotly-3.0.1.min.js"></script>
+    <script type="text/javascript" src="assets/script.js"></script>
+    <script type="text/javascript" src="assets/linkify/linkify.min.js"></script>
+    <script type="text/javascript" src="assets/linkify/linkify-string.min.js"></script>
+    <script type="text/javascript" src="assets/plotly/plotly-4.0.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="../shared/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
     <link href="../shared/fontawesome/css/brands.min.css" rel="stylesheet" />
     <link href="../shared/fontawesome/css/solid.min.css" rel="stylesheet" />
     <link href="../shared/fontawesome/css/regular.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="assets/styles.css" media="all" />
     <script type="text/javascript">
       var hook = false;
       window.onbeforeunload = function() {
@@ -72,68 +72,102 @@
         </div>
     </div>
 
-    <div id="Estatísticas" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
-        <center>
-        <div class="p-2">
-            <table class="border-1 table-auto">
-                <thead>
-                    <th class="border-1 p-2" colspan="2">
-                        <div class="text-center">Total</div>
-                    </th>
-                </thead>
-                <tbody>
-                    <tr class="bg-(--color-anime)">
-                        <td class="border-1 p-2">
-                            <div class="text-center">Episódios</div>
-                        </td>
-                        <td class="border-1 p-2">
-                            <div class="text-center ep_counter">0</div>
-                        </td>
-                    </tr>
-                    <tr class="bg-(--color-manga)">
-                        <td class="border-1 p-2">
-                            <div class="text-center">Capítulos</div>
-                        </td>
-                        <td class="border-1 p-2">
-                            <div class="text-center cap_counter">0</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="border-1 p-2">
-                            <div class="text-center">Caracteres</div>
-                        </td>
-                        <td class="border-1 p-2">
-                            <div class="text-center moji_counter">0</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="border-1 p-2">
-                            <div class="text-center">Volumes</div>
-                        </td>
-                        <td class="border-1 p-2">
-                            <div class="text-center vol_counter">0</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="border-1 p-2">
-                            <div class="text-center">Horas (HH:MM)</div>
-                        </td>
-                        <td class="border-1 p-2">
-                            <div class="text-center time_counter">00:00</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        </center>
-        <div class="p-2 grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
-            <!--<img class="p-2" src="https://media.tenor.com/XnGK5CaQTt4AAAAd/ah-eto-bleh-anime.gif">-->
-            <div class="tipo_pie p-2 w-full 2xl:w-[800px] h-[500px]"></div>
-            <div class="tipo_bar p-2 w-full 2xl:w-[800px] h-[500px]"></div>
-            <div class="status_pie p-2 w-full 2xl:w-[800px] h-[500px]"></div>
-            <div class="status_bar p-2 w-full 2xl:w-[800px] h-[500px]"></div>
-            <div class="prog_tipo_bar p-2 w-full 2xl:w-[800px] h-[500px]"></div>
-            <div class="horas_tipo_bar p-2 w-full 2xl:w-[800px] h-[500px]"></div>
+    <div id="Estatísticas" class="tabcontent m-2 hidden">
+        <div class="stats_tab_container flex flex-col gap-2 items-center">
+            <!--<div class="rounded-md bg-white shadow-md p-2">
+                <img class="p-2" src="https://media.tenor.com/XnGK5CaQTt4AAAAd/ah-eto-bleh-anime.gif">
+            </div>-->
+
+            <div class="rounded-md bg-white shadow-md p-2">
+                <div class="p-2">
+                    <table class="border-1 table-auto">
+                        <thead>
+                            <th class="border-1 p-2" colspan="2">
+                                <div class="text-center">Total</div>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-(--color-anime)">
+                                <td class="border-1 p-2">
+                                    <div class="text-center">Episódios</div>
+                                </td>
+                                <td class="border-1 p-2">
+                                    <div class="text-center ep_counter">0</div>
+                                </td>
+                            </tr>
+                            <tr class="bg-(--color-manga)">
+                                <td class="border-1 p-2">
+                                    <div class="text-center">Capítulos</div>
+                                </td>
+                                <td class="border-1 p-2">
+                                    <div class="text-center cap_counter">0</div>
+                                </td>
+                            </tr>
+                            <tr class="bg-(--color-moji)">
+                                <td class="border-1 p-2">
+                                    <div class="text-center">Caracteres</div>
+                                </td>
+                                <td class="border-1 p-2">
+                                    <div class="text-center moji_counter">0</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 p-2">
+                                    <div class="text-center">Volumes</div>
+                                </td>
+                                <td class="border-1 p-2">
+                                    <div class="text-center vol_counter">0</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-1 p-2">
+                                    <div class="text-center">Horas (HH:MM)</div>
+                                </td>
+                                <td class="border-1 p-2">
+                                    <div class="text-center time_counter">00:00</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="p-2 flex flex-col md:flex-row gap-2 w-full max-w-[2000px]">
+                <div class="rounded-md bg-white shadow-md p-2 w-full">
+                    <div><div class="tipo_pie"></div></div>
+                </div>
+                <div class="rounded-md bg-white shadow-md p-2 w-full">
+                    <div><div class="tipo_bar"></div></div>
+                </div>
+            </div>
+
+            <div class="p-2 flex flex-col md:flex-row gap-2 w-full max-w-[2000px]">
+                <div class="rounded-md bg-white shadow-md p-2 w-full">
+                    <div><div class="status_pie"></div></div>
+                </div>
+                <div class="rounded-md bg-white shadow-md p-2 w-full">
+                    <div><div class="status_bar"></div></div>
+                </div>
+            </div>
+
+            <div class="p-2 flex flex-col md:flex-row gap-2 w-full max-w-[2000px]">
+                <div class="rounded-md bg-white shadow-md p-2 w-full">
+                    <div><div class="prog_tipo_bar"></div></div>
+                </div>
+            </div>
+
+            <div class="p-2 flex flex-col md:flex-row gap-2 w-full max-w-[2000px]">
+                <div class="rounded-md bg-white shadow-md p-2 w-full">
+                    <div><div class="moji_tipo_bar"></div></div>
+                </div>
+            </div>
+
+            <div class="p-2 flex flex-col md:flex-row gap-2 w-full max-w-[2000px]">
+                <div class="rounded-md bg-white shadow-md p-2 w-full">
+                    <div><div class="horas_tipo_bar"></div></div>
+                </div>
+            </div>
+
         </div>
     </div>
 
