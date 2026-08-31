@@ -24,7 +24,7 @@
     "comandos": [
         {
             "nome": "Negrito",
-            "comando": "bold",
+            "comando": "b",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -37,7 +37,7 @@
         },
         {
             "nome": "Itálico",
-            "comando": "italic",
+            "comando": "i",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -50,13 +50,13 @@
         },
         {
             "nome": "Texto colorido",
-            "comando": "color",
+            "comando": "cor",
             "modelo": [
                 {
                     "texto": "Texto",
                     "parametros": [
                         {
-                            "nome": "cor"
+                            "nome": "codigo_hexadecimal"
                         }
                     ],
                     "render": ""
@@ -104,7 +104,7 @@
         },
         {
             "nome": "Badge",
-            "comando": "badge",
+            "comando": "bdg",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -137,7 +137,7 @@
         },
         {
             "nome": "Borda",
-            "comando": "border",
+            "comando": "brd",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -170,7 +170,7 @@
         },
         {
             "nome": "Sombra Suave",
-            "comando": "shadow",
+            "comando": "sdw",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -210,7 +210,7 @@
         },
         {
             "nome": "Sombra Sólida",
-            "comando": "solidshadow",
+            "comando": "ssdw",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -250,7 +250,7 @@
         },
         {
             "nome": "Degradê",
-            "comando": "gradient",
+            "comando": "grd",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -305,7 +305,7 @@
         },
         {
             "nome": "Degradê ajustável",
-            "comando": "gradpercent",
+            "comando": "grdp",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -509,7 +509,7 @@
         },
         {
             "nome": "Marco exato",
-            "comando": "mark",
+            "comando": "mrk",
             "modelo": [
                 {
                     "texto": "",
@@ -548,7 +548,7 @@
         },
         {
             "nome": "Marco em porcentagem",
-            "comando": "mark_p",
+            "comando": "mrkp",
             "modelo": [
                 {
                     "texto": "",
@@ -633,7 +633,7 @@
         },
         {
             "nome": "Barras de progresso (marco)",
-            "comando": "bar_mark",
+            "comando": "barm",
             "modelo": [
                 {
                     "texto": "",
@@ -672,7 +672,7 @@
         },
         {
             "nome": "Furigana",
-            "comando": "furigana",
+            "comando": "furi",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -761,7 +761,7 @@
         },
         {
             "nome": "Katakana (largura normal para meia largura)",
-            "comando": "halfkana",
+            "comando": "hkat",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -792,7 +792,7 @@
         },
         {
             "nome": "Katakana (meia largura para largura normal)",
-            "comando": "fullkana",
+            "comando": "fkat",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -952,7 +952,7 @@
                 "render": "<span class='text-[#f50000] drop-shadow-[1px_1px_#000000]'>$texto</span>"
                 },
                 {
-                "id": "vermelho_umineko_ps3",
+                "id": "vermelho_umineko_mod",
                 "texto": "Vermelho (Mod)",
                 "render": "<b class='bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
                 }
@@ -967,7 +967,7 @@
                 "render": "<span class='text-[#5DECFF] drop-shadow-[1px_1px_#000000]'>$texto</span>"
                 },
                 {
-                "id": "azul_umineko_ps3",
+                "id": "azul_umineko_mod",
                 "texto": "Azul (Mod)",
                 "render": "<b class='bg-linear-to-b from-[#1d97c9] from-[40%] to-[#7ff1f3] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
                 }
@@ -982,7 +982,7 @@
                 "render": "<span class='text-[#CC99FF] drop-shadow-[1px_1px_#000000]'>$texto</span>"
                 },
                 {
-                "id": "roxo_umineko_ps3",
+                "id": "roxo_umineko_mod",
                 "texto": "Roxo (Mod)",
                 "render": "<b class='bg-linear-to-b from-[#6b5dab] from-[40%] to-[#e7d0f1] to-[80%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
                 }
@@ -997,7 +997,7 @@
                 "render": "<span class='text-[#DAA520] drop-shadow-[1px_1px_#000000]'>$texto</span>"
                 },
                 {
-                "id": "dourado_umineko_ps3",
+                "id": "dourado_umineko_mod",
                 "texto": "Dourado (Mod)",
                 "render": "<b class='bg-linear-to-b from-[#d19214] from-[40%] to-[#f8df59] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
                 }
@@ -1007,7 +1007,7 @@
             "nome": "Verde Umineko",
             "exemplo": [
                 {
-                "id": "verde_umineko_ps3",
+                "id": "verde_umineko_mod",
                 "texto": "Verde",
                 "render": "<b class='bg-linear-to-b from-[#78cf79] from-[40%] to-[#ddffef] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]'>$texto</b>"
                 }

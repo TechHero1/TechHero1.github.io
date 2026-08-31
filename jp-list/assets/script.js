@@ -502,6 +502,9 @@ function load_list() {
     let img_hidden = "";
     if (list.itens[i].dados.img == "") img_hidden = "hidden";
 
+    //consertar cagada
+    list.itens[i].dados.nota = update_old_style_tags(list.itens[i].dados.nota);
+
     let anotacao = list.itens[i].dados.nota;
     if (!list.itens[i].dados.hasOwnProperty("nota")) anotacao = "";
     anotacao = anotacao.linkify({
@@ -1387,34 +1390,34 @@ function kanaHalfToFull(text) {
 }
 
 //GRADIENT TAG
-const style_tag_gradient = /\[gradient:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?)](?<real_text>.+?)\[\/gradient]/g;
+const style_tag_gradient = /\[grd:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?)](?<real_text>.+?)\[\/grd]/g;
 
 //GRADIENT TAG WITH %
-const style_tag_gradpercent = /\[gradpercent:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?):(?<first_color_focus>.+?):(?<second_color_focus>.+?)](?<real_text>.+?)\[\/gradpercent]/g;
+const style_tag_gradpercent = /\[grdp:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?):(?<first_color_focus>.+?):(?<second_color_focus>.+?)](?<real_text>.+?)\[\/grdp]/g;
 
 //COLOR TAG
-const style_tag_color = /\[color:(?<color>.+?)](?<real_text>.+?)\[\/color]/g;
+const style_tag_color = /\[cor:(?<color>.+?)](?<real_text>.+?)\[\/cor]/g;
 
 //BOLD TAG
-const style_tag_bold = /\[bold](?<real_text>.+?)\[\/bold]/g;
+const style_tag_bold = /\[b](?<real_text>.+?)\[\/b]/g;
 
 //ITALIC TAG
-const style_tag_italic = /\[italic](?<real_text>.+?)\[\/italic]/g;
+const style_tag_italic = /\[i](?<real_text>.+?)\[\/i]/g;
 
 //BG TAG
 const style_tag_bg = /\[bg:(?<color>.+?)](?<real_text>.+?)\[\/bg]/g;
 
 //BORDER TAG
-const style_tag_border = /\[border:(?<size>.+?):(?<color>.+?)](?<real_text>.+?)\[\/border]/g;
+const style_tag_border = /\[brd:(?<size>.+?):(?<color>.+?)](?<real_text>.+?)\[\/brd]/g;
 
 //SHADOW TAG
-const style_tag_shadow = /\[shadow:(?<size>.+?):(?<color>.+?):(?<opacity>.+?)](?<real_text>.+?)\[\/shadow]/g;
+const style_tag_shadow = /\[sdw:(?<size>.+?):(?<color>.+?):(?<opacity>.+?)](?<real_text>.+?)\[\/sdw]/g;
 
 //SOLID SHADOW TAG
-const style_tag_solid_shadow = /\[solidshadow:(?<horizontal>.+?):(?<vertical>.+?):(?<color>.+?)](?<real_text>.+?)\[\/solidshadow]/g;
+const style_tag_solid_shadow = /\[ssdw:(?<horizontal>.+?):(?<vertical>.+?):(?<color>.+?)](?<real_text>.+?)\[\/ssdw]/g;
 
 //BADGE TAG
-const style_tag_badge = /\[badge:(?<text_color>.+?):(?<bg_color>.+?)](?<real_text>.+?)\[\/badge]/g;
+const style_tag_badge = /\[bdg:(?<text_color>.+?):(?<bg_color>.+?)](?<real_text>.+?)\[\/bdg]/g;
 
 //HIRAGANA TAG
 const style_tag_hiragana = /\[hira](?<real_text>.+?)\[\/hira]/g;
@@ -1423,13 +1426,13 @@ const style_tag_hiragana = /\[hira](?<real_text>.+?)\[\/hira]/g;
 const style_tag_katakana = /\[kata](?<real_text>.+?)\[\/kata]/g;
 
 //KATAKANA TAG
-const style_tag_halfkana = /\[halfkana](?<real_text>.+?)\[\/halfkana]/g;
+const style_tag_halfkana = /\[hkat](?<real_text>.+?)\[\/hkat]/g;
 
 //KATAKANA TAG
-const style_tag_fullkana = /\[fullkana](?<real_text>.+?)\[\/fullkana]/g;
+const style_tag_fullkana = /\[fkat](?<real_text>.+?)\[\/fkat]/g;
 
 //FURIGANA TAG
-const style_tag_furigana = /\[furigana:(?<furigana>.+?)](?<real_text>.+?)\[\/furigana]/g;
+const style_tag_furigana = /\[furi:(?<furigana>.+?)](?<real_text>.+?)\[\/furi]/g;
 
 //ICON TAG
 const style_tag_icon = /\[icon:(?<id>.+?):(?<style>.+?)]/g;
@@ -1438,21 +1441,21 @@ const style_tag_icon = /\[icon:(?<id>.+?):(?<style>.+?)]/g;
 const style_tag_progress = /\[bar:(?<value>.+?):(?<max>.+?)]/g;
 
 //MARK TAG
-const style_tag_marktxt = /\[mark:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
+const style_tag_marktxt = /\[mrk:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
 
 //MARK PERCENT TAG
-const style_tag_marktxt_percent = /\[mark_p:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
+const style_tag_marktxt_percent = /\[mrkp:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
 
 //PROGRESS MARK TAG
-const style_tag_mark = /\[bar_mark:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
+const style_tag_mark = /\[barm:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
 
 //ESTILO TAG
-const style_tag_preset = /\[estilo:(?<nome>.+?)](?<real_text>.+?)\[\/estilo]/g;
+const style_tag_preset = /\[pre:(?<nome>.+?)](?<real_text>.+?)\[\/pre]/g;
 
 function style_text_with_tags(text,item_data) {
   //SECRET TAGS
-  text = text.replaceAll(/\{chap_prog_moji}/g,"[bold]$atual [icon:solid:arrow-right] $proximo[/bold]<br>[bar_mark:$comeco:$moji:$fim]<br>[mark:$comeco:$moji:$fim] ([mark_p:$comeco:$moji:$fim])");
-  text = text.replaceAll(/\{chap_prog_page}/g,"[bold]$atual [icon:solid:arrow-right] $proximo[/bold]<br>[bar_mark:$comeco:$pages:$fim]<br>[mark:$comeco:$pages:$fim] ([mark_p:$comeco:$pages:$fim])");
+  text = text.replaceAll(/\{chap_prog_moji}/g,"[b]$atual [icon:solid:arrow-right] $proximo[/b]<br>[barm:$comeco:$moji:$fim]<br>[mrk:$comeco:$moji:$fim] ([mrkp:$comeco:$moji:$fim])");
+  text = text.replaceAll(/\{chap_prog_page}/g,"[b]$atual [icon:solid:arrow-right] $proximo[/b]<br>[barm:$comeco:$pages:$fim]<br>[mrk:$comeco:$pages:$fim] ([mrkp:$comeco:$pages:$fim])");
   text = text.replaceAll(/\{mashutan}/g,"<img src='assets/img/mashutan.png' class='w-[59px] h-[68px] inline'>");
   text = text.replaceAll(/\{mashutan_med}/g,"<img src='assets/img/mashutan.png' class='w-[131px] h-[151px] inline'>");
   text = text.replaceAll(/\{mashutan_big}/g,"<img src='assets/img/mashutan.png' class='w-[227px] h-[262px] inline'>");
@@ -1715,14 +1718,14 @@ function style_text_with_presets(text) {
       if (style_tag_preset_match.groups.nome == "azul_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#1c1cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "verde_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0cff0c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "vermelho_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#F50000] drop-shadow-[1px_1px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "vermelho_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
+      if (style_tag_preset_match.groups.nome == "vermelho_umineko_mod") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
       if (style_tag_preset_match.groups.nome == "azul_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#5DECFF] drop-shadow-[1px_1px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "azul_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#1d97c9] from-[40%] to-[#7ff1f3] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
+      if (style_tag_preset_match.groups.nome == "azul_umineko_mod") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#1d97c9] from-[40%] to-[#7ff1f3] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
       if (style_tag_preset_match.groups.nome == "roxo_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#CC99FF] drop-shadow-[1px_1px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "roxo_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#6b5dab] from-[40%] to-[#e7d0f1] to-[80%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
+      if (style_tag_preset_match.groups.nome == "roxo_umineko_mod") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#6b5dab] from-[40%] to-[#e7d0f1] to-[80%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
       if (style_tag_preset_match.groups.nome == "dourado_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#DAA520] drop-shadow-[1px_1px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "dourado_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#d19214] from-[40%] to-[#f8df59] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
-      if (style_tag_preset_match.groups.nome == "verde_umineko_ps3") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#78cf79] from-[40%] to-[#ddffef] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
+      if (style_tag_preset_match.groups.nome == "dourado_umineko_mod") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#d19214] from-[40%] to-[#f8df59] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
+      if (style_tag_preset_match.groups.nome == "verde_umineko_mod") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#78cf79] from-[40%] to-[#ddffef] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
       if (style_tag_preset_match.groups.nome == "sombra") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-shadow-md text-shadow-black/20">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "sombra_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] text-white drop-shadow-[1px_1px_#0f0f70]">${style_tag_preset_match.groups.real_text}</span>`);
       if (style_tag_preset_match.groups.nome == "sombra_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f70]">${style_tag_preset_match.groups.real_text}</span>`);
@@ -1917,7 +1920,7 @@ function create_custom_info() {
       let cur_exemplo_data = cur_estilo_data.exemplo[cur_exemplo];
       let render = cur_exemplo_data.render.replaceAll("$texto",cur_exemplo_data.texto);
       let linebreak = "";
-      let command_name = "estilo";
+      let command_name = "pre";
       if (cur_exemplo > 0) linebreak = "<br><br>";
 
       document.querySelector(".estilo-code-"+cur_estilo).innerHTML += `
@@ -2006,58 +2009,58 @@ function force_selection(element,start,end) {
 
 var nota_tags = {
   //comandos
-  "bold": "[bold]$text[/bold]",
-  "italic": "[italic]$text[/italic]",
+  "bold": "[b]$text[/b]",
+  "italic": "[i]$text[/i]",
   "hr": "\\l",
   "newline": "\\n",
-  "color": "[color:#000000]$text[/color]",
+  "color": "[cor:#000000]$text[/cor]",
   "bg": "[bg:#FFFFFF]$text[/bg]",
-  "border": "[border:1:#000000]$text[/border]",
-  "gradient": "[gradient:horizontal:#FF0000:#0000FF]$text[/gradient]",
-  "gradpercent": "[gradpercent:horizontal:#FF0000:#0000FF:0%:100%]$text[/gradpercent]",
-  "shadow": "[shadow:md:#000000:80]$text[/shadow]",
-  "solidshadow": "[solidshadow:1px:1px:#FF0000]$text[/solidshadow]",
-  "badge": "[badge:#000000:#00FFCF]$text[/badge]",
-  "furigana": "[furigana:escreva_aqui]$text[/furigana]",
+  "border": "[brd:1:#000000]$text[/brd]",
+  "gradient": "[grd:horizontal:#FF0000:#0000FF]$text[/grd]",
+  "gradpercent": "[grdp:horizontal:#FF0000:#0000FF:0%:100%]$text[/grdp]",
+  "shadow": "[sdw:md:#000000:80]$text[/sdw]",
+  "solidshadow": "[ssdw:1px:1px:#FF0000]$text[/ssdw]",
+  "badge": "[bdg:#000000:#00FFCF]$text[/bdg]",
+  "furigana": "[furi:escreva_aqui]$text[/furi]",
   "hira": "[hira]$text[/hira]",
   "kata": "[kata]$text[/kata]",
-  "halfkana": "[halfkana]$text[/halfkana]",
-  "fullkana": "[fullkana]$text[/fullkana]",
+  "halfkana": "[hkat]$text[/hkat]",
+  "fullkana": "[fkat]$text[/fkat]",
   "icon": "[icon:face-smile:regular]",
-  "mark": "[mark:0:0:10]",
-  "mark_p": "[mark_p:0:0:10]",
+  "mark": "[mrk:0:0:10]",
+  "mark_p": "[mrkp:0:0:10]",
   "bar": "[bar:0:100]",
-  "bar_mark": "[bar_mark:0:0:10]",
+  "bar_mark": "[barm:0:0:10]",
   //presets
-  "legenda": "[estilo:legenda]$text[/estilo]",
-  "sombreado": "[estilo:sombra]$text[/estilo]",
-  "sombra_deltarune": "[estilo:sombra_deltarune]$text[/estilo]",
-  "sombra_deltarune_cor": "[estilo:sombra_deltarune_cor]$text[/estilo]",
-  "profecia": "[estilo:profecia]$text[/estilo]",
-  "profecia_cor": "[estilo:profecia_cor]$text[/estilo]",
-  "profecia_simples": "[estilo:profecia_simples]$text[/estilo]",
-  "profecia_cor_simples": "[estilo:profecia_cor_simples]$text[/estilo]",
-  "amarelo_deltarune": "[estilo:amarelo_deltarune]$text[/estilo]",
-  "vermelho_deltarune": "[estilo:vermelho_deltarune]$text[/estilo]",
-  "azul_deltarune": "[estilo:azul_deltarune]$text[/estilo]",
-  "verde_deltarune": "[estilo:verde_deltarune]$text[/estilo]",
-  "amarelo_deltarune_cor": "[estilo:amarelo_deltarune_cor]$text[/estilo]",
-  "vermelho_deltarune_cor": "[estilo:vermelho_deltarune_cor]$text[/estilo]",
-  "azul_deltarune_cor": "[estilo:azul_deltarune_cor]$text[/estilo]",
-  "verde_deltarune_cor": "[estilo:verde_deltarune_cor]$text[/estilo]",
-  "vermelho_umineko": "[estilo:vermelho_umineko]$text[/estilo]",
-  "vermelho_umineko_ps3": "[estilo:vermelho_umineko_ps3]$text[/estilo]",
-  "azul_umineko": "[estilo:azul_umineko]$text[/estilo]",
-  "azul_umineko_ps3": "[estilo:azul_umineko_ps3]$text[/estilo]",
-  "roxo_umineko": "[estilo:roxo_umineko]$text[/estilo]",
-  "roxo_umineko_ps3": "[estilo:roxo_umineko_ps3]$text[/estilo]",
-  "dourado_umineko": "[estilo:dourado_umineko]$text[/estilo]",
-  "dourado_umineko_ps3": "[estilo:dourado_umineko_ps3]$text[/estilo]",
-  "verde_umineko_ps3": "[estilo:verde_umineko_ps3]$text[/estilo]",
-  "badge_pos": "[estilo:badge_pos]$text[/estilo]",
-  "badge_neg": "[estilo:badge_neg]$text[/estilo]",
-  "rainbow_h": "[estilo:rainbow_h]$text[/estilo]",
-  "rainbow_v": "[estilo:rainbow_v]$text[/estilo]",
+  "legenda": "[pre:legenda]$text[/pre]",
+  "sombreado": "[pre:sombra]$text[/pre]",
+  "sombra_deltarune": "[pre:sombra_deltarune]$text[/pre]",
+  "sombra_deltarune_cor": "[pre:sombra_deltarune_cor]$text[/pre]",
+  "profecia": "[pre:profecia]$text[/pre]",
+  "profecia_cor": "[pre:profecia_cor]$text[/pre]",
+  "profecia_simples": "[pre:profecia_simples]$text[/pre]",
+  "profecia_cor_simples": "[pre:profecia_cor_simples]$text[/pre]",
+  "amarelo_deltarune": "[pre:amarelo_deltarune]$text[/pre]",
+  "vermelho_deltarune": "[pre:vermelho_deltarune]$text[/pre]",
+  "azul_deltarune": "[pre:azul_deltarune]$text[/pre]",
+  "verde_deltarune": "[pre:verde_deltarune]$text[/pre]",
+  "amarelo_deltarune_cor": "[pre:amarelo_deltarune_cor]$text[/pre]",
+  "vermelho_deltarune_cor": "[pre:vermelho_deltarune_cor]$text[/pre]",
+  "azul_deltarune_cor": "[pre:azul_deltarune_cor]$text[/pre]",
+  "verde_deltarune_cor": "[pre:verde_deltarune_cor]$text[/pre]",
+  "vermelho_umineko": "[pre:vermelho_umineko]$text[/pre]",
+  "vermelho_umineko_mod": "[pre:vermelho_umineko_mod]$text[/pre]",
+  "azul_umineko": "[pre:azul_umineko]$text[/pre]",
+  "azul_umineko_mod": "[pre:azul_umineko_mod]$text[/pre]",
+  "roxo_umineko": "[pre:roxo_umineko]$text[/pre]",
+  "roxo_umineko_mod": "[pre:roxo_umineko_mod]$text[/pre]",
+  "dourado_umineko": "[pre:dourado_umineko]$text[/pre]",
+  "dourado_umineko_mod": "[pre:dourado_umineko_mod]$text[/pre]",
+  "verde_umineko_mod": "[pre:verde_umineko_mod]$text[/pre]",
+  "badge_pos": "[pre:badge_pos]$text[/pre]",
+  "badge_neg": "[pre:badge_neg]$text[/pre]",
+  "rainbow_h": "[pre:rainbow_h]$text[/pre]",
+  "rainbow_v": "[pre:rainbow_v]$text[/pre]",
   //variáveis
   "value_progresso": "$progresso",
   "value_final": "$final",
@@ -2110,6 +2113,69 @@ function update_item_values(text) {
       }
     }
   }
+}
+
+function update_old_style_tags(text="") {
+  //old umineko ids
+  text = text.replaceAll("vermelho_umineko_ps3","vermelho_umineko_mod");
+  text = text.replaceAll("azul_umineko_ps3","azul_umineko_mod");
+  text = text.replaceAll("roxo_umineko_ps3","roxo_umineko_mod");
+  text = text.replaceAll("dourado_umineko_ps3","dourado_umineko_mod");
+  text = text.replaceAll("verde_umineko_ps3","verde_umineko_mod");
+
+  //old preset tag
+  text = text.replaceAll("[estilo:","[pre:");
+  text = text.replaceAll("[/estilo]","[/pre]");
+
+  //old old gradpercent tag
+  text = text.replaceAll("[gradient_percent:","[grdp:");
+  text = text.replaceAll("[/gradient_percent]","[/grdp]");
+
+  //tags without att
+  text = text.replaceAll("[bold]","[b]");
+  text = text.replaceAll("[/bold]","[/b]");
+
+  text = text.replaceAll("[italic]","[i]");
+  text = text.replaceAll("[/italic]","[/i]");
+
+  //tags with att
+  text = text.replaceAll("[color:","[cor:");
+  text = text.replaceAll("[/color]","[/cor]");
+
+  text = text.replaceAll("[badge:","[bdg:");
+  text = text.replaceAll("[/badge]","[/bdg]");
+
+  text = text.replaceAll("[border:","[brd:");
+  text = text.replaceAll("[/border]","[/brd]");
+
+  text = text.replaceAll("[shadow:","[sdw:");
+  text = text.replaceAll("[/shadow]","[/sdw]");
+
+  text = text.replaceAll("[solidshadow:","[ssdw:");
+  text = text.replaceAll("[/solidshadow]","[/ssdw]");
+
+  text = text.replaceAll("[gradient:","[grd:");
+  text = text.replaceAll("[/gradient]","[/grd]");
+
+  text = text.replaceAll("[gradpercent:","[grdp:");
+  text = text.replaceAll("[/gradpercent]","[/grdp]");
+
+  text = text.replaceAll("[furigana:","[furi:");
+  text = text.replaceAll("[/furigana]","[/furi]");
+
+  text = text.replaceAll("[halfkana:","[hkat:");
+  text = text.replaceAll("[/halfkana]","[/hkat]");
+
+  text = text.replaceAll("[fullkana:","[fkat:");
+  text = text.replaceAll("[/fullkana]","[/fkat]");
+
+  text = text.replaceAll("[mark:","[mrk:");
+
+  text = text.replaceAll("[mark_p:","[mrkp:");
+
+  text = text.replaceAll("[bar_mark:","[barm:");
+
+  return text;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
