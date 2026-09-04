@@ -280,16 +280,29 @@ function debug() {
   if (!debugged && site_content.hasOwnProperty("update")) {
     document.body.innerHTML += `<div id="Debug" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">`;
     document.querySelector(".tab").innerHTML += `<button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Debug')" id="Debug_tab"><i class="fa-solid fa-gear"></i></button>`;
-    document.querySelector("#Debug").innerHTML = `<div class="flex flex-row gap-2 plataformas_all"></div>`;
-    for (var i = 0; i < (Object.keys(site_content.plataformas)).length; i++) {
-      document.querySelector(".plataformas_all").innerHTML += get_plataforma(Object.keys(site_content.plataformas)[i]);
-    }
+    
     for (var i = 0; i < (Object.keys(site_content)).length; i++) {
-      document.querySelector("#Debug").innerHTML += `
-        <br><p>
-        <b>${Object.keys(site_content)[i]}</b>
-        <span>${JSON.stringify(site_content[Object.keys(site_content)[i]])}</span>
-        </p>`;
+      if (Object.keys(site_content)[i] == "plataformas") {
+        document.querySelector("#Debug").innerHTML += `<br><div class="flex flex-row gap-2 plataformas_all whitespace-nowrap overflow-x-auto"></div>`;
+        for (var cur_plat = 0; cur_plat < (Object.keys(site_content.plataformas)).length; cur_plat++) {
+          document.querySelector(".plataformas_all").innerHTML += get_plataforma(Object.keys(site_content.plataformas)[cur_plat]);
+        }
+      }
+
+      else if (Object.keys(site_content)[i] == "img") {
+        document.querySelector("#Debug").innerHTML += `<br><div class="grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-2 items-center img_all"></div>`;
+        for (var cur_img = 0; cur_img < (Object.keys(site_content.img)).length; cur_img++) {
+          document.querySelector(".img_all").innerHTML += `<img class="w-[50px] h-auto m-auto" src="${site_content.img[Object.keys(site_content.img)[cur_img]]}">`;
+        }
+      }
+
+      else {
+        document.querySelector("#Debug").innerHTML += `
+          <br><p>
+          <b>${Object.keys(site_content)[i]}</b>
+          <span>${JSON.stringify(site_content[Object.keys(site_content)[i]])}</span>
+          </p>`;
+      }
     }
     debugged = true;
   }
