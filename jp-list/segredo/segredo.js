@@ -292,7 +292,7 @@ function debug() {
       else if (Object.keys(site_content)[i] == "img") {
         document.querySelector("#Debug").innerHTML += `<br><div class="grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-2 items-center img_all"></div>`;
         for (var cur_img = 0; cur_img < (Object.keys(site_content.img)).length; cur_img++) {
-          document.querySelector(".img_all").innerHTML += `<img class="w-[50px] h-auto m-auto" src="${site_content.img[Object.keys(site_content.img)[cur_img]]}">`;
+          document.querySelector(".img_all").innerHTML += `<img class="w-auto max-w-[200px] h-auto max-h-[200px] m-auto" src="${site_content.img[Object.keys(site_content.img)[cur_img]]}">`;
         }
       }
 
