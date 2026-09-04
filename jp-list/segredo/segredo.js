@@ -283,23 +283,29 @@ function debug() {
     
     for (var i = 0; i < (Object.keys(site_content)).length; i++) {
       if (Object.keys(site_content)[i] == "plataformas") {
-        document.querySelector("#Debug").innerHTML += `<br><div class="flex flex-row gap-2 plataformas_all whitespace-nowrap overflow-x-auto"></div>`;
+        document.querySelector("#Debug").innerHTML += `
+          <br>
+          <b>${Object.keys(site_content)[i]}</b><br>
+          <div class="flex flex-row gap-2 plataformas_all whitespace-nowrap overflow-x-auto py-3"></div>`;
         for (var cur_plat = 0; cur_plat < (Object.keys(site_content.plataformas)).length; cur_plat++) {
           document.querySelector(".plataformas_all").innerHTML += get_plataforma(Object.keys(site_content.plataformas)[cur_plat]);
         }
       }
 
       else if (Object.keys(site_content)[i] == "img") {
-        document.querySelector("#Debug").innerHTML += `<br><div class="grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-2 items-center img_all"></div>`;
+        document.querySelector("#Debug").innerHTML += `
+          <br>
+          <b>${Object.keys(site_content)[i]}</b><br>
+          <div class="grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-2 items-center img_all"></div>`;
         for (var cur_img = 0; cur_img < (Object.keys(site_content.img)).length; cur_img++) {
-          document.querySelector(".img_all").innerHTML += `<img class="w-auto max-w-[200px] h-auto max-h-[200px] m-auto" src="${site_content.img[Object.keys(site_content.img)[cur_img]]}">`;
+          document.querySelector(".img_all").innerHTML += `<img class="w-auto max-w-[200px] h-auto max-h-[200px] m-auto" src="${site_content.img[Object.keys(site_content.img)[cur_img]]}" title="${Object.keys(site_content.img)[cur_img]}">`;
         }
       }
 
       else {
         document.querySelector("#Debug").innerHTML += `
           <br><p>
-          <b>${Object.keys(site_content)[i]}</b>
+          <b>${Object.keys(site_content)[i]}</b><br>
           <span>${JSON.stringify(site_content[Object.keys(site_content)[i]])}</span>
           </p>`;
       }
