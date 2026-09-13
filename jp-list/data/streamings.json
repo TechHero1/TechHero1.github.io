@@ -1189,6 +1189,28 @@
             ],
             "desc": "",
             "ativo": true
+        },
+        {
+            "nome": "TokuSato",
+            "midia": "Tokusatsu",
+            "classes": "streaming_item_tokusatsu streaming_item_youtube streaming_item_novpn",
+            "link": "https://www.youtube.com/channel/UCzLtKasUj5agj2Gjvw83ZoQ",
+            "tags": [
+                {
+                    "tipo": "pos",
+                    "texto": "Lançamentos"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Alguns clássicos disponíveis gratuitamente"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Acesso limitado por tempo"
+                }
+            ],
+            "desc": "Depois de 2 semanas, o episódio em lançamento se torna exclusivo para membros",
+            "ativo": true
         }
     ]
 }
