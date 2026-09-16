@@ -1465,27 +1465,27 @@ function style_text_with_tags(text,item_data) {
   text = text.replaceAll(/\{eto_bleh}/g,"<img src='https://media.tenor.com/XnGK5CaQTt4AAAAd/ah-eto-bleh-anime.gif' class='w-full'>");
 
   //VALORES
-  text = text.replaceAll(/\$progresso/g,item_data.progresso);
-  text = text.replaceAll(/\$final/g,item_data.final);
-  text = text.replaceAll(/\$moji/g,item_data.moji);
-  text = text.replaceAll(/\$volumes/g,item_data.volumes);
-  text = text.replaceAll(/\$repeticoes/g,item_data.repeticoes);
-  text = text.replaceAll(/\$h/g,item_data.horas);
-  text = text.replaceAll(/\$H/g,String(item_data.horas).padStart(2, '0'));
-  text = text.replaceAll(/\$m/g,item_data.minutos);
-  text = text.replaceAll(/\$M/g,String(item_data.minutos).padStart(2, '0'));
-  text = text.replaceAll(/\$prog_min/g,item_data.prog_min);
-  text = text.replaceAll(/\$tempo/g,String(Math.trunc((item_data.progresso*item_data.prog_min)/60)).padStart(2, '0')+":"+String((item_data.progresso*item_data.prog_min)%60).padStart(2, '0'));
-  text = text.replaceAll(/\$tempo_h/g,Math.trunc((item_data.progresso*item_data.prog_min)/60));
-  text = text.replaceAll(/\$tempo_H/g,String(Math.trunc((item_data.progresso*item_data.prog_min)/60)).padStart(2, '0'));
-  text = text.replaceAll(/\$tempo_m/g,Math.trunc((item_data.progresso*item_data.prog_min)%60));
-  text = text.replaceAll(/\$tempo_M/g,String(Math.trunc((item_data.progresso*item_data.prog_min)%60)).padStart(2, '0'));
+  text = text.replaceAll(/\$progresso\b/g,item_data.progresso);
+  text = text.replaceAll(/\$final\b/g,item_data.final);
+  text = text.replaceAll(/\$moji\b/g,item_data.moji);
+  text = text.replaceAll(/\$volumes\b/g,item_data.volumes);
+  text = text.replaceAll(/\$repeticoes\b/g,item_data.repeticoes);
+  text = text.replaceAll(/\$h\b/g,item_data.horas);
+  text = text.replaceAll(/\$H\b/g,String(item_data.horas).padStart(2, '0'));
+  text = text.replaceAll(/\$m\b/g,item_data.minutos);
+  text = text.replaceAll(/\$M\b/g,String(item_data.minutos).padStart(2, '0'));
+  text = text.replaceAll(/\$prog_min\b/g,item_data.prog_min);
+  text = text.replaceAll(/\$tempo\b/g,String(Math.trunc((item_data.progresso*item_data.prog_min)/60)).padStart(2, '0')+":"+String((item_data.progresso*item_data.prog_min)%60).padStart(2, '0'));
+  text = text.replaceAll(/\$tempo_h\b/g,Math.trunc((item_data.progresso*item_data.prog_min)/60));
+  text = text.replaceAll(/\$tempo_H\b/g,String(Math.trunc((item_data.progresso*item_data.prog_min)/60)).padStart(2, '0'));
+  text = text.replaceAll(/\$tempo_m\b/g,Math.trunc((item_data.progresso*item_data.prog_min)%60));
+  text = text.replaceAll(/\$tempo_M\b/g,String(Math.trunc((item_data.progresso*item_data.prog_min)%60)).padStart(2, '0'));
 
   if(item_data.hasOwnProperty("custom_values")) update_item_values(item_data.custom_values);
 
   if (item_custom_values != "") {
     for (var i = 0; i < Object.keys(item_custom_values).length; i++) {
-      let regex = new RegExp(String.raw`\$${Object.keys(item_custom_values)[i]}`, "g");
+      let regex = new RegExp(String.raw`\$${Object.keys(item_custom_values)[i]}\b`, "g");
       text = text.replaceAll(regex,item_custom_values[Object.keys(item_custom_values)[i]]);
     }
   }
