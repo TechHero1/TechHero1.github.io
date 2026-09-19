@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         FEMNSS Bubble
-// @version      2026-09-11
+// @version      2026-09-19
 // @description  FEMNSS Bubble
 // @author       Far Eastern Magic Napping Society of Summer
 // @icon         https://techhero1.github.io/wp-chunk/skin/icon.png
@@ -11,12 +11,15 @@
 // @downloadURL  https://techhero1.github.io/wp-chunk/skin/FEMNSS_Bubble.user.js
 // ==/UserScript==
 
-var femnss_name = "FEMNSS Bubble";
 var femnss_long = "Far Eastern Magic Napping Society of Summer";
-var femnss_short = "FEMNSS";
 var femnss_original = "極東魔術昼寝結社の夏";
+var femnss_short = "FEMNSS";
+var femnss_name = femnss_short+" Bubble";
 var femnss_icon = "https://techhero1.github.io/wp-chunk/skin/icon.png";
 var femnss_round = "50%";
+
+var hq_timer = 10000;
+var hq_first_load = false;
 
 //Original bubble design -> https://greasyfork.org/scripts/546333-wplace-charge-regen-eta-bubble
 
@@ -41,7 +44,7 @@ var femnss_round = "50%";
   let timer_offset = 0;
 
   let hq_charges = 0;
-  let hq_charges_string = "";
+  let hq_charges_max = 0;
 
   function fetchMeFromServer() {
     /*
@@ -63,7 +66,7 @@ var femnss_round = "50%";
         return;
       }
 
-      //console.log("Fetched user data", dataJSON);
+      //log("Fetched user data", dataJSON);
       default_cur = Math.floor(dataJSON.charges.count);
       default_max = dataJSON.charges.max;
 
@@ -84,7 +87,6 @@ var femnss_round = "50%";
       let lastTimer = null;           // seconds until next tick (parsed from (m:ss))
       let lastTickCheck = (Date.now() - timer_offset); // ms clock for AFK recovery
       let lastAutoIncAt = 0;          // ms guard to avoid double-increment on regen detection
-      let debugEnabled = false;
 
       // --- UI elements
       let bubble;
@@ -109,7 +111,13 @@ var femnss_round = "50%";
         } else {
           document.querySelector(".bubble-droplets").innerHTML = "Droplets: "+player_droplets;
           document.querySelector(".bubble-nextlevel").innerHTML = "Next level in: "+next_level+"  pixels";
+
           render();
+
+          const timerEl = findTimerEl();
+          const untilNext = parseTimer(timerEl.textContent);
+          const etaSec = Math.max(0, (max - current - 1) * 30 + untilNext);
+          setBubble(formatHMS(etaSec) + ' to full', `${current}/${max}`);
         }
       }
 
@@ -147,6 +155,7 @@ var femnss_round = "50%";
           const jumpedUp = untilNext > lastTimer + 10; // robust jump threshold
           const enoughSinceLastInc = (Date.now() - lastAutoIncAt) > 15000; // guard
           if (jumpedUp && current < max && enoughSinceLastInc) {
+            current = default_cur;
             current += 1;
             lastAutoIncAt = Date.now();
             log(`Regen: timer reset detected (+1) → current=${current}/${max}`);
@@ -174,6 +183,7 @@ var femnss_round = "50%";
           return;
         }
 
+        current = default_cur;
         const etaSec = Math.max(0, (max - current - 1) * 30 + untilNext);
         setBubble(formatHMS(etaSec) + ' to full', `${current}/${max}`);
       }
@@ -219,7 +229,7 @@ var femnss_round = "50%";
           <div style="font-weight:600">${femnss_name}</div><br>
           <div style="font-weight:600" class="bubble-droplets">Droplets: ${player_droplets}</div>
           <div style="font-weight:600" class="bubble-nextlevel">Next level in: ${next_level} pixels</div>
-          <div style="font-weight:600" class="bubble-chargeshq">Charges in HQ: ${hq_charges}</div>
+          <div style="font-weight:600" class="bubble-chargeshq">Charges in HQ: ${hq_charges}/${hq_charges_max}</div><br>
           <div style="font-weight:600">${line1}</div>
         `;
       }
@@ -373,19 +383,28 @@ var femnss_round = "50%";
         setBubble(formatHMS(etaSec) + ' to full', `${current}/${max}`);
       }
 
-      fetch("https://backend.wplace.live/alliance/headquarters", {
-        "credentials": "include",
-      }).then((response) => {
-        return response.json();
-      }).then((allianceJSON) => {
-        hq_charges = allianceJSON.charges;
-        document.querySelector(".bubble-chargeshq").innerHTML = "Charges in HQ: "+hq_charges;
-      });
-      
+      if (!hq_first_load) updateHQ();
+
     });
   }
 
   fetchMeFromServer();
 
   setInterval(fetchMeFromServer, 10000);
+
+  function updateHQ() {
+    hq_first_load = true;
+    fetch("https://backend.wplace.live/alliance/headquarters", {
+        "credentials": "include",
+      }).then((response) => {
+        return response.json();
+      }).then((allianceJSON) => {
+        hq_charges = allianceJSON.charges;
+        hq_charges_max = allianceJSON.maxCharges;
+        document.querySelector(".bubble-chargeshq").innerHTML = `Charges in HQ: ${hq_charges}/${hq_charges_max}`;
+        hq_timer = (allianceJSON.chargeIntervalSeconds-1)*1000;
+        setTimeout(updateHQ, hq_timer);
+      });
+  }
+
 })();
