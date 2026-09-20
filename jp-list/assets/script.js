@@ -1389,69 +1389,6 @@ function kanaHalfToFull(text) {
   return newText;
 }
 
-//GRADIENT TAG
-const style_tag_gradient = /\[grd:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?)](?<real_text>.+?)\[\/grd]/g;
-
-//GRADIENT TAG WITH %
-const style_tag_gradpercent = /\[grdp:(?<direction>.+?):(?<first_color>.+?):(?<second_color>.+?):(?<first_color_focus>.+?):(?<second_color_focus>.+?)](?<real_text>.+?)\[\/grdp]/g;
-
-//COLOR TAG
-const style_tag_color = /\[cor:(?<color>.+?)](?<real_text>.+?)\[\/cor]/g;
-
-//BOLD TAG
-const style_tag_bold = /\[b](?<real_text>.+?)\[\/b]/g;
-
-//ITALIC TAG
-const style_tag_italic = /\[i](?<real_text>.+?)\[\/i]/g;
-
-//BG TAG
-const style_tag_bg = /\[bg:(?<color>.+?)](?<real_text>.+?)\[\/bg]/g;
-
-//BORDER TAG
-const style_tag_border = /\[brd:(?<size>.+?):(?<color>.+?)](?<real_text>.+?)\[\/brd]/g;
-
-//SHADOW TAG
-const style_tag_shadow = /\[sdw:(?<size>.+?):(?<color>.+?):(?<opacity>.+?)](?<real_text>.+?)\[\/sdw]/g;
-
-//SOLID SHADOW TAG
-const style_tag_solid_shadow = /\[ssdw:(?<horizontal>.+?):(?<vertical>.+?):(?<color>.+?)](?<real_text>.+?)\[\/ssdw]/g;
-
-//BADGE TAG
-const style_tag_badge = /\[bdg:(?<text_color>.+?):(?<bg_color>.+?)](?<real_text>.+?)\[\/bdg]/g;
-
-//HIRAGANA TAG
-const style_tag_hiragana = /\[hira](?<real_text>.+?)\[\/hira]/g;
-
-//KATAKANA TAG
-const style_tag_katakana = /\[kata](?<real_text>.+?)\[\/kata]/g;
-
-//KATAKANA TAG
-const style_tag_halfkana = /\[hkat](?<real_text>.+?)\[\/hkat]/g;
-
-//KATAKANA TAG
-const style_tag_fullkana = /\[fkat](?<real_text>.+?)\[\/fkat]/g;
-
-//FURIGANA TAG
-const style_tag_furigana = /\[furi:(?<furigana>.+?)](?<real_text>.+?)\[\/furi]/g;
-
-//ICON TAG
-const style_tag_icon = /\[icon:(?<id>.+?):(?<style>.+?)]/g;
-
-//PROGRESS TAG
-const style_tag_progress = /\[bar:(?<value>.+?):(?<max>.+?)]/g;
-
-//MARK TAG
-const style_tag_marktxt = /\[mrk:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
-
-//MARK PERCENT TAG
-const style_tag_marktxt_percent = /\[mrkp:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
-
-//PROGRESS MARK TAG
-const style_tag_mark = /\[barm:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g;
-
-//ESTILO TAG
-const style_tag_preset = /\[pre:(?<nome>.+?)](?<real_text>.+?)\[\/pre]/g;
-
 function style_text_with_tags(text,item_data) {
   //SECRET TAGS
   text = text.replaceAll(/\{chap_prog_moji}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$moji:$fim:barra}<br>{mark:$comeco:$moji:$fim:simples} ({mark:$comeco:$moji:$fim:porcentagem})");
@@ -1496,263 +1433,15 @@ function style_text_with_tags(text,item_data) {
   //LINE TAG
   text = text.replaceAll(/\\l/g,"<hr>");
 
-  //EXPERIMENTAL
   text = apply_tags(text);
 
   return text;
-  //EXPERIMENTAL
-
-  //GRADIENT TAG
-  for (itag = 0; itag < (text.match(style_tag_gradient) || []).length; itag++) {
-    let style_tag_gradient_match;
-
-    while ((style_tag_gradient_match = style_tag_gradient.exec(text)) !== null) {
-      let dir;
-      if (style_tag_gradient_match.groups.direction == "vertical") dir = "b";
-      if (style_tag_gradient_match.groups.direction == "horizontal") dir = "r";
-
-      text = text.replaceAll(style_tag_gradient_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradient_match.groups.first_color}] to-[${style_tag_gradient_match.groups.second_color}] bg-clip-text text-transparent">${style_tag_gradient_match.groups.real_text}</span>`);
-    }
-  }
-
-  //GRADIENT TAG WITH %
-  for (itag = 0; itag < (text.match(style_tag_gradpercent) || []).length; itag++) {
-    let style_tag_gradpercent_match;
-
-    while ((style_tag_gradpercent_match = style_tag_gradpercent.exec(text)) !== null) {
-      let dir;
-      if (style_tag_gradpercent_match.groups.direction == "vertical") dir = "b";
-      if (style_tag_gradpercent_match.groups.direction == "horizontal") dir = "r";
-
-      text = text.replaceAll(style_tag_gradpercent_match[0],`<span class="bg-linear-to-${dir} from-[${style_tag_gradpercent_match.groups.first_color}] from-[${style_tag_gradpercent_match.groups.first_color_focus}] to-[${style_tag_gradpercent_match.groups.second_color}] to-[${style_tag_gradpercent_match.groups.second_color_focus}] bg-clip-text text-transparent">${style_tag_gradpercent_match.groups.real_text}</span>`);
-    }
-  }
-
-  //SHADOW TAG
-  for (itag = 0; itag < (text.match(style_tag_shadow) || []).length; itag++) {
-    let style_tag_shadow_match;
-
-    while ((style_tag_shadow_match = style_tag_shadow.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_shadow_match[0],`<span class="text-shadow-${style_tag_shadow_match.groups.size} text-shadow-[${style_tag_shadow_match.groups.color}]/${style_tag_shadow_match.groups.opacity}">${style_tag_shadow_match.groups.real_text}</span>`);
-    }
-  }
-
-  //SOLID SHADOW TAG
-  for (itag = 0; itag < (text.match(style_tag_solid_shadow) || []).length; itag++) {
-    let style_tag_solid_shadow_match;
-
-    while ((style_tag_solid_shadow_match = style_tag_solid_shadow.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_solid_shadow_match[0],`<span class="drop-shadow-[${style_tag_solid_shadow_match.groups.horizontal}_${style_tag_solid_shadow_match.groups.vertical}_${style_tag_solid_shadow_match.groups.color}]">${style_tag_solid_shadow_match.groups.real_text}</span>`);
-    }
-  }
-
-  //COLOR TAG
-  for (itag = 0; itag < (text.match(style_tag_color) || []).length; itag++) {
-    let style_tag_color_match;
-
-    while ((style_tag_color_match = style_tag_color.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_color_match[0],`<span class="text-[${style_tag_color_match.groups.color}]">${style_tag_color_match.groups.real_text}</span>`);
-    }
-  }
-
-  //BOLD TAG
-  for (itag = 0; itag < (text.match(style_tag_bold) || []).length; itag++) {
-    let style_tag_bold_match;
-
-    while ((style_tag_bold_match = style_tag_bold.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_bold_match[0],`<b>${style_tag_bold_match.groups.real_text}</b>`);
-    }
-  }
-
-  //ITALIC TAG
-  for (itag = 0; itag < (text.match(style_tag_italic) || []).length; itag++) {
-    let style_tag_italic_match;
-
-    while ((style_tag_italic_match = style_tag_italic.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_italic_match[0],`<i>${style_tag_italic_match.groups.real_text}</i>`);
-    }
-  }
-
-  //BG TAG
-  for (itag = 0; itag < (text.match(style_tag_bg) || []).length; itag++) {
-    let style_tag_bg_match;
-
-    while ((style_tag_bg_match = style_tag_bg.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_bg_match[0],`<span class="bg-[${style_tag_bg_match.groups.color}]">${style_tag_bg_match.groups.real_text}</span>`);
-    }
-  }
-
-  //BORDER TAG
-  for (itag = 0; itag < (text.match(style_tag_border) || []).length; itag++) {
-    let style_tag_border_match;
-
-    while ((style_tag_border_match = style_tag_border.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_border_match[0],`<span class="border-${style_tag_border_match.groups.size} border-[${style_tag_border_match.groups.color}]">${style_tag_border_match.groups.real_text}</span>`);
-    }
-  }
-
-  //BADGE TAG
-  for (itag = 0; itag < (text.match(style_tag_badge) || []).length; itag++) {
-    let style_tag_badge_match;
-
-    while ((style_tag_badge_match = style_tag_badge.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_badge_match[0],`<span class="text-[${style_tag_badge_match.groups.text_color}] bg-[${style_tag_badge_match.groups.bg_color}] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_badge_match.groups.real_text}</span>`);
-    }
-  }
-
-  //HIRAGANA TAG
-  for (itag = 0; itag <= (text.match(style_tag_hiragana) || []).length; itag++) {
-    let style_tag_hiragana_match;
-
-    while ((style_tag_hiragana_match = style_tag_hiragana.exec(text)) !== null) {
-      let converted_text = convertToHiragana(style_tag_hiragana_match.groups.real_text);
-      text = text.replaceAll(style_tag_hiragana_match[0],`<span>${converted_text}</span>`);
-    }
-  }
-
-  //KATAKANA TAG
-  for (itag = 0; itag <= (text.match(style_tag_katakana) || []).length; itag++) {
-    let style_tag_katakana_match;
-
-    while ((style_tag_katakana_match = style_tag_katakana.exec(text)) !== null) {
-      let converted_text = convertToKatakana(style_tag_katakana_match.groups.real_text);
-      text = text.replaceAll(style_tag_katakana_match[0],`<span>${converted_text}</span>`);
-    }
-  }
-
-  //HALFKANA TAG
-  for (itag = 0; itag <= (text.match(style_tag_halfkana) || []).length; itag++) {
-    let style_tag_halfkana_match;
-
-    while ((style_tag_halfkana_match = style_tag_halfkana.exec(text)) !== null) {
-      let converted_text = kanaFullToHalf(style_tag_halfkana_match.groups.real_text);
-      text = text.replaceAll(style_tag_halfkana_match[0],`<span>${converted_text}</span>`);
-    }
-  }
-
-  //FULLKANA TAG
-  for (itag = 0; itag <= (text.match(style_tag_fullkana) || []).length; itag++) {
-    let style_tag_fullkana_match;
-
-    while ((style_tag_fullkana_match = style_tag_fullkana.exec(text)) !== null) {
-      let converted_text = kanaHalfToFull(style_tag_fullkana_match.groups.real_text);
-      text = text.replaceAll(style_tag_fullkana_match[0],`<span>${converted_text}</span>`);
-    }
-  }
-
-  //FURIGANA TAG
-  for (itag = 0; itag < (text.match(style_tag_furigana) || []).length; itag++) {
-    let style_tag_furigana_match;
-
-    while ((style_tag_furigana_match = style_tag_furigana.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_furigana_match[0],`<ruby>${style_tag_furigana_match.groups.real_text}<rt>${style_tag_furigana_match.groups.furigana}</rt></ruby>`);
-    }
-  }
-
-  //ICON TAG
-  for (itag = 0; itag < (text.match(style_tag_icon) || []).length; itag++) {
-    let style_tag_icon_match;
-
-    while ((style_tag_icon_match = style_tag_icon.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_icon_match[0],`<i class="fa-${style_tag_icon_match.groups.style} fa-${style_tag_icon_match.groups.id}"></i>`);
-    }
-  }
-
-  //PROGRESS TAG
-  for (itag = 0; itag < (text.match(style_tag_progress) || []).length; itag++) {
-    let style_tag_progress_match;
-
-    while ((style_tag_progress_match = style_tag_progress.exec(text)) !== null) {
-      text = text.replaceAll(style_tag_progress_match[0],`<progress class="rounded-md shadow-md border border-gray-400" value="${style_tag_progress_match.groups.value}" max="${style_tag_progress_match.groups.max}"></progress>`);
-    }
-  }
-
-  //MARK TAG
-  for (itag = 0; itag < (text.match(style_tag_marktxt) || []).length; itag++) {
-    let style_tag_marktxt_match;
-
-    while ((style_tag_marktxt_match = style_tag_marktxt.exec(text)) !== null) {
-      let value = Number(style_tag_marktxt_match.groups.value) - Number(style_tag_marktxt_match.groups.start);
-      let max = Number(style_tag_marktxt_match.groups.end) - Number(style_tag_marktxt_match.groups.start);
-      text = text.replaceAll(style_tag_marktxt_match[0],`<span>${value}/${max}</span>`);
-    }
-  }
-
-  //MARK PERCENT TAG
-  for (itag = 0; itag < (text.match(style_tag_marktxt_percent) || []).length; itag++) {
-    let style_tag_marktxt_percent_match;
-
-    while ((style_tag_marktxt_percent_match = style_tag_marktxt_percent.exec(text)) !== null) {
-      let value = Number(style_tag_marktxt_percent_match.groups.value) - Number(style_tag_marktxt_percent_match.groups.start);
-      let max = Number(style_tag_marktxt_percent_match.groups.end) - Number(style_tag_marktxt_percent_match.groups.start);
-      let result = (100 * value) / max;
-      let result_show = Math.trunc(result);
-      text = text.replaceAll(style_tag_marktxt_percent_match[0],`<span>${result_show}%</span>`);
-    }
-  }
-
-  //PROGRESS MARK TAG
-  for (itag = 0; itag < (text.match(style_tag_mark) || []).length; itag++) {
-    let style_tag_mark_match;
-
-    while ((style_tag_mark_match = style_tag_mark.exec(text)) !== null) {
-      let value = Number(style_tag_mark_match.groups.value) - Number(style_tag_mark_match.groups.start);
-      let max = Number(style_tag_mark_match.groups.end) - Number(style_tag_mark_match.groups.start);
-      text = text.replaceAll(style_tag_mark_match[0],`<progress class="rounded-md shadow-md border border-gray-400" value="${value}" max="${max}"></progress>`);
-    }
-  }
-
-  //ESTILO TAG
-  text = style_text_with_presets(text);
-
-  return text;
 }
 
-function style_text_with_presets(text) {
-  for (itag = 0; itag < (text.match(style_tag_preset) || []).length; itag++) {
-    let style_tag_preset_match;
-
-    while ((style_tag_preset_match = style_tag_preset.exec(text)) !== null) {
-      if (style_tag_preset_match.groups.nome == "legenda") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-black text-white px-1">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "amarelo_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "vermelho_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff1c1c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "azul_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#1c1cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "verde_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0cff0c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "amarelo_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "vermelho_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff1c1c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "azul_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#1c1cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "verde_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0cff0c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "vermelho_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#F50000] drop-shadow-[1px_1px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "vermelho_umineko_mod") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
-      if (style_tag_preset_match.groups.nome == "azul_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#5DECFF] drop-shadow-[1px_1px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "azul_umineko_mod") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#1d97c9] from-[40%] to-[#7ff1f3] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
-      if (style_tag_preset_match.groups.nome == "roxo_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#CC99FF] drop-shadow-[1px_1px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "roxo_umineko_mod") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#6b5dab] from-[40%] to-[#e7d0f1] to-[80%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
-      if (style_tag_preset_match.groups.nome == "dourado_umineko") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-[#DAA520] drop-shadow-[1px_1px_#000000]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "dourado_umineko_mod") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#d19214] from-[40%] to-[#f8df59] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
-      if (style_tag_preset_match.groups.nome == "verde_umineko_mod") text = text.replaceAll(style_tag_preset_match[0],`<b class="bg-linear-to-b from-[#78cf79] from-[40%] to-[#ddffef] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${style_tag_preset_match.groups.real_text}</b>`);
-      if (style_tag_preset_match.groups.nome == "sombra") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-shadow-md text-shadow-black/20">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "sombra_deltarune") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--8bitoperator) text-[1.2rem] text-white drop-shadow-[1px_1px_#0f0f70]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "sombra_deltarune_cor") text = text.replaceAll(style_tag_preset_match[0],`<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f70]">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "profecia") text = text.replaceAll(style_tag_preset_match[0],`<div class="text-center" style="animation: floating 3s ease-in-out alternate infinite;"><span class="font-(family-name:--ProphecyType) text-[1.85rem] bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${style_tag_preset_match.groups.real_text}</span></div>`);
-      if (style_tag_preset_match.groups.nome == "profecia_cor") text = text.replaceAll(style_tag_preset_match[0],`<div class="text-center" style="animation: floating 3s ease-in-out alternate infinite;"><span class="bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${style_tag_preset_match.groups.real_text}</span></div>`);
-      if (style_tag_preset_match.groups.nome == "profecia_simples") text = text.replaceAll(style_tag_preset_match[0],`<span class="font-(family-name:--ProphecyType) text-[1.85rem] bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "profecia_cor_simples") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "badge_pos") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#d4edbc] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "badge_neg") text = text.replaceAll(style_tag_preset_match[0],`<span class="bg-[#ff8787] rounded-md shadow-md py-1 px-2 h-min w-fit">${style_tag_preset_match.groups.real_text}</span>`);
-      if (style_tag_preset_match.groups.nome == "rainbow_h") text = text.replaceAll(style_tag_preset_match[0],`<b style="background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
-      if (style_tag_preset_match.groups.nome == "rainbow_v") text = text.replaceAll(style_tag_preset_match[0],`<b style="background-image: linear-gradient(to bottom, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${style_tag_preset_match.groups.real_text}</b>`);
-    }
-  }
-
-  return text;
-}
-
-//EXPERIMENTAL
 const tag_regex = /\[(?<tag>[a-zA-Z_]+)(?::(?<params>[^\]]*))?\](?<real_text>(?:(?!\[\/?[a-zA-Z_]+[:\]])[\s\S])*?)\[\/\k<tag>\]/g;
-//const tag_regex_notext = /\[(?<tag>[a-zA-Z_]+)(?::(?<params>[^\]]*))?\](?![\s\S]*?\[\/\k<tag>\])/g;
 const tag_regex_notext = /\{(?<tag>[a-zA-Z_]+)(?::(?<params>[^}]*))?\}/g;
 
+//GRADIENT DIRECTION
 const direction_classes = {
   horizontal: "bg-linear-to-r",
   vertical:   "bg-linear-to-b",
@@ -1798,6 +1487,7 @@ const all_presets = {
   verde_umineko_mod:      text => `<b class="bg-linear-to-b from-[#78cf79] from-[40%] to-[#ddffef] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${text}</b>`,
 };
 
+//TAGS (WITH PARAMETERS)
 const style_tags = {
   pre: (text, [nome]) => (all_presets[nome] ? all_presets[nome](text) : text),
 
@@ -1814,13 +1504,6 @@ const style_tags = {
     if (position2 != "") return `<span class="${dir_class} from-[${color1}] from-[${position1}] to-[${color2}] to-[${position2}] bg-clip-text text-transparent">${text}</span>`;
     return `<span class="${dir_class} from-[${color1}] to-[${color2}] bg-clip-text text-transparent">${text}</span>`;
   },
-
-  //temp
-  grdp: (text, [direction, color1, color2, position1 = "0%", position2 = "100%"]) => {
-    const dir_class = direction_classes[direction];
-    return `<span class="${dir_class} from-[${color1}] from-[${position1}] to-[${color2}] to-[${position2}] bg-clip-text text-transparent">${text}</span>`;
-  },
-  //temp
 
   brd: (text, [color, size = "1"]) => {
     return `<span class="border-${size} border-[${color}]">${text}</span>`;
@@ -1871,7 +1554,7 @@ const style_tags = {
   },
 };
 
-
+//ELEMENTS (TAGS NO TEXT)
 const style_tags_notext = {
   icon: ([id, style]) => {
     return `<i class="fa-${style} fa-${id}"></i>`;
@@ -1910,7 +1593,6 @@ function apply_tags(text) {
     text = text.replace(tag_regex_notext, (match, ...args) => {
       const { tag, params } = args.at(-1);
       const render = style_tags_notext[tag];
-      //if (!render) return real_text;
       if (!render) return text;
       return render(params ? params.split(":") : []);
     });
@@ -1928,7 +1610,6 @@ function apply_tags(text) {
 
   return text;
 }
-//EXPERIMENTAL
 
 var custom_info_data = [];
 
