@@ -1390,9 +1390,11 @@ function kanaHalfToFull(text) {
 }
 
 function style_text_with_tags(text,item_data) {
-  //SECRET TAGS
+  //SECRET ELEMENTS
   text = text.replaceAll(/\{chap_prog_moji}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$moji:$fim:barra}<br>{mark:$comeco:$moji:$fim:simples} ({mark:$comeco:$moji:$fim:porcentagem})");
   text = text.replaceAll(/\{chap_prog_page}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$pages:$fim:barra}<br>{mark:$comeco:$pages:$fim:simples} ({mark:$comeco:$pages:$fim:porcentagem})");
+  text = text.replaceAll(/\{arc_prog_moji}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$atual_real:$fim:barra}<br>{mark:$comeco:$atual_real:$fim:simples} ({mark:$comeco:$atual_real:$fim:porcentagem})<hr>{mark:$comeco_real:$atual_real:$fim:simples}");
+  text = text.replaceAll(/\{arc_prog_page}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$atual_real:$fim:barra}<br>{mark:$comeco:$atual_real:$fim:simples} ({mark:$comeco:$atual_real:$fim:porcentagem})<hr>{mark:$comeco_real:$atual_real:$fim:simples}");
   text = text.replaceAll(/\{mashutan}/g,"<img src='assets/img/mashutan.png' class='w-[59px] h-[68px] inline'>");
   text = text.replaceAll(/\{mashutan_med}/g,"<img src='assets/img/mashutan.png' class='w-[131px] h-[151px] inline'>");
   text = text.replaceAll(/\{mashutan_big}/g,"<img src='assets/img/mashutan.png' class='w-[227px] h-[262px] inline'>");
@@ -1634,6 +1636,10 @@ function create_custom_info() {
       <div class="caracteres_container rounded-md shadow-md border border-gray-300 flex flex-col sm:px-2 py-5 gap-5 w-[90vw]"></div>
     </details>
     <details>
+      <summary class="cursor-pointer button w-fit">Elementos</summary>
+      <div class="elementos_container rounded-md shadow-md border border-gray-300 flex flex-col sm:px-2 py-5 gap-5 w-[90vw]"></div>
+    </details>
+    <details>
       <summary class="cursor-pointer button w-fit">Tags de estilo</summary>
       <div class="comandos_container rounded-md shadow-md border border-gray-300 flex flex-col sm:px-2 py-5 gap-5 w-[90vw]"></div>
     </details>
@@ -1665,6 +1671,91 @@ function create_custom_info() {
         </table>
       </div>
     `;
+  }
+
+  //CRIAR ELEMENTOS
+  for (var cur_elemento = 0; cur_elemento < custom_info_data.elementos.length; cur_elemento++) {
+    let cur_elemento_data = custom_info_data.elementos[cur_elemento];
+
+    let render_modelo = cur_elemento_data.modelo[0].render.replaceAll("$texto",cur_elemento_data.modelo[0].texto);
+
+    if (cur_elemento > 0) document.querySelector(".elementos_container").innerHTML += "<hr class='w-full border-gray-300'>";
+    document.querySelector(".elementos_container").innerHTML += `
+      <div class="p-1 sm:p-3 flex flex-col gap-3 w-full overflow-x-auto">
+        <p>${cur_elemento_data.nome}</p>
+        <table class="table-auto text-center">
+          <thead>
+            <tr>
+              <th class="border-1 sm:p-2">Código</th>
+              <th class="border-1 sm:p-2">Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border-1 sm:p-2 elemento-code-${cur_elemento}"></td>
+              <td class="border-1 sm:p-2 elemento-render-${cur_elemento}">${render_modelo}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    //CRIAR ELEMENTO (MODELO)
+    let modelo_code = "";
+    let modelo_params = "";
+    if (cur_elemento_data.modelo[0].parametros.length > 0) {
+      //MODELO COM PARAMETROS
+      for (var param = 0; param < cur_elemento_data.modelo[0].parametros.length; param++) {
+        modelo_params += `<code class="text-[#013220]">:</code><code class="text-[#07a]">${cur_elemento_data.modelo[0].parametros[param].nome}</code>`;
+
+        modelo_code = `<code class="text-[#013220]">{</code><code class="text-[#905]">${cur_elemento_data.comando}</code>${modelo_params}<code class="text-[#013220]">}</code>`;
+      }
+    } else {
+      //MODELO SEM PARAMETROS
+      modelo_code = `<code class="text-[#013220]">{</code><code class="text-[#905]">${cur_elemento_data.comando}</code><code class="text-[#013220]">}</code>`;
+    }
+    document.querySelector(".elemento-code-"+cur_elemento).innerHTML = modelo_code;
+
+    //CRIAR CADA EXEMPLO (SE TIVER)
+    if (cur_elemento_data.hasOwnProperty("exemplo")) {
+      for (var cur_exemplo = 0; cur_exemplo < cur_elemento_data.exemplo.length; cur_exemplo++) {
+        let cur_exemplo_data = cur_elemento_data.exemplo[cur_exemplo];
+
+        let exemplo_label = "<br><br>Exemplo:<br>";
+        if (cur_elemento_data.exemplo.length > 1) exemplo_label = "<br><br>Exemplos:<br>";
+        if (cur_exemplo == 0) document.querySelector(".elemento-code-"+cur_elemento).innerHTML += exemplo_label;
+
+        //CRIAR ELEMENTO (EXEMPLOS)
+        let exemplo_code = "";
+        let exemplo_params = "";
+        let break_string = "";
+        if (cur_elemento_data.exemplo[cur_exemplo].parametros.length > 0) {
+          //EXEMPLO COM PARAMETROS
+          for (var param = 0; param < cur_elemento_data.exemplo[cur_exemplo].parametros.length; param++) {
+            let param_color = "#07a";
+            if (cur_elemento_data.exemplo[cur_exemplo].parametros[param].nome.includes("#")) param_color = cur_elemento_data.exemplo[cur_exemplo].parametros[param].nome;
+
+            exemplo_params += `<code class="text-[#013220]">:</code><code class="text-[${param_color}]">${cur_elemento_data.exemplo[cur_exemplo].parametros[param].nome}</code>`;
+            exemplo_code = `<code class="text-[#013220]">{</code><code class="text-[#905]">${cur_elemento_data.comando}</code>${exemplo_params}<code class="text-[#013220]">}</code>`;
+            
+            if (param > 0) break_string = "<br>";
+            if (cur_elemento_data.exemplo[cur_exemplo].break) break_string = "<br><br>";
+          }
+        } else {
+          //EXEMPLO SEM PARAMETROS
+          exemplo_code = `<code class="text-[#013220]">{</code><code class="text-[#905]">${cur_elemento_data.comando}</code><code class="text-[#013220]">}</code>`;
+
+          if (param > 0) break_string = "<br>";
+          if (cur_elemento_data.exemplo[cur_exemplo].break) break_string = "<br><br>";
+        }
+        document.querySelector(".elemento-code-"+cur_elemento).innerHTML += exemplo_code+break_string;
+        document.querySelector(".elemento-render-"+cur_elemento).innerHTML += cur_exemplo_data.render+break_string;
+      }
+    }
+    //CRIA NOTAS SE TIVER
+    if (cur_elemento_data.hasOwnProperty("notas")) {
+      document.querySelector(".elemento-code-"+cur_elemento).innerHTML += "<br>"+cur_elemento_data.notas;
+    }
   }
 
   //CRIAR COMANDOS
@@ -1702,13 +1793,11 @@ function create_custom_info() {
       for (var param = 0; param < cur_comando_data.modelo[0].parametros.length; param++) {
         modelo_params += `<code class="text-[#013220]">:</code><code class="text-[#07a]">${cur_comando_data.modelo[0].parametros[param].nome}</code>`;
 
-        if (cur_comando_data.modelo[0].texto == "") modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${modelo_params}<code class="text-[#013220]">]</code>`;
-        else modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${modelo_params}<code class="text-[#013220]">]</code><code>${cur_comando_data.modelo[0].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
+        modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${modelo_params}<code class="text-[#013220]">]</code><code>${cur_comando_data.modelo[0].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
       }
     } else {
       //MODELO SEM PARAMETROS
-      if (cur_comando_data.modelo[0].texto == "") modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
-      else modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code><code>${cur_comando_data.modelo[0].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
+      modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code><code>${cur_comando_data.modelo[0].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
     }
     document.querySelector(".comando-code-"+cur_comando).innerHTML = modelo_code;
 
@@ -1734,16 +1823,14 @@ function create_custom_info() {
             if (cur_comando_data.exemplo[cur_exemplo].parametros[param].nome.includes("#")) param_color = cur_comando_data.exemplo[cur_exemplo].parametros[param].nome;
 
             exemplo_params += `<code class="text-[#013220]">:</code><code class="text-[${param_color}]">${cur_comando_data.exemplo[cur_exemplo].parametros[param].nome}</code>`;
-            if (cur_comando_data.exemplo[cur_exemplo].texto == "") exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${exemplo_params}<code class="text-[#013220]">]</code>`;
-            else exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${exemplo_params}<code class="text-[#013220]">]</code><code>${cur_comando_data.exemplo[cur_exemplo].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
+            exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${exemplo_params}<code class="text-[#013220]">]</code><code>${cur_comando_data.exemplo[cur_exemplo].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
             
             if (param > 0) break_string = "<br>";
             if (cur_comando_data.exemplo[cur_exemplo].break) break_string = "<br><br>";
           }
         } else {
           //EXEMPLO SEM PARAMETROS
-          if (cur_comando_data.exemplo[cur_exemplo].texto == "") exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
-          else exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code><code>${cur_comando_data.exemplo[cur_exemplo].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
+          exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code><code>${cur_comando_data.exemplo[cur_exemplo].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
 
           if (param > 0) break_string = "<br>";
           if (cur_comando_data.exemplo[cur_exemplo].break) break_string = "<br><br>";

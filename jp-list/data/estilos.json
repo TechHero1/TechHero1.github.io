@@ -21,6 +21,223 @@
             "render": "<b>No campo de \"Valores personalizados\":</b><br><code>valor1=Este é o primeiro valor</code><br><br><b>No campo de \"Anotações\":</b><br>O texto final será: <code>$valor1</code>.<br><br><b>Depois de salvar:</b><br>O texto final será: Este é o primeiro valor."
         }
     ],
+    "elementos": [
+        {
+            "nome": "Ícones",
+            "comando": "icon",
+            "modelo": [
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "nome"
+                        },
+                        {
+                            "nome": "estilo"
+                        }
+                    ],
+                    "render": ""
+                }
+            ],
+            "exemplo": [
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "check-square"
+                        },
+                        {
+                            "nome": "regular"
+                        }
+                    ],
+                    "render": "<i class='fa-regular fa-check-square'></i>",
+                    "break": false
+                },
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "check-square"
+                        },
+                        {
+                            "nome": "solid"
+                        }
+                    ],
+                    "render": "<i class='fa-solid fa-check-square'></i>",
+                    "break": true
+                },
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "square"
+                        },
+                        {
+                            "nome": "regular"
+                        }
+                    ],
+                    "render": "<i class='fa-regular fa-square'></i>",
+                    "break": false
+                },
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "square"
+                        },
+                        {
+                            "nome": "solid"
+                        }
+                    ],
+                    "render": "<i class='fa-solid fa-square'></i>",
+                    "break": true
+                },
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "youtube"
+                        },
+                        {
+                            "nome": "brands"
+                        }
+                    ],
+                    "render": "<i class='fa-brands fa-youtube'></i>",
+                    "break": false
+                }
+            ],
+            "notas": "Ícones podem ter os estilos: <i>regular</i>, <i>solid</i> ou <i>brands</i><br><br>Compatível com qualquer ícone gratuito da<br><a href='https://fontawesome.com/search?ic=free-collection' target='_blank' class='text-blue-500'>Font Awesome v7</a>"
+        },
+        {
+            "nome": "Barras de progresso",
+            "comando": "bar",
+            "modelo": [
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "atual"
+                        },
+                        {
+                            "nome": "máximo"
+                        }
+                    ],
+                    "render": ""
+                }
+            ],
+            "exemplo": [
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "10"
+                        },
+                        {
+                            "nome": "100"
+                        }
+                    ],
+                    "render": "<progress class='rounded-md shadow-md border border-gray-400' value='10' max='100'></progress>",
+                    "break": false
+                },
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "290"
+                        },
+                        {
+                            "nome": "367"
+                        }
+                    ],
+                    "render": "<progress class='rounded-md shadow-md border border-gray-400' value='290' max='367'></progress>",
+                    "break": false
+                }
+            ]
+        },
+        {
+            "nome": "Marco",
+            "comando": "mark",
+            "modelo": [
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "começo"
+                        },
+                        {
+                            "nome": "atual"
+                        },
+                        {
+                            "nome": "final"
+                        },
+                        {
+                            "nome": "tipo"
+                        }
+                    ],
+                    "render": ""
+                }
+            ],
+            "exemplo": [
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "100"
+                        },
+                        {
+                            "nome": "200"
+                        },
+                        {
+                            "nome": "300"
+                        },
+                        {
+                            "nome": "simples"
+                        }
+                    ],
+                    "render": "<span>100/200</span>",
+                    "break": true
+                },
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "100"
+                        },
+                        {
+                            "nome": "200"
+                        },
+                        {
+                            "nome": "300"
+                        },
+                        {
+                            "nome": "porcentagem"
+                        }
+                    ],
+                    "render": "<span>50%</span>",
+                    "break": true
+                },
+                {
+                    "texto": "",
+                    "parametros": [
+                        {
+                            "nome": "100"
+                        },
+                        {
+                            "nome": "200"
+                        },
+                        {
+                            "nome": "300"
+                        },
+                        {
+                            "nome": "barra"
+                        }
+                    ],
+                    "render": "<progress class='rounded-md shadow-md border border-gray-400' value='100' max='200'></progress>",
+                    "break": false
+                }
+            ]
+        }
+    ],
     "comandos": [
         {
             "nome": "Negrito",
@@ -259,10 +476,10 @@
                             "nome": "direção"
                         },
                         {
-                            "nome": "primeira_cor"
+                            "nome": "cor_1"
                         },
                         {
-                            "nome": "segunda_cor"
+                            "nome": "cor_2"
                         }
                     ],
                     "render": ""
@@ -299,13 +516,29 @@
                         }
                     ],
                     "render": "<span class='bg-linear-to-r from-[#FF0000] to-[#0000FF] bg-clip-text text-transparent'>$texto</span>",
+                    "break": true
+                },
+                {
+                    "texto": "DIAGONAL",
+                    "parametros": [
+                        {
+                            "nome": "diagonal"
+                        },
+                        {
+                            "nome": "#FF0000"
+                        },
+                        {
+                            "nome": "#0000FF"
+                        }
+                    ],
+                    "render": "<span class='bg-linear-to-br from-[#FF0000] to-[#0000FF] bg-clip-text text-transparent'>$texto</span>",
                     "break": false
                 }
             ]
         },
         {
             "nome": "Degradê ajustável",
-            "comando": "grdp",
+            "comando": "grd",
             "modelo": [
                 {
                     "texto": "Texto",
@@ -420,255 +653,6 @@
                 }
             ],
             "notas": "As duas porcentagens são as posições onde cada cor irá focar.<br><br>Porcentagem menor = foco da cor desviado para a esquerda<br>Porcentagem maior = foco da cor desviado para a direita<br><br>Quanto mais distantes estiverem os dois focos, mais suave será o degradê.<br>Também é possível usar duas porcentagens iguais para eliminar totalmente a suavidade na troca das cores."
-        },
-        {
-            "nome": "Ícones",
-            "comando": "icon",
-            "modelo": [
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "nome"
-                        },
-                        {
-                            "nome": "estilo"
-                        }
-                    ],
-                    "render": ""
-                }
-            ],
-            "exemplo": [
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "check-square"
-                        },
-                        {
-                            "nome": "regular"
-                        }
-                    ],
-                    "render": "<i class='fa-regular fa-check-square'></i>",
-                    "break": false
-                },
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "check-square"
-                        },
-                        {
-                            "nome": "solid"
-                        }
-                    ],
-                    "render": "<i class='fa-solid fa-check-square'></i>",
-                    "break": true
-                },
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "square"
-                        },
-                        {
-                            "nome": "regular"
-                        }
-                    ],
-                    "render": "<i class='fa-regular fa-square'></i>",
-                    "break": false
-                },
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "square"
-                        },
-                        {
-                            "nome": "solid"
-                        }
-                    ],
-                    "render": "<i class='fa-solid fa-square'></i>",
-                    "break": true
-                },
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "youtube"
-                        },
-                        {
-                            "nome": "brands"
-                        }
-                    ],
-                    "render": "<i class='fa-brands fa-youtube'></i>",
-                    "break": false
-                }
-            ],
-            "notas": "Ícones podem ter os estilos: <i>regular</i>, <i>solid</i> ou <i>brands</i><br><br>Compatível com qualquer ícone gratuito da<br><a href='https://fontawesome.com/search?ic=free-collection' target='_blank' class='text-blue-500'>Font Awesome v7</a>"
-        },
-        {
-            "nome": "Marco exato",
-            "comando": "mrk",
-            "modelo": [
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "começo"
-                        },
-                        {
-                            "nome": "atual"
-                        },
-                        {
-                            "nome": "final"
-                        }
-                    ],
-                    "render": ""
-                }
-            ],
-            "exemplo": [
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "100"
-                        },
-                        {
-                            "nome": "200"
-                        },
-                        {
-                            "nome": "300"
-                        }
-                    ],
-                    "render": "<span>100/200</span>",
-                    "break": false
-                }
-            ]
-        },
-        {
-            "nome": "Marco em porcentagem",
-            "comando": "mrkp",
-            "modelo": [
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "começo"
-                        },
-                        {
-                            "nome": "atual"
-                        },
-                        {
-                            "nome": "final"
-                        }
-                    ],
-                    "render": ""
-                }
-            ],
-            "exemplo": [
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "100"
-                        },
-                        {
-                            "nome": "200"
-                        },
-                        {
-                            "nome": "300"
-                        }
-                    ],
-                    "render": "<span>50%</span>",
-                    "break": false
-                }
-            ]
-        },
-        {
-            "nome": "Barras de progresso (simples)",
-            "comando": "bar",
-            "modelo": [
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "atual"
-                        },
-                        {
-                            "nome": "máximo"
-                        }
-                    ],
-                    "render": ""
-                }
-            ],
-            "exemplo": [
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "10"
-                        },
-                        {
-                            "nome": "100"
-                        }
-                    ],
-                    "render": "<progress class='rounded-md shadow-md border border-gray-400' value='10' max='100'></progress>",
-                    "break": false
-                },
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "290"
-                        },
-                        {
-                            "nome": "367"
-                        }
-                    ],
-                    "render": "<progress class='rounded-md shadow-md border border-gray-400' value='290' max='367'></progress>",
-                    "break": false
-                }
-            ]
-        },
-        {
-            "nome": "Barras de progresso (marco)",
-            "comando": "barm",
-            "modelo": [
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "começo"
-                        },
-                        {
-                            "nome": "atual"
-                        },
-                        {
-                            "nome": "final"
-                        }
-                    ],
-                    "render": ""
-                }
-            ],
-            "exemplo": [
-                {
-                    "texto": "",
-                    "parametros": [
-                        {
-                            "nome": "100"
-                        },
-                        {
-                            "nome": "200"
-                        },
-                        {
-                            "nome": "300"
-                        }
-                    ],
-                    "render": "<progress class='rounded-md shadow-md border border-gray-400' value='100' max='200'></progress>",
-                    "break": false
-                }
-            ]
         },
         {
             "nome": "Furigana",
