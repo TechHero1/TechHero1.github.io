@@ -1496,6 +1496,12 @@ function style_text_with_tags(text,item_data) {
   //LINE TAG
   text = text.replaceAll(/\\l/g,"<hr>");
 
+  //EXPERIMENTAL
+  text = apply_tags(text);
+
+  return text;
+  //EXPERIMENTAL
+
   //GRADIENT TAG
   for (itag = 0; itag < (text.match(style_tag_gradient) || []).length; itag++) {
     let style_tag_gradient_match;
@@ -1703,7 +1709,6 @@ function style_text_with_tags(text,item_data) {
 }
 
 function style_text_with_presets(text) {
-
   for (itag = 0; itag < (text.match(style_tag_preset) || []).length; itag++) {
     let style_tag_preset_match;
 
@@ -1742,6 +1747,178 @@ function style_text_with_presets(text) {
 
   return text;
 }
+
+//EXPERIMENTAL
+const tag_regex = /\[(?<tag>[a-zA-Z_]+)(?::(?<params>[^\]]*))?\](?<real_text>(?:(?!\[\/?[a-zA-Z_]+[:\]])[\s\S])*?)\[\/\k<tag>\]/g;
+//const tag_regex_notext = /\[(?<tag>[a-zA-Z_]+)(?::(?<params>[^\]]*))?\](?![\s\S]*?\[\/\k<tag>\])/g;
+const tag_regex_notext = /\{(?<tag>[a-zA-Z_]+)(?::(?<params>[^}]*))?\}/g;
+
+const direction_classes = {
+  horizontal: "bg-linear-to-r",
+  vertical:   "bg-linear-to-b",
+  diagonal:   "bg-linear-to-br",
+};
+
+const all_presets = {
+  legenda:                text => `<span class="bg-black text-white px-1">${text}</span>`,
+  sombra:                 text => `<span class="text-shadow-md text-shadow-black/20">${text}</span>`,
+
+  badge_pos:              text => `<span class="bg-[#d4edbc] rounded-md shadow-md py-1 px-2 h-min w-fit">${text}</span>`,
+  badge_neg:              text => `<span class="bg-[#ff8787] rounded-md shadow-md py-1 px-2 h-min w-fit">${text}</span>`,
+
+  rainbow_h:              text => `<b style="background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${text}</b>`,
+  rainbow_v:              text => `<b style="background-image: linear-gradient(to bottom, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${text}</b>`,
+
+  sombra_deltarune:       text => `<span class="font-(family-name:--8bitoperator) text-[1.2rem] text-white drop-shadow-[1px_1px_#0f0f70]">${text}</span>`,
+  sombra_deltarune_cor:   text => `<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f70]">${text}</span>`,
+
+  amarelo_deltarune:      text => `<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${text}</span>`,
+  vermelho_deltarune:     text => `<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff1c1c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${text}</span>`,
+  azul_deltarune:         text => `<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#1c1cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${text}</span>`,
+  verde_deltarune:        text => `<span class="font-(family-name:--8bitoperator) text-[1.2rem] bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0cff0c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${text}</span>`,
+
+  amarelo_deltarune_cor:  text => `<span class="bg-linear-to-b from-[#ffffc3] from-[25%] to-[#ffff2c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c4c00]">${text}</span>`,
+  vermelho_deltarune_cor: text => `<span class="bg-linear-to-b from-[#ffc3c3] from-[25%] to-[#ff1c1c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#4c0000]">${text}</span>`,
+  azul_deltarune_cor:     text => `<span class="bg-linear-to-b from-[#c3c3ff] from-[25%] to-[#1c1cff] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#00004c]">${text}</span>`,
+  verde_deltarune_cor:    text => `<span class="bg-linear-to-b from-[#a8ffa8] from-[25%] to-[#0cff0c] to-[80%] bg-clip-text text-transparent drop-shadow-[1px_1px_#004c00]">${text}</span>`,
+
+  profecia:               text => `<div class="text-center" style="animation: floating 3s ease-in-out alternate infinite;"><span class="font-(family-name:--ProphecyType) text-[1.85rem] bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${text}</span></div>`,
+  profecia_cor:           text => `<div class="text-center" style="animation: floating 3s ease-in-out alternate infinite;"><span class="bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${text}</span></div>`,
+  profecia_simples:       text => `<span class="font-(family-name:--ProphecyType) text-[1.85rem] bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${text}</span>`,
+  profecia_cor_simples:   text => `<span class="bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${text}</span>`,
+
+  vermelho_umineko:       text => `<span class="text-[#F50000] drop-shadow-[1px_1px_#000000]">${text}</span>`,
+  vermelho_umineko_mod:   text => `<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${text}</b>`,
+  azul_umineko:           text => `<span class="text-[#5DECFF] drop-shadow-[1px_1px_#000000]">${text}</span>`,
+  azul_umineko_mod:       text => `<b class="bg-linear-to-b from-[#1d97c9] from-[40%] to-[#7ff1f3] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${text}</b>`,
+  roxo_umineko:           text => `<span class="text-[#CC99FF] drop-shadow-[1px_1px_#000000]">${text}</span>`,
+  roxo_umineko_mod:       text => `<b class="bg-linear-to-b from-[#6b5dab] from-[40%] to-[#e7d0f1] to-[80%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${text}</b>`,
+  dourado_umineko:        text => `<span class="text-[#DAA520] drop-shadow-[1px_1px_#000000]">${text}</span>`,
+  dourado_umineko_mod:    text => `<b class="bg-linear-to-b from-[#d19214] from-[40%] to-[#f8df59] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${text}</b>`,
+  verde_umineko_mod:      text => `<b class="bg-linear-to-b from-[#78cf79] from-[40%] to-[#ddffef] to-[75%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${text}</b>`,
+};
+
+const style_tags = {
+  pre: (text, [nome]) => (all_presets[nome] ? all_presets[nome](text) : text),
+
+  cor: (text, [color]) => {
+    return `<span class="text-[${color}]">${text}</span>`;
+  },
+
+  bg: (text, [color]) => {
+    return `<span class="bg-[${color}]">${text}</span>`;
+  },
+
+  grd: (text, [direction, color1, color2, position1 = "", position2 = ""]) => {
+    const dir_class = direction_classes[direction];
+    if (position2 != "") return `<span class="${dir_class} from-[${color1}] from-[${position1}] to-[${color2}] to-[${position2}] bg-clip-text text-transparent">${text}</span>`;
+    return `<span class="${dir_class} from-[${color1}] to-[${color2}] bg-clip-text text-transparent">${text}</span>`;
+  },
+
+  //temp
+  grdp: (text, [direction, color1, color2, position1 = "0%", position2 = "100%"]) => {
+    const dir_class = direction_classes[direction];
+    return `<span class="${dir_class} from-[${color1}] from-[${position1}] to-[${color2}] to-[${position2}] bg-clip-text text-transparent">${text}</span>`;
+  },
+  //temp
+
+  brd: (text, [color, size = "1"]) => {
+    return `<span class="border-${size} border-[${color}]">${text}</span>`;
+  },
+
+  sdw: (text, [color, size = "md", opacity]) => {
+    return `<span class="text-shadow-${size} text-shadow-[${color}]/${opacity}">${text}</span>`;
+  },
+
+  ssdw: (text, [color, x = "1px", y = "1px"]) => {
+    return `<span class="drop-shadow-[${x}_${y}_${color}]">${text}</span>`;
+  },
+
+  bdg: (text, [text_color, bg_color]) => {
+    return `<span class="text-[${text_color}] bg-[${bg_color}] rounded-md shadow-md py-1 px-2 h-min w-fit">${text}</span>`;
+  },
+
+  furi: (text, [furigana = ""]) => {
+    return `<ruby>${text}<rt>${furigana}</rt></ruby>`;
+  },
+
+  b: (text, []) => {
+    return `<b>${text}</b>`;
+  },
+
+  i: (text, []) => {
+    return `<i>${text}</i>`;
+  },
+
+  hira: (text, []) => {
+    let converted_text = convertToHiragana(text);
+    return `<span>${converted_text}</span>`;
+  },
+
+  kata: (text, []) => {
+    let converted_text = convertToKatakana(text);
+    return `<span>${converted_text}</span>`;
+  },
+
+  hkat: (text, []) => {
+    let converted_text = kanaFullToHalf(text);
+    return `<span>${converted_text}</span>`;
+  },
+
+  fkat: (text, []) => {
+    let converted_text = kanaHalfToFull(text);
+    return `<span>${converted_text}</span>`;
+  },
+};
+
+
+const style_tags_notext = {
+  icon: ([id, style]) => {
+    return `<i class="fa-${style} fa-${id}"></i>`;
+  },
+
+  bar: ([value, max]) => {
+    return `<progress class="rounded-md shadow-md border border-gray-400" value="${value}" max="${max}"></progress>`;
+  },
+
+  mark: ([start, value, end, type = "simples"]) => {
+    let real_value = Number(value) - Number(start);
+    let max = Number(end) - Number(start);
+    let result = (100 * real_value) / max;
+    let result_show = Math.trunc(result);
+    if (type == "porcentagem") return `<span>${result_show}%</span>`;
+    if (type == "barra") return `<progress class="rounded-md shadow-md border border-gray-400" value="${real_value}" max="${max}"></progress>`;
+    return `<span>${real_value}/${max}</span>`;
+  },
+};
+
+
+function apply_tags(text) {
+  let before_str;
+  do {
+    before_str = text;
+    text = text.replace(tag_regex_notext, (match, ...args) => {
+      const { tag, params } = args.at(-1);
+      const render = style_tags_notext[tag];
+      //if (!render) return real_text;
+      if (!render) return text;
+      return render(params ? params.split(":") : []);
+    });
+  } while (text !== before_str);
+
+  do {
+    before_str = text;
+    text = text.replace(tag_regex, (match, ...args) => {
+      const { tag, params, real_text } = args.at(-1);
+      const render = style_tags[tag];
+      if (!render) return real_text;
+      return render(real_text, params ? params.split(":") : []);
+    });
+  } while (text !== before_str);
+
+  return text;
+}
+//EXPERIMENTAL
 
 var custom_info_data = [];
 
