@@ -1393,8 +1393,7 @@ function style_text_with_tags(text,item_data) {
   //SECRET ELEMENTS
   text = text.replaceAll(/\{chap_prog_moji}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$moji:$fim:barra}<br>{mark:$comeco:$moji:$fim:simples} ({mark:$comeco:$moji:$fim:porcentagem})");
   text = text.replaceAll(/\{chap_prog_page}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$pages:$fim:barra}<br>{mark:$comeco:$pages:$fim:simples} ({mark:$comeco:$pages:$fim:porcentagem})");
-  text = text.replaceAll(/\{arc_prog_moji}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$atual_real:$fim:barra}<br>{mark:$comeco:$atual_real:$fim:simples} ({mark:$comeco:$atual_real:$fim:porcentagem})<hr>{mark:$comeco_real:$atual_real:$fim:simples}");
-  text = text.replaceAll(/\{arc_prog_page}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$atual_real:$fim:barra}<br>{mark:$comeco:$atual_real:$fim:simples} ({mark:$comeco:$atual_real:$fim:porcentagem})<hr>{mark:$comeco_real:$atual_real:$fim:simples}");
+  text = text.replaceAll(/\{chap_prog_arc}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$atual_real:$fim:barra}<br>{mark:$comeco:$atual_real:$fim:simples} ({mark:$comeco:$atual_real:$fim:porcentagem})<hr>{mark:$comeco_real:$atual_real:$fim:simples}");
   text = text.replaceAll(/\{mashutan}/g,"<img src='assets/img/mashutan.png' class='w-[59px] h-[68px] inline'>");
   text = text.replaceAll(/\{mashutan_med}/g,"<img src='assets/img/mashutan.png' class='w-[131px] h-[151px] inline'>");
   text = text.replaceAll(/\{mashutan_big}/g,"<img src='assets/img/mashutan.png' class='w-[227px] h-[262px] inline'>");
@@ -1791,7 +1790,10 @@ function create_custom_info() {
     if (cur_comando_data.modelo[0].parametros.length > 0) {
       //MODELO COM PARAMETROS
       for (var param = 0; param < cur_comando_data.modelo[0].parametros.length; param++) {
-        modelo_params += `<code class="text-[#013220]">:</code><code class="text-[#07a]">${cur_comando_data.modelo[0].parametros[param].nome}</code>`;
+        let cur_param_color = "#07a";
+        if (cur_comando_data.modelo[0].parametros[param].opcional) cur_param_color = "#00aa2b";
+
+        modelo_params += `<code class="text-[#013220]">:</code><code class="text-[${cur_param_color}]">${cur_comando_data.modelo[0].parametros[param].nome}</code>`;
 
         modelo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code>${modelo_params}<code class="text-[#013220]">]</code><code>${cur_comando_data.modelo[0].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
       }
@@ -1832,9 +1834,11 @@ function create_custom_info() {
           //EXEMPLO SEM PARAMETROS
           exemplo_code = `<code class="text-[#013220]">[</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code><code>${cur_comando_data.exemplo[cur_exemplo].texto}</code><code class="text-[#013220]">[/</code><code class="text-[#905]">${cur_comando_data.comando}</code><code class="text-[#013220]">]</code>`;
 
-          if (param > 0) break_string = "<br>";
+          if (cur_exemplo > 0) break_string = "<br>";
           if (cur_comando_data.exemplo[cur_exemplo].break) break_string = "<br><br>";
         }
+        //sei lá, só funcionou assim
+        if (break_string == "") break_string = "<br>";
         document.querySelector(".comando-code-"+cur_comando).innerHTML += exemplo_code+break_string;
         document.querySelector(".comando-render-"+cur_comando).innerHTML += render_exemplo+break_string;
       }
@@ -1973,8 +1977,8 @@ var nota_tags = {
   "border": "[brd:1:#000000]$text[/brd]",
   "gradient": "[grd:horizontal:#FF0000:#0000FF]$text[/grd]",
   "gradpercent": "[grd:horizontal:#FF0000:#0000FF:0%:100%]$text[/grd]",
-  "shadow": "[sdw:md:#000000:80]$text[/sdw]",
-  "solidshadow": "[ssdw:1px:1px:#FF0000]$text[/ssdw]",
+  "shadow": "[sdw:#000000:md:80]$text[/sdw]",
+  "solidshadow": "[ssdw:#FF0000:1px:1px]$text[/ssdw]",
   "badge": "[bdg:#000000:#00FFCF]$text[/bdg]",
   "furigana": "[furi:escreva_aqui]$text[/furi]",
   "hira": "[hira]$text[/hira]",
