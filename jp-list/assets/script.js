@@ -1477,6 +1477,7 @@ const all_presets = {
   profecia_cor:           text => `<div class="text-center" style="animation: floating 3s ease-in-out alternate infinite;"><span class="bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${text}</span></div>`,
   profecia_simples:       text => `<span class="font-(family-name:--ProphecyType) text-[1.85rem] bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${text}</span>`,
   profecia_cor_simples:   text => `<span class="bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${text}</span>`,
+  profecia_sangue:        text => `<div class="text-center hue-rotate-165 saturate-300" style="animation: floating 3s ease-in-out alternate infinite;"><span class="font-(family-name:--ProphecyType) text-[1.85rem] bg-clip-text text-transparent bg-[url('assets/img/IMAGE_DEPTH.png')] bg-size-[256px 256px] bg-repeat" style="animation: scroll-background 30s linear infinite;">${text}</span></div>`,
 
   vermelho_umineko:       text => `<span class="text-[#F50000] drop-shadow-[1px_1px_#000000]">${text}</span>`,
   vermelho_umineko_mod:   text => `<b class="bg-linear-to-b from-[#ff0000] from-[40%] to-[#ff8b8b] to-[95%] bg-clip-text text-transparent drop-shadow-[-0.04rem_0px_#000000,0px_-0.04rem_#000000,0px_0.04rem_#000000,0.04rem_0px_#000000]">${text}</b>`,
@@ -2001,6 +2002,7 @@ var nota_tags = {
   "profecia_cor": "[pre:profecia_cor]$text[/pre]",
   "profecia_simples": "[pre:profecia_simples]$text[/pre]",
   "profecia_cor_simples": "[pre:profecia_cor_simples]$text[/pre]",
+  "profecia_sangue": "[pre:profecia_sangue]$text[/pre]",
   "amarelo_deltarune": "[pre:amarelo_deltarune]$text[/pre]",
   "vermelho_deltarune": "[pre:vermelho_deltarune]$text[/pre]",
   "azul_deltarune": "[pre:azul_deltarune]$text[/pre]",
