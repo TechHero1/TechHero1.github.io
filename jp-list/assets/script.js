@@ -1454,8 +1454,8 @@ const style_tag_preset = /\[pre:(?<nome>.+?)](?<real_text>.+?)\[\/pre]/g;
 
 function style_text_with_tags(text,item_data) {
   //SECRET TAGS
-  text = text.replaceAll(/\{chap_prog_moji}/g,"[b]$atual [icon:solid:arrow-right] $proximo[/b]<br>[barm:$comeco:$moji:$fim]<br>[mrk:$comeco:$moji:$fim] ([mrkp:$comeco:$moji:$fim])");
-  text = text.replaceAll(/\{chap_prog_page}/g,"[b]$atual [icon:solid:arrow-right] $proximo[/b]<br>[barm:$comeco:$pages:$fim]<br>[mrk:$comeco:$pages:$fim] ([mrkp:$comeco:$pages:$fim])");
+  text = text.replaceAll(/\{chap_prog_moji}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$moji:$fim:barra}<br>{mark:$comeco:$moji:$fim:simples} ({mark:$comeco:$moji:$fim:porcentagem})");
+  text = text.replaceAll(/\{chap_prog_page}/g,"[b]$atual {icon:solid:arrow-right} $proximo[/b]<br>{mark:$comeco:$pages:$fim:barra}<br>{mark:$comeco:$pages:$fim:simples} ({mark:$comeco:$pages:$fim:porcentagem})");
   text = text.replaceAll(/\{mashutan}/g,"<img src='assets/img/mashutan.png' class='w-[59px] h-[68px] inline'>");
   text = text.replaceAll(/\{mashutan_med}/g,"<img src='assets/img/mashutan.png' class='w-[131px] h-[151px] inline'>");
   text = text.replaceAll(/\{mashutan_big}/g,"<img src='assets/img/mashutan.png' class='w-[227px] h-[262px] inline'>");
@@ -1882,10 +1882,20 @@ const style_tags_notext = {
   },
 
   mark: ([start, value, end, type = "simples"]) => {
+
+    if (isNaN(start)) start = 0;
+    if (isNaN(value)) value = 0;
+    if (isNaN(end)) end = 0;
+
     let real_value = Number(value) - Number(start);
     let max = Number(end) - Number(start);
     let result = (100 * real_value) / max;
     let result_show = Math.trunc(result);
+
+    if (isNaN(real_value)) real_value = 0;
+    if (isNaN(max)) max = 0;
+    if (isNaN(result_show)) result_show = 0;
+
     if (type == "porcentagem") return `<span>${result_show}%</span>`;
     if (type == "barra") return `<progress class="rounded-md shadow-md border border-gray-400" value="${real_value}" max="${max}"></progress>`;
     return `<span>${real_value}/${max}</span>`;
@@ -2194,7 +2204,7 @@ var nota_tags = {
   "bg": "[bg:#FFFFFF]$text[/bg]",
   "border": "[brd:1:#000000]$text[/brd]",
   "gradient": "[grd:horizontal:#FF0000:#0000FF]$text[/grd]",
-  "gradpercent": "[grdp:horizontal:#FF0000:#0000FF:0%:100%]$text[/grdp]",
+  "gradpercent": "[grd:horizontal:#FF0000:#0000FF:0%:100%]$text[/grd]",
   "shadow": "[sdw:md:#000000:80]$text[/sdw]",
   "solidshadow": "[ssdw:1px:1px:#FF0000]$text[/ssdw]",
   "badge": "[bdg:#000000:#00FFCF]$text[/bdg]",
@@ -2203,11 +2213,12 @@ var nota_tags = {
   "kata": "[kata]$text[/kata]",
   "halfkana": "[hkat]$text[/hkat]",
   "fullkana": "[fkat]$text[/fkat]",
-  "icon": "[icon:face-smile:regular]",
-  "mark": "[mrk:0:0:10]",
-  "mark_p": "[mrkp:0:0:10]",
-  "bar": "[bar:0:100]",
-  "bar_mark": "[barm:0:0:10]",
+  //elementos
+  "icon": "{icon:face-smile:regular}",
+  "mark": "{mark:0:0:10:simples}",
+  "mark_p": "{mark:0:0:10:porcentagem}",
+  "bar": "{bar:0:100}",
+  "bar_mark": "{mark:0:0:10:barra}",
   //presets
   "legenda": "[pre:legenda]$text[/pre]",
   "sombreado": "[pre:sombra]$text[/pre]",
@@ -2305,8 +2316,8 @@ function update_old_style_tags(text="") {
   text = text.replaceAll("[/estilo]","[/pre]");
 
   //old old gradpercent tag
-  text = text.replaceAll("[gradient_percent:","[grdp:");
-  text = text.replaceAll("[/gradient_percent]","[/grdp]");
+  text = text.replaceAll("[gradient_percent:","[grd:");
+  text = text.replaceAll("[/gradient_percent]","[/grd]");
 
   //tags without att
   text = text.replaceAll("[bold]","[b]");
@@ -2334,8 +2345,8 @@ function update_old_style_tags(text="") {
   text = text.replaceAll("[gradient:","[grd:");
   text = text.replaceAll("[/gradient]","[/grd]");
 
-  text = text.replaceAll("[gradpercent:","[grdp:");
-  text = text.replaceAll("[/gradpercent]","[/grdp]");
+  text = text.replaceAll("[gradpercent:","[grd:");
+  text = text.replaceAll("[/gradpercent]","[/grd]");
 
   text = text.replaceAll("[furigana:","[furi:");
   text = text.replaceAll("[/furigana]","[/furi]");
@@ -2346,11 +2357,49 @@ function update_old_style_tags(text="") {
   text = text.replaceAll("[fullkana:","[fkat:");
   text = text.replaceAll("[/fullkana]","[/fkat]");
 
-  text = text.replaceAll("[mark:","[mrk:");
+  text = text.replaceAll(/\[mark:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g,(match, ...args) => {
+    const { start, value, end } = args.at(-1);
+    return `{mark:${start}:${value}:${end}:simples}`;
+  });
 
-  text = text.replaceAll("[mark_p:","[mrkp:");
+  text = text.replaceAll(/\[mark_p:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g,(match, ...args) => {
+    const { start, value, end } = args.at(-1);
+    return `{mark:${start}:${value}:${end}:porcentagem}`;
+  });
 
-  text = text.replaceAll("[bar_mark:","[barm:");
+  text = text.replaceAll(/\[bar_mark:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g,(match, ...args) => {
+    const { start, value, end } = args.at(-1);
+    return `{mark:${start}:${value}:${end}:barra}`;
+  });
+
+  //tags pre rework
+  text = text.replaceAll("[grdp:","[grd:");
+  text = text.replaceAll("[/grdp]","[/grd]");
+
+  text = text.replaceAll(/\[icon:(?<id>.+?):(?<style>.+?)]/g,(match, ...args) => {
+    const { id, style } = args.at(-1);
+    return `{icon:${id}:${style}}`;
+  });
+
+  text = text.replaceAll(/\[bar:(?<value>.+?):(?<max>.+?)]/g,(match, ...args) => {
+    const { value, max } = args.at(-1);
+    return `{bar:${value}:${max}}`;
+  });
+
+  text = text.replaceAll(/\[mrk:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g,(match, ...args) => {
+    const { start, value, end } = args.at(-1);
+    return `{mark:${start}:${value}:${end}:simples}`;
+  });
+
+  text = text.replaceAll(/\[mrkp:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g,(match, ...args) => {
+    const { start, value, end } = args.at(-1);
+    return `{mark:${start}:${value}:${end}:porcentagem}`;
+  });
+
+  text = text.replaceAll(/\[barm:(?<start>.+?):(?<value>.+?):(?<end>.+?)]/g,(match, ...args) => {
+    const { start, value, end } = args.at(-1);
+    return `{mark:${start}:${value}:${end}:barra}`;
+  });
 
   return text;
 }
