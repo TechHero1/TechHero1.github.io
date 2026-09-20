@@ -1458,6 +1458,7 @@ const all_presets = {
 
   rainbow_h:              text => `<b style="background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${text}</b>`,
   rainbow_v:              text => `<b style="background-image: linear-gradient(to bottom, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${text}</b>`,
+  rainbow_dg:             text => `<b style="background-image: linear-gradient(to bottom right, red,orange,yellow,green,blue,indigo,violet)" class="bg-clip-text text-transparent">${text}</b>`,
 
   sombra_deltarune:       text => `<span class="font-(family-name:--8bitoperator) text-[1.2rem] text-white drop-shadow-[1px_1px_#0f0f70]">${text}</span>`,
   sombra_deltarune_cor:   text => `<span class="text-white drop-shadow-[0.7px_0.7px_#0f0f70]">${text}</span>`,
@@ -2021,6 +2022,7 @@ var nota_tags = {
   "badge_neg": "[pre:badge_neg]$text[/pre]",
   "rainbow_h": "[pre:rainbow_h]$text[/pre]",
   "rainbow_v": "[pre:rainbow_v]$text[/pre]",
+  "rainbow_dg": "[pre:rainbow_dg]$text[/pre]",
   //variáveis
   "value_progresso": "$progresso",
   "value_final": "$final",
