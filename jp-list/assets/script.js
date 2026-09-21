@@ -1528,6 +1528,18 @@ const style_tags = {
     return `<ruby>${text}<rt>${furigana}</rt></ruby>`;
   },
 
+  fltr: (text, [type, value]) => {
+    if (type == "blur") return `<span class="blur-${value}">${text}</span>`;
+    if (type == "brightness") return `<span class="brightness-${value}">${text}</span>`;
+    if (type == "contrast") return `<span class="contrast-${value}">${text}</span>`;
+    if (type == "grayscale") return `<span class="grayscale-${value}">${text}</span>`;
+    if (type == "hue-rotate") return `<span class="hue-rotate-${value}">${text}</span>`;
+    if (type == "invert") return `<span class="invert-${value}">${text}</span>`;
+    if (type == "saturate") return `<span class="saturate-${value}">${text}</span>`;
+    if (type == "sepia") return `<span class="sepia-${value}">${text}</span>`;
+    return text;
+  },
+
   b: (text, []) => {
     return `<b>${text}</b>`;
   },
