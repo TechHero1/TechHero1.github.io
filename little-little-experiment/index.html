@@ -1,0 +1,140 @@
+<head>
+    <script>
+        const original_list = [
+            {
+                "nome": "item1",
+                "lastedited": "400"
+            },
+            {
+                "nome": "item2",
+                "lastedited": "600"
+            },
+            {
+                "nome": "item3",
+                "lastedited": "300"
+            },
+            {
+                "nome": "item4",
+                "lastedited": "700"
+            },
+            {
+                "nome": "名探偵プリキュア！",
+                "lastedited": "800"
+            },
+            {
+                "nome": "item6",
+                "lastedited": "100"
+            },
+            {
+                "nome": "item7",
+                "lastedited": "200"
+            },
+            {
+                "nome": "item8",
+                "lastedited": "500"
+            },
+            {
+                "nome": "ablebo",
+                "lastedited": "500"
+            },
+        ];
+
+        var filtered_list = [];
+
+        function load_original_list() {
+            document.querySelector("#original").innerHTML = "";
+            for (var i = 0; i < original_list.length; i++) {
+                document.querySelector("#original").innerHTML += `<p><b>${original_list[i].nome}</b><br>Última vez editado: ${original_list[i].lastedited}</p>`;
+            }
+        }
+
+        function load() {
+            load_original_list();
+            filter_list("add","normal");
+            load_filtrada_list();
+        }
+
+        function load_filtrada_list() {
+            document.querySelector("#filtrada").innerHTML = "";
+            for (var i = 0; i < filtered_list.length; i++) {
+                document.querySelector("#filtrada").innerHTML += `<p><b>${filtered_list[i].nome}</b><br>Última vez editado: ${filtered_list[i].lastedited}</p>`;
+            }
+        }
+
+        function filter_list(modo, ordem) {
+            filtered_list = [];
+            //MANUAL
+
+            //ADD
+            if (modo == "add") {
+                if (ordem == "normal") {
+                    //ADD - CRESCENTE
+                    filtered_list = original_list;
+                    load_filtrada_list();
+                    return;
+                } else {
+                    //ADD - DECRESCENTE
+                    filtered_list = original_list.toReversed();
+                    load_filtrada_list();
+                    return;
+                }
+            }
+
+            //EDIT
+            if (modo == "edit") {
+                if (ordem == "normal") {
+                    //EDIT - CRESCENTE
+                    filtered_list = original_list.toSorted((a, b) => a.lastedited - b.lastedited);
+                    load_filtrada_list();
+                    return;
+                } else {
+                    //EDIT - DECRESCENTE
+                    filtered_list = original_list.toSorted((a, b) => b.lastedited - a.lastedited);
+                    load_filtrada_list();
+                    return;
+                }
+            }
+
+            //ALPHABET
+            if (modo == "alphabet") {
+                if (ordem == "normal") {
+                    //ALPHABET - CRESCENTE
+                    filtered_list = original_list.toSorted((a, b) => a.nome.localeCompare(b.nome));
+                    load_filtrada_list();
+                    return;
+                } else {
+                    //ALPHABET - DECRESCENTE
+                    filtered_list = original_list.toSorted((a, b) => b.nome.localeCompare(a.nome));
+                    load_filtrada_list();
+                    return;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body onload="load()">
+    <b>Lista original</b>
+    <div id="original" style="border: 1px solid black">
+    
+    </div>
+
+    <br><br>
+
+    <b>Lista filtrada</b>
+    <div style="display: flex; gap: 5px;">
+        <button onclick="filter_list('manual','')" disabled>Manual</button>
+        <div style="width: 15px;"></div>
+        <button onclick="filter_list('add','normal')">Adição (crescente)</button>
+        <button onclick="filter_list('add','inverso')">Adição (decrescente)</button>
+        <div style="width: 15px;"></div>
+        <button onclick="filter_list('edit','normal')">Edição (crescente)</button>
+        <button onclick="filter_list('edit','inverso')">Edição (decrescente)</button>
+        <div style="width: 15px;"></div>
+        <button onclick="filter_list('alphabet','normal')">Ordem alfabética (crescente)</button>
+        <button onclick="filter_list('alphabet','inverso')">Ordem alfabética (decrescente)</button>
+    </div>
+    <div id="filtrada" style="border: 1px solid black">
+    
+    </div>
+</body>
