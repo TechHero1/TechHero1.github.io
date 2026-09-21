@@ -898,7 +898,6 @@ function create_streaming_tags(array) {
 
 //stats
 function gerar_stats() {
-  let types_values_template = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let base_types = ['Anime', 'Novel', 'Mangá', 'Jogo', 'Filme', 'Áudio', 'Dorama/Série', 'Stage', 'Fanfic', 'Short Story', 'Ensaio', 'Personalizado'];
   let base_types_colors = [site_colors.types.anime, site_colors.types.novel, site_colors.types.manga, site_colors.types.jogo, site_colors.types.filme, site_colors.types.audio, site_colors.types.dorama, site_colors.types.stage, site_colors.types.fanfic, site_colors.types.shortstory, site_colors.types.ensaio, site_colors.default];
   let graph_types = [];
@@ -979,10 +978,10 @@ function gerar_stats() {
   //tipo bar
 
   let tipo_bar_data = [{
-    x: graph_types_values,
-    y: graph_types,
+    x: graph_types_values.toReversed(),
+    y: graph_types.toReversed(),
     marker: {
-      color: graph_types_colors,
+      color: graph_types_colors.toReversed(),
       line: {
         color: graph_types_lines,
         width: 1.5
@@ -990,7 +989,7 @@ function gerar_stats() {
     },
     type: 'bar',
     orientation: 'h',
-    text: graph_types_values.map(String),
+    text: graph_types_values.toReversed().map(String),
     textposition: 'auto',
     hoverinfo: 'y+x'
   }];
@@ -1105,10 +1104,10 @@ function gerar_stats() {
   //status bar
 
   let status_bar_data = [{
-    x: graph_status_values,
-    y: graph_status,
+    x: graph_status_values.toReversed(),
+    y: graph_status.toReversed(),
     marker: {
-      color: graph_status_colors,
+      color: graph_status_colors.toReversed(),
       line: {
         color: graph_status_lines,
         width: 1.5
@@ -1116,7 +1115,7 @@ function gerar_stats() {
     },
     type: 'bar',
     orientation: 'h',
-    text: graph_status_values.map(String),
+    text: graph_status_values.toReversed().map(String),
     textposition: 'auto',
     hoverinfo: 'y+x'
   }];
@@ -1152,7 +1151,7 @@ function gerar_stats() {
 
   //progresso por formato - calculo
 
-  let graph_prog_types_values = types_values_template;
+  let graph_prog_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let graph_total_ep = 0;
   let graph_total_cap = 0;
 
@@ -1221,7 +1220,7 @@ function gerar_stats() {
 
   //moji por formato - calculo
 
-  let graph_moji_types_values = types_values_template;
+  let graph_moji_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
@@ -1281,7 +1280,7 @@ function gerar_stats() {
 
   //horas por formato - calculo
 
-  let graph_horas_types_values = types_values_template;
+  let graph_horas_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
@@ -1295,7 +1294,7 @@ function gerar_stats() {
     }
   }
 
-  let graph_minutos_types_values = types_values_template;
+  let graph_minutos_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
@@ -2241,6 +2240,10 @@ function update_old_style_tags(text="") {
 function check_selected_type(type) {
   if (type == "Personalizado") document.querySelector(".personalizado_info").classList.remove("hidden");
   else  document.querySelector(".personalizado_info").classList.add("hidden");
+}
+
+function remove_all_of_element(array,element) {
+  return array.filter(val => val != element);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
