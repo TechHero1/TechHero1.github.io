@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:title" content="Lorem Ipsum">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lorem Ipsum</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="../../../shared/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="../../../shared/fontawesome/css/brands.min.css" rel="stylesheet" />
+    <link href="../../../shared/fontawesome/css/solid.min.css" rel="stylesheet" />
+    <link href="../../../shared/fontawesome/css/regular.min.css" rel="stylesheet" />
+    <style>
+      @font-face {
+        font-family: 'AdwaitaSans-Regular';
+        src: url('../../../shared/fonts/adwaita-sans/AdwaitaSans-Regular.ttf') format('truetype');
+      }
+
+      :root {
+          --color-black: #000;
+          --color-red: #f00;
+          --color-red-200: oklch(88.5% 0.062 18.334);
+          --color-slate-500: oklch(55.4% 0.046 257.417);
+          --color-gray-200: oklch(92.8% 0.006 264.531);
+
+          --spacing: 0.25rem;
+      }
+
+      .button {
+          background-color: inherit;
+          color: inherit;
+          padding: calc(var(--spacing) * 2);
+          border: 1px solid var(--color-black);
+          border-radius: var(--spacing);
+          transition: all;
+          transition-duration: 150ms;
+          opacity: 0.5;
+          cursor: default;
+      }
+    
+      .button.active {
+          cursor: pointer;
+          opacity: 1;
+      }
+
+      .button:hover {
+          background-color: var(--color-gray-200);
+      }
+
+      .button-danger {
+          border-color: 1px solid var(--color-red);
+          color: var(--color-red);
+      }
+
+      .button-danger:hover {
+          background-color: var(--color-red-200);
+      }
+    </style>
+  </head>
+  <body class="font-[AdwaitaSans-Regular] bg-gray-200">
+    <div class="mx-auto py-2 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
+        <div class="rounded-md p-3 sm:p-5 bg-white shadow-md">
+          <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
+            <span class="text-2xl font-bold place-self-center">Lorem Ipsum</span>
+          </div>
+        </div>
+
+        <div class="rounded-md p-3 sm:p-5 bg-white shadow-md">
+          <div class="gap-4 flex flex-row items-center w-max mx-auto">
+            <a href="" class="button select-none text-center"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="../../" class="button select-none text-center active"><i class="fa-regular fa-house"></i></a>
+            <a href="" class="button select-none text-center active"><i class="fa-solid fa-bars"></i></a>
+            <a href="capa" class="button select-none text-center active"><i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="rounded-md p-3 sm:p-5 bg-white shadow-md">
+          <div class="mt-5 mb-10 p-3 gap-4 flex flex-col text-center items-center">
+            <span class="text-2xl font-bold place-self-start px-8">Capítulos</span>
+            <div class="content flex flex-col gap-2 text-left w-full">
+              <a class="text-blue-500 cursor-pointer" href="capa">Capa</a>
+              <a class="text-blue-500 cursor-pointer" href="cap1">Capítulo 1</a>
+              <a class="text-blue-500 cursor-pointer" href="cap2">Capítulo 2</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-md p-3 sm:p-5 bg-white shadow-md">
+          <div class="gap-4 flex flex-row items-center w-max mx-auto">
+            <a href="" class="button select-none text-center"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="../../" class="button select-none text-center active"><i class="fa-regular fa-house"></i></a>
+            <a href="" class="button select-none text-center active"><i class="fa-solid fa-bars"></i></a>
+            <a href="capa" class="button select-none text-center active"><i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        </div>
+    </div>
+  </body>
+</html>

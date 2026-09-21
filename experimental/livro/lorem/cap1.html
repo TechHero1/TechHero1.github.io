@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:title" content="Lorem Ipsum">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lorem Ipsum</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="../../../shared/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="../../../shared/fontawesome/css/brands.min.css" rel="stylesheet" />
+    <link href="../../../shared/fontawesome/css/solid.min.css" rel="stylesheet" />
+    <link href="../../../shared/fontawesome/css/regular.min.css" rel="stylesheet" />
+    <style>
+      @font-face {
+        font-family: 'AdwaitaSans-Regular';
+        src: url('../../../shared/fonts/adwaita-sans/AdwaitaSans-Regular.ttf') format('truetype');
+      }
+
+      :root {
+          --color-black: #000;
+          --color-red: #f00;
+          --color-red-200: oklch(88.5% 0.062 18.334);
+          --color-slate-500: oklch(55.4% 0.046 257.417);
+          --color-gray-200: oklch(92.8% 0.006 264.531);
+
+          --spacing: 0.25rem;
+      }
+
+      .button {
+          background-color: inherit;
+          color: inherit;
+          padding: calc(var(--spacing) * 2);
+          border: 1px solid var(--color-black);
+          border-radius: var(--spacing);
+          transition: all;
+          transition-duration: 150ms;
+          opacity: 0.5;
+          cursor: default;
+      }
+    
+      .button.active {
+          cursor: pointer;
+          opacity: 1;
+      }
+
+      .button:hover {
+          background-color: var(--color-gray-200);
+      }
+
+      .button-danger {
+          border-color: 1px solid var(--color-red);
+          color: var(--color-red);
+      }
+
+      .button-danger:hover {
+          background-color: var(--color-red-200);
+      }
+    </style>
+  </head>
+  <body class="font-[AdwaitaSans-Regular] bg-gray-200">
+    <div class="mx-auto py-2 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
+        <div class="rounded-md p-3 sm:p-5 bg-white shadow-md">
+          <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
+            <span class="text-2xl font-bold place-self-center">Lorem Ipsum</span>
+          </div>
+        </div>
+
+        <div class="rounded-md p-3 sm:p-5 bg-white shadow-md">
+          <div class="gap-4 flex flex-row items-center w-max mx-auto">
+            <a href="capa" class="button select-none text-center active"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="../../" class="button select-none text-center active"><i class="fa-regular fa-house"></i></a>
+            <a href="./" class="button select-none text-center active"><i class="fa-solid fa-bars"></i></a>
+            <a href="cap2" class="button select-none text-center active"><i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="rounded-md p-3 sm:p-5 bg-white shadow-md">
+          <div class="mt-5 mb-10 p-3 gap-4 flex flex-col text-center items-center">
+            <span class="text-2xl font-bold place-self-start px-8">Capítulo 1</span>
+            <div class="content flex flex-col gap-4 text-left indent-16">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum enim eu purus convallis consectetur. In aliquet volutpat mauris a cursus. Suspendisse vel congue nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent nisi velit, lobortis sed ornare sed, tempor nec sapien. Aenean ultricies eros ut elit dignissim, et cursus metus accumsan. Mauris sem lorem, efficitur a lacus in, lobortis tristique mauris. Nullam et dui sodales, vehicula arcu ut, pulvinar mauris. Donec ut massa pretium, volutpat lorem et, pretium orci.</p>
+              <p>Maecenas porta malesuada est, ut tempor massa pharetra vel. Sed imperdiet metus ut nisi mattis, ac dictum enim placerat. Cras gravida aliquet dolor tincidunt tempus. Duis maximus dolor eu urna feugiat dignissim. Nulla consequat odio id sodales ultrices. Cras rhoncus mi ac pharetra laoreet. Suspendisse facilisis magna nec dapibus vehicula. In sagittis varius velit, sed laoreet dui rutrum eu. Integer tempus dictum lorem, vehicula pretium nisi volutpat nec. Vestibulum non ex nibh. Sed a aliquam enim. Nunc eget lacinia purus, rutrum facilisis nunc. Fusce gravida mauris vitae lacus eleifend, et euismod justo tristique. Nulla eleifend luctus diam et accumsan. Nunc vel tincidunt odio.</p>
+              <p>Duis non finibus erat. Etiam condimentum pretium arcu. Pellentesque auctor, lectus tincidunt volutpat facilisis, nunc diam aliquet sapien, ut auctor arcu odio non augue. Suspendisse eget euismod tortor. Pellentesque rutrum dictum semper. Maecenas tristique magna vel neque luctus, non cursus libero mattis. Quisque at nisl sapien.</p>
+              <p>Donec non efficitur lectus. Fusce sollicitudin velit elit, at consequat neque gravida quis. Ut nec risus orci. Cras ultricies metus at felis varius, tempus porta neque molestie. Donec aliquam gravida condimentum. Praesent porta gravida lacinia. Donec id erat at arcu congue tempus. Donec sed consequat purus. Sed a elementum dui. Integer bibendum tincidunt elit, ut ultricies ante sagittis sit amet. Duis elementum volutpat magna et sodales.</p>
+              <p>In ullamcorper in dui ac gravida. Nunc hendrerit vel nunc eu fringilla. Vestibulum malesuada leo est. Nulla nec dictum lectus. Donec pretium sapien vitae dictum tristique. Donec ac convallis ex. Morbi dolor massa, consectetur vitae interdum nec, maximus vel ligula. Sed convallis ut eros ut hendrerit.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-md p-3 sm:p-5 bg-white shadow-md">
+          <div class="gap-4 flex flex-row items-center w-max mx-auto">
+            <a href="capa" class="button select-none text-center active"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="../../" class="button select-none text-center active"><i class="fa-regular fa-house"></i></a>
+            <a href="./" class="button select-none text-center active"><i class="fa-solid fa-bars"></i></a>
+            <a href="cap2" class="button select-none text-center active"><i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        </div>
+    </div>
+  </body>
+</html>
