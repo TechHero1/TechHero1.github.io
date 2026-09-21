@@ -191,7 +191,7 @@
         <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 items-stretch w-full md:w-[clamp(300px,80%,1300px)]">
             <div class="flex flex-col gap-3 w-full">
                 <label for="item_type">Tipo</label>
-                <select class="tipo_input button h-[42px]" name="item_type" id="item_type">
+                <select class="tipo_input button h-[42px]" name="item_type" id="item_type" onchange="check_selected_type(this.value)">
                     <option value="Novel">Novel</option>
                     <option value="Anime">Anime</option>
                     <option value="Mangá">Mangá</option>
@@ -203,6 +203,7 @@
                     <option value="Fanfic">Fanfic</option>
                     <option value="Short Story">Short Story</option>
                     <option value="Ensaio">Ensaio</option>
+                    <option value="Personalizado">Personalizado</option>
                 </select>
             </div>
             <div class="flex flex-col gap-3 w-full">
@@ -215,6 +216,17 @@
                     <option value="Repetindo">Repetindo</option>
                     <option value="Pausado">Pausado</option>
                 </select>
+            </div>
+        </div>
+
+        <div class="p-3 flex flex-col md:flex-row gap-3 md:gap-10 items-stretch w-full md:w-[clamp(300px,80%,1300px)] personalizado_info hidden">
+            <div class="flex flex-col gap-3 w-full">
+                <label for="custom_media_name">Nome da mídia</label>
+                <input class="custom_media_name_input textinput h-[42px]" type="text" id="custom_media_name" name="custom_media_name">
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+                <label for="custom_media_color">Cor de fundo</label>
+                <input class="custom_media_color_input button h-[42px] w-full" type="color" id="custom_media_color" name="custom_media_color">
             </div>
         </div>
 
@@ -521,8 +533,8 @@
                 <div class="filter_dropdown absolute right-0 z-10 mt-2 w-full max-h-[400px] overflow-y-auto md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
                     <div role="none" class="custom_filters py-1">
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Tudo_tipo','Tudo_status')">Tudo</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Mídia','Tudo_status')">Mídia</a>
-                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Short Stories e Fanfics','Tudo_status')">Short Stories e Fanfics</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Mídia','Tudo_status')"><span class="icon_tipo_midia hidden"><i class="fa-solid fa-check"></i> </span>Mídia</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Short Stories e Fanfics','Tudo_status')"><span class="icon_tipo_short_fanfic hidden"><i class="fa-solid fa-check"></i> </span>Short Stories e Fanfics</a>
                     </div>
                     
                     <div class="flex flex-row items-stretch">
@@ -544,6 +556,12 @@
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Fanfic','')"><span class="icon_tipo_fanfic hidden"><i class="fa-solid fa-check"></i> </span>Fanfic</a>
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Short Story','')"><span class="icon_tipo_shortstory hidden"><i class="fa-solid fa-check"></i> </span>Short Story</a>
                                 <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Ensaio','')"><span class="icon_tipo_ensaio hidden"><i class="fa-solid fa-check"></i> </span>Ensaio</a>
+                            </div>
+                            <div role="none" class="custom_all_filters py-1">
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('Personalizados','')"><span class="icon_tipo_custom hidden"><i class="fa-solid fa-check"></i> </span>Todos os personalizados</a>
+                            </div>
+                            <div role="none" class="custom_each_filters py-1 hidden">
+                                <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('custom_media_name','')"><span class="icon_custom_media_name hidden"><i class="fa-solid fa-check"></i> </span>custom_media_name</a>
                             </div>
                         </div>
                         <div class="status_all divide-y divide-gray-300 w-full">

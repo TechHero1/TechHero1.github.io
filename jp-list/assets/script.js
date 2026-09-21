@@ -102,6 +102,7 @@ function edit_item(id) {
     update_autotime();
     update_preview_nota();
     update_item_values("");
+    check_selected_type(document.querySelector(".tipo_input").value);
   } else {
     document.querySelector(".edit_title").innerHTML = "<i class='fa-solid fa-pencil'></i> Editar item \""+list.itens[id].dados.titulo+"\"";
     document.querySelector(".tipo_input").value = list.itens[id].tipo;
@@ -138,9 +139,18 @@ function edit_item(id) {
     let final = list.itens[id].dados.final;
     if (!list.itens[id].dados.hasOwnProperty("final")) final = 0;
     document.querySelector(".final_input").value = final;
+
+    let custom_media_name = list.itens[id].custom_media_name;
+    if (!list.itens[id].hasOwnProperty("custom_media_name")) custom_media_name = "";
+    document.querySelector(".custom_media_name_input").value = custom_media_name;
+
+    let custom_media_color = list.itens[id].custom_media_color;
+    if (!list.itens[id].hasOwnProperty("custom_media_color")) custom_media_color = "#ffffff";
+    document.querySelector(".custom_media_color_input").value = custom_media_color;
     update_autotime();
     update_preview_nota();
     update_item_values(custom_values);
+    check_selected_type(list.itens[id].tipo);
   }
 
   if (document.querySelector('.nota_link') != null) {
@@ -159,6 +169,8 @@ function save_item(){
     
     list.itens[listnew] = {
       "tipo":document.querySelector(".tipo_input").value,
+      "custom_media_name":document.querySelector(".custom_media_name_input").value,
+      "custom_media_color":document.querySelector(".custom_media_color_input").value,
       "dados": {
         "titulo": document.querySelector(".name_input").value,
         "status": document.querySelector(".status_input").value,
@@ -185,6 +197,8 @@ function save_item(){
   //substituir[id]
   list.itens[cur_editing_id] = {
     "tipo":document.querySelector(".tipo_input").value,
+    "custom_media_name":document.querySelector(".custom_media_name_input").value,
+    "custom_media_color":document.querySelector(".custom_media_color_input").value,
     "dados": {
       "titulo": document.querySelector(".name_input").value,
       "status": document.querySelector(".status_input").value,
@@ -228,10 +242,11 @@ function cancel_item(){
 }
 
 var filters = {
-  "Tudo_tipo": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage","Fanfic","Short Story","Ensaio"]',
+  "Tudo_tipo": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage","Fanfic","Short Story","Ensaio","Personalizado"]',
   "Tudo_status": '["Progredindo","Planejo","Repetindo","Completo","Pausado","Abandonado"]',
   "Mídia": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage"]',
   "Short Stories e Fanfics": '["Fanfic","Short Story","Ensaio"]',
+  "Personalizados": '["Personalizado"]',
   "Novel": '["Novel"]',
   "Anime": '["Anime"]',
   "Mangá": '["Mangá"]',
@@ -352,9 +367,9 @@ function load_list() {
 
   let filtered_list = [];
   for (i = 0; i < list.itens.length; i++) {
-      if (JSON.parse(filters[cur_filter_tipo]).includes(list.itens[i].tipo) && JSON.parse(filters[cur_filter_status]).includes(list.itens[i].dados.status)) {
-        filtered_list.push(i);
-      }
+    if (JSON.parse(filters[cur_filter_tipo]).includes(list.itens[i].tipo) && JSON.parse(filters[cur_filter_status]).includes(list.itens[i].dados.status)) {
+      filtered_list.push(i);
+    }
   }
 
   for (i = 0; i < list.itens.length; i++) {
@@ -413,6 +428,21 @@ function load_list() {
       progresso_string = "";
       progresso_traço = "";
       volumes_string = "";
+    }
+    if (list.itens[i].tipo == "Personalizado") {
+      progresso_string = "";
+      if (list.itens[i].dados.progresso > 0) progresso_string = nf.format(list.itens[i].dados.progresso) + final_string;
+      progresso_traço = "";
+      volumes_string = "";
+
+      if (list.itens[i].dados.progresso > 0 && list.itens[i].dados.volumes == 1) {
+        volumes_string = nf.format(list.itens[i].dados.volumes) + " volume";
+        progresso_traço = " - ";
+      }
+      else if (list.itens[i].dados.progresso > 0 &&  list.itens[i].dados.volumes > 1) {
+        volumes_string = nf.format(list.itens[i].dados.volumes) + " volumes";
+        progresso_traço = " - ";
+      }
     }
 
     if (list.itens[i].dados.status == "Planejo" && list.itens[i].dados.progresso == 0) {
@@ -496,6 +526,10 @@ function load_list() {
         case "Ensaio":
           bg_color = site_colors.types.ensaio;
           break;
+        case "Personalizado":
+          bg_color = list.itens[i].custom_media_color;
+          if (!list.itens[i].hasOwnProperty("custom_media_color")) bg_color = "#ffffff";
+          break;
       }
     }
 
@@ -513,6 +547,9 @@ function load_list() {
     });
     anotacao = style_text_with_tags(anotacao,list.itens[i].dados);
 
+    let item_tipo = list.itens[i].tipo;
+    if (list.itens[i].tipo == "Personalizado") item_tipo = list.itens[i].custom_media_name;
+
     document.querySelector(".content_list").innerHTML += `
     <div class="bg-[${bg_color}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:border-gray-400" id="${i}" onclick="edit_item(this.id)">
       <div class="p-1 flex flex-row gap-2">
@@ -521,7 +558,7 @@ function load_list() {
           <b>${list.itens[i].dados.titulo}</b>
           <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa-solid fa-pencil"></i></button>
           <br><br>
-          <p>${list.itens[i].tipo}</p>
+          <p>${item_tipo}</p>
           <p>${list.itens[i].dados.status}${repeticoes_string}</p>
           <p class="flex flex-row gap-2 items-center">
             <span>${progresso_string}${progresso_traço}${volumes_string}</span>
@@ -625,6 +662,9 @@ window.addEventListener('click', function(e){
 
 function update_filter_checks() {
   document.querySelector(".icon_tipo_tudo").classList.add("hidden");
+  document.querySelector(".icon_tipo_midia").classList.add("hidden");
+  document.querySelector(".icon_tipo_short_fanfic").classList.add("hidden");
+
   document.querySelector(".icon_tipo_novel").classList.add("hidden");
   document.querySelector(".icon_tipo_anime").classList.add("hidden");
   document.querySelector(".icon_tipo_manga").classList.add("hidden");
@@ -637,12 +677,14 @@ function update_filter_checks() {
   document.querySelector(".icon_tipo_shortstory").classList.add("hidden");
   document.querySelector(".icon_tipo_ensaio").classList.add("hidden");
 
+  document.querySelector(".icon_tipo_custom").classList.add("hidden");
+
   switch(cur_filter_tipo) {
     case "Mídia":
-      document.querySelector(".icon_tipo_tudo").classList.remove("hidden");
+      document.querySelector(".icon_tipo_midia").classList.remove("hidden");
       break;
     case "Short Stories e Fanfics":
-      document.querySelector(".icon_tipo_tudo").classList.remove("hidden");
+      document.querySelector(".icon_tipo_short_fanfic").classList.remove("hidden");
       break;
     case "Tudo_tipo":
       document.querySelector(".icon_tipo_tudo").classList.remove("hidden");
@@ -679,6 +721,9 @@ function update_filter_checks() {
       break;
     case "Ensaio":
       document.querySelector(".icon_tipo_ensaio").classList.remove("hidden");
+      break;
+    case "Personalizados":
+      document.querySelector(".icon_tipo_custom").classList.remove("hidden");
       break;
   }
 
@@ -853,8 +898,9 @@ function create_streaming_tags(array) {
 
 //stats
 function gerar_stats() {
-  let base_types = ['Anime', 'Novel', 'Mangá', 'Jogo', 'Filme', 'Áudio', 'Dorama/Série', 'Stage', 'Fanfic', 'Short Story', 'Ensaio'];
-  let base_types_colors = [site_colors.types.anime, site_colors.types.novel, site_colors.types.manga, site_colors.types.jogo, site_colors.types.filme, site_colors.types.audio, site_colors.types.dorama, site_colors.types.stage, site_colors.types.fanfic, site_colors.types.shortstory, site_colors.types.ensaio];
+  let types_values_template = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let base_types = ['Anime', 'Novel', 'Mangá', 'Jogo', 'Filme', 'Áudio', 'Dorama/Série', 'Stage', 'Fanfic', 'Short Story', 'Ensaio', 'Personalizado'];
+  let base_types_colors = [site_colors.types.anime, site_colors.types.novel, site_colors.types.manga, site_colors.types.jogo, site_colors.types.filme, site_colors.types.audio, site_colors.types.dorama, site_colors.types.stage, site_colors.types.fanfic, site_colors.types.shortstory, site_colors.types.ensaio, site_colors.default];
   let graph_types = [];
   let graph_types_values = [];
   let graph_types_colors = [];
@@ -1106,7 +1152,7 @@ function gerar_stats() {
 
   //progresso por formato - calculo
 
-  let graph_prog_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let graph_prog_types_values = types_values_template;
   let graph_total_ep = 0;
   let graph_total_cap = 0;
 
@@ -1175,7 +1221,7 @@ function gerar_stats() {
 
   //moji por formato - calculo
 
-  let graph_moji_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let graph_moji_types_values = types_values_template;
 
   for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
@@ -1235,7 +1281,7 @@ function gerar_stats() {
 
   //horas por formato - calculo
 
-  let graph_horas_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let graph_horas_types_values = types_values_template;
 
   for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
@@ -1249,7 +1295,7 @@ function gerar_stats() {
     }
   }
 
-  let graph_minutos_types_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let graph_minutos_types_values = types_values_template;
 
   for (let tipo_id = 0; tipo_id < graph_types.length; tipo_id++) {
     for (let item_id = 0; item_id < list.itens.length; item_id++) {
@@ -2190,6 +2236,11 @@ function update_old_style_tags(text="") {
   });
 
   return text;
+}
+
+function check_selected_type(type) {
+  if (type == "Personalizado") document.querySelector(".personalizado_info").classList.remove("hidden");
+  else  document.querySelector(".personalizado_info").classList.add("hidden");
 }
 
 document.addEventListener('DOMContentLoaded', () => {
