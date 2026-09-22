@@ -312,6 +312,7 @@ function upload_list(files) {
       let result = JSON.parse(e.target.result);
       let formatted = JSON.stringify(result, null, 2);
       list = JSON.parse(formatted);
+      reset_name_filters();
       if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo_tipo','Tudo_status'];
       change_filter(list.last_filter[0],list.last_filter[1]);
       load_list();
