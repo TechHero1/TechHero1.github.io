@@ -809,7 +809,7 @@
         {
             "nome": "(Love Live! series)ラブライブ！シリーズ公式チャンネル",
             "midia": "Anime/Música/Rádio",
-            "classes": "streaming_item_anime streaming_item_music streaming_item_radio streaming_item_youtube streaming_item_novpn",
+            "classes": "streaming_item_anime streaming_item_music streaming_item_radio streaming_item_youtube streaming_item_lovelive streaming_item_novpn",
             "link": "https://www.youtube.com/@lovelive_series/",
             "tags": [
                 {
@@ -1210,6 +1210,72 @@
                 }
             ],
             "desc": "Depois de 2 semanas, o episódio em lançamento se torna exclusivo para membros",
+            "ativo": true
+        },
+        {
+            "nome": "(Love Live! hasu)蓮ノ空女学院スクールアイドルクラブ公式チャンネル",
+            "midia": "Anime/Música/Rádio",
+            "classes": "streaming_item_anime streaming_item_music streaming_item_radio streaming_item_youtube streaming_item_lovelive streaming_item_novpn",
+            "link": "https://www.youtube.com/@lovelive_hasu/",
+            "tags": [
+                {
+                    "tipo": "pos",
+                    "texto": "MUITO \"anime\""
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Muito conteúdo extra com as seiyuus"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Várias músicas, algumas com clipe"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Alguns conteúdos exclusivos para membros"
+                }
+            ],
+            "desc": "",
+            "ativo": true
+        },
+        {
+            "nome": "(IKIZULIVE!)イキヅライブ! LOVELIVE! BLUEBIRD公式チャンネル",
+            "midia": "Anime/Música/Rádio",
+            "classes": "streaming_item_anime streaming_item_music streaming_item_radio streaming_item_youtube streaming_item_lovelive streaming_item_novpn",
+            "link": "https://www.youtube.com/@IKIZULIVE/",
+            "tags": [
+                {
+                    "tipo": "pos",
+                    "texto": "Alguns conteúdos extras com as seiyuus"
+                },
+                {
+                    "tipo": "pos",
+                    "texto": "Várias músicas, algumas com clipe"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "O \"anime\" não é tão anime assim"
+                }
+            ],
+            "desc": "",
+            "ativo": true
+        },
+        {
+            "nome": "イキヅライブ！LOVELIVE!BLUEBIRD Xアーカイブ",
+            "midia": "Web Novel",
+            "classes": "streaming_item_webnovel streaming_item_lovelive streaming_item_novpn",
+            "link": "https://gsm-app.com/lovelive/ikizulive-x-archive/",
+            "tags": [
+                {
+                    "tipo": "pos",
+                    "texto": "Arquivo completo"
+                },
+                {
+                    "tipo": "neg",
+                    "texto": "Algumas imagens não carregam"
+                }
+            ],
+            "desc": "Arquivo completo dos posts, de todas as personagens, com datas.",
             "ativo": true
         }
     ]
