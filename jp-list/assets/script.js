@@ -218,6 +218,7 @@ function save_item(){
     }
   };
   remote_open_tab('Visualizar');
+  reset_name_filters();
   load_list();
   window.scrollTo(scroll_y, last_item_pos);
 }
@@ -228,6 +229,7 @@ function delete_item(){
     list.itens = list.itens.filter(item => item !== list.itens[cur_editing_id]);
   }
   remote_open_tab('Visualizar');
+  reset_name_filters();
   load_list();
   window.scrollTo(scroll_y, last_item_pos);
 
@@ -366,13 +368,26 @@ function load_list() {
   }
 
   let filtered_list = [];
-  for (i = 0; i < list.itens.length; i++) {
-    if (JSON.parse(filters[cur_filter_tipo]).includes(list.itens[i].tipo) && JSON.parse(filters[cur_filter_status]).includes(list.itens[i].dados.status)) {
-      filtered_list.push(i);
+  if (!Object.keys(filters).includes(cur_filter_tipo)) {
+    for (i = 0; i < list.itens.length; i++) {
+      if (list.itens[i].hasOwnProperty("custom_media_name")) {
+        if (cur_filter_tipo == list.itens[i].custom_media_name && JSON.parse(filters[cur_filter_status]).includes(list.itens[i].dados.status)) {
+          filtered_list.push(i);
+        }
+      }
+    }
+  } else {
+    for (i = 0; i < list.itens.length; i++) {
+      if (JSON.parse(filters[cur_filter_tipo]).includes(list.itens[i].tipo) && JSON.parse(filters[cur_filter_status]).includes(list.itens[i].dados.status)) {
+        filtered_list.push(i);
+      }
     }
   }
+  
 
   for (i = 0; i < list.itens.length; i++) {
+    if (list.itens[i].tipo == "Personalizado") add_name_filter(list.itens[i].custom_media_name);
+
     if (filtered_list.includes(i)) {
       let progresso_string;
       let volumes_string;
@@ -568,6 +583,8 @@ function load_list() {
       `
     }
   }
+
+  create_name_filters();
 }
 
 function upload_image(files) {
@@ -655,24 +672,47 @@ window.addEventListener('click', function(e){
   }
 });
 
+function reset_filter_checks(type) {
+  if (type == "tipo") {
+    document.querySelector(".icon_tipo_tudo").classList.add("hidden");
+    document.querySelector(".icon_tipo_midia").classList.add("hidden");
+    document.querySelector(".icon_tipo_short_fanfic").classList.add("hidden");
+
+    document.querySelector(".icon_tipo_novel").classList.add("hidden");
+    document.querySelector(".icon_tipo_anime").classList.add("hidden");
+    document.querySelector(".icon_tipo_manga").classList.add("hidden");
+    document.querySelector(".icon_tipo_jogo").classList.add("hidden");
+    document.querySelector(".icon_tipo_filme").classList.add("hidden");
+    document.querySelector(".icon_tipo_audio").classList.add("hidden");
+    document.querySelector(".icon_tipo_doramaserie").classList.add("hidden");
+    document.querySelector(".icon_tipo_stage").classList.add("hidden");
+    document.querySelector(".icon_tipo_fanfic").classList.add("hidden");
+    document.querySelector(".icon_tipo_shortstory").classList.add("hidden");
+    document.querySelector(".icon_tipo_ensaio").classList.add("hidden");
+
+    document.querySelector(".icon_tipo_custom").classList.add("hidden");
+
+    for (var i = 0; i < unique_name_filter.length; i++) {
+      if (unique_name_filter[i] != cur_filter_tipo) document.querySelector(".icon_"+unique_name_filter[i]).classList.add("hidden");
+    }
+
+    return;
+  }
+  if (type == "status") {
+    document.querySelector(".icon_status_tudo").classList.add("hidden");
+    document.querySelector(".icon_status_pendente").classList.add("hidden");
+    document.querySelector(".icon_status_planejando").classList.add("hidden");
+    document.querySelector(".icon_status_repetindo").classList.add("hidden");
+    document.querySelector(".icon_status_concluido").classList.add("hidden");
+    document.querySelector(".icon_status_pausado").classList.add("hidden");
+    document.querySelector(".icon_status_abandonado").classList.add("hidden");
+    
+    return;
+  }
+}
+
 function update_filter_checks() {
-  document.querySelector(".icon_tipo_tudo").classList.add("hidden");
-  document.querySelector(".icon_tipo_midia").classList.add("hidden");
-  document.querySelector(".icon_tipo_short_fanfic").classList.add("hidden");
-
-  document.querySelector(".icon_tipo_novel").classList.add("hidden");
-  document.querySelector(".icon_tipo_anime").classList.add("hidden");
-  document.querySelector(".icon_tipo_manga").classList.add("hidden");
-  document.querySelector(".icon_tipo_jogo").classList.add("hidden");
-  document.querySelector(".icon_tipo_filme").classList.add("hidden");
-  document.querySelector(".icon_tipo_audio").classList.add("hidden");
-  document.querySelector(".icon_tipo_doramaserie").classList.add("hidden");
-  document.querySelector(".icon_tipo_stage").classList.add("hidden");
-  document.querySelector(".icon_tipo_fanfic").classList.add("hidden");
-  document.querySelector(".icon_tipo_shortstory").classList.add("hidden");
-  document.querySelector(".icon_tipo_ensaio").classList.add("hidden");
-
-  document.querySelector(".icon_tipo_custom").classList.add("hidden");
+  reset_filter_checks("tipo");
 
   switch(cur_filter_tipo) {
     case "Mídia":
@@ -722,13 +762,9 @@ function update_filter_checks() {
       break;
   }
 
-  document.querySelector(".icon_status_tudo").classList.add("hidden");
-  document.querySelector(".icon_status_pendente").classList.add("hidden");
-  document.querySelector(".icon_status_planejando").classList.add("hidden");
-  document.querySelector(".icon_status_repetindo").classList.add("hidden");
-  document.querySelector(".icon_status_concluido").classList.add("hidden");
-  document.querySelector(".icon_status_pausado").classList.add("hidden");
-  document.querySelector(".icon_status_abandonado").classList.add("hidden");
+  if (!Object.keys(filters).includes(cur_filter_tipo)) document.querySelector(".icon_"+cur_filter_tipo).classList.remove("hidden");
+
+  reset_filter_checks("status");
 
   switch(cur_filter_status) {
     case "Tudo_status":
@@ -2239,6 +2275,34 @@ function check_selected_type(type) {
 
 function remove_all_of_element(array,element) {
   return array.filter(val => val != element);
+}
+
+var unique_name_filter = [];
+
+function add_name_filter(name) {
+  if (!unique_name_filter.includes(name)) unique_name_filter.push(name);
+}
+
+function reset_name_filters() {
+  unique_name_filter = [];
+}
+
+function create_name_filters() {
+  let container = document.querySelector(".custom_each_filters");
+  container.classList.add("hidden");
+  container.innerHTML = "";
+
+  if (unique_name_filter.length <= 0) return;
+
+  container.classList.remove("hidden");
+  for (var i = 0; i < unique_name_filter.length; i++) {
+    container.innerHTML += `
+      <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('${unique_name_filter[i]}','')">
+        <span class="icon_${unique_name_filter[i]} hidden"><i class="fa-solid fa-check"></i> </span>${unique_name_filter[i]}
+      </a>
+    `;
+  }
+  update_filter_checks();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
