@@ -2306,6 +2306,21 @@ function create_name_filters() {
   update_filter_checks();
 }
 
+//list reorder
+function switch_order() {
+  if (document.querySelector(".order_dropdown").classList.contains('hidden')) {
+    document.querySelector(".order_dropdown").classList.remove('hidden');
+    return
+  }
+  document.querySelector(".order_dropdown").classList.add('hidden');
+}
+
+window.addEventListener('click', function(e){   
+  if (!document.querySelector('.order_dropdown_area').contains(e.target)){
+    document.querySelector(".order_dropdown").classList.add('hidden');
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const dropZone = document.querySelector('#Arquivo');
 
