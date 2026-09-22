@@ -374,204 +374,199 @@ function load_list() {
 
   for (i = 0; i < list.itens.length; i++) {
     if (filtered_list.includes(i)) {
-    let progresso_string;
-    let volumes_string;
-    let repeticoes_string = "";
-    let progresso_traço;
+      let progresso_string;
+      let volumes_string;
+      let repeticoes_string = "";
+      let progresso_traço;
 
-    //if (list.itens[i].dados.hasOwnProperty("last_edited")) console.log(list.itens[i].dados.last_edited);
-    //if (list.itens[i].dados.hasOwnProperty("last_edited")) console.log(new Date(list.itens[i].dados.last_edited));
-    //if (list.itens[i].dados.hasOwnProperty("last_edited")) console.log(`${String(new Date(list.itens[i].dados.last_edited).getDate()).padStart(2, '0')}/${String((new Date(list.itens[i].dados.last_edited).getMonth())+1).padStart(2, '0')}/${new Date(list.itens[i].dados.last_edited).getFullYear()} ${String(new Date(list.itens[i].dados.last_edited).getHours()).padStart(2, '0')}:${String(new Date(list.itens[i].dados.last_edited).getMinutes()).padStart(2, '0')}`);
-    //if (list.itens[i].dados.hasOwnProperty("last_edited")) console.log(new Date(list.itens[i].dados.last_edited).toLocaleString());
-
-    let final_progresso = list.itens[i].dados.final;
-    let final_string = "";
-    if (!list.itens[i].dados.hasOwnProperty("final")) final_progresso = 0;
-    if (list.itens[i].dados.hasOwnProperty("final") && final_progresso > 0) {
-      final_string = " de " + nf.format(final_progresso);
-    } else {
-      final_string = "";
-    }
-
-    if (list.itens[i].dados.repeticoes > 0 && list.itens[i].dados.repeticoes != "0" && list.itens[i].dados.repeticoes != "" && list.itens[i].dados.repeticoes != null) {
-      repeticoes_string = " - <i class='fa-solid fa-rotate-right'></i> " + nf.format(list.itens[i].dados.repeticoes);
-    }
-
-    if (list.itens[i].tipo == "Novel" || list.itens[i].tipo == "Mangá") {
-      if ((list.itens[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
-        progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " capítulo";
-      }
-      else {
-        progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " capítulos";
-      }
-
-      if (list.itens[i].dados.volumes <= 1) {
-        volumes_string = nf.format(list.itens[i].dados.volumes) + " volume";
-        progresso_traço = " - ";
+      let final_progresso = list.itens[i].dados.final;
+      let final_string = "";
+      if (!list.itens[i].dados.hasOwnProperty("final")) final_progresso = 0;
+      if (list.itens[i].dados.hasOwnProperty("final") && final_progresso > 0) {
+        final_string = " de " + nf.format(final_progresso);
       } else {
-        volumes_string = nf.format(list.itens[i].dados.volumes) + " volumes";
-        progresso_traço = " - ";
-      }
-    }
-    if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série" || list.itens[i].tipo == "Stage") {
-      if ((list.itens[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
-        progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " episódio";
-      }
-      else {
-        progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " episódios";
+        final_string = "";
       }
 
-      volumes_string = "";
-      progresso_traço = "";
-    }
-    if (list.itens[i].tipo == "Jogo" || list.itens[i].tipo == "Fanfic" || list.itens[i].tipo == "Short Story" || list.itens[i].tipo == "Ensaio") {
-      progresso_string = "";
-      progresso_traço = "";
-      volumes_string = "";
-    }
-    if (list.itens[i].tipo == "Personalizado") {
-      progresso_string = "";
-      if (list.itens[i].dados.progresso > 0) progresso_string = nf.format(list.itens[i].dados.progresso) + final_string;
-      progresso_traço = "";
-      volumes_string = "";
-
-      if (list.itens[i].dados.progresso > 0 && list.itens[i].dados.volumes == 1) {
-        volumes_string = nf.format(list.itens[i].dados.volumes) + " volume";
-        progresso_traço = " - ";
+      if (list.itens[i].dados.repeticoes > 0 && list.itens[i].dados.repeticoes != "0" && list.itens[i].dados.repeticoes != "" && list.itens[i].dados.repeticoes != null) {
+        repeticoes_string = " - <i class='fa-solid fa-rotate-right'></i> " + nf.format(list.itens[i].dados.repeticoes);
       }
-      else if (list.itens[i].dados.progresso > 0 &&  list.itens[i].dados.volumes > 1) {
-        volumes_string = nf.format(list.itens[i].dados.volumes) + " volumes";
-        progresso_traço = " - ";
+
+      if (list.itens[i].tipo == "Novel" || list.itens[i].tipo == "Mangá") {
+        if ((list.itens[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
+          progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " capítulo";
+        }
+        else {
+          progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " capítulos";
+        }
+
+        if (list.itens[i].dados.volumes <= 1) {
+          volumes_string = nf.format(list.itens[i].dados.volumes) + " volume";
+          progresso_traço = " - ";
+        } else {
+          volumes_string = nf.format(list.itens[i].dados.volumes) + " volumes";
+          progresso_traço = " - ";
+        }
       }
-    }
+      if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série" || list.itens[i].tipo == "Stage") {
+        if ((list.itens[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
+          progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " episódio";
+        }
+        else {
+          progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " episódios";
+        }
 
-    if (list.itens[i].dados.status == "Planejo" && list.itens[i].dados.progresso == 0) {
-      progresso_string = "";
-      progresso_traço = "";
-      volumes_string = "";
-    }
+        volumes_string = "";
+        progresso_traço = "";
+      }
+      if (list.itens[i].tipo == "Jogo" || list.itens[i].tipo == "Fanfic" || list.itens[i].tipo == "Short Story" || list.itens[i].tipo == "Ensaio") {
+        progresso_string = "";
+        progresso_traço = "";
+        volumes_string = "";
+      }
+      if (list.itens[i].tipo == "Personalizado") {
+        progresso_string = "";
+        if (list.itens[i].dados.progresso > 0) progresso_string = nf.format(list.itens[i].dados.progresso) + final_string;
+        progresso_traço = "";
+        volumes_string = "";
 
-    let progress_element = "";
-    if (list.itens[i].dados.progresso > 0 && list.itens[i].dados.final > 0) {
-      progress_element = `<progress class="rounded-md shadow-md border border-gray-400" id="progress_bar" value="${list.itens[i].dados.progresso}" max="${list.itens[i].dados.final}"></progress>`;
-    } else {
-      progress_element = "";
-    }
+        if (list.itens[i].dados.progresso > 0 && list.itens[i].dados.volumes == 1) {
+          volumes_string = nf.format(list.itens[i].dados.volumes) + " volume";
+          progresso_traço = " - ";
+        }
+        else if (list.itens[i].dados.progresso > 0 &&  list.itens[i].dados.volumes > 1) {
+          volumes_string = nf.format(list.itens[i].dados.volumes) + " volumes";
+          progresso_traço = " - ";
+        }
+      }
 
-    let moji_string;
-    if (list.itens[i].dados.moji == 0) {
-      moji_string = "";
-    } else if (list.itens[i].dados.moji == 1) {
-      moji_string = nf.format(list.itens[i].dados.moji) + " caractere";
-    } else {
-      moji_string = nf.format(list.itens[i].dados.moji) + " caracteres";
-    }
+      if (list.itens[i].dados.status == "Planejo" && list.itens[i].dados.progresso == 0) {
+        progresso_string = "";
+        progresso_traço = "";
+        volumes_string = "";
+      }
 
-    if (!list.itens[i].dados.hasOwnProperty("autotime")) list.itens[i].dados.autotime = false;
-    let autotime = list.itens[i].dados.autotime;
-
-    let horas = String(list.itens[i].dados.horas).padStart(2, '0');
-    let minutos = String(list.itens[i].dados.minutos).padStart(2, '0');
-    let tempo_string;
-    if (!autotime) {
-      if (list.itens[i].dados.horas == 0 && list.itens[i].dados.minutos == 0) {
-        tempo_string = "";
+      let progress_element = "";
+      if (list.itens[i].dados.progresso > 0 && list.itens[i].dados.final > 0) {
+        progress_element = `<progress class="rounded-md shadow-md border border-gray-400" id="progress_bar" value="${list.itens[i].dados.progresso}" max="${list.itens[i].dados.final}"></progress>`;
       } else {
-        tempo_string = horas+":"+minutos;
+        progress_element = "";
       }
-    } else {
-      if (list.itens[i].dados.prog_min == 0 && list.itens[i].dados.autotime) {
-        tempo_string = "";
+
+      let moji_string;
+      if (list.itens[i].dados.moji == 0) {
+        moji_string = "";
+      } else if (list.itens[i].dados.moji == 1) {
+        moji_string = nf.format(list.itens[i].dados.moji) + " caractere";
       } else {
-        tempo_string = String(Math.trunc((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)/60)).padStart(2, '0')+":"+String((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)%60).padStart(2, '0');
+        moji_string = nf.format(list.itens[i].dados.moji) + " caracteres";
       }
-    }
 
-    let bg_color = site_colors.default;
-    if (list.cores) {
-      switch(list.itens[i].tipo) {
-        default:
-          bg_color = site_colors.default;
-          break;
-        case "Novel":
-          bg_color = site_colors.types.novel;
-          break;
-        case "Anime":
-          bg_color = site_colors.types.anime;
-          break;
-        case "Mangá":
-          bg_color = site_colors.types.manga;
-          break;
-        case "Jogo":
-          bg_color = site_colors.types.jogo;
-          break;
-        case "Filme":
-          bg_color = site_colors.types.filme;
-          break;
-        case "Áudio":
-          bg_color = site_colors.types.audio;
-          break;
-        case "Dorama/Série":
-          bg_color = site_colors.types.dorama;
-          break;
-        case "Stage":
-          bg_color = site_colors.types.stage;
-          break;
-        case "Fanfic":
-          bg_color = site_colors.types.fanfic;
-          break;
-        case "Short Story":
-          bg_color = site_colors.types.shortstory;
-          break;
-        case "Ensaio":
-          bg_color = site_colors.types.ensaio;
-          break;
-        case "Personalizado":
-          bg_color = list.itens[i].custom_media_color;
-          if (!list.itens[i].hasOwnProperty("custom_media_color")) bg_color = "#ffffff";
-          break;
+      if (!list.itens[i].dados.hasOwnProperty("autotime")) list.itens[i].dados.autotime = false;
+      let autotime = list.itens[i].dados.autotime;
+
+      let horas = String(list.itens[i].dados.horas).padStart(2, '0');
+      let minutos = String(list.itens[i].dados.minutos).padStart(2, '0');
+      let tempo_string;
+      if (!autotime) {
+        if (list.itens[i].dados.horas == 0 && list.itens[i].dados.minutos == 0) {
+          tempo_string = "";
+        } else {
+          tempo_string = horas+":"+minutos;
+        }
+      } else {
+        if (list.itens[i].dados.prog_min == 0 && list.itens[i].dados.autotime) {
+          tempo_string = "";
+        } else {
+          tempo_string = String(Math.trunc((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)/60)).padStart(2, '0')+":"+String((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)%60).padStart(2, '0');
+        }
       }
-    }
 
-    let img_hidden = "";
-    if (list.itens[i].dados.img == "") img_hidden = "hidden";
+      let bg_color = site_colors.default;
+      if (list.cores) {
+        switch(list.itens[i].tipo) {
+          default:
+            bg_color = site_colors.default;
+            break;
+          case "Novel":
+            bg_color = site_colors.types.novel;
+            break;
+          case "Anime":
+            bg_color = site_colors.types.anime;
+            break;
+          case "Mangá":
+            bg_color = site_colors.types.manga;
+            break;
+          case "Jogo":
+            bg_color = site_colors.types.jogo;
+            break;
+          case "Filme":
+            bg_color = site_colors.types.filme;
+            break;
+          case "Áudio":
+            bg_color = site_colors.types.audio;
+            break;
+          case "Dorama/Série":
+            bg_color = site_colors.types.dorama;
+            break;
+          case "Stage":
+            bg_color = site_colors.types.stage;
+            break;
+          case "Fanfic":
+            bg_color = site_colors.types.fanfic;
+            break;
+          case "Short Story":
+            bg_color = site_colors.types.shortstory;
+            break;
+          case "Ensaio":
+            bg_color = site_colors.types.ensaio;
+            break;
+          case "Personalizado":
+            bg_color = list.itens[i].custom_media_color;
+            if (!list.itens[i].hasOwnProperty("custom_media_color")) bg_color = "#ffffff";
+            break;
+        }
+      }
 
-    //consertar cagada
-    list.itens[i].dados.nota = update_old_style_tags(list.itens[i].dados.nota);
+      let img_hidden = "";
+      if (list.itens[i].dados.img == "") img_hidden = "hidden";
 
-    let anotacao = list.itens[i].dados.nota;
-    if (!list.itens[i].dados.hasOwnProperty("nota")) anotacao = "";
-    anotacao = anotacao.linkify({
-      className: "nota_link text-blue-500",
-      target: "_blank"
-    });
-    anotacao = style_text_with_tags(anotacao,list.itens[i].dados);
+      //consertar cagada
+      list.itens[i].dados.nota = update_old_style_tags(list.itens[i].dados.nota);
 
-    let item_tipo = list.itens[i].tipo;
-    if (list.itens[i].tipo == "Personalizado") item_tipo = list.itens[i].custom_media_name;
+      let anotacao = list.itens[i].dados.nota;
+      if (!list.itens[i].dados.hasOwnProperty("nota")) anotacao = "";
+      anotacao = anotacao.linkify({
+        className: "nota_link text-blue-500",
+        target: "_blank"
+      });
+      anotacao = style_text_with_tags(anotacao,list.itens[i].dados);
 
-    document.querySelector(".content_list").innerHTML += `
-    <div class="bg-[${bg_color}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:border-gray-400" id="${i}" onclick="edit_item(this.id)">
-      <div class="p-1 flex flex-row gap-2">
-        <img src="${list.itens[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
-        <div class="w-[100%]">
-          <b>${list.itens[i].dados.titulo}</b>
-          <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa-solid fa-pencil"></i></button>
-          <br><br>
-          <p>${item_tipo}</p>
-          <p>${list.itens[i].dados.status}${repeticoes_string}</p>
-          <p class="flex flex-row gap-2 items-center">
-            <span>${progresso_string}${progresso_traço}${volumes_string}</span>
-          </p>
-          <p>${progress_element}</p>
-          <p>${tempo_string}</p>
-          <p>${moji_string}</p>
+      let item_tipo = list.itens[i].tipo;
+      if (list.itens[i].tipo == "Personalizado") item_tipo = list.itens[i].custom_media_name;
+
+      document.querySelector(".content_list").innerHTML += `
+      <div class="bg-[${bg_color}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:border-gray-400" id="${i}" onclick="edit_item(this.id)">
+        <div class="p-1 flex flex-row gap-2">
+          <img src="${list.itens[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
+          <div class="w-[100%]">
+            <b>${list.itens[i].dados.titulo}</b>
+            <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa-solid fa-pencil"></i></button>
+            <br><br>
+            <p>${item_tipo}</p>
+            <p>${list.itens[i].dados.status}${repeticoes_string}</p>
+            <p class="flex flex-row gap-2 items-center">
+              <span>${progresso_string}${progresso_traço}${volumes_string}</span>
+            </p>
+            <p>${progress_element}</p>
+            <p>${tempo_string}</p>
+            <p>${moji_string}</p>
+          </div>
         </div>
+        <div class="nota_div p-1">${anotacao}</div>
       </div>
-      <div class="nota_div p-1">${anotacao}</div>
-    </div>
-    `
-  }
+      `
+    }
   }
 }
 
