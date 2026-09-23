@@ -1,0 +1,665 @@
+import * as nota from "./nota.js";
+import * as style_tags from "./style_tags.js";
+import * as constants from "./constants.js";
+
+var i;
+const nf = new Intl.NumberFormat('fr-FR');
+
+export var list = {
+  "itens": [],
+  "list_mode": "grid",
+  "cores": true,
+  "apoio": false,
+  "values_open": false,
+  "last_filter": ['Tudo_tipo','Tudo_status'],
+  "view_mode": ['add','normal'],
+  "manual_order": []
+};
+
+export var ordered_list = [];
+
+const FILTERS = {
+  "Tudo_tipo": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage","Fanfic","Short Story","Ensaio","Personalizado"]',
+  "Tudo_status": '["Progredindo","Planejo","Repetindo","Completo","Pausado","Abandonado"]',
+  "Mídia": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage"]',
+  "Short Stories e Fanfics": '["Fanfic","Short Story","Ensaio"]',
+  "Personalizados": '["Personalizado"]',
+  "Novel": '["Novel"]',
+  "Anime": '["Anime"]',
+  "Mangá": '["Mangá"]',
+  "Jogo": '["Jogo"]',
+  "Filme": '["Filme"]',
+  "Áudio": '["Áudio"]',
+  "Dorama/Série": '["Dorama/Série"]',
+  "Stage": '["Stage"]',
+  "Fanfic": '["Fanfic"]',
+  "Short Story": '["Short Story"]',
+  "Ensaio": '["Ensaio"]',
+  "Planejamento": '["Planejo"]',
+  "Pendente": '["Progredindo"]',
+  "Repetindo": '["Repetindo"]',
+  "Concluído": '["Completo"]',
+  "Pausado": '["Pausado"]',
+  "Abandonado": '["Abandonado"]'
+}
+
+function update_old_data() {
+  if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo_tipo','Tudo_status'];
+  if (!list.hasOwnProperty("view_mode")) list.view_mode = ['add','normal'];
+
+  for (var i = 0; i < list.itens.length; i++) {
+    if (list.itens[i].dados.status == "Dropado") list.itens[i].dados.status = "Abandonado";
+    if (!list.itens[i].dados.hasOwnProperty("last_edited")) list.itens[i].dados.last_edited = 0;
+    if (!list.itens[i].dados.hasOwnProperty("autotime")) list.itens[i].dados.autotime = false;
+    if (!list.itens[i].dados.hasOwnProperty("prog_min")) list.itens[i].dados.prog_min = 0;
+    if (!list.itens[i].dados.hasOwnProperty("final")) list.itens[i].dados.final = 0;
+    if (!list.itens[i].dados.hasOwnProperty("repeticoes")) list.itens[i].dados.repeticoes = 0;
+    if (!list.itens[i].dados.hasOwnProperty("nota")) list.itens[i].dados.nota = "";
+    if (!list.itens[i].dados.hasOwnProperty("custom_values")) list.itens[i].dados.custom_values = "";
+    if (!list.itens[i].hasOwnProperty("custom_media_name")) list.itens[i].custom_media_name = "";
+    if (!list.itens[i].hasOwnProperty("custom_media_color")) list.itens[i].custom_media_color = constants.SITE_COLORS.default;
+
+    list.itens[i].dados.nota = style_tags.update_old_tags(list.itens[i].dados.nota);
+
+    if (!list.itens[i].hasOwnProperty("id")) list.itens[i].id = i;
+  }
+}
+
+//LIST OPTIONS
+
+function check_initial_conditions() {
+  if (document.querySelector(".content_list").classList.contains("grid-list-view") && list.list_mode == "grid") button.click();
+  if (!document.querySelector(".content_list").classList.contains("grid-list-view") && list.list_mode == "list") button.click();
+
+  if (list.apoio) {
+    document.querySelector(".iichan_tab").classList.remove('hidden');
+    document.querySelector(".iichan_nav").classList.remove('hidden');
+  }
+
+  if (!list.cores) {
+    document.querySelector(".cores_btn").classList.remove('opacity-100');
+    document.querySelector(".cores_btn").classList.add('opacity-30');
+  }
+
+  if (!list.hasOwnProperty("values_open") || !list.values_open) list.values_open = false;
+  document.querySelector(".values_details").open = list.values_open;
+}
+
+export function switch_view() {
+  let content_list = document.querySelector(".content_list");
+  let button = document.querySelector(".switch_view_btn");
+  if (content_list.classList.contains("grid-list-view")) {
+    content_list.classList.remove("grid-list-view");
+    list.list_mode = "grid";
+    button.innerHTML = `<i class="fa-solid fa-table-cells-large"></i>`;
+    return
+  }
+  content_list.classList.add("grid-list-view");
+  list.list_mode = "list";
+  button.innerHTML = `<i class="fa-solid fa-bars"></i>`;
+}
+
+export function switch_apoio() {
+  if (!list.apoio) {
+    list.apoio = true;
+    hook = true;
+    document.querySelector(".iichan_tab").classList.remove('hidden');
+    document.querySelector(".iichan_nav").classList.remove('hidden');
+    return
+  }
+  list.apoio = false;
+  hook = true;
+  document.querySelector(".iichan_tab").classList.add('hidden');
+  document.querySelector(".iichan_nav").classList.add('hidden');
+}
+
+export function switch_cores() {
+  if (!list.cores) {
+    list.cores = true;
+    hook = true;
+    document.querySelector(".cores_btn").classList.remove('opacity-30');
+    document.querySelector(".cores_btn").classList.add('opacity-100');
+    load_list();
+    return
+  }
+  list.cores = false;
+  hook = true;
+  document.querySelector(".cores_btn").classList.remove('opacity-100');
+  document.querySelector(".cores_btn").classList.add('opacity-30');
+  load_list();
+}
+
+function update_values_open() {
+  list.values_open = document.querySelector(".values_details").open;
+}
+
+window.update_values_open = update_values_open;
+
+//REAL MANAGE LIST
+
+var cur_editing_id;
+
+function edit_item(id) {
+  hook = true;
+  reset_scroll();
+  cur_editing_id = id;
+  remote_open_tab('Editar');
+
+  if (id == "new") {
+    document.querySelector(".edit_title").innerHTML = "<i class='fa-solid fa-plus'></i> Adicionar um novo item";
+
+    document.querySelector(".name_input").value = "";
+    document.querySelector(".progresso_input").value = 0;
+    document.querySelector(".final_input").value = 0;
+    document.querySelector(".volumes_input").value = 0;
+    document.querySelector(".repeticoes_input").value = 0;
+    document.querySelector(".moji_input").value = 0;
+    document.querySelector(".horas_input").value = 0;
+    document.querySelector(".minutos_input").value = 0;
+    document.querySelector(".autotime_input").checked = false;
+    document.querySelector(".prog_min_input").value = 0;
+    document.querySelector(".nota_input").value = "";
+    document.querySelector(".values_input").value = "";
+
+    document.querySelector(".img_input").value = "";
+    document.querySelector(".img_preview").src = "";
+    document.querySelector(".img_preview").classList.add('hidden');
+
+    update_autotime();
+    nota.update_preview();
+    nota.update_values("");
+    check_selected_type(document.querySelector(".tipo_input").value);
+  } else {
+    //não resetar em new
+    document.querySelector(".tipo_input").value = list.itens[id].tipo;
+    document.querySelector(".status_input").value = list.itens[id].dados.status;
+    document.querySelector(".custom_media_name_input").value = list.itens[id].custom_media_name;
+    document.querySelector(".custom_media_color_input").value = list.itens[id].custom_media_color;
+
+    document.querySelector(".edit_title").innerHTML = "<i class='fa-solid fa-pencil'></i> Editar item \""+list.itens[id].dados.titulo+"\"";
+
+    document.querySelector(".name_input").value = list.itens[id].dados.titulo;
+    document.querySelector(".progresso_input").value = list.itens[id].dados.progresso;
+    document.querySelector(".final_input").value = list.itens[id].dados.final;
+    document.querySelector(".volumes_input").value = list.itens[id].dados.volumes;
+    document.querySelector(".repeticoes_input").value = list.itens[id].dados.repeticoes;
+    document.querySelector(".moji_input").value = list.itens[id].dados.moji;
+    document.querySelector(".horas_input").value = list.itens[id].dados.horas;
+    document.querySelector(".minutos_input").value = list.itens[id].dados.minutos;
+    document.querySelector(".autotime_input").checked = list.itens[id].dados.autotime;
+    document.querySelector(".prog_min_input").checked = list.itens[id].dados.prog_min;
+    document.querySelector(".nota_input").value = list.itens[id].dados.nota;
+    document.querySelector(".values_input").value = list.itens[id].dados.custom_values;
+
+    document.querySelector(".img_input").value = list.itens[id].dados.img;
+    document.querySelector(".img_preview").src = list.itens[id].dados.img;
+    if (document.querySelector(".img_input").value == "") document.querySelector(".img_preview").classList.add('hidden');
+    else document.querySelector(".img_preview").classList.remove('hidden');
+
+    update_autotime();
+    nota.update_preview();
+    nota.update_values(custom_values);
+    check_selected_type(list.itens[id].tipo);
+  }
+
+  if (document.querySelector('.nota_link') != null) {
+    window.addEventListener('click', function(e){   
+      if (document.querySelector('.nota_link').contains(e.target)){
+        remote_open_tab('Visualizar');
+      }
+    });
+  }
+}
+
+window.edit_item = edit_item;
+
+function save_item() {
+  //se id for "new", add[id], return
+  if (cur_editing_id == "new") {
+    let new_id = list.itens.length;
+    
+    list.itens[new_id] = {
+      "tipo":document.querySelector(".tipo_input").value,
+      "custom_media_name":document.querySelector(".custom_media_name_input").value,
+      "custom_media_color":document.querySelector(".custom_media_color_input").value,
+      "id":new_id,
+      "dados": {
+        "titulo": document.querySelector(".name_input").value,
+        "status": document.querySelector(".status_input").value,
+        "progresso": document.querySelector(".progresso_input").value,
+        "final": document.querySelector(".final_input").value,
+        "volumes": document.querySelector(".volumes_input").value,
+        "repeticoes": document.querySelector(".repeticoes_input").value,
+        "moji": document.querySelector(".moji_input").value,
+        "horas": document.querySelector(".horas_input").value,
+        "minutos": document.querySelector(".minutos_input").value,
+        "autotime": document.querySelector(".autotime_input").checked,
+        "prog_min": document.querySelector(".prog_min_input").value,
+        "nota": document.querySelector(".nota_input").value,
+        "img": document.querySelector(".img_input").value,
+        "custom_values": document.querySelector(".values_input").value,
+        "last_edited": Date.now()
+      }
+    };
+    remote_open_tab('Visualizar');
+    update_old_data();
+    //process_order_list(list.view_mode[0],list.view_mode[1]);
+    load_list();
+    reset_scroll();
+    return;
+  }
+  //substituir[id]
+  list.itens[cur_editing_id] = {
+    "tipo":document.querySelector(".tipo_input").value,
+    "custom_media_name":document.querySelector(".custom_media_name_input").value,
+    "custom_media_color":document.querySelector(".custom_media_color_input").value,
+    "id":cur_editing_id,
+    "dados": {
+      "titulo": document.querySelector(".name_input").value,
+      "status": document.querySelector(".status_input").value,
+      "progresso": document.querySelector(".progresso_input").value,
+      "final": document.querySelector(".final_input").value,
+      "volumes": document.querySelector(".volumes_input").value,
+      "repeticoes": document.querySelector(".repeticoes_input").value,
+      "moji": document.querySelector(".moji_input").value,
+      "horas": document.querySelector(".horas_input").value,
+      "minutos": document.querySelector(".minutos_input").value,
+      "autotime": document.querySelector(".autotime_input").checked,
+      "prog_min": document.querySelector(".prog_min_input").value,
+      "nota": document.querySelector(".nota_input").value,
+      "img": document.querySelector(".img_input").value,
+      "custom_values": document.querySelector(".values_input").value,
+      "last_edited": Date.now()
+    }
+  };
+  remote_open_tab('Visualizar');
+  update_old_data();
+  reset_name_filters();
+  //process_order_list(list.view_mode[0],list.view_mode[1]);
+  load_list();
+  reset_scroll();
+}
+
+window.save_item = save_item;
+
+function delete_item(){
+  //se id não for "new", remove[id]
+  if (cur_editing_id != "new") {
+    list.itens = list.itens.filter(item => item !== list.itens[cur_editing_id]);
+  }
+  remote_open_tab('Visualizar');
+  update_old_data();
+  reset_name_filters();
+  //process_order_list(list.view_mode[0],list.view_mode[1]);
+  load_list();
+  reset_scroll();
+
+  if (list.itens == "") hook = false;
+}
+
+window.delete_item = delete_item;
+
+function cancel_item(){
+  remote_open_tab('Visualizar');
+  reset_scroll();
+
+  if (list.itens == "") hook = false;
+}
+
+window.cancel_item = cancel_item;
+
+var listname = "";
+
+function upload_list(files) {
+  try {
+    let reader = new FileReader();
+
+    reader.onload = function(e) {
+      let result = JSON.parse(e.target.result);
+      let formatted = JSON.stringify(result, null, 2);
+      list = JSON.parse(formatted);
+      update_old_data();
+      reset_name_filters();
+      change_filter(list.last_filter[0],list.last_filter[1],false);
+      //processar (list) view_mode -> ordered_list = list.itens (processado)
+      //process_order_list(list.view_mode[0],list.view_mode[1]);
+      load_list();
+      listname = files.name.replaceAll(/.json/g,"");
+      document.querySelector(".file_name_input").value = listname;
+      remote_open_tab('Visualizar');
+      hook = true;
+    }
+
+    reader.readAsText(files);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+window.upload_list = upload_list;
+
+function download_list() {
+  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(list, null, 2));
+  var dlAnchorElem = document.querySelector('.download_link');
+  dlAnchorElem.setAttribute("href", dataStr);
+  listname = document.querySelector(".file_name_input").value;
+  dlAnchorElem.setAttribute("download", listname+".json");
+  dlAnchorElem.click();
+  hook = false;
+}
+
+window.download_list = download_list;
+
+function update_autotime() {
+  if (document.querySelector(".autotime_input").checked) {
+    document.querySelector(".autotime_number").classList.remove("hidden");
+    document.querySelector(".normaltime_number").classList.add("hidden");
+  } else {
+    document.querySelector(".autotime_number").classList.add("hidden");
+    document.querySelector(".normaltime_number").classList.remove("hidden");
+  }
+}
+
+function check_selected_type(type) {
+  if (type == "Personalizado") document.querySelector(".personalizado_info").classList.remove("hidden");
+  else  document.querySelector(".personalizado_info").classList.add("hidden");
+}
+
+//PERSONALIZADO FILTERS
+
+var unique_name_filter = [];
+
+function add_name_filter(name) {
+  if (!unique_name_filter.includes(name)) unique_name_filter.push(name);
+}
+
+function reset_name_filters() {
+  unique_name_filter = [];
+}
+
+function create_name_filters() {
+  let container = document.querySelector(".custom_each_filters");
+  container.classList.add("hidden");
+  container.innerHTML = "";
+
+  if (unique_name_filter.length <= 0) return;
+
+  container.classList.remove("hidden");
+  for (var i = 0; i < unique_name_filter.length; i++) {
+    container.innerHTML += `
+      <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('${unique_name_filter[i]}','')">
+        <span class="icon_${unique_name_filter[i]} hidden"><i class="fa-solid fa-check"></i> </span>${unique_name_filter[i]}
+      </a>
+    `;
+  }
+  update_filter_checks();
+}
+
+//FILTERS
+var cur_filter_tipo = "Tudo_tipo";
+var cur_filter_status = "Tudo_status";
+
+function switch_filter() {
+  if (document.querySelector(".filter_dropdown").classList.contains('hidden')) {
+    document.querySelector(".filter_dropdown").classList.remove('hidden');
+    return
+  }
+  document.querySelector(".filter_dropdown").classList.add('hidden');
+}
+
+window.switch_filter = switch_filter;
+
+function change_filter(filter_tipo,filter_status,reload=true) {
+  if (filter_tipo != "") cur_filter_tipo = filter_tipo;
+  if (filter_status != "") cur_filter_status = filter_status;
+  if (reload) load_list();
+  list.last_filter = [cur_filter_tipo,cur_filter_status];
+  hook = true;
+  update_filter_checks();
+}
+
+window.change_filter = change_filter;
+
+window.addEventListener('click', function(e){   
+  if (!document.querySelector('.filter_dropdown_area').contains(e.target)){
+    document.querySelector(".filter_dropdown").classList.add('hidden');
+  }
+});
+
+function reset_filter_checks(type) {
+  if (type == "tipo") {
+    document.querySelector(".icon_tipo_tudo").classList.add("hidden");
+    document.querySelector(".icon_tipo_midia").classList.add("hidden");
+    document.querySelector(".icon_tipo_short_fanfic").classList.add("hidden");
+
+    document.querySelector(".icon_tipo_novel").classList.add("hidden");
+    document.querySelector(".icon_tipo_anime").classList.add("hidden");
+    document.querySelector(".icon_tipo_manga").classList.add("hidden");
+    document.querySelector(".icon_tipo_jogo").classList.add("hidden");
+    document.querySelector(".icon_tipo_filme").classList.add("hidden");
+    document.querySelector(".icon_tipo_audio").classList.add("hidden");
+    document.querySelector(".icon_tipo_doramaserie").classList.add("hidden");
+    document.querySelector(".icon_tipo_stage").classList.add("hidden");
+    document.querySelector(".icon_tipo_fanfic").classList.add("hidden");
+    document.querySelector(".icon_tipo_shortstory").classList.add("hidden");
+    document.querySelector(".icon_tipo_ensaio").classList.add("hidden");
+
+    document.querySelector(".icon_tipo_custom").classList.add("hidden");
+
+    for (var i = 0; i < unique_name_filter.length; i++) {
+      if (unique_name_filter[i] != cur_filter_tipo) document.querySelector(".icon_"+unique_name_filter[i]).classList.add("hidden");
+    }
+
+    return;
+  }
+  if (type == "status") {
+    document.querySelector(".icon_status_tudo").classList.add("hidden");
+    document.querySelector(".icon_status_pendente").classList.add("hidden");
+    document.querySelector(".icon_status_planejando").classList.add("hidden");
+    document.querySelector(".icon_status_repetindo").classList.add("hidden");
+    document.querySelector(".icon_status_concluido").classList.add("hidden");
+    document.querySelector(".icon_status_pausado").classList.add("hidden");
+    document.querySelector(".icon_status_abandonado").classList.add("hidden");
+    
+    return;
+  }
+}
+
+function update_filter_checks() {
+  reset_filter_checks("tipo");
+
+  switch(cur_filter_tipo) {
+    case "Mídia":
+      document.querySelector(".icon_tipo_midia").classList.remove("hidden");
+      break;
+    case "Short Stories e Fanfics":
+      document.querySelector(".icon_tipo_short_fanfic").classList.remove("hidden");
+      break;
+    case "Tudo_tipo":
+      document.querySelector(".icon_tipo_tudo").classList.remove("hidden");
+      break;
+    case "Novel":
+      document.querySelector(".icon_tipo_novel").classList.remove("hidden");
+      break;
+    case "Anime":
+      document.querySelector(".icon_tipo_anime").classList.remove("hidden");
+      break;
+    case "Mangá":
+      document.querySelector(".icon_tipo_manga").classList.remove("hidden");
+      break;
+    case "Jogo":
+      document.querySelector(".icon_tipo_jogo").classList.remove("hidden");
+      break;
+    case "Filme":
+      document.querySelector(".icon_tipo_filme").classList.remove("hidden");
+      break;
+    case "Áudio":
+      document.querySelector(".icon_tipo_audio").classList.remove("hidden");
+      break;
+    case "Dorama/Série":
+      document.querySelector(".icon_tipo_doramaserie").classList.remove("hidden");
+      break;
+    case "Stage":
+      document.querySelector(".icon_tipo_stage").classList.remove("hidden");
+      break;
+    case "Fanfic":
+      document.querySelector(".icon_tipo_fanfic").classList.remove("hidden");
+      break;
+    case "Short Story":
+      document.querySelector(".icon_tipo_shortstory").classList.remove("hidden");
+      break;
+    case "Ensaio":
+      document.querySelector(".icon_tipo_ensaio").classList.remove("hidden");
+      break;
+    case "Personalizados":
+      document.querySelector(".icon_tipo_custom").classList.remove("hidden");
+      break;
+  }
+
+  if (!Object.keys(FILTERS).includes(cur_filter_tipo)) document.querySelector(".icon_"+cur_filter_tipo).classList.remove("hidden");
+
+  reset_filter_checks("status");
+
+  switch(cur_filter_status) {
+    case "Tudo_status":
+      document.querySelector(".icon_status_tudo").classList.remove("hidden");
+      break;
+    case "Pendente":
+      document.querySelector(".icon_status_pendente").classList.remove("hidden");
+      break;
+    case "Planejamento":
+      document.querySelector(".icon_status_planejando").classList.remove("hidden");
+      break;
+    case "Repetindo":
+      document.querySelector(".icon_status_repetindo").classList.remove("hidden");
+      break;
+    case "Concluído":
+      document.querySelector(".icon_status_concluido").classList.remove("hidden");
+      break;
+    case "Pausado":
+      document.querySelector(".icon_status_pausado").classList.remove("hidden");
+      break;
+    case "Abandonado":
+      document.querySelector(".icon_status_abandonado").classList.remove("hidden");
+      break;
+  }
+}
+
+//LOAD LIST
+
+function load_list() {
+  console.log(list);
+
+  document.querySelector(".content_list").innerHTML = "";
+
+  check_initial_conditions();
+
+  //order?
+
+  //filter
+
+  //list.itens[0] = o item do loop
+
+  let bg_color = get_bg_color(list.itens[0]);
+
+  let img_hidden = "";
+  if (list.itens[0].dados.img == "") img_hidden = "hidden";
+
+  let anotacao = nota.get_nota(list.itens[0]);
+
+  document.querySelector(".content_list").innerHTML += `
+    <div class="bg-[${bg_color}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:border-gray-400" id="${list.itens[0].id}" onclick="edit_item(this.id)">
+      <div class="p-1 flex flex-row gap-2">
+        <img src="${list.itens[0].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
+        ${manage_item_strings(list.itens[0])}
+      </div>
+      <div class="nota_div p-1">${anotacao}</div>
+    </div>
+    `;
+}
+
+function manage_item_strings(item) {
+  let final = "";
+  if (item.dados.final > 0) final = ` de ${nf.format(item.dados.final)}`;
+
+  let repeticoes = "";
+  if (item.dados.repeticoes > 0) repeticoes = ` - <i class="fa-solid fa-rotate-right"></i> ${nf.format(item.dados.repeticoes)}`;
+
+  let progresso_string = "";
+  let volumes_string = "";
+  let progresso_traco = "";
+
+  if ((item.dados.progresso == 1 && item.dados.final == 0) || item.dados.final == 1) {
+    progresso_string = nf.format(item.dados.progresso) + final + constants.STRINGS_BY_TYPE.singular[item.tipo];
+  }
+  else progresso_string = nf.format(item.dados.progresso) + final + constants.STRINGS_BY_TYPE.plural[item.tipo];
+
+  if (constants.STRINGS_BY_TYPE.volumes.includes(item.tipo)) {
+    if (item.dados.volumes <= 1) volumes_string = nf.format(item.dados.volumes) + " volume";
+    else volumes_string = nf.format(item.dados.volumes) + " volumes";
+    progresso_traco = " - ";
+  }
+
+  if (constants.STRINGS_BY_TYPE.nada.includes(item.tipo)) progresso_string = "";
+
+  if (item.dados.status == "Planejo" && item.dados.progresso == 0) {
+    progresso_string = "";
+    volumes_string = "";
+    progresso_traco = "";
+  }
+
+  let progresso = progresso_string + progresso_traco + volumes_string;
+  
+  let progress_element = "";
+  if (item.dados.progresso > 0 && item.dados.final > 0) {
+    progress_element = `<progress class="rounded-md shadow-md border border-gray-400" id="progress_bar" value="${item.dados.progresso}" max="${item.dados.final}"></progress>`;
+  }
+
+  let moji = "";
+  if (item.dados.moji == 1) moji = nf.format(item.dados.moji) + " caractere";
+  if (item.dados.moji > 1) moji = nf.format(item.dados.moji) + " caracteres";
+
+  let tempo = get_time(item);
+
+  let item_tipo = item.tipo;
+  if (item.tipo == "Personalizado") item_tipo = item.custom_media_name;
+
+  let result = `
+    <div class="w-full">
+      <b>${item.dados.titulo}</b>
+      <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa-solid fa-pencil"></i></button>
+      <br><br>
+      <p>${item_tipo}</p>
+      <p>${item.dados.status}${repeticoes}</p>
+      <p class="flex flex-row gap-2 items-center"><span>${progresso}</span></p>
+      <p>${progress_element}</p>
+      <p>${tempo}</p>
+      <p>${moji}</p>
+    </div>`;
+
+  return result;
+}
+
+function get_time(item) {
+  let horas = String(item.dados.horas).padStart(2, '0');
+  let minutos = String(item.dados.minutos).padStart(2, '0');
+
+  if (!item.dados.autotime) {
+    if (item.dados.horas == 0 && item.dados.minutos == 0) return "";
+    return horas+":"+minutos;
+  }
+  else {
+    if (item.dados.prog_min == 0) return "";
+    return String(Math.trunc((item.dados.progresso*item.dados.prog_min)/60)).padStart(2, '0')+":"+String((item.dados.progresso*item.dados.prog_min)%60).padStart(2, '0');
+  }
+}
+
+function get_bg_color(item) {
+  if (!list.cores) return constants.SITE_COLORS.default;
+
+  if (item.tipo == "Personalizado") return item.custom_media_color;
+
+  if (constants.SITE_COLORS.types[item.tipo] == null) return constants.SITE_COLORS.default;
+
+  return constants.SITE_COLORS.types[item.tipo];
+}

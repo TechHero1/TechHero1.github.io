@@ -6,7 +6,7 @@
     <title>JP List</title>
     <script type="text/javascript" src="assets/yomitan/japanese-kana-romaji-dicts.js"></script>
     <script type="module" src="assets/main.js"></script>
-    <script type="text/javascript" src="assets/script.js"></script>
+    <!--<script type="text/javascript" src="assets/script.js"></script>-->
     <script type="text/javascript" src="assets/linkify/linkify.min.js"></script>
     <script type="text/javascript" src="assets/linkify/linkify-string.min.js"></script>
     <script type="text/javascript" src="assets/plotly/plotly-4.0.0.min.js"></script>
@@ -502,9 +502,7 @@
                     <textarea rows="8" class="values_input textinput w-full mt-2" type="textarea" id="values_textarea" name="values_textarea" oninput="update_item_values(this.value)"></textarea>
                 </details>
                 <script>
-                    document.querySelector(".values_details").addEventListener("toggle", function() {
-                        list.values_open = document.querySelector(".values_details").open;
-                    })
+                    document.querySelector(".values_details").addEventListener("toggle", function() { update_values_open(); });
                 </script>
             </div>
         </div>
@@ -617,9 +615,9 @@
 
             <div class="w-[10px]"></div>
 
-            <button class="button switch_view_btn" onclick="switch_view()"><i class="fa-solid fa-table-cells-large"></i></button>
-            <button class="button cores_btn opacity-100" onclick="switch_cores()"><i class="fa-solid fa-paint-roller"></i></button>
-            <button class="button" onclick="switch_apoio()">Apoio</button>
+            <button class="button switch_view_btn" onclick="change_option('view')"><i class="fa-solid fa-table-cells-large"></i></button>
+            <button class="button cores_btn opacity-100" onclick="change_option('cores')"><i class="fa-solid fa-paint-roller"></i></button>
+            <button class="button" onclick="change_option('apoio')">Apoio</button>
         </div>
         <div class="content_list p-2 grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-2">
 
