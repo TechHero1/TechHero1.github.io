@@ -1,16 +1,18 @@
+remote_open_tab('Arquivo');
+
 var i;
 var nf = new Intl.NumberFormat('fr-FR');
 
 function remote_open_tab(tab_name) {
-    var tablinks;
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-        if (tab_name+"_tab" == tablinks[i].id) {
-            tablinks[i].click();
-            return
-        }
+  var tablinks;
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+    if (tab_name+"_tab" == tablinks[i].id) {
+      tablinks[i].click();
+      return
     }
+  }
 }
 
 function open_tab(evt, tab_name) {
@@ -299,8 +301,12 @@ var list = {
     "cores": true,
     "apoio": false,
     "values_open": false,
-    "last_filter": ['Tudo_tipo','Tudo_status']
+    "last_filter": ['Tudo_tipo','Tudo_status'],
+    "view_mode": ['add','normal'],
+    "manual_order": []
 };
+
+var ordered_list = [];
 
 var listname = "";
 
@@ -315,7 +321,11 @@ function upload_list(files) {
       reset_name_filters();
       if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo_tipo','Tudo_status'];
       change_filter(list.last_filter[0],list.last_filter[1]);
-      load_list();
+      //processar (list) view_mode -> ordered_list = list.itens (processado)
+      if (!list.hasOwnProperty("view_mode")) list.view_mode = ['add','normal'];
+      update_old_data();
+      process_order_list(list.view_mode[0],list.view_mode[1]);
+      //load_list();
       listname = files.name.replaceAll(/.json/g,"");
       document.querySelector(".file_name_input").value = listname;
       remote_open_tab('Visualizar');
@@ -363,31 +373,26 @@ function load_list() {
   if (!list.hasOwnProperty("values_open") || !list.values_open) list.values_open = false;
   document.querySelector(".values_details").open = list.values_open;
 
-  //consertar cagada
-  for (i = 0; i < list.itens.length; i++) {
-    if (list.itens[i].dados.status == "Dropado") list.itens[i].dados.status = "Abandonado";
-  }
-
   let filtered_list = [];
   if (!Object.keys(filters).includes(cur_filter_tipo)) {
-    for (i = 0; i < list.itens.length; i++) {
-      if (list.itens[i].hasOwnProperty("custom_media_name")) {
-        if (cur_filter_tipo == list.itens[i].custom_media_name && JSON.parse(filters[cur_filter_status]).includes(list.itens[i].dados.status)) {
+    for (i = 0; i < ordered_list.length; i++) {
+      if (ordered_list[i].hasOwnProperty("custom_media_name")) {
+        if (cur_filter_tipo == ordered_list[i].custom_media_name && JSON.parse(filters[cur_filter_status]).includes(ordered_list[i].dados.status)) {
           filtered_list.push(i);
         }
       }
     }
   } else {
-    for (i = 0; i < list.itens.length; i++) {
-      if (JSON.parse(filters[cur_filter_tipo]).includes(list.itens[i].tipo) && JSON.parse(filters[cur_filter_status]).includes(list.itens[i].dados.status)) {
+    for (i = 0; i < ordered_list.length; i++) {
+      if (JSON.parse(filters[cur_filter_tipo]).includes(ordered_list[i].tipo) && JSON.parse(filters[cur_filter_status]).includes(ordered_list[i].dados.status)) {
         filtered_list.push(i);
       }
     }
   }
   
 
-  for (i = 0; i < list.itens.length; i++) {
-    if (list.itens[i].tipo == "Personalizado") add_name_filter(list.itens[i].custom_media_name);
+  for (i = 0; i < ordered_list.length; i++) {
+    if (ordered_list[i].tipo == "Personalizado") add_name_filter(ordered_list[i].custom_media_name);
 
     if (filtered_list.includes(i)) {
       let progresso_string;
@@ -395,112 +400,113 @@ function load_list() {
       let repeticoes_string = "";
       let progresso_traço;
 
-      let final_progresso = list.itens[i].dados.final;
+      let final_progresso = ordered_list[i].dados.final;
       let final_string = "";
-      if (!list.itens[i].dados.hasOwnProperty("final")) final_progresso = 0;
-      if (list.itens[i].dados.hasOwnProperty("final") && final_progresso > 0) {
+      //if (!ordered_list[i].dados.hasOwnProperty("final")) final_progresso = 0;
+      //if (ordered_list[i].dados.hasOwnProperty("final") && final_progresso > 0) {
+      if (final_progresso > 0) {
         final_string = " de " + nf.format(final_progresso);
       } else {
         final_string = "";
       }
 
-      if (list.itens[i].dados.repeticoes > 0 && list.itens[i].dados.repeticoes != "0" && list.itens[i].dados.repeticoes != "" && list.itens[i].dados.repeticoes != null) {
-        repeticoes_string = " - <i class='fa-solid fa-rotate-right'></i> " + nf.format(list.itens[i].dados.repeticoes);
+      if (ordered_list[i].dados.repeticoes > 0 && ordered_list[i].dados.repeticoes != "0" && ordered_list[i].dados.repeticoes != "" && ordered_list[i].dados.repeticoes != null) {
+        repeticoes_string = " - <i class='fa-solid fa-rotate-right'></i> " + nf.format(ordered_list[i].dados.repeticoes);
       }
 
-      if (list.itens[i].tipo == "Novel" || list.itens[i].tipo == "Mangá") {
-        if ((list.itens[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
-          progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " capítulo";
+      if (ordered_list[i].tipo == "Novel" || ordered_list[i].tipo == "Mangá") {
+        if ((ordered_list[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
+          progresso_string = nf.format(ordered_list[i].dados.progresso) + final_string + " capítulo";
         }
         else {
-          progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " capítulos";
+          progresso_string = nf.format(ordered_list[i].dados.progresso) + final_string + " capítulos";
         }
 
-        if (list.itens[i].dados.volumes <= 1) {
-          volumes_string = nf.format(list.itens[i].dados.volumes) + " volume";
+        if (ordered_list[i].dados.volumes <= 1) {
+          volumes_string = nf.format(ordered_list[i].dados.volumes) + " volume";
           progresso_traço = " - ";
         } else {
-          volumes_string = nf.format(list.itens[i].dados.volumes) + " volumes";
+          volumes_string = nf.format(ordered_list[i].dados.volumes) + " volumes";
           progresso_traço = " - ";
         }
       }
-      if (list.itens[i].tipo == "Anime" || list.itens[i].tipo == "Filme" || list.itens[i].tipo == "Áudio" || list.itens[i].tipo == "Dorama/Série" || list.itens[i].tipo == "Stage") {
-        if ((list.itens[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
-          progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " episódio";
+      if (ordered_list[i].tipo == "Anime" || ordered_list[i].tipo == "Filme" || ordered_list[i].tipo == "Áudio" || ordered_list[i].tipo == "Dorama/Série" || ordered_list[i].tipo == "Stage") {
+        if ((ordered_list[i].dados.progresso == 1 && final_progresso == 0) || final_progresso == 1) {
+          progresso_string = nf.format(ordered_list[i].dados.progresso) + final_string + " episódio";
         }
         else {
-          progresso_string = nf.format(list.itens[i].dados.progresso) + final_string + " episódios";
+          progresso_string = nf.format(ordered_list[i].dados.progresso) + final_string + " episódios";
         }
 
         volumes_string = "";
         progresso_traço = "";
       }
-      if (list.itens[i].tipo == "Jogo" || list.itens[i].tipo == "Fanfic" || list.itens[i].tipo == "Short Story" || list.itens[i].tipo == "Ensaio") {
+      if (ordered_list[i].tipo == "Jogo" || ordered_list[i].tipo == "Fanfic" || ordered_list[i].tipo == "Short Story" || ordered_list[i].tipo == "Ensaio") {
         progresso_string = "";
         progresso_traço = "";
         volumes_string = "";
       }
-      if (list.itens[i].tipo == "Personalizado") {
+      if (ordered_list[i].tipo == "Personalizado") {
         progresso_string = "";
-        if (list.itens[i].dados.progresso > 0) progresso_string = nf.format(list.itens[i].dados.progresso) + final_string;
+        if (ordered_list[i].dados.progresso > 0) progresso_string = nf.format(ordered_list[i].dados.progresso) + final_string;
         progresso_traço = "";
         volumes_string = "";
 
-        if (list.itens[i].dados.progresso > 0 && list.itens[i].dados.volumes == 1) {
-          volumes_string = nf.format(list.itens[i].dados.volumes) + " volume";
+        if (ordered_list[i].dados.progresso > 0 && ordered_list[i].dados.volumes == 1) {
+          volumes_string = nf.format(ordered_list[i].dados.volumes) + " volume";
           progresso_traço = " - ";
         }
-        else if (list.itens[i].dados.progresso > 0 &&  list.itens[i].dados.volumes > 1) {
-          volumes_string = nf.format(list.itens[i].dados.volumes) + " volumes";
+        else if (ordered_list[i].dados.progresso > 0 &&  ordered_list[i].dados.volumes > 1) {
+          volumes_string = nf.format(ordered_list[i].dados.volumes) + " volumes";
           progresso_traço = " - ";
         }
       }
 
-      if (list.itens[i].dados.status == "Planejo" && list.itens[i].dados.progresso == 0) {
+      if (ordered_list[i].dados.status == "Planejo" && ordered_list[i].dados.progresso == 0) {
         progresso_string = "";
         progresso_traço = "";
         volumes_string = "";
       }
 
       let progress_element = "";
-      if (list.itens[i].dados.progresso > 0 && list.itens[i].dados.final > 0) {
-        progress_element = `<progress class="rounded-md shadow-md border border-gray-400" id="progress_bar" value="${list.itens[i].dados.progresso}" max="${list.itens[i].dados.final}"></progress>`;
-      } else {
+      if (ordered_list[i].dados.progresso > 0 && ordered_list[i].dados.final > 0) {
+        progress_element = `<progress class="rounded-md shadow-md border border-gray-400" id="progress_bar" value="${ordered_list[i].dados.progresso}" max="${ordered_list[i].dados.final}"></progress>`;
+      } /*else {
         progress_element = "";
-      }
+      }*/
 
       let moji_string;
-      if (list.itens[i].dados.moji == 0) {
+      if (ordered_list[i].dados.moji == 0) {
         moji_string = "";
-      } else if (list.itens[i].dados.moji == 1) {
-        moji_string = nf.format(list.itens[i].dados.moji) + " caractere";
+      } else if (ordered_list[i].dados.moji == 1) {
+        moji_string = nf.format(ordered_list[i].dados.moji) + " caractere";
       } else {
-        moji_string = nf.format(list.itens[i].dados.moji) + " caracteres";
+        moji_string = nf.format(ordered_list[i].dados.moji) + " caracteres";
       }
 
-      if (!list.itens[i].dados.hasOwnProperty("autotime")) list.itens[i].dados.autotime = false;
-      let autotime = list.itens[i].dados.autotime;
+      //if (!ordered_list[i].dados.hasOwnProperty("autotime")) ordered_list[i].dados.autotime = false;
+      let autotime = ordered_list[i].dados.autotime;
 
-      let horas = String(list.itens[i].dados.horas).padStart(2, '0');
-      let minutos = String(list.itens[i].dados.minutos).padStart(2, '0');
+      let horas = String(ordered_list[i].dados.horas).padStart(2, '0');
+      let minutos = String(ordered_list[i].dados.minutos).padStart(2, '0');
       let tempo_string;
       if (!autotime) {
-        if (list.itens[i].dados.horas == 0 && list.itens[i].dados.minutos == 0) {
+        if (ordered_list[i].dados.horas == 0 && ordered_list[i].dados.minutos == 0) {
           tempo_string = "";
         } else {
           tempo_string = horas+":"+minutos;
         }
       } else {
-        if (list.itens[i].dados.prog_min == 0 && list.itens[i].dados.autotime) {
+        if (ordered_list[i].dados.prog_min == 0 && ordered_list[i].dados.autotime) {
           tempo_string = "";
         } else {
-          tempo_string = String(Math.trunc((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)/60)).padStart(2, '0')+":"+String((list.itens[i].dados.progresso*list.itens[i].dados.prog_min)%60).padStart(2, '0');
+          tempo_string = String(Math.trunc((ordered_list[i].dados.progresso*ordered_list[i].dados.prog_min)/60)).padStart(2, '0')+":"+String((ordered_list[i].dados.progresso*ordered_list[i].dados.prog_min)%60).padStart(2, '0');
         }
       }
 
       let bg_color = site_colors.default;
       if (list.cores) {
-        switch(list.itens[i].tipo) {
+        switch(ordered_list[i].tipo) {
           default:
             bg_color = site_colors.default;
             break;
@@ -538,39 +544,39 @@ function load_list() {
             bg_color = site_colors.types.ensaio;
             break;
           case "Personalizado":
-            bg_color = list.itens[i].custom_media_color;
-            if (!list.itens[i].hasOwnProperty("custom_media_color")) bg_color = "#ffffff";
+            bg_color = ordered_list[i].custom_media_color;
+            if (!ordered_list[i].hasOwnProperty("custom_media_color")) bg_color = "#ffffff";
             break;
         }
       }
 
       let img_hidden = "";
-      if (list.itens[i].dados.img == "") img_hidden = "hidden";
+      if (ordered_list[i].dados.img == "") img_hidden = "hidden";
 
       //consertar cagada
-      list.itens[i].dados.nota = update_old_style_tags(list.itens[i].dados.nota);
+      //list.itens[i].dados.nota = update_old_style_tags(list.itens[i].dados.nota);
 
-      let anotacao = list.itens[i].dados.nota;
-      if (!list.itens[i].dados.hasOwnProperty("nota")) anotacao = "";
+      let anotacao = ordered_list[i].dados.nota;
+      //if (!list.itens[i].dados.hasOwnProperty("nota")) anotacao = "";
       anotacao = anotacao.linkify({
         className: "nota_link text-blue-500",
         target: "_blank"
       });
-      anotacao = style_text_with_tags(anotacao,list.itens[i].dados);
+      anotacao = style_text_with_tags(anotacao,ordered_list[i].dados);
 
-      let item_tipo = list.itens[i].tipo;
-      if (list.itens[i].tipo == "Personalizado") item_tipo = list.itens[i].custom_media_name;
+      let item_tipo = ordered_list[i].tipo;
+      if (ordered_list[i].tipo == "Personalizado") item_tipo = ordered_list[i].custom_media_name;
 
       document.querySelector(".content_list").innerHTML += `
       <div class="bg-[${bg_color}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:border-gray-400" id="${i}" onclick="edit_item(this.id)">
         <div class="p-1 flex flex-row gap-2">
-          <img src="${list.itens[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
+          <img src="${ordered_list[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
           <div class="w-[100%]">
-            <b>${list.itens[i].dados.titulo}</b>
+            <b>${ordered_list[i].dados.titulo}</b>
             <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa-solid fa-pencil"></i></button>
             <br><br>
             <p>${item_tipo}</p>
-            <p>${list.itens[i].dados.status}${repeticoes_string}</p>
+            <p>${ordered_list[i].dados.status}${repeticoes_string}</p>
             <p class="flex flex-row gap-2 items-center">
               <span>${progresso_string}${progresso_traço}${volumes_string}</span>
             </p>
@@ -2278,6 +2284,18 @@ function remove_all_of_element(array,element) {
   return array.filter(val => val != element);
 }
 
+function update_old_data() {
+  for (var i = 0; i < list.itens.length; i++) {
+    if (list.itens[i].dados.status == "Dropado") list.itens[i].dados.status = "Abandonado";
+    if (!list.itens[i].dados.hasOwnProperty("last_edited")) list.itens[i].dados.last_edited = 0;
+    if (!list.itens[i].dados.hasOwnProperty("autotime")) list.itens[i].dados.autotime = false;
+    if (!list.itens[i].dados.hasOwnProperty("final")) list.itens[i].dados.final = 0;
+    if (!list.itens[i].dados.hasOwnProperty("nota")) list.itens[i].dados.nota = "";
+
+    list.itens[i].dados.nota = update_old_style_tags(list.itens[i].dados.nota);
+  }
+}
+
 var unique_name_filter = [];
 
 function add_name_filter(name) {
@@ -2320,6 +2338,58 @@ window.addEventListener('click', function(e){
     document.querySelector(".order_dropdown").classList.add('hidden');
   }
 });
+
+function process_order_list(mode, direction) {
+  ordered_list = [];
+
+  //MANUAL
+  load_list(); //temporario
+
+  //ADD
+  if (mode == "add") {
+    if (direction == "normal") {
+      //ADD - CRESCENTE
+      ordered_list = list.itens;
+      load_list();
+      return;
+    } else {
+      //ADD - DECRESCENTE
+      ordered_list = list.itens.toReversed();
+      load_list();
+      return;
+    }
+  }
+
+  //EDIT
+  if (mode == "edit") {
+    if (direction == "normal") {
+      //EDIT - CRESCENTE
+      ordered_list = list.itens.toSorted((a, b) => a.dados.last_edited - b.dados.last_edited);
+      load_list();
+      return;
+    } else {
+      //EDIT - DECRESCENTE
+      ordered_list = list.itens.toSorted((a, b) => b.dados.last_edited - a.dados.last_edited);
+      load_list();
+      return;
+    }
+  }
+
+  //ALPHABET
+  if (mode == "alphabet") {
+    if (direction == "normal") {
+      //ALPHABET - CRESCENTE
+      ordered_list = list.itens.toSorted((a, b) => a.dados.titulo.localeCompare(b.dados.titulo));
+      load_list();
+      return;
+    } else {
+      //ALPHABET - DECRESCENTE
+      ordered_list = list.itens.toSorted((a, b) => b.dados.titulo.localeCompare(a.dados.titulo));
+      load_list();
+      return;
+    }
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const dropZone = document.querySelector('#Arquivo');
