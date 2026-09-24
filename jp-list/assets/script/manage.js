@@ -576,6 +576,8 @@ function load_list() {
       <div class="nota_div p-1">${anotacao}</div>
     </div>
     `;
+
+  create_name_filters();
 }
 
 function manage_item_strings(item) {
@@ -663,3 +665,37 @@ function get_bg_color(item) {
 
   return constants.SITE_COLORS.types[item.tipo];
 }
+
+function upload_image(files) {
+  try {
+    let reader = new FileReader();
+
+    reader.onload = function(e) {
+      let result = e.target.result;
+      document.querySelector(".img_input").value = result;
+      update_preview_image();
+    }
+
+    reader.readAsDataURL(files);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+window.upload_image = upload_image;
+
+function clear_image() {
+  document.querySelector(".img_input").value = "";
+  document.querySelector(".img_preview").classList.add('hidden');
+}
+
+window.clear_image = clear_image;
+
+function update_preview_image() {
+  document.querySelector(".img_preview").src = document.querySelector(".img_input").value;
+  document.querySelector(".img_preview").classList.remove('hidden');
+
+  if (document.querySelector(".img_input").value == "") clear_image();
+}
+
+window.update_preview_image = update_preview_image;

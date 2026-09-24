@@ -1,5 +1,6 @@
 import * as manage from "./script/manage.js";
-import * as constants from "./script/constants.js";
+import * as streamings from "./script/streamings.js";
+import * as stats from "./script/stats.js";
 
 var i;
 const nf = new Intl.NumberFormat('fr-FR');

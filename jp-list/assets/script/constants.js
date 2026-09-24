@@ -14,12 +14,12 @@ export const SITE_COLORS = {
     "Ensaio": "#ffffff"
   },
   "status": {
-    "completo": "#4285f4",
-    "progredindo": "#00ff00",
-    "planejo": "#cfe2f3",
-    "abandonado": "#ff0000",
-    "repetindo": "#11734b",
-    "pausado": "#ffe5a0"
+    "Completo": "#4285f4",
+    "Progredindo": "#00ff00",
+    "Planejo": "#cfe2f3",
+    "Abandonado": "#ff0000",
+    "Repetindo": "#11734b",
+    "Pausado": "#ffe5a0"
   }
 };
 
@@ -46,4 +46,9 @@ export const STRINGS_BY_TYPE = {
   },
   "volumes": ["Novel", "Mangá", "Personalizado"],
   "nada": ["Jogo", "Fanfic", "Short Story", "Ensaio"]
+};
+
+export const MEDIAS = {
+  "types": ['Anime', 'Novel', 'Mangá', 'Jogo', 'Filme', 'Áudio', 'Dorama/Série', 'Stage', 'Fanfic', 'Short Story', 'Ensaio', 'Personalizado'],
+  "status": ['Completo', 'Progredindo', 'Planejo', 'Abandonado', 'Repetindo', 'Pausado'],
 };
