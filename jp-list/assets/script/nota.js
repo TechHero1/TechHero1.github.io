@@ -34,6 +34,8 @@ export function update_preview() {
   else document.querySelector(".nota_preview_container").classList.add('hidden');
 }
 
+window.update_preview_nota = update_preview;
+
 var item_custom_values = {};
 const values_regex = /^(?<nome>.+?)=(?<valor>.+?)$/g;
 
@@ -41,7 +43,7 @@ export function update_values(text) {
   item_custom_values = {};
   let text_lines = text.split("\n");
   for (var i = 0; i < text_lines.length; i++) {
-    for (itag = 0; itag < (text_lines[i].match(values_regex) || []).length; itag++) {
+    for (var itag = 0; itag < (text_lines[i].match(values_regex) || []).length; itag++) {
       let values_regex_match;
 
       while ((values_regex_match = values_regex.exec(text_lines[i])) !== null) {

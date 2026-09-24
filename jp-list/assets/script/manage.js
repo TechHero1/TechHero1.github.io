@@ -18,31 +18,6 @@ export var list = {
 
 export var ordered_list = [];
 
-const FILTERS = {
-  "Tudo_tipo": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage","Fanfic","Short Story","Ensaio","Personalizado"]',
-  "Tudo_status": '["Progredindo","Planejo","Repetindo","Completo","Pausado","Abandonado"]',
-  "Mídia": '["Novel","Anime","Mangá","Jogo","Filme","Áudio","Dorama/Série","Stage"]',
-  "Short Stories e Fanfics": '["Fanfic","Short Story","Ensaio"]',
-  "Personalizados": '["Personalizado"]',
-  "Novel": '["Novel"]',
-  "Anime": '["Anime"]',
-  "Mangá": '["Mangá"]',
-  "Jogo": '["Jogo"]',
-  "Filme": '["Filme"]',
-  "Áudio": '["Áudio"]',
-  "Dorama/Série": '["Dorama/Série"]',
-  "Stage": '["Stage"]',
-  "Fanfic": '["Fanfic"]',
-  "Short Story": '["Short Story"]',
-  "Ensaio": '["Ensaio"]',
-  "Planejamento": '["Planejo"]',
-  "Pendente": '["Progredindo"]',
-  "Repetindo": '["Repetindo"]',
-  "Concluído": '["Completo"]',
-  "Pausado": '["Pausado"]',
-  "Abandonado": '["Abandonado"]'
-}
-
 function update_old_data() {
   if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo_tipo','Tudo_status'];
   if (!list.hasOwnProperty("view_mode")) list.view_mode = ['add','normal'];
@@ -198,7 +173,7 @@ function edit_item(id) {
 
     update_autotime();
     nota.update_preview();
-    nota.update_values(custom_values);
+    nota.update_values(list.itens[id].dados.custom_values);
     check_selected_type(list.itens[id].tipo);
   }
 
@@ -365,6 +340,8 @@ function check_selected_type(type) {
   else  document.querySelector(".personalizado_info").classList.add("hidden");
 }
 
+window.check_selected_type = check_selected_type;
+
 //PERSONALIZADO FILTERS
 
 var unique_name_filter = [];
@@ -387,7 +364,7 @@ function create_name_filters() {
   container.classList.remove("hidden");
   for (var i = 0; i < unique_name_filter.length; i++) {
     container.innerHTML += `
-      <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_filter('${unique_name_filter[i]}','')">
+      <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer max-w-[230px] overflow-hidden text-ellipsis" onclick="change_filter('${unique_name_filter[i]}','')">
         <span class="icon_${unique_name_filter[i]} hidden"><i class="fa-solid fa-check"></i> </span>${unique_name_filter[i]}
       </a>
     `;
@@ -516,7 +493,9 @@ function update_filter_checks() {
       break;
   }
 
-  if (!Object.keys(FILTERS).includes(cur_filter_tipo)) document.querySelector(".icon_"+cur_filter_tipo).classList.remove("hidden");
+  if (!Object.keys(constants.FILTERS).includes(cur_filter_tipo) && document.body.contains(document.querySelector(".icon_"+cur_filter_tipo))) {
+    document.querySelector(".icon_"+cur_filter_tipo).classList.remove("hidden");
+  }
 
   reset_filter_checks("status");
 
@@ -556,6 +535,8 @@ function load_list() {
 
   //order?
 
+  if (list.itens[0].tipo == "Personalizado") add_name_filter(list.itens[0].custom_media_name);
+
   //filter
 
   //list.itens[0] = o item do loop
@@ -578,6 +559,38 @@ function load_list() {
     `;
 
   create_name_filters();
+
+                                        //teste
+                                        for (i = 0; i < list.itens.length; i++) {
+                                          check_initial_conditions();
+
+                                          //order?
+
+                                          if (list.itens[i].tipo == "Personalizado") add_name_filter(list.itens[i].custom_media_name);
+
+                                          //filter
+
+                                          //list.itens[0] = o item do loop
+
+                                          let bg_color = get_bg_color(list.itens[i]);
+
+                                          let img_hidden = "";
+                                          if (list.itens[i].dados.img == "") img_hidden = "hidden";
+
+                                          let anotacao = nota.get_nota(list.itens[i]);
+
+                                          document.querySelector(".content_list").innerHTML += `
+                                            <div class="bg-[${bg_color}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:border-gray-400" id="${list.itens[i].id}" onclick="edit_item(this.id)">
+                                              <div class="p-1 flex flex-row gap-2">
+                                                <img src="${list.itens[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
+                                                ${manage_item_strings(list.itens[i])}
+                                              </div>
+                                              <div class="nota_div p-1">${anotacao}</div>
+                                            </div>
+                                            `;
+
+                                          create_name_filters();
+                                        }
 }
 
 function manage_item_strings(item) {
@@ -600,6 +613,11 @@ function manage_item_strings(item) {
     if (item.dados.volumes <= 1) volumes_string = nf.format(item.dados.volumes) + " volume";
     else volumes_string = nf.format(item.dados.volumes) + " volumes";
     progresso_traco = " - ";
+  }
+
+  if (item.tipo == "Personalizado" && item.dados.volumes == 0) {
+    volumes_string = "";
+    progresso_traco = "";
   }
 
   if (constants.STRINGS_BY_TYPE.nada.includes(item.tipo)) progresso_string = "";
@@ -631,7 +649,7 @@ function manage_item_strings(item) {
       <b>${item.dados.titulo}</b>
       <button class="pl-2 float-right sm:opacity-0 group-hover/title:opacity-100"><i class="fa-solid fa-pencil"></i></button>
       <br><br>
-      <p>${item_tipo}</p>
+      <p class="overflow-hidden text-ellipsis">${item_tipo}</p>
       <p>${item.dados.status}${repeticoes}</p>
       <p class="flex flex-row gap-2 items-center"><span>${progresso}</span></p>
       <p>${progress_element}</p>

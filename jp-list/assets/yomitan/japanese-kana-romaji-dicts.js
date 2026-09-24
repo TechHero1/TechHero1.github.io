@@ -17,7 +17,7 @@
 
 // Mozc's default Romaji to Hiragana list referenced to create ROMAJI_TO_HIRAGANA
 // https://github.com/google/mozc/blob/035668c3452fa98ac09462fd2cf556948964aad7/src/data/preedit/romanji-hiragana.tsv
-const ROMAJI_TO_HIRAGANA = {
+export const ROMAJI_TO_HIRAGANA = {
     // Double letters - these **must** always be matched first or further down matches may cause inserting `っ` from double letters to require extra logic
     // There **must** be an entry for every accepted double letter
     // To not disturb further matches, an extra letter must be appended after the `っ`
@@ -352,7 +352,7 @@ const ROMAJI_TO_HIRAGANA = {
     'n': 'ん',
 };
 
-const HIRAGANA_TO_ROMAJI = {
+export const HIRAGANA_TO_ROMAJI = {
     // Length 2
     'んい': 'n\'i',
     'ゔぁ': 'va',
@@ -617,7 +617,7 @@ const HIRAGANA_TO_ROMAJI = {
     'っ': '',
 };
 
-const ROMAJI_TO_KATAKANA = {
+export const ROMAJI_TO_KATAKANA = {
     // Double letters - these **must** always be matched first or further down matches may cause inserting `ッ` from double letters to require extra logic
     // There **must** be an entry for every accepted double letter
     // To not disturb further matches, an extra letter must be appended after the `ッ`
@@ -953,7 +953,7 @@ const ROMAJI_TO_KATAKANA = {
 };
 
 //based on HALFWIDTH_KATAKANA_MAPPING
-const KATAKANA_FULLWIDTH_TO_HALFWIDTH = {
+export const KATAKANA_FULLWIDTH_TO_HALFWIDTH = {
     '・': '･',
     'ヲ': 'ｦ',
     'ァ': 'ｧ',

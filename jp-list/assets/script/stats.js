@@ -7,7 +7,10 @@ const nf = new Intl.NumberFormat('fr-FR');
 function gerar_stats() {
   let base_types = constants.MEDIAS.types;
   let base_types_colors = [];
-  for (i = 0; i < constants.MEDIAS.types.length; i++) base_types_colors.push(constants.SITE_COLORS.types[constants.MEDIAS.types[i]]);
+  for (i = 0; i < constants.MEDIAS.types.length; i++) {
+    if (constants.MEDIAS.types[i] == "Personalizado") base_types_colors.push(constants.SITE_COLORS.default);
+    else base_types_colors.push(constants.SITE_COLORS.types[constants.MEDIAS.types[i]]);
+  }
   let graph_types = [];
   let graph_types_values = [];
   let graph_types_colors = [];

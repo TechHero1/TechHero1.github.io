@@ -54,3 +54,9 @@ window.change_option = change_option;
 function reset_scroll() { window.scrollTo(window.scrollY, 0); }
 
 window.reset_scroll = reset_scroll;
+
+function remove_all_of_element(array,element) {
+  return array.filter(val => val != element);
+}
+
+window.remove_all_of_element = remove_all_of_element;
