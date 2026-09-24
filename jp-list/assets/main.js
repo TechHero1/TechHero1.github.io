@@ -60,3 +60,18 @@ function remove_all_of_element(array,element) {
 }
 
 window.remove_all_of_element = remove_all_of_element;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const dropZone = document.querySelector('#Arquivo');
+
+  dropZone.addEventListener('dragover', (event) =>{
+    event.preventDefault();
+
+  });
+
+  dropZone.addEventListener('drop', (event) =>{
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    upload_list(files[0]);
+  });
+});

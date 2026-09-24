@@ -476,7 +476,6 @@ const style_tags_notext = {
   },
 };
 
-
 function apply_tags(text) {
   let before_str;
   do {
