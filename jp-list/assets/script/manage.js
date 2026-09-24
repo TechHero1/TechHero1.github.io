@@ -793,7 +793,10 @@ function process_order_list(mode, direction) {
 
 window.process_order_list = process_order_list;
 
+var temp_manual_order = [];
+
 function reset_manual_order() {
+  temp_manual_order = [];
   list.manual_order = [];
   for (var i = 0; i < list.itens.length; i++) list.manual_order.push(i);
   cancel_item();
@@ -804,6 +807,7 @@ window.reset_manual_order = reset_manual_order;
 function load_manual_items(temp_list=[]) {
   //se temp_list vazio = carregando, se não = recarregando
   if (temp_list == "") temp_list = list.manual_order;
+  temp_manual_order = temp_list;
 
   let temp_editing_list = temp_list.map(index => list.itens[index]);
   document.querySelector(".reorder_list").innerHTML = "";
@@ -840,3 +844,34 @@ function load_manual_items(temp_list=[]) {
 }
 
 window.load_manual_items = load_manual_items;
+
+function change_manual_item(order,current_id,new_id) {
+  if (new_id < 0) return;
+  if (new_id > order.length) return;
+
+  let original1 = order.slice(0, current_id);
+  let original2 = order.slice(current_id+1, order.length);
+
+  let new_order = original1.concat(original2);
+
+  let part1;
+  let part2;
+
+  part1 = new_order.slice(0, new_id);
+  part2 = new_order.slice(new_id, new_order.length);
+
+  part1.push(order[current_id]);
+  new_order = part1.concat(part2);
+  load_manual_items(new_order);
+}
+
+window.change_manual_item = change_manual_item;
+
+function save_manual_order() {
+  list.manual_order = temp_manual_order;
+
+  process_order_list(list.view_mode[0],list.view_mode[1]);
+  remote_open_tab('Visualizar');
+}
+
+window.save_manual_order = save_manual_order;
