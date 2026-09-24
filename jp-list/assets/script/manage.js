@@ -21,6 +21,7 @@ export var ordered_list = [];
 function update_old_data() {
   if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo_tipo','Tudo_status'];
   if (!list.hasOwnProperty("view_mode")) list.view_mode = ['add','normal'];
+  if (!list.hasOwnProperty("manual_order")) list.manual_order = [];
 
   for (var i = 0; i < list.itens.length; i++) {
     if (list.itens[i].dados.status == "Dropado") list.itens[i].dados.status = "Abandonado";
@@ -94,14 +95,16 @@ export function switch_cores() {
     hook = true;
     document.querySelector(".cores_btn").classList.remove('opacity-30');
     document.querySelector(".cores_btn").classList.add('opacity-100');
-    load_list();
+    process_order_list(list.view_mode[0],list.view_mode[1]);
+    //load_list();
     return
   }
   list.cores = false;
   hook = true;
   document.querySelector(".cores_btn").classList.remove('opacity-100');
   document.querySelector(".cores_btn").classList.add('opacity-30');
-  load_list();
+  process_order_list(list.view_mode[0],list.view_mode[1]);
+  //load_list();
 }
 
 function update_values_open() {
@@ -218,8 +221,8 @@ function save_item() {
     };
     remote_open_tab('Visualizar');
     update_old_data();
-    //process_order_list(list.view_mode[0],list.view_mode[1]);
-    load_list();
+    process_order_list(list.view_mode[0],list.view_mode[1]);
+    //load_list();
     reset_scroll();
     return;
   }
@@ -250,8 +253,8 @@ function save_item() {
   remote_open_tab('Visualizar');
   update_old_data();
   reset_name_filters();
-  //process_order_list(list.view_mode[0],list.view_mode[1]);
-  load_list();
+  process_order_list(list.view_mode[0],list.view_mode[1]);
+  //load_list();
   reset_scroll();
 }
 
@@ -265,8 +268,8 @@ function delete_item(){
   remote_open_tab('Visualizar');
   update_old_data();
   reset_name_filters();
-  //process_order_list(list.view_mode[0],list.view_mode[1]);
-  load_list();
+  process_order_list(list.view_mode[0],list.view_mode[1]);
+  //load_list();
   reset_scroll();
 
   if (list.itens == "") hook = false;
@@ -296,9 +299,8 @@ function upload_list(files) {
       update_old_data();
       reset_name_filters();
       change_filter(list.last_filter[0],list.last_filter[1],false);
-      //processar (list) view_mode -> ordered_list = list.itens (processado)
-      //process_order_list(list.view_mode[0],list.view_mode[1]);
-      load_list();
+      process_order_list(list.view_mode[0],list.view_mode[1]);
+      //load_list();
       listname = files.name.replaceAll(/.json/g,"");
       document.querySelector(".file_name_input").value = listname;
       remote_open_tab('Visualizar');
@@ -389,7 +391,8 @@ window.switch_filter = switch_filter;
 function change_filter(filter_tipo,filter_status,reload=true) {
   if (filter_tipo != "") cur_filter_tipo = filter_tipo;
   if (filter_status != "") cur_filter_status = filter_status;
-  if (reload) load_list();
+  if (reload) process_order_list(list.view_mode[0],list.view_mode[1]);
+  //if (reload) load_list();
   list.last_filter = [cur_filter_tipo,cur_filter_status];
   hook = true;
   update_filter_checks();
@@ -533,64 +536,48 @@ function load_list() {
 
   check_initial_conditions();
 
-  //order?
+  let filtered_list = [];
+  if (!Object.keys(constants.FILTERS).includes(cur_filter_tipo)) {
+    for (i = 0; i < ordered_list.length; i++) {
+      if (ordered_list[i].hasOwnProperty("custom_media_name")) {
+        if (cur_filter_tipo == ordered_list[i].custom_media_name && JSON.parse(constants.FILTERS[cur_filter_status]).includes(ordered_list[i].dados.status)) {
+          filtered_list.push(i);
+        }
+      }
+    }
+  } else {
+    for (i = 0; i < ordered_list.length; i++) {
+      if (JSON.parse(constants.FILTERS[cur_filter_tipo]).includes(ordered_list[i].tipo) && JSON.parse(constants.FILTERS[cur_filter_status]).includes(ordered_list[i].dados.status)) {
+        filtered_list.push(i);
+      }
+    }
+  }
 
-  if (list.itens[0].tipo == "Personalizado") add_name_filter(list.itens[0].custom_media_name);
+  for (i = 0; i < ordered_list.length; i++) {
+    if (ordered_list[i].tipo == "Personalizado") add_name_filter(ordered_list[i].custom_media_name);
 
-  //filter
+    if (filtered_list.includes(i)) {
+      let bg_color = get_bg_color(ordered_list[i]);
 
-  //list.itens[0] = o item do loop
+      let img_hidden = "";
+      if (ordered_list[i].dados.img == "") img_hidden = "hidden";
 
-  let bg_color = get_bg_color(list.itens[0]);
+      let anotacao = nota.get_nota(ordered_list[i]);
 
-  let img_hidden = "";
-  if (list.itens[0].dados.img == "") img_hidden = "hidden";
+      document.querySelector(".content_list").innerHTML += `
+        <div class="bg-[${bg_color}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:border-gray-400" id="${ordered_list[i].id}" onclick="edit_item(this.id)">
+          <div class="p-1 flex flex-row gap-2">
+            <img src="${ordered_list[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
+            ${manage_item_strings(ordered_list[i])}
+          </div>
+          <div class="nota_div p-1">${anotacao}</div>
+        </div>
+        `;
+    }
 
-  let anotacao = nota.get_nota(list.itens[0]);
-
-  document.querySelector(".content_list").innerHTML += `
-    <div class="bg-[${bg_color}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:border-gray-400" id="${list.itens[0].id}" onclick="edit_item(this.id)">
-      <div class="p-1 flex flex-row gap-2">
-        <img src="${list.itens[0].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
-        ${manage_item_strings(list.itens[0])}
-      </div>
-      <div class="nota_div p-1">${anotacao}</div>
-    </div>
-    `;
+  }
 
   create_name_filters();
-
-                                        //teste
-                                        for (i = 0; i < list.itens.length; i++) {
-                                          check_initial_conditions();
-
-                                          //order?
-
-                                          if (list.itens[i].tipo == "Personalizado") add_name_filter(list.itens[i].custom_media_name);
-
-                                          //filter
-
-                                          //list.itens[0] = o item do loop
-
-                                          let bg_color = get_bg_color(list.itens[i]);
-
-                                          let img_hidden = "";
-                                          if (list.itens[i].dados.img == "") img_hidden = "hidden";
-
-                                          let anotacao = nota.get_nota(list.itens[i]);
-
-                                          document.querySelector(".content_list").innerHTML += `
-                                            <div class="bg-[${bg_color}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 cursor-pointer transition-all duration-150 group/title hover:border-gray-400" id="${list.itens[i].id}" onclick="edit_item(this.id)">
-                                              <div class="p-1 flex flex-row gap-2">
-                                                <img src="${list.itens[i].dados.img}" class="w-[170px] h-[225px] aspect-[1/1.33] object-contain ${img_hidden}">
-                                                ${manage_item_strings(list.itens[i])}
-                                              </div>
-                                              <div class="nota_div p-1">${anotacao}</div>
-                                            </div>
-                                            `;
-
-                                          create_name_filters();
-                                        }
 }
 
 function manage_item_strings(item) {
@@ -717,3 +704,82 @@ function update_preview_image() {
 }
 
 window.update_preview_image = update_preview_image;
+
+//PROCESS LIST ORDER
+function switch_order() {
+  if (document.querySelector(".order_dropdown").classList.contains('hidden')) {
+    document.querySelector(".order_dropdown").classList.remove('hidden');
+    return
+  }
+  document.querySelector(".order_dropdown").classList.add('hidden');
+}
+
+window.switch_order = switch_order;
+
+window.addEventListener('click', function(e){   
+  if (!document.querySelector('.order_dropdown_area').contains(e.target)){
+    document.querySelector(".order_dropdown").classList.add('hidden');
+  }
+});
+
+function process_order_list(mode, direction) {
+  list.view_mode = [mode,direction];
+  ordered_list = [];
+
+  //MANUAL
+  if (mode == "manual") {
+    ordered_list = list.itens; //TEMPORARIO
+    document.querySelector(".manual_reorder_button").classList.remove("hidden");
+    load_list();
+    return;
+  }
+
+  document.querySelector(".manual_reorder_button").classList.add("hidden");
+
+  //ADD
+  if (mode == "add") {
+    if (direction == "normal") {
+      //ADD - CRESCENTE
+      ordered_list = list.itens;
+      load_list();
+      return;
+    } else {
+      //ADD - DECRESCENTE
+      ordered_list = list.itens.toReversed();
+      load_list();
+      return;
+    }
+  }
+
+  //EDIT
+  if (mode == "edit") {
+    if (direction == "normal") {
+      //EDIT - CRESCENTE
+      ordered_list = list.itens.toSorted((a, b) => a.dados.last_edited - b.dados.last_edited);
+      load_list();
+      return;
+    } else {
+      //EDIT - DECRESCENTE
+      ordered_list = list.itens.toSorted((a, b) => b.dados.last_edited - a.dados.last_edited);
+      load_list();
+      return;
+    }
+  }
+
+  //ALPHABET
+  if (mode == "alphabet") {
+    if (direction == "normal") {
+      //ALPHABET - CRESCENTE
+      ordered_list = list.itens.toSorted((a, b) => a.dados.titulo.localeCompare(b.dados.titulo));
+      load_list();
+      return;
+    } else {
+      //ALPHABET - DECRESCENTE
+      ordered_list = list.itens.toSorted((a, b) => b.dados.titulo.localeCompare(a.dados.titulo));
+      load_list();
+      return;
+    }
+  }
+}
+
+window.process_order_list = process_order_list;
