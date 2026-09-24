@@ -21,7 +21,15 @@ export var ordered_list = [];
 function update_old_data() {
   if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo_tipo','Tudo_status'];
   if (!list.hasOwnProperty("view_mode")) list.view_mode = ['add','normal'];
-  if (!list.hasOwnProperty("manual_order")) list.manual_order = [];
+
+  let create_manual_order = "false";
+  if (!list.hasOwnProperty("manual_order") || list.manual_order == "") {
+    list.manual_order = [];
+    create_manual_order = "true";
+  }
+  if (list.hasOwnProperty("manual_order") && list.itens.length > list.manual_order.length) {
+    create_manual_order = "add";
+  }
 
   for (var i = 0; i < list.itens.length; i++) {
     if (list.itens[i].dados.status == "Dropado") list.itens[i].dados.status = "Abandonado";
@@ -38,6 +46,9 @@ function update_old_data() {
     list.itens[i].dados.nota = style_tags.update_old_tags(list.itens[i].dados.nota);
 
     if (!list.itens[i].hasOwnProperty("id")) list.itens[i].id = i;
+
+    if (create_manual_order == "true") list.manual_order.push(i);
+    if (create_manual_order == "add" && !list.manual_order.includes(i)) list.manual_order.push(i);
   }
 }
 
@@ -530,8 +541,6 @@ function update_filter_checks() {
 //LOAD LIST
 
 function load_list() {
-  console.log(list);
-
   document.querySelector(".content_list").innerHTML = "";
 
   check_initial_conditions();
@@ -728,7 +737,7 @@ function process_order_list(mode, direction) {
 
   //MANUAL
   if (mode == "manual") {
-    ordered_list = list.itens; //TEMPORARIO
+    ordered_list = list.manual_order.map(index => list.itens[index]);
     document.querySelector(".manual_reorder_button").classList.remove("hidden");
     load_list();
     return;
@@ -783,3 +792,51 @@ function process_order_list(mode, direction) {
 }
 
 window.process_order_list = process_order_list;
+
+function reset_manual_order() {
+  list.manual_order = [];
+  for (var i = 0; i < list.itens.length; i++) list.manual_order.push(i);
+  cancel_item();
+}
+
+window.reset_manual_order = reset_manual_order;
+
+function load_manual_items(temp_list=[]) {
+  //se temp_list vazio = carregando, se não = recarregando
+  if (temp_list == "") temp_list = list.manual_order;
+
+  let temp_editing_list = temp_list.map(index => list.itens[index]);
+  document.querySelector(".reorder_list").innerHTML = "";
+  for (var i = 0; i < temp_editing_list.length; i++) {
+    let item_img = "";
+    if (temp_editing_list[i].dados.img != "") item_img = `<img src="${temp_editing_list[i].dados.img}" class="h-[125px] aspect-[1/1.33] object-contain grow-0">`;
+
+    let item_tipo = temp_editing_list[i].tipo;
+    if (item_tipo == "Personalizado") item_tipo = temp_editing_list[i].custom_media_name;
+
+    document.querySelector(".reorder_list").innerHTML += `
+      <div class="bg-[${get_bg_color(temp_editing_list[i])}] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 transition-all duration-150 group/title hover:border-gray-400" id="0">
+        <div class="p-1 flex flex-col sm:flex-row gap-2 item-center w-full">
+          <div class="flex flex-row gap-2 items-center w-full">
+            ${item_img}
+            <div class="w-full grow">
+              <b>${temp_editing_list[i].dados.titulo}</b>
+              <br><br>
+              <p class="overflow-hidden text-ellipsis">${item_tipo}</p>
+              <p>${temp_editing_list[i].dados.status}</p>
+            </div>
+          </div>
+          <div class="w-max grow-0 text-center place-self-center flex flex-row items-center gap-5">
+            <input id="input-${i}" value="${i+1}" onchange="change_manual_item([${temp_list}],${i},this.value-1)" inputmode="numeric" class="textinput h-[42px] bg-white! max-w-[150px]">
+            <div class="flex flex-col gap-2 h-full">
+              <button onclick="change_manual_item([${temp_list}],${i},${i-1})" class="button bg-white! hover:bg-gray-200!"><i class="fa-solid fa-sort-up"></i></button>
+              <button onclick="change_manual_item([${temp_list}],${i},${i+1})" class="button bg-white! hover:bg-gray-200!"><i class="fa-solid fa-sort-down"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+window.load_manual_items = load_manual_items;

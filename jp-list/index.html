@@ -4,9 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>JP List</title>
-    <!--<script type="text/javascript" src="assets/yomitan/japanese-kana-romaji-dicts.js"></script>-->
     <script type="module" src="assets/main.js"></script>
-    <!--<script type="text/javascript" src="assets/script.js"></script>-->
     <script type="text/javascript" src="assets/linkify/linkify.min.js"></script>
     <script type="text/javascript" src="assets/linkify/linkify-string.min.js"></script>
     <script type="text/javascript" src="assets/plotly/plotly-4.0.0.min.js"></script>
@@ -28,7 +26,6 @@
       }
     </script>
 </head>
-<!--<body class="font-[AdwaitaSans-Regular] bg-gray-200" onload="remote_open_tab('Arquivo');teste_body_main();teste_body_local()">-->
     <body class="font-[AdwaitaSans-Regular] bg-gray-200"></body>
     <nav class="bg-gray-800 sticky top-0 w-full text-white flex flex-col sm:flex-row items-center z-10">
         <div class="tab w-full sm:w-[50%]">
@@ -303,7 +300,7 @@
             <div class="flex flex-col gap-3 w-full">
                 <label for="img_url">Link da imagem de capa</label>
                 <div class="flex flex-row gap-3 items-center w-full">
-                    <input class="img_input textinput w-full" type="text" id="img_url" name="img_url" onchange="update_preview_image()">
+                    <input class="img_input textinput w-full" type="text" inputmode="url" id="img_url" name="img_url" onchange="update_preview_image()">
                     <button class="button" onclick="clear_image()"><i class="fa-solid fa-delete-left"></i></button>
                     <label class="button" for="coverfile"><i class="fa-solid fa-upload"></i></label>
                     <input class="hidden" type="file" id="coverfile" name="coverfile" accept="image/*" onchange="upload_image(this.files[0])">
@@ -611,7 +608,7 @@
                 </div>
             </div>
 
-            <button class="button manual_reorder_button hidden" onclick="open_tab(event, 'Sort')"><i class="fa-solid fa-sort"></i></button>
+            <button class="button manual_reorder_button hidden" onclick="open_tab(event, 'Sort');load_manual_items()"><i class="fa-solid fa-sort"></i></button>
 
             <div class="w-[10px]"></div>
 
@@ -677,14 +674,16 @@
 
             <div class="reorder_list p-2 grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-2 grid-list-view">
 
-                <div class="bg-[#e6cff2] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 transition-all duration-150 group/title hover:border-gray-400" id="0">
-                    <div class="p-1 flex flex-row gap-2 item-center w-full">
-                        <img src="assets/img/mashutan.png" class="h-[125px] aspect-[1/1.33] object-contain grow-0">
-                        <div class="w-full grow">
-                            <b>Exemplo</b>
-                            <br><br>
-                            <p>Novel</p>
-                            <p>Progredindo</p>
+                <!-- <div class="bg-[#e6cff2] flex flex-col p-1 rounded-md m-2 sm:p-5 shadow-md border border-gray-200 transition-all duration-150 group/title hover:border-gray-400" id="0">
+                    <div class="p-1 flex flex-col sm:flex-row gap-2 item-center w-full">
+                        <div class="flex flex-row gap-2 items-center w-full">
+                            <img src="assets/img/mashutan.png" class="h-[125px] aspect-[1/1.33] object-contain grow-0">
+                            <div class="w-full grow">
+                                <b>Exemplo</b>
+                                <br><br>
+                                <p>Novel</p>
+                                <p>Progredindo</p>
+                            </div>
                         </div>
                         <div class="w-max grow-0 text-center place-self-center flex flex-row items-center gap-5">
                             <input type="number" class="textinput h-[42px] bg-white! max-w-[150px]">
@@ -694,15 +693,18 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
 
         </div>
-        <div class="p-3 flex flex-row gap-3 items-center">
+        <div class="p-3 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
             <div class="flex flex-row gap-3 items-center w-full">
-                <button class="button w-max" onclick="save_item()"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+                <button class="button w-max" onclick="console.log('salvar ordem')"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
                 <button class="button w-max" onclick="cancel_item()"><i class="fa-regular fa-circle-xmark"></i> Cancelar</button>
+            </div>
+            <div class="flex flex-row-reverse gap-3 items-center">
+                <button class="button button-danger w-max" onclick="reset_manual_order()"><i class="fa-solid fa-rotate-left"></i> Voltar ao padrão</button>
             </div>
         </div>
     </div>
