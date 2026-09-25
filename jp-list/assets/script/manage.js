@@ -72,51 +72,56 @@ function check_initial_conditions() {
   document.querySelector(".values_details").open = list.values_open;
 }
 
-export function switch_view() {
-  let content_list = document.querySelector(".content_list");
-  let button = document.querySelector(".switch_view_btn");
-  if (content_list.classList.contains("grid-list-view")) {
-    content_list.classList.remove("grid-list-view");
-    list.list_mode = "grid";
-    button.innerHTML = `<i class="fa-solid fa-table-cells-large"></i>`;
-    return
+function change_option(option) {
+  switch (option) {
+    case "view":
+      //SWITCH OPTION VIEW
+      let content_list = document.querySelector(".content_list");
+      let button = document.querySelector(".switch_view_btn");
+      if (content_list.classList.contains("grid-list-view")) {
+        content_list.classList.remove("grid-list-view");
+        list.list_mode = "grid";
+        button.innerHTML = `<i class="fa-solid fa-table-cells-large"></i>`;
+        return
+      }
+      content_list.classList.add("grid-list-view");
+      list.list_mode = "list";
+      button.innerHTML = `<i class="fa-solid fa-bars"></i>`;
+    break;
+    case "cores":
+      //SWITCH OPTION CORES
+      if (!list.cores) {
+        list.cores = true;
+        hook = true;
+        document.querySelector(".cores_btn").classList.remove('opacity-30');
+        document.querySelector(".cores_btn").classList.add('opacity-100');
+        process_order_list(list.view_mode[0],list.view_mode[1]);
+        return
+      }
+      list.cores = false;
+      hook = true;
+      document.querySelector(".cores_btn").classList.remove('opacity-100');
+      document.querySelector(".cores_btn").classList.add('opacity-30');
+      process_order_list(list.view_mode[0],list.view_mode[1]);
+    break;
+    case "apoio":
+      //SWITCH OPTION APOIO
+      if (!list.apoio) {
+        list.apoio = true;
+        hook = true;
+        document.querySelector(".iichan_tab").classList.remove('hidden');
+        document.querySelector(".iichan_nav").classList.remove('hidden');
+        return
+      }
+      list.apoio = false;
+      hook = true;
+      document.querySelector(".iichan_tab").classList.add('hidden');
+      document.querySelector(".iichan_nav").classList.add('hidden');
+    break;
   }
-  content_list.classList.add("grid-list-view");
-  list.list_mode = "list";
-  button.innerHTML = `<i class="fa-solid fa-bars"></i>`;
 }
 
-export function switch_apoio() {
-  if (!list.apoio) {
-    list.apoio = true;
-    hook = true;
-    document.querySelector(".iichan_tab").classList.remove('hidden');
-    document.querySelector(".iichan_nav").classList.remove('hidden');
-    return
-  }
-  list.apoio = false;
-  hook = true;
-  document.querySelector(".iichan_tab").classList.add('hidden');
-  document.querySelector(".iichan_nav").classList.add('hidden');
-}
-
-export function switch_cores() {
-  if (!list.cores) {
-    list.cores = true;
-    hook = true;
-    document.querySelector(".cores_btn").classList.remove('opacity-30');
-    document.querySelector(".cores_btn").classList.add('opacity-100');
-    process_order_list(list.view_mode[0],list.view_mode[1]);
-    //load_list();
-    return
-  }
-  list.cores = false;
-  hook = true;
-  document.querySelector(".cores_btn").classList.remove('opacity-100');
-  document.querySelector(".cores_btn").classList.add('opacity-30');
-  process_order_list(list.view_mode[0],list.view_mode[1]);
-  //load_list();
-}
+window.change_option = change_option;
 
 function update_values_open() {
   list.values_open = document.querySelector(".values_details").open;

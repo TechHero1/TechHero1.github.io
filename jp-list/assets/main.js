@@ -35,22 +35,6 @@ window.open_tab = open_tab;
 window.remote_open_tab = remote_open_tab;
 remote_open_tab('Arquivo');
 
-function change_option(option) {
-  switch (option) {
-    case "view":
-      manage.switch_view();
-    break;
-    case "cores":
-      manage.switch_cores();
-    break;
-    case "apoio":
-      manage.switch_apoio();
-    break;
-  }
-}
-
-window.change_option = change_option;
-
 function reset_scroll() { window.scrollTo(window.scrollY, 0); }
 
 window.reset_scroll = reset_scroll;
