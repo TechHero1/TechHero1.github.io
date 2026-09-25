@@ -805,6 +805,7 @@ function reset_manual_order() {
   temp_manual_order = [];
   list.manual_order = [];
   for (var i = 0; i < list.itens.length; i++) list.manual_order.push(i);
+  process_order_list(list.view_mode[0],list.view_mode[1]);
   cancel_item();
 }
 
