@@ -4,8 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>JP List</title>
-    <script type="text/javascript" src="assets/yomitan/japanese-kana-romaji-dicts.js"></script>
-    <script type="text/javascript" src="assets/script.js"></script>
+    <script type="module" src="assets/main.js"></script>
     <script type="text/javascript" src="assets/linkify/linkify.min.js"></script>
     <script type="text/javascript" src="assets/linkify/linkify-string.min.js"></script>
     <script type="text/javascript" src="assets/plotly/plotly-4.0.0.min.js"></script>
@@ -27,7 +26,7 @@
       }
     </script>
 </head>
-<body class="font-[AdwaitaSans-Regular] bg-gray-200" onload="remote_open_tab('Arquivo')">
+    <body class="font-[AdwaitaSans-Regular] bg-gray-200"></body>
     <nav class="bg-gray-800 sticky top-0 w-full text-white flex flex-col sm:flex-row items-center z-10">
         <div class="tab w-full sm:w-[50%]">
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Arquivo')" id="Arquivo_tab"><i class="fa-solid fa-file-pen"></i></button>
@@ -301,7 +300,7 @@
             <div class="flex flex-col gap-3 w-full">
                 <label for="img_url">Link da imagem de capa</label>
                 <div class="flex flex-row gap-3 items-center w-full">
-                    <input class="img_input textinput w-full" type="text" id="img_url" name="img_url" onchange="update_preview_image()">
+                    <input class="img_input textinput w-full" type="text" inputmode="url" id="img_url" name="img_url" onchange="update_preview_image()">
                     <button class="button" onclick="clear_image()"><i class="fa-solid fa-delete-left"></i></button>
                     <label class="button" for="coverfile"><i class="fa-solid fa-upload"></i></label>
                     <input class="hidden" type="file" id="coverfile" name="coverfile" accept="image/*" onchange="upload_image(this.files[0])">
@@ -500,9 +499,7 @@
                     <textarea rows="8" class="values_input textinput w-full mt-2" type="textarea" id="values_textarea" name="values_textarea" oninput="update_item_values(this.value)"></textarea>
                 </details>
                 <script>
-                    document.querySelector(".values_details").addEventListener("toggle", function() {
-                        list.values_open = document.querySelector(".values_details").open;
-                    })
+                    document.querySelector(".values_details").addEventListener("toggle", function() { update_values_open(); });
                 </script>
             </div>
         </div>
@@ -528,6 +525,9 @@
     <div id="Visualizar" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
         <div class="p-2 w-full flex flex-row-reverse gap-2">
             <button class="button" onclick="edit_item('new')"><i class="fa-solid fa-plus"></i></button>
+            
+            <div class="w-[10px]"></div>
+
             <div class="filter_dropdown_area md:relative inline-block">
                 <button class="button" onclick="switch_filter()"><i class="fa-solid fa-filter"></i></button>
                 <div class="filter_dropdown absolute right-0 z-10 mt-2 w-full max-h-[400px] overflow-y-auto md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
@@ -581,9 +581,40 @@
 
                 </div>
             </div>
-            <button class="button switch_view_btn" onclick="switch_view()"><i class="fa-solid fa-table-cells-large"></i></button>
-            <button class="button cores_btn opacity-100" onclick="switch_cores()"><i class="fa-solid fa-paint-roller"></i></button>
-            <button class="button" onclick="switch_apoio()">Apoio</button>
+
+            <div class="order_dropdown_area md:relative inline-block">
+                <button class="button" onclick="switch_order()"><i class="fa-solid fa-up-down"></i></button>
+                <div class="order_dropdown absolute right-0 z-10 mt-2 w-full max-h-[400px] overflow-y-auto md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
+                    
+                    <div role="none" class="order_manual py-1">
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="process_order_list('manual', '')"><i class="fa-solid fa-hand"></i> Manual</a>
+                    </div>
+
+                    <div role="none" class="order_add py-1">
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="process_order_list('add', 'normal')"><i class="fa-solid fa-arrow-down-1-9"></i> Tempo de listagem (Crescente)</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="process_order_list('add', 'reverse')"><i class="fa-solid fa-arrow-up-1-9"></i> Tempo de listagem (Decrescente)</a>
+                    </div>
+
+                    <div role="none" class="order_edit py-1">
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="process_order_list('edit', 'normal')"><i class="fa-solid fa-arrow-down-short-wide"></i> Tempo de edição (Crescente)</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="process_order_list('edit', 'reverse')"><i class="fa-solid fa-arrow-up-short-wide"></i> Tempo de edição (Decrescente)</a>
+                    </div>
+
+                    <div role="none" class="order_alfabeto py-1">
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="process_order_list('alphabet', 'normal')"><i class="fa-solid fa-arrow-down-a-z"></i> Ordem alfabética (Crescente)</a>
+                        <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="process_order_list('alphabet', 'reverse')"><i class="fa-solid fa-arrow-up-a-z"></i> Ordem alfabética (Decrescente)</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <button class="button manual_reorder_button hidden" onclick="open_tab(event, 'Sort');load_manual_items()"><i class="fa-solid fa-sort"></i></button>
+
+            <div class="w-[10px]"></div>
+
+            <button class="button switch_view_btn" onclick="change_option('view')"><i class="fa-solid fa-table-cells-large"></i></button>
+            <button class="button cores_btn opacity-100" onclick="change_option('cores')"><i class="fa-solid fa-paint-roller"></i></button>
+            <button class="button" onclick="change_option('apoio')">Apoio</button>
         </div>
         <div class="content_list p-2 grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-2">
 
@@ -593,7 +624,7 @@
     <div id="Streaming" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
         <div class="p-2 w-full flex flex-row-reverse gap-2">
             <div class="streaming_filter_dropdown_area md:relative inline-block">
-                <button class="button" onclick="switch_streaming_filter()"><i class="fa-solid fa-filter"></i></button>
+                <button class="button" onclick="switch_streaming_dropdown('streaming_filter_dropdown')"><i class="fa-solid fa-filter"></i></button>
                 <div class="streaming_filter_dropdown absolute right-0 z-10 mt-2 w-full max-h-[400px] overflow-y-auto md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
                     <div role="none" class="filters py-1">
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_streaming_filter('tudo')">Tudo</a>
@@ -618,7 +649,7 @@
                 </div>
             </div>
             <div class="streaming_config_dropdown_area md:relative inline-block">
-                <button class="button" onclick="switch_streaming_config()"><i class="fa-solid fa-gear"></i></button>
+                <button class="button" onclick="switch_streaming_dropdown('streaming_config_dropdown')"><i class="fa-solid fa-gear"></i></button>
                 <div class="streaming_config_dropdown absolute right-0 z-10 mt-2 w-full md:w-112 origin-top-right divide-y divide-gray-300 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden">
                     <div role="none" class="config_filters py-1">
                         <a tabindex="-1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150 cursor-pointer" onclick="change_streaming_config('eos')"><span class="check_exibir_eos hidden"><i class="fa-solid fa-check"></i> </span>Exibir sites fora do ar</a>
@@ -630,4 +661,31 @@
             
         </div>
     </div>
+
+    <div id="Sort" class="tabcontent rounded-md m-2 sm:p-5 bg-white shadow-md hidden">
+        <div class="p-3 flex flex-row gap-3 items-center">
+            <div class="p-2 text-lg font-bold w-full"><i class="fa-solid fa-hand"></i> Reorganizar itens da lista</div>
+            <div class="flex flex-row-reverse gap-3 items-center w-full">
+                <button class="button w-max" onclick="cancel_item()"><i class="fa-regular fa-circle-xmark"></i> Cancelar</button>
+                <button class="button w-max" onclick="save_manual_order()"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+            </div>
+        </div>
+        <div class="p-1 rounded-md m-2 sm:p-5 bg-white shadow-md border border-gray-300">
+
+            <div class="reorder_list p-2 grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-2 grid-list-view">
+
+            </div>
+
+        </div>
+        <div class="p-3 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+            <div class="flex flex-row gap-3 items-center w-full">
+                <button class="button w-max" onclick="save_manual_order()"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+                <button class="button w-max" onclick="cancel_item()"><i class="fa-regular fa-circle-xmark"></i> Cancelar</button>
+            </div>
+            <div class="flex flex-row-reverse gap-3 items-center">
+                <button class="button button-danger w-max" onclick="reset_manual_order()"><i class="fa-solid fa-rotate-left"></i> Voltar ao padrão</button>
+            </div>
+        </div>
+    </div>
+
 </body>
