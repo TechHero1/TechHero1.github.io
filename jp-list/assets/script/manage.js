@@ -132,10 +132,12 @@ window.update_values_open = update_values_open;
 //REAL MANAGE LIST
 
 var cur_editing_id;
+var last_item_pos;
 
 function edit_item(id) {
   hook = true;
-  reset_scroll();
+  last_item_pos = window.scrollY;
+  set_scroll();
   cur_editing_id = id;
   remote_open_tab('Editar');
 
@@ -238,7 +240,7 @@ function save_item() {
     remote_open_tab('Visualizar');
     update_old_data();
     process_order_list(list.view_mode[0],list.view_mode[1]);
-    reset_scroll();
+    set_scroll(last_item_pos);
     return;
   }
   //substituir[id]
@@ -269,7 +271,7 @@ function save_item() {
   update_old_data();
   reset_name_filters();
   process_order_list(list.view_mode[0],list.view_mode[1]);
-  reset_scroll();
+  set_scroll(last_item_pos);
 }
 
 window.save_item = save_item;
@@ -288,7 +290,7 @@ function delete_item(){
   update_old_data();
   reset_name_filters();
   process_order_list(list.view_mode[0],list.view_mode[1]);
-  reset_scroll();
+  set_scroll(last_item_pos);
 
   if (list.itens == "") hook = false;
 }
@@ -297,7 +299,7 @@ window.delete_item = delete_item;
 
 function cancel_item(){
   remote_open_tab('Visualizar');
-  reset_scroll();
+  set_scroll(last_item_pos);
 
   if (list.itens == "") hook = false;
 }
@@ -878,6 +880,7 @@ function save_manual_order() {
   list.manual_order = temp_manual_order;
 
   process_order_list(list.view_mode[0],list.view_mode[1]);
+  set_scroll();
   remote_open_tab('Visualizar');
 }
 

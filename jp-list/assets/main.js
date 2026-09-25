@@ -35,9 +35,9 @@ window.open_tab = open_tab;
 window.remote_open_tab = remote_open_tab;
 remote_open_tab('Arquivo');
 
-function reset_scroll() { window.scrollTo(window.scrollY, 0); }
+function set_scroll(target=0) { window.scrollTo(window.scrollY, target); }
 
-window.reset_scroll = reset_scroll;
+window.set_scroll = set_scroll;
 
 function remove_all_of_element(array,element) {
   return array.filter(val => val != element);

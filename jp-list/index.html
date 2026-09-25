@@ -666,7 +666,7 @@
         <div class="p-3 flex flex-row gap-3 items-center">
             <div class="p-2 text-lg font-bold w-full"><i class="fa-solid fa-hand"></i> Reorganizar itens da lista</div>
             <div class="flex flex-row-reverse gap-3 items-center w-full">
-                <button class="button w-max" onclick="cancel_item()"><i class="fa-regular fa-circle-xmark"></i> Cancelar</button>
+                <button class="button w-max" onclick="cancel_item();set_scroll()"><i class="fa-regular fa-circle-xmark"></i> Cancelar</button>
                 <button class="button w-max" onclick="save_manual_order()"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
             </div>
         </div>
@@ -680,7 +680,7 @@
         <div class="p-3 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
             <div class="flex flex-row gap-3 items-center w-full">
                 <button class="button w-max" onclick="save_manual_order()"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
-                <button class="button w-max" onclick="cancel_item()"><i class="fa-regular fa-circle-xmark"></i> Cancelar</button>
+                <button class="button w-max" onclick="cancel_item();set_scroll();"><i class="fa-regular fa-circle-xmark"></i> Cancelar</button>
             </div>
             <div class="flex flex-row-reverse gap-3 items-center">
                 <button class="button button-danger w-max" onclick="reset_manual_order()"><i class="fa-solid fa-rotate-left"></i> Voltar ao padrão</button>
