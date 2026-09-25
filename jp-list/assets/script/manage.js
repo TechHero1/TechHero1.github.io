@@ -31,6 +31,8 @@ function update_old_data() {
     create_manual_order = "add";
   }
 
+  if (list.manual_order.includes(null)) reset_manual_order();
+
   for (var i = 0; i < list.itens.length; i++) {
     if (list.itens[i].dados.status == "Dropado") list.itens[i].dados.status = "Abandonado";
     if (!list.itens[i].dados.hasOwnProperty("last_edited")) list.itens[i].dados.last_edited = 0;
@@ -46,10 +48,13 @@ function update_old_data() {
     list.itens[i].dados.nota = style_tags.update_old_tags(list.itens[i].dados.nota);
 
     if (!list.itens[i].hasOwnProperty("id")) list.itens[i].id = i;
+    list.itens[i].id = Number(list.itens[i].id);
 
     if (create_manual_order == "true") list.manual_order.push(i);
     if (create_manual_order == "add" && !list.manual_order.includes(i)) list.manual_order.push(i);
   }
+
+  recalculate_ids(list.itens,list.manual_order);
 }
 
 //LIST OPTIONS
@@ -248,7 +253,7 @@ function save_item() {
     "tipo":document.querySelector(".tipo_input").value,
     "custom_media_name":document.querySelector(".custom_media_name_input").value,
     "custom_media_color":document.querySelector(".custom_media_color_input").value,
-    "id":cur_editing_id,
+    "id":Number(cur_editing_id),
     "dados": {
       "titulo": document.querySelector(".name_input").value,
       "status": document.querySelector(".status_input").value,
@@ -267,10 +272,10 @@ function save_item() {
       "last_edited": Date.now()
     }
   };
-  remote_open_tab('Visualizar');
   update_old_data();
   reset_name_filters();
   process_order_list(list.view_mode[0],list.view_mode[1]);
+  remote_open_tab('Visualizar');
   set_scroll(last_item_pos);
 }
 
