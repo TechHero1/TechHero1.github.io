@@ -21,11 +21,6 @@ export var ordered_list = [];
 function update_old_data() {
   if (!list.hasOwnProperty("last_filter")) list.last_filter = ['Tudo_tipo','Tudo_status'];
   if (!list.hasOwnProperty("view_mode")) list.view_mode = ['add','normal'];
-  if (list.view_mode.includes("manual")) {
-    //TEMPORARIO
-    console.log("troquei")
-    list.view_mode = ['add','normal'];
-  }
 
   let create_manual_order = "false";
   if (!list.hasOwnProperty("manual_order") || list.manual_order == "") {
@@ -50,11 +45,7 @@ function update_old_data() {
 
     list.itens[i].dados.nota = style_tags.update_old_tags(list.itens[i].dados.nota);
 
-    if (!list.itens[i].hasOwnProperty("id")) {
-      console.log(i,list.itens.length-1)
-      if (list.manual_order.includes(i)) list.itens[i].id = list.itens.length-1;
-      else list.itens[i].id = i;
-    }
+    if (!list.itens[i].hasOwnProperty("id")) list.itens[i].id = i;
 
     if (create_manual_order == "true") list.manual_order.push(i);
     if (create_manual_order == "add" && !list.manual_order.includes(i)) list.manual_order.push(i);
@@ -247,9 +238,7 @@ function save_item() {
     remote_open_tab('Visualizar');
     update_old_data();
     process_order_list(list.view_mode[0],list.view_mode[1]);
-    //load_list();
     reset_scroll();
-  console.log("salvou esse aqui",new_id)
     return;
   }
   //substituir[id]
@@ -280,34 +269,25 @@ function save_item() {
   update_old_data();
   reset_name_filters();
   process_order_list(list.view_mode[0],list.view_mode[1]);
-  //load_list();
   reset_scroll();
-  console.log("salvou esse aqui",cur_editing_id)
 }
 
 window.save_item = save_item;
 
 function delete_item(){
   //se id não for "new", remove[id]
-  console.log("deletou esse aqui",cur_editing_id)
   if (cur_editing_id != "new") {
     list.itens = list.itens.filter(item => item !== list.itens[cur_editing_id]);
   }
 
-  //console.log("antes",ordered_list);
-  //console.log("antes",list.manual_order);
-  //console.log("antes",cur_editing_id);
-
   list.manual_order = remove_all_of_element(list.manual_order,cur_editing_id);
 
-  //console.log("depois",ordered_list);
-  //console.log("depois",list.manual_order)
+  recalculate_ids(list.itens,list.manual_order);
 
   remote_open_tab('Visualizar');
   update_old_data();
   reset_name_filters();
   process_order_list(list.view_mode[0],list.view_mode[1]);
-  //load_list();
   reset_scroll();
 
   if (list.itens == "") hook = false;
@@ -338,7 +318,6 @@ function upload_list(files) {
       reset_name_filters();
       change_filter(list.last_filter[0],list.last_filter[1],false);
       process_order_list(list.view_mode[0],list.view_mode[1]);
-      //load_list();
       listname = files.name.replaceAll(/.json/g,"");
       document.querySelector(".file_name_input").value = listname;
       remote_open_tab('Visualizar');
@@ -575,7 +554,6 @@ function load_list() {
   let filtered_list = [];
   if (!Object.keys(constants.FILTERS).includes(cur_filter_tipo)) {
     for (i = 0; i < ordered_list.length; i++) {
-      if (ordered_list[i] == null) continue;
       if (ordered_list[i].hasOwnProperty("custom_media_name")) {
         if (cur_filter_tipo == ordered_list[i].custom_media_name && JSON.parse(constants.FILTERS[cur_filter_status]).includes(ordered_list[i].dados.status)) {
           filtered_list.push(i);
@@ -584,20 +562,13 @@ function load_list() {
     }
   } else {
     for (i = 0; i < ordered_list.length; i++) {
-      if (ordered_list[i] == null) continue;
       if (JSON.parse(constants.FILTERS[cur_filter_tipo]).includes(ordered_list[i].tipo) && JSON.parse(constants.FILTERS[cur_filter_status]).includes(ordered_list[i].dados.status)) {
         filtered_list.push(i);
       }
     }
   }
 
-  //console.clear();
-  //console.log(list.itens)
-  //console.log(Object.keys(list.itens))
-  //console.log(list.manual_order)
   for (i = 0; i < ordered_list.length; i++) {
-    if (ordered_list[i] == null) continue;
-    console.log("agora:",i,ordered_list[i].id,list.manual_order[i])
     if (ordered_list[i].tipo == "Personalizado") add_name_filter(ordered_list[i].custom_media_name);
 
     if (filtered_list.includes(i)) {
@@ -910,3 +881,21 @@ function save_manual_order() {
 }
 
 window.save_manual_order = save_manual_order;
+
+function recalculate_ids(itens,manual_order) {
+  const ids_left = itens.map(i => i.id).sort((a, b) => a - b);
+
+  const id_map = new Map();
+  ids_left.forEach((old_id, index) => {
+    id_map.set(old_id, index);
+  });
+
+  itens.forEach(item => {
+    item.id = id_map.get(item.id);
+  });
+
+  const new_manual_order = manual_order.map(id => id_map.get(id));
+
+  list.itens = itens;
+  list.manual_order = new_manual_order;
+}
