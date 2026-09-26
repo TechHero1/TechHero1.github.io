@@ -35,6 +35,7 @@
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150 hidden" onclick="open_tab(event, 'Editar')" id="Editar_tab"><i class="fa-solid fa-pencil"></i></button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150" onclick="open_tab(event, 'Streaming');fetch_streaming_items();update_streaming_config()" id="Streaming_tab"><i class="fa-solid fa-book"></i></button>
             <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150 iichan_tab hidden" onclick="open_tab(event, 'Apoio')" id="Apoio_tab"><i class="fa-regular fa-heart"></i></button>
+            <button class="tablinks cursor-pointer p-3 bg-inherit transition-all duration-150 hidden" onclick="open_tab(event, 'Erro')" id="Erro_tab"><i class="fa-solid fa-bug"></i></button>
         </div>
         <div class="iichan_nav pr-3 flex flex-row-reverse items-center gap-2 w-full sm:w-[50%] hidden">
             <img class="aspect-[21/9] h-[50px]" src="assets/img/iichan_face.png">
@@ -686,6 +687,21 @@
                 <button class="button button-danger w-max" onclick="reset_manual_order()"><i class="fa-solid fa-rotate-left"></i> Voltar ao padrão</button>
             </div>
         </div>
+    </div>
+
+    <div id="Erro" class="tabcontent w-screen h-[calc(100vh-48px)] bg-[url(assets/img/IMAGE_DEPTH.png)] bg-size-[256px 256px] bg-repeat saturate-50 contrast-400 brightness-80 hue-rotate-28 hidden" style="animation: scroll-background 30s linear infinite;">
+        
+        <div class="size-40 p-10 m-auto py-[40vh] select-none" style="animation: floating 3s ease-in-out alternate infinite;">
+            <div class="size-24 border border-transparent rotate-[0.75_1_0.75_45deg] transform-3d *:backface-visible">
+                <div class="absolute inset-0 translate-z-12 rotate-x-0 bg-sky-300/75 text-center text-4xl leading-20 font-bold text-sky-900 dark:bg-sky-400/85 dark:text-white">1</div>
+                <div class="absolute inset-0 -translate-z-12 rotate-y-180 bg-sky-300/75 text-center text-4xl leading-20 font-bold text-sky-900 opacity-75 dark:bg-sky-400/85 dark:text-white">2</div>
+                <div class="absolute inset-0 translate-x-12 rotate-y-90 bg-sky-300/75 text-center text-4xl leading-20 font-bold text-sky-900 opacity-75 dark:bg-sky-400/85 dark:text-white">3</div>
+                <div class="absolute inset-0 -translate-x-12 -rotate-y-90 bg-sky-300/75 text-center text-4xl leading-20 font-bold text-sky-900 dark:bg-sky-400/85 dark:text-white">4</div>
+                <div class="absolute inset-0 -translate-y-12 rotate-x-90 bg-sky-300/75 text-center text-4xl leading-20 font-bold text-sky-900 opacity-75 dark:bg-sky-400/85 dark:text-white">5</div>
+                <div class="absolute inset-0 translate-y-12 -rotate-x-90 bg-sky-300/75 text-center text-4xl leading-20 font-bold text-sky-900 dark:bg-sky-400/85 dark:text-white">6</div>
+            </div>
+        </div>
+
     </div>
 
 </body>

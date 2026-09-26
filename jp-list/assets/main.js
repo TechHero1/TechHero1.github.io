@@ -6,6 +6,7 @@ var i;
 const nf = new Intl.NumberFormat('fr-FR');
 
 function remote_open_tab(tab_name) {
+  if (!document.body.contains(document.getElementById(tab_name))) return remote_open_tab("Erro");
   var tablinks;
   tablinks = document.getElementsByClassName("tablinks");
   for (i = 0; i < tablinks.length; i++) {
@@ -18,6 +19,8 @@ function remote_open_tab(tab_name) {
 }
 
 function open_tab(evt, tab_name) {
+  if (evt == "" || evt == undefined || evt == null) return remote_open_tab("Erro");
+  if (!document.body.contains(document.getElementById(tab_name))) return remote_open_tab("Erro");
   var tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
