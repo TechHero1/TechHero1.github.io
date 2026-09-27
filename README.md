@@ -12,7 +12,7 @@
 
 [Game Image Viewer](https://techhero1.github.io/game-img-viewer)
 
-[Wplace Chunk Viewer](https://techhero1.github.io/wp-chunk)
+[Wplace Canvas Viewer](https://techhero1.github.io/wp-tools/canvas-viewer)
 
 [Danganronpa Dialogue Viewer](https://techhero1.github.io/dg-viewer)
 

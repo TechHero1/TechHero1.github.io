@@ -1,21 +1,21 @@
 // ==UserScript==
 // @name         FEMNSS Bubble
-// @version      2026-09-19
+// @version      2026-09-26
 // @description  FEMNSS Bubble
 // @author       Far Eastern Magic Napping Society of Summer
-// @icon         https://techhero1.github.io/wp-chunk/skin/icon.png
+// @icon         https://techhero1.github.io/wp-tools/scripts/icon.png
 // @match        *://*.wplace.live/*
 // @grant        GM_getValue
 // @grant        GM_setValue
-// @updateURL    https://techhero1.github.io/wp-chunk/skin/FEMNSS_Bubble.user.js
-// @downloadURL  https://techhero1.github.io/wp-chunk/skin/FEMNSS_Bubble.user.js
+// @updateURL    https://techhero1.github.io/wp-tools/scripts/FEMNSS_Bubble.user.js
+// @downloadURL  https://techhero1.github.io/wp-tools/scripts/FEMNSS_Bubble.user.js
 // ==/UserScript==
 
 var femnss_long = "Far Eastern Magic Napping Society of Summer";
 var femnss_original = "極東魔術昼寝結社の夏";
 var femnss_short = "FEMNSS";
 var femnss_name = femnss_short+" Bubble";
-var femnss_icon = "https://techhero1.github.io/wp-chunk/skin/icon.png";
+var femnss_icon = "https://techhero1.github.io/wp-tools/scripts/icon.png";
 var femnss_round = "50%";
 
 var hq_timer = 10000;
