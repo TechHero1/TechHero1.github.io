@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta property="og:title" content="Text Style">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Text Style</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <style>
+        @font-face {
+            font-family: 'AdwaitaSans-Regular';
+            src: url('../../shared/fonts/adwaita-sans/AdwaitaSans-Regular.ttf') format('truetype');
+        }
+
+        .textinput {
+            background-color: inherit;
+            padding: calc(0.25rem * 2);
+            border: 1px solid black;
+            border-radius: 0.25rem;
+            cursor: text;
+            transition: all;
+            transition-duration: 150ms;
+        }
+        </style>
+        <script>
+            function update_preview(text) {
+                let mod_text = text;
+                mod_text = mod_text.replaceAll(/\n/g,"<br>");
+                mod_text = mod_text.replaceAll("[b]","<span class='text-[#013220]'>[</span><span class='text-[#905]'>b</span><span class='text-[#013220]'>]</span>");
+                mod_text = mod_text.replaceAll("[/b]","<span class='text-[#013220]'>[</span><span class='text-[#905]'>/b</span><span class='text-[#013220]'>]</span>");  
+                mod_text += "<span class='opacity-0'> </span>";              
+                document.querySelector(".text_preview").innerHTML = mod_text;
+                set_preview_scroll(document.querySelector(".text_area").scrollTop);
+            }
+
+            function set_preview_scroll(scroll) {
+                document.querySelector(".text_preview").scrollTop = scroll;
+            }
+        </script>
+    </head>
+
+    <body class="font-[AdwaitaSans-Regular] bg-gray-200">
+        <nav class="bg-gray-800 sticky top-0 w-[100%]">
+            <div class="inline-flex gap-4 w-[100%]">
+                <div class="mx-auto p-2 sm:px-6 lg:px-8 text-white text-[1.25rem] basis-9/10 sm:basis-19/20 flex flex-row items-center">
+                Text Style
+                </div>
+            </div>
+        </nav>
+        <div class="mx-auto py-2 sm:px-6 lg:px-8">
+        <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
+            <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
+                <div class="relative">
+                    <textarea class="textinput w-full text_area z-0 relative text-black" type="textarea" id="text_area" name="text_area" oninput="update_preview(this.value)" onscroll="set_preview_scroll(this.scrollTop)"></textarea>
+                    <div class="top-0 absolute w-full z-2 pointer-events-none p-[0.55rem] text_preview wrap-break-word overflow-y-hidden" style="height: calc(100% - 2px)"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!--tal qual CodeMirror, só que ruim-->
+    </body>
+</html>
