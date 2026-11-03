@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <meta property="og:title" content="Estrelas">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Estrelas</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link href="../../shared/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+        <link href="../../shared/fontawesome/css/brands.min.css" rel="stylesheet" />
+        <link href="../../shared/fontawesome/css/solid.min.css" rel="stylesheet" />
+        <link href="../../shared/fontawesome/css/regular.min.css" rel="stylesheet" />
+        <style>
+        @font-face {
+            font-family: 'AdwaitaSans-Regular';
+            src: url('../../shared/fonts/adwaita-sans/AdwaitaSans-Regular.ttf') format('truetype');
+        }
+        </style>
+        <script>
+            function star_reset() {
+                let star_05 = document.querySelector(".star-icon-05");
+                star_05.classList.toggle("hidden!", true);
+                star_05.classList.toggle("inline-block!", false);
+
+                let star_1 = document.querySelector(".star-icon-1");
+                star_1.classList.toggle("fa-regular", true);
+                star_1.classList.toggle("fa-solid", false);
+
+                let star_15 = document.querySelector(".star-icon-15");
+                star_15.classList.toggle("hidden!", true);
+                star_15.classList.toggle("inline-block!", false);
+
+                let star_2 = document.querySelector(".star-icon-2");
+                star_2.classList.toggle("fa-regular", true);
+                star_2.classList.toggle("fa-solid", false);
+
+                let star_25 = document.querySelector(".star-icon-25");
+                star_25.classList.toggle("hidden!", true);
+                star_25.classList.toggle("inline-block!", false);
+
+                let star_3 = document.querySelector(".star-icon-3");
+                star_3.classList.toggle("fa-regular", true);
+                star_3.classList.toggle("fa-solid", false);
+
+                let star_35 = document.querySelector(".star-icon-35");
+                star_35.classList.toggle("hidden!", true);
+                star_35.classList.toggle("inline-block!", false);
+
+                let star_4 = document.querySelector(".star-icon-4");
+                star_4.classList.toggle("fa-regular", true);
+                star_4.classList.toggle("fa-solid", false);
+
+                let star_45 = document.querySelector(".star-icon-45");
+                star_45.classList.toggle("hidden!", true);
+                star_45.classList.toggle("inline-block!", false);
+
+                let star_5 = document.querySelector(".star-icon-5");
+                star_5.classList.toggle("fa-regular", true);
+                star_5.classList.toggle("fa-solid", false);
+            }
+
+            function star_hover(value) {
+                star_reset();
+
+                let star_05 = document.querySelector(".star-icon-05");
+                let star_1 = document.querySelector(".star-icon-1");
+                let star_15 = document.querySelector(".star-icon-15");
+                let star_2 = document.querySelector(".star-icon-2");
+                let star_25 = document.querySelector(".star-icon-25");
+                let star_3 = document.querySelector(".star-icon-3");
+                let star_35 = document.querySelector(".star-icon-35");
+                let star_4 = document.querySelector(".star-icon-4");
+                let star_45 = document.querySelector(".star-icon-45");
+                let star_5 = document.querySelector(".star-icon-5");
+
+                console.log(value)
+
+                switch (value) {
+                    case 0.5:
+                        star_05.classList.toggle("hidden!", false);
+                        star_05.classList.toggle("inline-block!", true);
+                        break;
+                    case 1:
+                        star_1.classList.toggle("fa-regular", false);
+                        star_1.classList.toggle("fa-solid", true);
+                        break;
+                    case 1.5:
+                        star_1.classList.toggle("fa-regular", false);
+                        star_1.classList.toggle("fa-solid", true);
+
+                        star_15.classList.toggle("hidden!", false);
+                        star_15.classList.toggle("inline-block!", true);
+                        break;
+                    case 2:
+                        star_1.classList.toggle("fa-regular", false);
+                        star_1.classList.toggle("fa-solid", true);
+
+                        star_2.classList.toggle("fa-regular", false);
+                        star_2.classList.toggle("fa-solid", true);
+                        break;
+                    case 2.5:
+                        star_1.classList.toggle("fa-regular", false);
+                        star_1.classList.toggle("fa-solid", true);
+
+                        star_2.classList.toggle("fa-regular", false);
+                        star_2.classList.toggle("fa-solid", true);
+
+                        star_25.classList.toggle("hidden!", false);
+                        star_25.classList.toggle("inline-block!", true);
+                        break;
+                    case 3:
+                        star_1.classList.toggle("fa-regular", false);
+                        star_1.classList.toggle("fa-solid", true);
+
+                        star_2.classList.toggle("fa-regular", false);
+                        star_2.classList.toggle("fa-solid", true);
+
+                        star_3.classList.toggle("fa-regular", false);
+                        star_3.classList.toggle("fa-solid", true);
+                        break;
+                    case 3.5:
+                        star_1.classList.toggle("fa-regular", false);
+                        star_1.classList.toggle("fa-solid", true);
+
+                        star_2.classList.toggle("fa-regular", false);
+                        star_2.classList.toggle("fa-solid", true);
+
+                        star_3.classList.toggle("fa-regular", false);
+                        star_3.classList.toggle("fa-solid", true);
+
+                        star_35.classList.toggle("hidden!", false);
+                        star_35.classList.toggle("inline-block!", true);
+                        break;
+                    case 4:
+                        star_1.classList.toggle("fa-regular", false);
+                        star_1.classList.toggle("fa-solid", true);
+
+                        star_2.classList.toggle("fa-regular", false);
+                        star_2.classList.toggle("fa-solid", true);
+
+                        star_3.classList.toggle("fa-regular", false);
+                        star_3.classList.toggle("fa-solid", true);
+
+                        star_4.classList.toggle("fa-regular", false);
+                        star_4.classList.toggle("fa-solid", true);
+                        break;
+                    case 4.5:
+                        star_1.classList.toggle("fa-regular", false);
+                        star_1.classList.toggle("fa-solid", true);
+
+                        star_2.classList.toggle("fa-regular", false);
+                        star_2.classList.toggle("fa-solid", true);
+
+                        star_3.classList.toggle("fa-regular", false);
+                        star_3.classList.toggle("fa-solid", true);
+
+                        star_4.classList.toggle("fa-regular", false);
+                        star_4.classList.toggle("fa-solid", true);
+
+                        star_45.classList.toggle("hidden!", false);
+                        star_45.classList.toggle("inline-block!", true);
+                        break;
+                    case 5:
+                        star_1.classList.toggle("fa-regular", false);
+                        star_1.classList.toggle("fa-solid", true);
+
+                        star_2.classList.toggle("fa-regular", false);
+                        star_2.classList.toggle("fa-solid", true);
+
+                        star_3.classList.toggle("fa-regular", false);
+                        star_3.classList.toggle("fa-solid", true);
+
+                        star_4.classList.toggle("fa-regular", false);
+                        star_4.classList.toggle("fa-solid", true);
+
+                        star_5.classList.toggle("fa-regular", false);
+                        star_5.classList.toggle("fa-solid", true);
+                        break;
+                }
+            }
+        </script>
+    </head>
+
+    <body class="font-[AdwaitaSans-Regular] bg-gray-200">
+        <nav class="bg-gray-800 sticky top-0 w-[100%]">
+            <div class="inline-flex gap-4 w-[100%]">
+                <div class="mx-auto p-2 sm:px-6 lg:px-8 text-white text-[1.25rem] basis-9/10 sm:basis-19/20 flex flex-row items-center">
+                Estrelas
+                </div>
+            </div>
+        </nav>
+        <div class="mx-auto py-2 sm:px-6 lg:px-8">
+            <div class="grid sm:grid-cols-1 md:grid-cols-1 gap-4 flex items-stretch">
+                <div class="rounded-md p-2 sm:p-5 bg-white shadow-md">
+                    <!-- <b>sem javascript</b>
+                    <div class="flex flex-row">
+                        <div class="flex flex-row size-[30px] relative">
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute" onclick="console.log(0.5)">
+                                <i class="fa-xl hidden! group-hover:inline-block! fa-solid fa-star-half pointer-events-none"></i>
+                            </button>
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute left-[50%]" onclick="console.log(1)">
+                                <i class="fa-xl fa-regular group-hover:hidden! fa-star pointer-events-none ml-[-110%]"></i>
+                                <i class="fa-xl fa-solid hidden! group-hover:inline-block! fa-star pointer-events-none ml-[-110%]"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-row size-[30px] relative">
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute" onclick="console.log(1.5)">
+                                <i class="fa-xl hidden! group-hover:inline-block! fa-solid fa-star-half pointer-events-none"></i>
+                            </button>
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute left-[50%]" onclick="console.log(2)">
+                                <i class="fa-xl fa-regular group-hover:hidden! fa-star pointer-events-none ml-[-110%]"></i>
+                                <i class="fa-xl fa-solid hidden! group-hover:inline-block! fa-star pointer-events-none ml-[-110%]"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-row size-[30px] relative">
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute" onclick="console.log(2.5)">
+                                <i class="fa-xl hidden! group-hover:inline-block! fa-solid fa-star-half pointer-events-none"></i>
+                            </button>
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute left-[50%]" onclick="console.log(3)">
+                                <i class="fa-xl fa-regular group-hover:hidden! fa-star pointer-events-none ml-[-110%]"></i>
+                                <i class="fa-xl fa-solid hidden! group-hover:inline-block! fa-star pointer-events-none ml-[-110%]"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-row size-[30px] relative">
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute" onclick="console.log(3.5)">
+                                <i class="fa-xl hidden! group-hover:inline-block! fa-solid fa-star-half pointer-events-none"></i>
+                            </button>
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute left-[50%]" onclick="console.log(4)">
+                                <i class="fa-xl fa-regular group-hover:hidden! fa-star pointer-events-none ml-[-110%]"></i>
+                                <i class="fa-xl fa-solid hidden! group-hover:inline-block! fa-star pointer-events-none ml-[-110%]"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-row size-[30px] relative">
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute" onclick="console.log(4.5)">
+                                <i class="fa-xl hidden! group-hover:inline-block! fa-solid fa-star-half pointer-events-none"></i>
+                            </button>
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute left-[50%]" onclick="console.log(5)">
+                                <i class="fa-xl fa-regular group-hover:hidden! fa-star pointer-events-none ml-[-110%]"></i>
+                                <i class="fa-xl fa-solid hidden! group-hover:inline-block! fa-star pointer-events-none ml-[-110%]"></i>
+                            </button>
+                        </div>
+                    </div> -->
+
+                    <!-- <b>com javascript</b> -->
+                    <div class="flex flex-row max-w-fit" onmouseleave="star_reset()">
+                        <div class="flex flex-row size-[30px] relative">
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute" onmouseenter="star_hover(0.5)" onclick="console.log(0.5)">
+                                <i class="star-icon-05 fa-xl hidden! fa-solid fa-star-half pointer-events-none"></i>
+                            </button>
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute left-[50%]" onmouseenter="star_hover(1)" onclick="console.log(1)">
+                                <i class="star-icon-1 fa-xl fa-regular fa-star pointer-events-none ml-[-110%]"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-row size-[30px] relative">
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute" onmouseenter="star_hover(1.5)" onclick="console.log(1.5)">
+                                <i class="star-icon-15 fa-xl hidden! fa-solid fa-star-half pointer-events-none"></i>
+                            </button>
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute left-[50%]" onmouseenter="star_hover(2)" onclick="console.log(2)">
+                                <i class="star-icon-2 fa-xl fa-regular fa-star pointer-events-none ml-[-110%]"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-row size-[30px] relative">
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute" onmouseenter="star_hover(2.5)" onclick="console.log(2.5)">
+                                <i class="star-icon-25 fa-xl hidden! fa-solid fa-star-half pointer-events-none"></i>
+                            </button>
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute left-[50%]" onmouseenter="star_hover(3)" onclick="console.log(3)">
+                                <i class="star-icon-3 fa-xl fa-regular fa-star pointer-events-none ml-[-110%]"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-row size-[30px] relative">
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute" onmouseenter="star_hover(3.5)" onclick="console.log(3.5)">
+                                <i class="star-icon-35 fa-xl hidden! fa-solid fa-star-half pointer-events-none"></i>
+                            </button>
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute left-[50%]" onmouseenter="star_hover(4)" onclick="console.log(4)">
+                                <i class="star-icon-4 fa-xl fa-regular fa-star pointer-events-none ml-[-110%]"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-row size-[30px] relative">
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute" onmouseenter="star_hover(4.5)" onclick="console.log(4.5)">
+                                <i class="star-icon-45 fa-xl hidden! fa-solid fa-star-half pointer-events-none"></i>
+                            </button>
+                            <button class="cursor-pointer group w-[15px] h-[30px] absolute left-[50%]" onmouseenter="star_hover(5)" onclick="console.log(5)">
+                                <i class="star-icon-5 fa-xl fa-regular fa-star pointer-events-none ml-[-110%]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
